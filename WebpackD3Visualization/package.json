@@ -1,0 +1,37 @@
+{
+    "name": "scatter_plot",
+    "description": "Example scatter plot chart based on D3 framework",
+    "version": "1.1.10",
+    "supportedVersions": "0",
+    "license": "MIT",
+    "dependencies": {
+        "d3": "^5.16.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.9.0",
+        "@babel/preset-env": "^7.9.5",
+        "@babel/preset-react": "^7.9.4",
+        "babel-loader": "^8.1.0",
+        "clean-webpack-plugin": "^3.0.0",
+        "copy-webpack-plugin": "^5.1.1",
+        "file-loader": "^6.0.0",
+        "fs": "0.0.1-security",
+        "html-loader": "^1.1.0",
+        "html-webpack-plugin": "^4.2.0",
+        "json-loader": "^0.5.7",
+        "uuid": "^8.0.0",
+        "webpack": "^4.42.1",
+        "webpack-cli": "^3.3.11",
+        "webpack-dev-server": "^3.11.0",
+        "webpack-merge": "^4.2.2",
+        "webpack-version-file-plugin": "^0.4.0",
+        "zip-webpack-plugin": "^3.0.0"
+    },
+    "scripts": {
+        "generate-guids": "node generate-guids/generate-guids.js",
+        "start": "webpack-dev-server  --config webpack.dev.js --open",
+        "build": "npm version patch && webpack --config webpack.prod.js",
+        "rebuild": "webpack --config webpack.prod.js",
+        "stats": "webpack --config webpack.prod.js --profile --json > stats.json"
+    }
+}

@@ -1,0 +1,11 @@
+{"style" : {
+    "margin": {
+        "left": 20,
+        "right": 20,
+        "top": 20,
+        "bottom": 20
+    },
+    "spotRadius": 1.5,
+    "fillColour": "#69b3a2"
+    }
+}

@@ -1,0 +1,10 @@
+{"data" : {"rows" : [
+    {"key": "guid-1", "name": "Page A", "value": 400},
+    {"key": "guid-2", "name": "Page B", "value": 300},
+    {"key": "guid-3", "name": "Page C", "value": 300},
+    {"key": "guid-4", "name": "Page D", "value": 200},
+    {"key": "guid-5", "name": "Page E", "value": 278},
+    {"key": "guid-6", "name": "Page F", "value": 189}
+    ]
+    }
+}

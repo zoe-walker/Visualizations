@@ -1,0 +1,31 @@
+{
+  "id": "<%= uuid.v4(); %>",
+  "name": "Recharts Line Chart",
+  "version": "<%%= package.version %%>",
+  "supportedVersions": "0.0.0",
+  "moodVersion": "16.0.67",
+  "entry": {
+    "file": "visualization.js",
+    "function": "vis.visualization"
+  },
+  "supportedBrowsers": "Chrome, Edge, Firefox",
+  "inputs": [],
+  "style": {
+    "JSON": {
+      "margin": {
+        "left": 20,
+        "right": 20,
+        "top": 20,
+        "bottom": 20
+    },
+    "line": {
+        "type": "monotone",
+        "strokeColour" : "#8884d8"
+    },
+    "CartesianGrid": {
+        "stroke": "#ccc",
+        "strokeDasharray" : "5 5"
+    }
+  }
+}
+}
