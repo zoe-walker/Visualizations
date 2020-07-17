@@ -1,6 +1,6 @@
 # Visualization Configuration Object Parameter
 
-MooD Active Enterprise will invoke the JavaScript Visualization entry function and pass it a configuration object containing all the information the visualization should need to render and interact with the rest of Active Enterprise.
+MooD Active Enterprise (MAE) will invoke the JavaScript Visualization entry function and pass it a configuration object containing all the information the visualization should need to render and interact with the rest of Active Enterprise.
 
 [README MooD Active Enterprise (MAE)](../README.md#mood-active-enterprise-mae)
 
@@ -14,6 +14,8 @@ The configuration object contains the following fields:
 * The width in pixels, e.g. "800px", allowed for the element created by MAE to contain the visualization
 ### height - String 
 * The height in pixels, e.g. "600px", allowed for the element created by MAE to contain the visualization
+### animation - Boolean
+* Is the visualization to perform any animation, usually specified as false when a screenshot of the visualization is being made and true when being shown in the web
 ### data - Object 
    * The data, conforming to the data shape defined by the visualization, for the visualization to render
 ### style - Object 
