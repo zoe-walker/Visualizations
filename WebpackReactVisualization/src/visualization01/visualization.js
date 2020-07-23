@@ -18,15 +18,16 @@ export function visualization(config) {
   var gridStyle = config.style.CartesianGrid
   var width = parseFloat(config.width);
   var height = parseFloat(config.height);
+  var animation = config.animation;
  
   //console.log(JSON.stringify(config));
   const renderLineChart = (
-    <LineChart width={width} height={height} data={data} margin={margin}>
-      <Line type={lineStyle.type} dataKey="value" stroke={lineStyle.strokeColour} />
+    <LineChart width={width} height={height} data={data} margin={margin} >
+      <Line type={lineStyle.type} dataKey="value" stroke={lineStyle.strokeColour} isAnimationActive={animation} />
       <CartesianGrid stroke={gridStyle.stroke} strokeDasharray={gridStyle.strokeDasharray} />
       <XAxis dataKey="name" />
       <YAxis />
-      <Tooltip />
+      <Tooltip isAnimationActive={animation} />
     </LineChart>
   );
 //         console.log(JSON.stringify(renderLineChart, function(key, val) { return (typeof val === 'function') ? '[function]'  : val; }, 4));

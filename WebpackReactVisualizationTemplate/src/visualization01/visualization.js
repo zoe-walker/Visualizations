@@ -13,6 +13,7 @@ export function visualization(config) {
   var style = config.style;
   var width = parseFloat(config.width);
   var height = parseFloat(config.height);
+  var animation = config.animation;
  
   //console.log(JSON.stringify(config));
   //

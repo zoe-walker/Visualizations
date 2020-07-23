@@ -14,6 +14,7 @@ export function visualization(config) {
   var style = config.style;
   var width = parseFloat(config.width);
   var height = parseFloat(config.height);
+  var animation = config.animation;
   var data = config.data;
   //
   // TODO: Add D3 visualization code here, referencing configuration above

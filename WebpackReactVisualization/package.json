@@ -2,7 +2,7 @@
   "id": "f3aa5b37-1a45-4fde-b742-072967cd6f8e",
   "name": "line_chart",
   "description": "Example simple line chart based on React framework and recharts library",
-  "version": "0.0.11",
+  "version": "0.0.13",
   "supportedVersions": "0",
   "dependencies": {
     "@types/recharts": "^1.8.9",
