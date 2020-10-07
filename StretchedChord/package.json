@@ -6,6 +6,8 @@
   "scripts": {
     "start": "webpack",
     "build": "webpack",
+    "check-style": "standard \"src/*.js\"",
+    "fix-style": "standard \"src/*.js\" --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
