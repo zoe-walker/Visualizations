@@ -1,9 +1,9 @@
-const ZipFilesPlugin = require('webpack-zip-files-plugin');
+const ZipFilesPlugin = require('zip-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require('path');
 
-// process.traceDeprecation = true;
+//process.traceDeprecation = true;
 
 module.exports = {
     module: {
@@ -48,10 +48,10 @@ module.exports = {
         ]),
         new CleanWebpackPlugin(),
         new ZipFilesPlugin({
-            output: path.join(__dirname, 'visualizations'),
-            entries: require('fs').readdirSync(path.join(__dirname, 'dist')).map(function (d) { return { src: path.join(__dirname, './dist/' + d), dist: d } })
+            path: '..',
+            filename: 'visualizations'
         })
-    ],
+          ],
     optimization: {
         minimize: false
     },
