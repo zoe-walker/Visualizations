@@ -1,0 +1,21 @@
+type data {
+	nodes: [node!]!
+	links: [link!]!
+}
+
+type link implements MooDElement{
+	source: endPoint!
+	target: endPoint!
+	id: ID!
+	bw: Number! @UI(name:"bandwidth")
+	criticality: Colour!
+}
+
+type node implements MooDElement{
+	name: Any! @UI(default:"name")
+	id: ID!
+}
+
+type endPoint implements MooDElement{
+	id: ID!
+}

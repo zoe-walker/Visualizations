@@ -1,0 +1,62 @@
+{
+  "version": "0.4.41",
+  "id": "47634fff-3181-4e4e-8d78-000000000006",
+  "name": "Cord Diagram",
+  "supportedVersions": "0",
+  "moodVersion": "16.0.070",
+  "supportedBrowsers": "Chrome",
+  "dynamicData": true,
+  "entry": {
+    "file": "./cord_diagram.js",
+    "function": "vis.createCordDiagram"
+  },
+  "style": { "animateAttr": "opacity" },
+  "inputs": [
+    {
+      "name": "LHSnode",
+      "displayName": "LHS Node",
+      "type": "elements"
+    }
+  ],
+  "outputs": [
+    {
+      "name": "hoverNode",
+      "displayName": "Node Hover",
+      "type": "elements"
+    },
+    {
+      "name": "hoverLink",
+      "displayName": "Link Hover",
+      "type": "elements"
+    }
+  ],
+  "Actions": {
+    "Source Click": {
+      "description": "A source shape representing an element has been clicked.",
+      "actions": [
+        {
+          "method": "navigate",
+          "title": "Navigate"
+        }
+      ]
+    },
+    "Target Click": {
+      "description": "A target shape representing an element has been clicked.",
+      "actions": [
+        {
+          "method": "navigate",
+          "title": "Navigate"
+        }
+      ]
+    },
+    "Chord Click": {
+      "description": "A chord representing the relationship between source and target has been clicked.",
+      "actions": [
+        {
+          "method": "navigate",
+          "title": "Navigate"
+        }
+      ]
+    }
+  }
+}
