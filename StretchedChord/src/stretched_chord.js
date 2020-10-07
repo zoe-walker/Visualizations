@@ -9,10 +9,10 @@ import 'core-js/stable/object/entries'
 import 'core-js/stable/string/includes'
 
 import { setUpEnvironment, drawDiagram, createGradients, addInteractivity, addHoverFunctionality } from './_d3_handling'
-import { Cord } from './_data_handling'
+import { StretchedChord } from './_data_handling'
 
-export function createCordDiagram (config) {
-  const cord = new Cord(config)
+export function createStretchedChord (config) {
+  const chord = new StretchedChord(config)
 
   var superDataChanged = config.functions.dataChanged
   config.functions.dataChanged = function dataChanged (data) {
@@ -20,23 +20,23 @@ export function createCordDiagram (config) {
 
     config.data = data
 
-    cord.initialise()
+    chord.initialise()
 
     setUpEnvironment(config,
       { parent: 'svg', id: 'all', transform: 'translate(0,0)' },
-      { parent: '#all', id: 'links', transform: 'translate(' + (cord._width / 2) + ',' + (cord._height / 2) + ') scale(0.85,0.95)' },
-      { parent: '#all', id: 'nodes', transform: 'translate(' + (cord._width / 2) + ',' + (cord._height / 2) + ') scale(0.85,0.95)' },
+      { parent: '#all', id: 'links', transform: 'translate(' + (chord._width / 2) + ',' + (chord._height / 2) + ') scale(0.85,0.95)' },
+      { parent: '#all', id: 'nodes', transform: 'translate(' + (chord._width / 2) + ',' + (chord._height / 2) + ') scale(0.85,0.95)' },
       { parent: '#nodes', id: 'LHS' },
       { parent: '#nodes', id: 'RHS' },
-      { parent: '#all', id: 'labels', transform: 'translate(' + (cord._width / 2) + ',' + (cord._height / 2) + ')' },
-      { parent: '#labels', id: 'L', transform: 'translate(' + (cord._width * -0.4625) + ',0)' },
-      { parent: '#labels', id: 'R', transform: 'translate(' + (cord._width / 2) + ',0)' },
+      { parent: '#all', id: 'labels', transform: 'translate(' + (chord._width / 2) + ',' + (chord._height / 2) + ')' },
+      { parent: '#labels', id: 'L', transform: 'translate(' + (chord._width * -0.4625) + ',0)' },
+      { parent: '#labels', id: 'R', transform: 'translate(' + (chord._width / 2) + ',0)' },
       { parent: 'svg', id: 'defs' }
     )
 
-    createGradients(cord)
-    drawDiagram(cord)
-    addInteractivity(config.functions, cord)
+    createGradients(chord)
+    drawDiagram(chord)
+    addInteractivity(config.functions, chord)
   }
 
   var superInputChanged = config.functions.inputChanged

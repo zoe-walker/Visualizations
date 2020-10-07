@@ -1,6 +1,9 @@
 const ZipFilesPlugin = require('webpack-zip-files-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const path = require('path');
+
+// process.traceDeprecation = true;
 
 module.exports = {
     module: {
@@ -30,10 +33,10 @@ module.exports = {
         ]
     },
     entry: {
-        'vis': path.join(__dirname, 'src/cord_diagram.js'),
+        'vis': path.join(__dirname, 'src/stretched_chord.js'),
     },
     output: {
-        filename: 'vis/cord_diagram.js',
+        filename: 'vis/stretched_chord.js',
         libraryTarget: 'var',
         library: 'vis'
     },
@@ -43,6 +46,7 @@ module.exports = {
             { context: __dirname, from: 'src/visualization.config.json', to: 'vis/visualization.config.json' },
             { context: __dirname, from: 'src/visualization.datashape.gql', to: 'vis/visualization.datashape.gql' },
         ]),
+        new CleanWebpackPlugin(),
         new ZipFilesPlugin({
             output: path.join(__dirname, 'visualizations'),
             entries: require('fs').readdirSync(path.join(__dirname, 'dist')).map(function (d) { return { src: path.join(__dirname, './dist/' + d), dist: d } })

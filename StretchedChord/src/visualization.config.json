@@ -1,14 +1,14 @@
 {
-  "version": "0.4.41",
-  "id": "47634fff-3181-4e4e-8d78-000000000006",
-  "name": "Cord Diagram",
+  "version": "0.1.0",
+  "id": "47634fff-3181-4e4e-8d78-000000000007",
+  "name": "Stretched Chord",
   "supportedVersions": "0",
   "moodVersion": "16.0.070",
   "supportedBrowsers": "Chrome",
   "dynamicData": true,
   "entry": {
-    "file": "./cord_diagram.js",
-    "function": "vis.createCordDiagram"
+    "file": "./stretched_chord.js",
+    "function": "vis.createStretchedChord"
   },
   "style": { "animateAttr": "opacity" },
   "inputs": [
