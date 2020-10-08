@@ -25,6 +25,7 @@ plugins: [
       template: "./test/template.html"
     })
   ],
+  devtool: "source-map",
   mode: "development",
   optimization: {
     minimize: false

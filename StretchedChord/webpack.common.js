@@ -54,7 +54,8 @@ module.exports = {
         filename: '[name]/visualization.js',
         path : outputPath,
         //libraryTarget: "var",
-        library: 'vis'
+        library: 'vis',
+        sourceMapFilename: "[name]/visualization.js.map"
     },
     optimization: {
         splitChunks: {
