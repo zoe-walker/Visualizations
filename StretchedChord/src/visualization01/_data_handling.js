@@ -4,21 +4,36 @@ export class StretchedChord {
       config.functions.errorOccurred("The input for the 'Left Hand Side' is required to render properly.")
     }
 
-    const StretchedChord = this; const g = 0.005
+    const StretchedChord = this
+    const g = 0.005
+    const sum = (accumulator, currentValue) => accumulator + currentValue
 
     StretchedChord._width = parseFloat(config.width)
     StretchedChord._height = parseFloat(config.height)
 
     this.dataChanged = function dataChanged () {
-      StretchedChord._RHSnodes = config.data.nodes.filter(d => d.id !== config.inputs.LHSnode).map(d => (d.bw = 0, d))
-      StretchedChord._links = JSON.parse(JSON.stringify(config.data.links))
+      // Copy RHS nodes from configuration data
+      StretchedChord._RHSnodes = config.data.nodes
+        .filter(d => d.id !== config.inputs.LHSnode)
+        .map(d => (d))
+      // Copy links from configuration data
+      StretchedChord._links = config.data.links
+        .map(d => (d))
 
-      StretchedChord._RHSnodes = config.data.nodes.filter(d => d.id !== config.inputs.LHSnode).map(d => (d.bw = 0, d))
-      StretchedChord._links = JSON.parse(JSON.stringify(config.data.links))
+      // Calculate the total bandwith requirement of each RHS node
+      // as the sum of the bandwidths of each link to or from the node
+      StretchedChord._RHSnodes.forEach(node => (
+        node.bw = StretchedChord._links
+          .filter(link => node.id === (link.source.id === StretchedChord._LHSnode.id ? link.target.id : link.source.id))
+          .map(link => link.bw)
+          .reduce(sum, 0)))
 
-      StretchedChord._links.forEach(d => (
-        StretchedChord._RHSnodes.find(e => e.id === (d.source.id === StretchedChord._LHSnode.id ? d.target.id : d.source.id)).bw += d.bw,
-        StretchedChord._LHSnode.bw += d.bw))
+      // Calculate the total bandwith requirement of the LHS node
+      // as the sum of the bandwidths of each link to or from the node.
+      StretchedChord._LHSnode.bw = StretchedChord._links
+        .filter(link => StretchedChord._LHSnode.id === link.source.id || StretchedChord._LHSnode.id === link.target.id)
+        .map(link => link.bw)
+        .reduce(sum, 0)
 
       StretchedChord._RHSnodes.forEach(function (d, i, a) {
         d.startAngle = i === 0 ? Math.acos(StretchedChord._height / StretchedChord._width) : (a[i - 1].endAngle + g)
@@ -45,11 +60,14 @@ export class StretchedChord {
 
       StretchedChord._LHSnode.criticality = getAverageNodeColour(StretchedChord._LHSnode, StretchedChord._links)
       StretchedChord._LHSnode.stroke = darkenColour(StretchedChord._LHSnode.criticality, -50)
-      StretchedChord._RHSnodes.map(d => d.criticality = getAverageNodeColour(d, StretchedChord._links))
-      StretchedChord._RHSnodes.map(d => d.stroke = darkenColour(d.criticality, -50))
+      StretchedChord._RHSnodes.forEach(function (d) {
+        d.criticality = getAverageNodeColour(d, StretchedChord._links)
+        d.stroke = darkenColour(d.criticality, -50)
+      })
     }
 
     this.sourceChanged = function sourceChanged (value) {
+      // Only handle source, aka LHS, as a single element: a string not an array
       if (typeof value === 'string' && value.length > 0) {
         StretchedChord._LHSnode = Object.assign(config.data.nodes.find(d => d.id === value) || {}, { bw: 0 })
 
@@ -80,7 +98,7 @@ function getAverageNodeColour (node, links) {
     })
     .reduce((prev, current) => ({
       bw: prev.bw + current.bw,
-      col: prev.col.map((d, i) => d += current.col[i])
+      col: prev.col.map((d, i) => d + current.col[i])
     }), { bw: 0, col: [0, 0, 0] })
 
   return '#' + colours.col.map(d => parseInt(d / colours.bw).toString(16)).map(d => d.length === 1 ? '0' + d : d).join('')

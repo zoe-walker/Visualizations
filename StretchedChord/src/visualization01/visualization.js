@@ -8,7 +8,7 @@ import 'core-js/stable/object/values'
 import 'core-js/stable/object/entries'
 import 'core-js/stable/string/includes'
 
-import { setUpEnvironment, drawDiagram, createGradients, addInteractivity, addHoverFunctionality } from './_d3_handling'
+import { setUpEnvironment, drawDiagram, createGradients, addInteractivity } from './_d3_handling'
 import { StretchedChord } from './_data_handling'
 
 export function createStretchedChord (config) {
