@@ -109,7 +109,7 @@ export function addInteractivity (functions, stretchedChord) {
     .on('click', nodeClick(functions.performAction, 'Target'))
 
   d3.select('#links').selectAll('path')
-    .on('mouseover', linkMouseover(stretchedChord))
+    .on('mouseover', linkMouseover(stretchedChord, functions.update))
     .on('mouseleave', linkMouseleave)
     .on('click', linkClick(functions.performAction))
 }
@@ -181,7 +181,7 @@ function getLabelFormatted (label, lineLength) {
   return lines.concat(line.join(' '))
 }
 
-function linkMouseover (stretchedChord) {
+function linkMouseover (stretchedChord, updateOutput) {
   return function (d) {
     const center = -(Math.cos(d.source.endAngle) + Math.cos(d.target.endAngle) + Math.cos(d.source.startAngle) + Math.cos(d.target.startAngle)) * 0.07125 * stretchedChord._width
 
@@ -198,6 +198,8 @@ function linkMouseover (stretchedChord) {
       .style('fill', '#f2f2f2').style('opacity', 0.9)
       .style('stroke', '#a2a2a2').style('stroke-width', '1px')
       .lower()
+
+    updateOutput('hoverLink', d.id)
   }
 }
 
