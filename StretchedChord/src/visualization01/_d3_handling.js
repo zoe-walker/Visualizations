@@ -21,19 +21,37 @@ export function drawDiagram (stretchedChord) {
   function drawLinks () {
     d3.select('#links').selectAll().data(stretchedChord._links).enter().append('path')
       .attr('d', d => link(d))
-      .style('fill', d => 'url(#' + (d.source.id === stretchedChord._LHSnode.id ? 'r' : 'l') + d.criticality.slice(1) + ')')
+      .style('fill', d => 'url(#' + (compareID(d) ? 'r' : 'l') + d.criticality.slice(1) + ')')
       .style('opacity', 0.8)
+
+    function compareID (d) {
+      stretchedChord._LHSnode.forEach(function (_LHSnode) {
+        if (_LHSnode.id === d.source.id) {
+          return true
+        }
+      })
+      return false
+    }
   }
   function drawLHSnode () {
-    d3.select('#LHS').append('path').datum(stretchedChord._LHSnode)
+    d3.select('#LHS').selectAll().data(stretchedChord._LHSnode).enter().append('path')
       .attr('id', d => 'n_' + d.id)
       .attr('name', d => d.name)
-      .attr('d', d3.arc().innerRadius(2 * stretchedChord._width / 5).outerRadius(stretchedChord._width / 2).startAngle(Math.PI + Math.acos(stretchedChord._height / stretchedChord._width)).endAngle(2 * Math.PI - Math.acos(stretchedChord._height / stretchedChord._width)))
+      .attr('d', d3.arc().innerRadius(2 * stretchedChord._width / 5).outerRadius(stretchedChord._width / 2))
       .style('fill', d => d.criticality)
       .style('stroke', d => d.stroke)
       .style('stroke-width', '2px')
       .style('opacity', 1)
       .style('cursor', 'pointer')
+    // .enter().append('path')
+    //   .attr('id', d => 'n_' + d.id)
+    //   .attr('name', d => d.name)
+    //   .attr('d', d3.arc().innerRadius(2 * stretchedChord._width / 5).outerRadius(stretchedChord._width / 2).startAngle(Math.PI + Math.acos(stretchedChord._height / stretchedChord._width)).endAngle(2 * Math.PI - Math.acos(stretchedChord._height / stretchedChord._width)))
+    //   .style('fill', d => d.criticality)
+    //   .style('stroke', d => d.stroke)
+    //   .style('stroke-width', '2px')
+    //   .style('opacity', 1)
+    //   .style('cursor', 'pointer')
   }
   function drawRHSnodes () {
     d3.select('#RHS').selectAll().data(stretchedChord._RHSnodes).enter().append('path')
@@ -60,14 +78,28 @@ export function drawDiagram (stretchedChord) {
             'L' + q6.join(' ') + 'L' + q7.join(' ') + 'L' + q8.join(' ') + 'Q 0 ' + (q1[1] + q8[1]) / 4 + ' ' + q1.join(' ')
   }
   function addLHSlabel () {
-    stretchedChord._LHSnode.name = getLabelFormatted(stretchedChord._LHSnode.name, stretchedChord._width * 0.075)
+    d3.select('#LHS').selectAll('path').each(function (d) { addLabel(d3.select(this)) })
 
-    const label = d3.select('#L').append('text')
-      .attr('transform', 'translate(0,-' + (7.5 * stretchedChord._LHSnode.name.length) + ')')
-      .style('alignment-baseline', 'middle')
-      .style('text-anchor', 'middle')
+    function addLabel (path) {
+      const offset = getOffset()
+      const formattedLabel = getLabelFormatted(path.attr('name'), Math.abs(offset[0]))
+      const label = d3.select('#L')
+        .append('text')
+        .style('alignment-baseline', 'middle')
+        .style('text-anchor', 'middle')
 
-    stretchedChord._LHSnode.name.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', 15))
+      if (!(isNaN(offset.x) || isNaN(offset.y))) {
+        label.attr('transform', 'translate(' + (offset[0] / 2) + ',' + (offset[1] - (7.5 * formattedLabel.length)) + ')')
+      }
+
+      formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', 15))
+
+      function getOffset () {
+        const center = d3.arc().innerRadius(stretchedChord._width / 2).outerRadius(stretchedChord._width / 2).centroid(path.datum())
+
+        return [center[0] * 0.85 - stretchedChord._width / 2, center[1] * 0.95]
+      }
+    }
   }
   function addRHSlabels () {
     d3.select('#RHS').selectAll('path').each(function (d) { addLabel(d3.select(this)) })
@@ -75,9 +107,11 @@ export function drawDiagram (stretchedChord) {
     function addLabel (path) {
       const offset = getOffset()
       const formattedLabel = getLabelFormatted(path.attr('name'), Math.abs(offset[0]))
-      const label = d3.select('#R').append('text')
+      const label = d3.select('#R')
+        .append('text')
         .attr('transform', 'translate(' + (offset[0] / 2) + ',' + (offset[1] - (7.5 * formattedLabel.length)) + ')')
-        .style('alignment-baseline', 'middle').style('text-anchor', 'middle')
+        .style('alignment-baseline', 'middle')
+        .style('text-anchor', 'middle')
 
       formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', 15))
 
@@ -92,7 +126,7 @@ export function drawDiagram (stretchedChord) {
 
 export function createGradients (stretchedChord) {
   stretchedChord._links.forEach(function (d) {
-    const col = d.criticality.slice(1); const dir = d.source.id === stretchedChord._LHSnode.id ? 'r' : 'l'
+    const col = d.criticality.slice(1); const dir = d.source.id === stretchedChord._LHSnode[0].id ? 'r' : 'l'
     if (!d3.select('#' + dir + col).node()) (dir === 'l' ? leftGradient : rightGradient)(d, d3.select('#defs').append('linearGradient').attr('id', dir + col))
   })
 }
@@ -109,7 +143,7 @@ export function addInteractivity (functions, stretchedChord) {
     .on('click', nodeClick(functions.performAction, 'Target'))
 
   d3.select('#links').selectAll('path')
-    .on('mouseover', linkMouseover(stretchedChord, functions.update))
+    .on('mouseover', linkMouseover(stretchedChord, functions.updateOutput))
     .on('mouseleave', linkMouseleave)
     .on('click', linkClick(functions.performAction))
 }
