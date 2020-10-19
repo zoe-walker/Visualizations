@@ -2,3 +2,4 @@ node_modules/
 dist/
 WebpackReactVisualization/visualizations.zip
 StretchedChord/visualizations.zip
+StretchedChord/debug.log
