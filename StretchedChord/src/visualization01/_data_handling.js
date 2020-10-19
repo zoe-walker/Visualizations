@@ -1,7 +1,7 @@
 export class StretchedChord {
   constructor (config) {
-    if (!config.inputs.LHSnode) {
-      config.functions.errorOccurred("The input for the 'Left Hand Side' is required to render properly.")
+    if (!config.inputs.LHSnodes) {
+      //config.functions.errorOccurred("The input for the 'Left Hand Side' is required to render properly.")
     }
 
     const StretchedChord = this
@@ -17,8 +17,8 @@ export class StretchedChord {
     this.dataChanged = function dataChanged () {
 
       function returnIDExists (d) {
-        for (var l = 0; l < StretchedChord._LHSnode.length; l++) {
-          if (StretchedChord._LHSnode[l].id === d) {
+        for (var l = 0; l < StretchedChord._LHSnodes.length; l++) {
+          if (StretchedChord._LHSnodes[l].id === d) {
             return true
           }
         }
@@ -26,9 +26,9 @@ export class StretchedChord {
       }
 
       function findNode (_NodeID) {
-        for (var _n = 0; _n < StretchedChord._LHSnode.length; _n++) {
-          if (StretchedChord._LHSnode[_n].id === _NodeID) {
-            return StretchedChord._LHSnode[_n]
+        for (var _n = 0; _n < StretchedChord._LHSnodes.length; _n++) {
+          if (StretchedChord._LHSnodes[_n].id === _NodeID) {
+            return StretchedChord._LHSnodes[_n]
           }
         }
         for (_n = 0; _n < StretchedChord._RHSnodes.length; _n++) {
@@ -49,170 +49,166 @@ export class StretchedChord {
       }
 
       // Copy RHS nodes from configuration data
-      StretchedChord._RHSnodes = config.data.nodes
-        .filter(d => !returnIDExists(d.id))
-        .map(d => (d))
-      // Copy links from configuration data
-      StretchedChord._links = config.data.links
-        .map(d => (d))
+      StretchedChord._RHSnodes = config.data.RHSnodes.map(d => (d))
+
+      // Copy LHS nodes from configuration data
+      StretchedChord._LHSnodes = config.data.LHSnodes.map(d => (d))
+
+      //potential sort to make RHS nodes nicer
+      //.sort((a, b) => a.id.localeCompare(b.id))
+
+      // Copy links from configuration data and sort them in RHSnode order
+      StretchedChord._links = config.data.links.sort(function (a, b) {
+        var _AID = a.target.id
+        var _BID = b.target.id
+        StretchedChord._LHSnodes.forEach(function (_Node) {
+          if (_Node.id === a.target.id) {
+            _AID = a.source.id
+          }
+          if (_Node.id === b.target.id) {
+            _BID = b.source.id
+          }
+        })
+        return _AID.localeCompare(_BID)
+      }).map(d => (d))
+
+      // StretchedChord._links.sort(function (a, b) {
+      //   if ((a.target.id === b.target.id && a.source.id === b.source.id) || a.target.id === b.source.id) {
+      //     if (a.bw < b.bw) { return -1 }
+      //     if (a.bw > b.bw) { return 1 }
+      //     return 0
+      //   }
+      // })
 
       var _totalLinkBandwidth = 0
-      var _totalRHSNodeBandwidth = 0
-      var _totalLHSNodeBandwidth = 0
 
       // Calculate the total bandwith requirement of each RHS node
       // as the sum of the bandwidths of each link to or from the node
       StretchedChord._RHSnodes.forEach(function (node) {
-        node.bw = StretchedChord._links
-          .filter(link => node.id === (returnIDExists(link.source.id) ? link.target.id : link.source.id))
-          .map(link => link.bw)
-          .reduce(sum, 0)
+        node.bw = 0
+        node.bwIn = 0
+        node.bwOut = 0
         node.lastLinkEndAngle = 0
-        node.sourceLinks = []
-        node.targetLinks = []
-        _totalRHSNodeBandwidth += node.bw
+        node._LHS = false
       })
 
       // Calculate the total bandwith requirement of the LHS node
       // as the sum of the bandwidths of each link to or from the node.
-      StretchedChord._LHSnode.forEach(function (node) {
-        node.bw = StretchedChord._links
-          .filter(link => node.id === link.source.id)
-          .map(link => link.bw)
-          .reduce(sum, 0)
+      StretchedChord._LHSnodes.forEach(function (node) {
+        node.bw = 0
+        node.bwIn = 0
+        node.bwOut = 0
         node.lastLinkEndAngle = 0
-        node.sourceLinks = []
-        node.targetLinks = []
-        _totalLHSNodeBandwidth += node.bw
+        node._LHS = true
       })
 
+      // Calculate node bandwidths as sum of 
       StretchedChord._links.forEach(function (l) {
         _totalLinkBandwidth += l.bw
-        findNode(l.source.id).sourceLinks.push(l)
-        findNode(l.target.id).targetLinks.push(l)
+        var _sourceNode = findNode(l.source.id)
+        var _targetNode = findNode(l.target.id)
+        _sourceNode.bw += l.bw
+        _sourceNode.bwOut += l.bw
+        _targetNode.bw += l.bw
+        _targetNode.bwOut += l.bw
       })
 
+      // potential sorting methods/options
+      // StretchedChord._RHSnodes.sort(function (a, b) {
+      //   if (a.bw < b.bw) { return 1 }
+      //   if (a.bw > b.bw) { return -1 }
+      //   return 0
+      // })
 
-      // StretchedChord._LHSnode[0].bw = StretchedChord._links
-      //   .filter(link => StretchedChord._LHSnode[0].id === link.source.id || StretchedChord._LHSnode[0].id === link.target.id)
-      //   .map(link => link.bw)
-      //   .reduce(sum, 0)
+      // StretchedChord._LHSnodes.sort(function (a, b) {
+      //   if (a.bw < b.bw) { return -1 }
+      //   if (a.bw > b.bw) { return 1 }
+      //   return 0
+      // })
 
-      StretchedChord._LHSnode.forEach(function (d, i, a) {
+      function calculateLinkAngles (_Node, _SourceOrTarget, _link) {
+        // if first link on node then start at node start
+        if (_Node.lastLinkEndAngle === 0) {
+          _link[_SourceOrTarget].startAngle = _Node.startAngle
+        } else {
+          _link[_SourceOrTarget].startAngle = _Node.lastLinkEndAngle
+        }
+
+        // calculate link end position and update the last position on Node
+        _link[_SourceOrTarget].endAngle = _link[_SourceOrTarget].startAngle + ((_Node.endAngle - _Node.startAngle) * (_link.bw / _Node.bw))
+        _Node.lastLinkEndAngle = _link[_SourceOrTarget].endAngle
+      }
+
+      StretchedChord._LHSnodes.forEach(function (d, i, a) {
+        // calculate node position
         d.startAngle = i === 0 ? -Math.acos(StretchedChord._height / StretchedChord._width) : (a[i - 1].endAngle + g)
-        d.endAngle = d.startAngle - ((Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width) - (g * (a.length - 1))) * (d.bw / _totalLHSNodeBandwidth))
+        d.endAngle = d.startAngle - ((Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width) - (g * (a.length - 1))) * (d.bw / _totalLinkBandwidth))
+
         d.criticality = config.style.nodeColour
         d.stroke = darkenColour(d.criticality, config.style.flowProminence)
       })
 
       StretchedChord._RHSnodes.forEach(function (d, i, a) {
+        // calculate node position
         d.startAngle = i === 0 ? Math.acos(StretchedChord._height / StretchedChord._width) : (a[i - 1].endAngle + g)
-        d.endAngle = d.startAngle + ((Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width) - (g * (a.length - 1))) * ((d.bw / _totalRHSNodeBandwidth)))
-
-        //go through this and make it so that it takes into account the start and end angle of current
-        //LHS node instead of just adding onto the end
-        //something along the lines of
-        // start angle = node last end angle + offset
-        // end angle = node last end angle + ( ( node end angle - node start angle ) * ( link bandwidth / node bandwidth )
-
-        //loop through all links that are connected to node
-        //if first link of node then start angle = node start angle
-        //else start angle = connected LHSnode end angle
-
-        
-
-        function calculateAngles (_SourceNode, _TargetNode, e, j, b) {
-          e.source.startAngle = _SourceNode.startAngle
-          e.target.startAngle = _TargetNode.startAngle
-          e.source.endAngle = _SourceNode.endAngle
-          e.target.endAngle = _TargetNode.endAngle
-
-          var _SourceIndex = findLinkIndex(e.id, _SourceNode.sourceLinks)
-          var _TargetIndex = findLinkIndex(e.id, _TargetNode.targetLinks)
-
-          if (_SourceIndex === -1 || _TargetIndex === -1) {
-            console.log('Source or Target missing')
-          } else {
-            if (_SourceIndex === 0) {
-              e.source.startAngle = _SourceNode.startAngle
-            } else {
-              e.source.startAngle = _SourceNode.sourceLinks[_SourceIndex - 1].source.endAngle
-            }
-
-            if (_TargetIndex === 0) {
-              e.target.startAngle = _TargetNode.startAngle
-            } else {
-              e.target.startAngle = _TargetNode.targetLinks[_TargetIndex - 1].target.endAngle
-            }
-          }
-
-          // e[e.target.id === d.id ? 'target' : 'source'].startAngle = j === 0
-          //   ? d.startAngle
-          //   : returnIDExists(b[j - 1].target.id)
-          //     ? b[j - 1].source.endAngle
-          //     : b[j - 1].target.endAngle
-          
-          // e[e.target.id === d.id ? 'source' : 'target'].startAngle = i === 0 && j === 0
-          //   ? 2 * Math.PI - Math.acos(StretchedChord._height / StretchedChord._width)
-          //   : j === 0
-          //     ? Math.min(...StretchedChord._links
-          //       .filter(d => d.source.id === a[i - 1].id || d.target.id === a[i - 1].id)
-          //       .map(d => returnIDExists(d.target.id) ? d.target.endAngle : d.source.endAngle))
-          //     : returnIDExists(b[j - 1].target.id) ? b[j - 1].target.endAngle : b[j - 1].source.endAngle
-
-          e[e.target.id === d.id ? 'target' : 'source'].endAngle = e[e.target.id === d.id ? 'target' : 'source'].startAngle + (d.endAngle - d.startAngle) * e.bw / d.bw
-          e[e.target.id === d.id ? 'source' : 'target'].endAngle = e[e.target.id === d.id ? 'source' : 'target'].startAngle - ((Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width)) * e.bw / _totalLinkBandwidth)
-        }
-
-        StretchedChord._links.filter(l => l.source.id === d.id || l.target.id === d.id).forEach(function (e, j, b) {
-          if (e.source.id === d.id) {
-            calculateAngles(d, findNode(e.target.id), e, j, b)
-          } else {
-            calculateAngles(findNode(e.source.id), d, e, j, b)
-          }
-        })
-
-        // StretchedChord._links.filter(l => l.source.id === d.id || l.target.id === d.id).forEach(function (e, j, b) {
-        //   e[e.target.id === d.id ? 'target' : 'source'].startAngle = j === 0
-        //     ? d.startAngle
-        //     : returnIDExists(b[j - 1].target.id)
-        //       ? b[j - 1].source.endAngle
-        //       : b[j - 1].target.endAngle
-        //   e[e.target.id === d.id ? 'source' : 'target'].startAngle = i === 0 && j === 0
-        //     ? 2 * Math.PI - Math.acos(StretchedChord._height / StretchedChord._width)
-        //     : j === 0
-        //       ? Math.min(...StretchedChord._links
-        //         .filter(d => d.source.id === a[i - 1].id || d.target.id === a[i - 1].id)
-        //         .map(d => returnIDExists(d.target.id) ? d.target.endAngle : d.source.endAngle))
-        //       : returnIDExists(b[j - 1].target.id) ? b[j - 1].target.endAngle : b[j - 1].source.endAngle
-
-        //   e[e.target.id === d.id ? 'target' : 'source'].endAngle = e[e.target.id === d.id ? 'target' : 'source'].startAngle + (d.endAngle - d.startAngle) * e.bw / d.bw
-        //   e[e.target.id === d.id ? 'source' : 'target'].endAngle = e[e.target.id === d.id ? 'source' : 'target'].startAngle - ((Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width)) * e.bw / _totalLinkBandwidth)
-        // })
+        d.endAngle = d.startAngle + ((Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width) - (g * (a.length - 1))) * ((d.bw / _totalLinkBandwidth)))
 
         d.criticality = config.style.nodeColour
         d.stroke = darkenColour(d.criticality, config.style.flowProminence)
       })
+
+      // Do one final sort on the links to arrange them so that
+      // the chord is linked from top down I.E top left to top right
+      StretchedChord._links.sort(function (a, b) {
+        var _aSource
+        var _bSource
+        StretchedChord._LHSnodes.forEach(function (_Node) {
+          if (_Node.id === a.target.id || _Node.id === a.source.id) {
+            _aSource = _Node
+          }
+          if (_Node.id === b.target.id || _Node.id === b.source.id) {
+            _bSource = _Node
+          }
+        })
+        if (_aSource.startAngle > _bSource.startAngle) { return -1 }
+        if (_aSource.startAngle < _bSource.startAngle) { return 1 }
+        return 0
+      })
+
+      // calculate start and end angle for links
+      StretchedChord._links.forEach(function (l) {
+        var _sourceNode = findNode(l.source.id)
+        var _targetNode = findNode(l.target.id)
+        calculateLinkAngles(_sourceNode, 'source', l)
+        calculateLinkAngles(_targetNode, 'target', l)
+      })
     }
 
     this.sourceChanged = function sourceChanged (value) {
-      if (typeof StretchedChord._LHSnode === 'undefined') {
-        StretchedChord._LHSnode = []
+      if (typeof StretchedChord._LHSnodes === 'undefined') {
+        StretchedChord._LHSnodes = []
       }
+
+      if (value.length > 0) {
+        StretchedChord._LHSnodes = value
+        StretchedChord.dataChanged()
+      }
+      /*
       // Only handle source, aka LHS, as a single element: a string not an array
       if (typeof value === 'string' && value.length > 0) {
-        StretchedChord._LHSnode = [Object.assign(config.data.nodes.find(d => d.id === value) || {}, { bw: 0 })]
+        StretchedChord._LHSnodes = [Object.assign(config.data.nodes.find(d => d.id === value) || {}, { bw: 0 })]
 
         StretchedChord.dataChanged()
       } else if (Array.isArray(value) && value.length > 0) {
         for (var l = 0; l < value.length; l++) {
-          if (!StretchedChord._LHSnode.includes(value[l])) {
+          if (!StretchedChord._LHSnodes.includes(value[l])) {
             var _value = Object.assign(config.data.nodes.find(d => d.id === value[l]) || {}, { bw: 0 })
-            StretchedChord._LHSnode.push(_value)
+            StretchedChord._LHSnodes.push(_value)
           }
         }
         StretchedChord.dataChanged()
       }
+      */
     }
 
     this.initialise = function initialise () {

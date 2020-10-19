@@ -28,7 +28,7 @@ export function drawDiagram (stretchedChord) {
       .style('opacity', 0.8)
 
     function compareID (d) {
-      stretchedChord._LHSnode.forEach(function (_LHSnode) {
+      stretchedChord._LHSnodes.forEach(function (_LHSnode) {
         if (_LHSnode.id === d.source.id) {
           return true
         }
@@ -37,7 +37,7 @@ export function drawDiagram (stretchedChord) {
     }
   }
   function drawLHSnode () {
-    d3.select('#LHS').selectAll().data(stretchedChord._LHSnode).enter().append('path')
+    d3.select('#LHS').selectAll().data(stretchedChord._LHSnodes).enter().append('path')
       .attr('id', d => 'n_' + d.id)
       .attr('name', d => d.name)
       .attr('d', d3.arc().innerRadius(innerRadius).outerRadius(outerRadius))
@@ -129,7 +129,7 @@ export function drawDiagram (stretchedChord) {
 
 export function createGradients (stretchedChord) {
   stretchedChord._links.forEach(function (d) {
-    const col = d.criticality.slice(1); const dir = d.source.id === stretchedChord._LHSnode[0].id ? 'r' : 'l'
+    const col = d.criticality.slice(1); const dir = d.source.id === stretchedChord._LHSnodes[0].id ? 'r' : 'l'
     if (!d3.select('#' + dir + col).node()) (dir === 'l' ? leftGradient : rightGradient)(d, d3.select('#defs').append('linearGradient').attr('id', dir + col))
   })
 }
