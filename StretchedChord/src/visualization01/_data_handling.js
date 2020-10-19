@@ -10,6 +10,9 @@ export class StretchedChord {
 
     StretchedChord._width = parseFloat(config.width)
     StretchedChord._height = parseFloat(config.height)
+    StretchedChord._arcThickness = config.style.arcThickness
+    StretchedChord._outerRadius = StretchedChord._width / 2
+    StretchedChord._innerRadius = StretchedChord._outerRadius - StretchedChord._arcThickness
 
     this.dataChanged = function dataChanged () {
 
@@ -98,8 +101,8 @@ export class StretchedChord {
       StretchedChord._LHSnode.forEach(function (d, i, a) {
         d.startAngle = i === 0 ? -Math.acos(StretchedChord._height / StretchedChord._width) : (a[i - 1].endAngle + g)
         d.endAngle = d.startAngle - ((Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width) - (g * (a.length - 1))) * (d.bw / _totalLHSNodeBandwidth))
-        d.criticality = getAverageNodeColour(d, StretchedChord._links)
-        d.stroke = darkenColour(d.criticality, -50)
+        d.criticality = config.style.nodeColour
+        d.stroke = darkenColour(d.criticality, config.style.flowProminence)
       })
 
       StretchedChord._RHSnodes.forEach(function (d, i, a) {
@@ -187,8 +190,8 @@ export class StretchedChord {
         //   e[e.target.id === d.id ? 'source' : 'target'].endAngle = e[e.target.id === d.id ? 'source' : 'target'].startAngle - ((Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width)) * e.bw / _totalLinkBandwidth)
         // })
 
-        d.criticality = getAverageNodeColour(d, StretchedChord._links)
-        d.stroke = darkenColour(d.criticality, -50)
+        d.criticality = config.style.nodeColour
+        d.stroke = darkenColour(d.criticality, config.style.flowProminence)
       })
     }
 
@@ -218,31 +221,9 @@ export class StretchedChord {
   }
 }
 
-function getAverageNodeColour (node, links) {
-  const colours = links
-    .filter(d =>
-      d.source.id === node.id || d.target.id === node.id)
-    .map(function (d) {
-      return {
-        bw: d.bw,
-        col: [
-          d.criticality.slice(1, 3),
-          d.criticality.slice(3, 5),
-          d.criticality.slice(5)
-        ]
-          .map(e => parseInt(e, 16) * d.bw)
-      }
-    })
-    .reduce((prev, current) => ({
-      bw: prev.bw + current.bw,
-      col: prev.col.map((d, i) => d + current.col[i])
-    }), { bw: 0, col: [0, 0, 0] })
-
-  return '#' + colours.col.map(d => parseInt(d / colours.bw).toString(16)).map(d => d.length === 1 ? '0' + d : d).join('')
-}
 function darkenColour (col, amt) {
   return '#' + [col.slice(1, 3), col.slice(3, 5), col.slice(5)]
-    .map(d => Math.min(255, Math.max(0, (parseInt(d, 16) + amt))).toString(16))
+    .map(d => Math.min(255, Math.max(0, (parseInt(d, 16) - amt))).toString(16))
     .map(d => d.length === 1 ? '0' + d : d)
     .join('')
 }

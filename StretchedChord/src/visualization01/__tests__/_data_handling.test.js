@@ -248,8 +248,10 @@ const config = {
     "inputs" : {
     },
     "style" : {
-        "animateAttr": 1
-    }
+		"nodeColour": "#0080F0",
+		"flowProminence": 50,
+		"arcThickness": 20
+			}
 }
 
 test('Missing LHS Noded input', () => {
