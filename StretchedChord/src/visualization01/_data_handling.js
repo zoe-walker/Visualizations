@@ -89,7 +89,6 @@ export class StretchedChord {
         node.bwIn = 0
         node.bwOut = 0
         node.lastLinkEndAngle = 0
-        node._LHS = false
       })
 
       // Calculate the total bandwith requirement of the LHS node
@@ -99,7 +98,6 @@ export class StretchedChord {
         node.bwIn = 0
         node.bwOut = 0
         node.lastLinkEndAngle = 0
-        node._LHS = true
       })
 
       // Calculate node bandwidths as sum of 
