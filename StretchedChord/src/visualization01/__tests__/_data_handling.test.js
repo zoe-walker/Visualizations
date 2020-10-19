@@ -1,4 +1,18 @@
-{"data" :
+const { testEnvironment } = require("../../../jest.config")
+
+import { StretchedChord } from '../_data_handling'
+
+
+var mockErrorOccurred = jest.fn(e => e)
+
+const config = {
+    "width": "800px",
+    "height": "600px",
+    "element": "visualisation01_element_guid",
+    "functions": {
+		"errorOccurred": mockErrorOccurred
+    },
+    "data" :
     {
 	"nodes": [
 		{"name": "Civilian Air Traffic Management", "id": "55-98BD01BFBAAE4DD79CBB5123E578EAAA"},
@@ -9,17 +23,9 @@
 		{"name": "Maritime Operating Base", "id": "55-0829A1C4D265467EA86F2757C260C86C"},
 		{"name": "Maritime Patrol Aircraft", "id": "55-407BB9255C384C6FBC48EA759CFE01DB"},
 		{"name": "Maritime Surveillance", "id": "55-0E3055F74D7245CAA50A2CE03EB128C0"},
-		{"name": "Target", "id": "55-4016D99A171745239EE07C7F0AD10473"},
-		{"name": "Temporary Test", "id": "55-8F18CFBF4CCE4AEAEAE1BA222A54CC52"}
+		{"name": "Target", "id": "55-4016D99A171745239EE07C7F0AD10473"}
 	], 
 	"links": [
-		{
-			"source": {"id": "55-8F18CFBF4CCE4AEAEAE1BA222A54CC52"}, 
-			"target": {"id": "55-8F18CFBF4CCE4AECBD51BA222A54CC52"}, 
-			"id": "41-6D0DC9FD71F7408AEAEAEAE967E873C2", 
-			"bw": 5000, 
-			"criticality": "#FFFFFF"
-		},
 		{
 			"source": {"id": "55-8F18CFBF4CCE4AECBD51BA222A54CC52"}, 
 			"target": {"id": "55-407BB9255C384C6FBC48EA759CFE01DB"}, 
@@ -238,5 +244,17 @@
 			"criticality": "#FF0000"
 		}
     ]
+    },
+    "inputs" : {
+    },
+    "style" : {
+        "animateAttr": 1
     }
 }
+
+test('Missing LHS Noded input', () => {
+
+	const chord = new StretchedChord(config)
+
+	expect(mockErrorOccurred.mock.calls[0][0]).toBe('The input for the \'Left Hand Side\' is required to render properly.')
+})

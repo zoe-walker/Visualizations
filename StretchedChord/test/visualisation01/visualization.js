@@ -55,5 +55,5 @@ var performAction = function(name, id, event) {
        updateOutput: updateOutput,
        performAction: performAction
    };
-   console.log(JSON.stringify(config));
+   //console.log(JSON.stringify(config));
    createStretchedChord(config);

@@ -1,4 +1,22 @@
-{"data" :
+const { testEnvironment } = require("../../../jest.config")
+
+import { createStretchedChord } from '../visualization'
+
+var mockErrorOccurred = jest.fn(e => e)
+var mockInputChanged = jest.fn((name, value) => {})
+var mockDataChanged = jest.fn((data) => {})
+
+
+const config = {
+    "width": "800px",
+    "height": "600px",
+    "element": "visualisation01_element_guid",
+    "functions": {
+		"errorOccurred": mockErrorOccurred,
+		"inputChanged": mockInputChanged,
+		"dataChanged": mockDataChanged
+    },
+    "data" :
     {
 	"nodes": [
 		{"name": "Civilian Air Traffic Management", "id": "55-98BD01BFBAAE4DD79CBB5123E578EAAA"},
@@ -9,17 +27,9 @@
 		{"name": "Maritime Operating Base", "id": "55-0829A1C4D265467EA86F2757C260C86C"},
 		{"name": "Maritime Patrol Aircraft", "id": "55-407BB9255C384C6FBC48EA759CFE01DB"},
 		{"name": "Maritime Surveillance", "id": "55-0E3055F74D7245CAA50A2CE03EB128C0"},
-		{"name": "Target", "id": "55-4016D99A171745239EE07C7F0AD10473"},
-		{"name": "Temporary Test", "id": "55-8F18CFBF4CCE4AEAEAE1BA222A54CC52"}
+		{"name": "Target", "id": "55-4016D99A171745239EE07C7F0AD10473"}
 	], 
 	"links": [
-		{
-			"source": {"id": "55-8F18CFBF4CCE4AEAEAE1BA222A54CC52"}, 
-			"target": {"id": "55-8F18CFBF4CCE4AECBD51BA222A54CC52"}, 
-			"id": "41-6D0DC9FD71F7408AEAEAEAE967E873C2", 
-			"bw": 5000, 
-			"criticality": "#FFFFFF"
-		},
 		{
 			"source": {"id": "55-8F18CFBF4CCE4AECBD51BA222A54CC52"}, 
 			"target": {"id": "55-407BB9255C384C6FBC48EA759CFE01DB"}, 
@@ -238,5 +248,33 @@
 			"criticality": "#FF0000"
 		}
     ]
+    },
+    "inputs" : {
+		"LHSnode": "55-407BB9255C384C6FBC48EA759CFE01DB"
+    },
+    "style" : {
+        "animateAttr": 1
     }
 }
+
+describe('Visualisation', () => {
+	beforeEach(() => {
+		window.SVGElement.prototype.getComputedTextLength = () => 200
+	})
+	  
+	it('Successful create', () => {
+		document.body.innerHTML = 
+			'<div id="visualisation01_element_guid"></div>'
+
+		createStretchedChord(config)
+
+		expect(mockDataChanged).toHaveBeenCalled()
+
+		var lhsNode = document.getElementById('n_' + config.inputs.LHSnode)
+		expect(lhsNode).not.toBeNull()
+	})
+
+	afterEach(() => {
+		delete window.SVGElement.prototype.getComputedTextLength
+	})
+})
