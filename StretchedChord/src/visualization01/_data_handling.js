@@ -13,6 +13,8 @@ export class StretchedChord {
     StretchedChord._arcThickness = config.style.arcThickness
     StretchedChord._outerRadius = StretchedChord._width / 2
     StretchedChord._innerRadius = StretchedChord._outerRadius - StretchedChord._arcThickness
+    StretchedChord._flowPeriod = config.style.flowPeriod
+    StretchedChord._flowOpacity = config.style.flowOpacity
 
     this.dataChanged = function dataChanged () {
 
@@ -102,7 +104,7 @@ export class StretchedChord {
         d.startAngle = i === 0 ? -Math.acos(StretchedChord._height / StretchedChord._width) : (a[i - 1].endAngle + g)
         d.endAngle = d.startAngle - ((Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width) - (g * (a.length - 1))) * (d.bw / _totalLHSNodeBandwidth))
         d.criticality = config.style.nodeColour
-        d.stroke = darkenColour(d.criticality, config.style.flowProminence)
+        d.stroke = config.style.nodeBorderColour
       })
 
       StretchedChord._RHSnodes.forEach(function (d, i, a) {
@@ -191,7 +193,7 @@ export class StretchedChord {
         // })
 
         d.criticality = config.style.nodeColour
-        d.stroke = darkenColour(d.criticality, config.style.flowProminence)
+        d.stroke = config.style.nodeBorderColour
       })
     }
 
@@ -219,11 +221,4 @@ export class StretchedChord {
       StretchedChord.sourceChanged(config.inputs.LHSnode)
     }
   }
-}
-
-function darkenColour (col, amt) {
-  return '#' + [col.slice(1, 3), col.slice(3, 5), col.slice(5)]
-    .map(d => Math.min(255, Math.max(0, (parseInt(d, 16) - amt))).toString(16))
-    .map(d => d.length === 1 ? '0' + d : d)
-    .join('')
 }

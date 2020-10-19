@@ -254,9 +254,11 @@ const config = {
     },
     "style" : {
 		"nodeColour": "#0080F0",
-		"flowProminence": 50,
+		"nodeBorderColour": "#002090",
+		"flowOpacity": 0.5,
+		"flowPeriod": "1s",
 		"arcThickness": 20
-			}
+		}
 }
 
 describe('Visualisation', () => {
