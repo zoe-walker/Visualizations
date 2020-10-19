@@ -10,7 +10,11 @@
     "file": "./visualization.js",
     "function": "vis.createStretchedChord"
   },
-  "style": { "animateAttr": "opacity" },
+  "style": {
+    "nodeColour": "#0080F0",
+    "flowProminence": 50,
+    "arcThickness": 20
+  },    
   "inputs": [
     {
       "name": "LHSnode",

@@ -12,6 +12,9 @@ export function drawDiagram (stretchedChord) {
   d3.select('#L').selectAll('*').remove()
   d3.select('#R').selectAll('*').remove()
 
+  const innerRadius = stretchedChord._innerRadius
+  const outerRadius = stretchedChord._outerRadius
+
   drawLinks()
   drawLHSnode()
   drawRHSnodes()
@@ -37,7 +40,7 @@ export function drawDiagram (stretchedChord) {
     d3.select('#LHS').selectAll().data(stretchedChord._LHSnode).enter().append('path')
       .attr('id', d => 'n_' + d.id)
       .attr('name', d => d.name)
-      .attr('d', d3.arc().innerRadius(2 * stretchedChord._width / 5).outerRadius(stretchedChord._width / 2))
+      .attr('d', d3.arc().innerRadius(innerRadius).outerRadius(outerRadius))
       .style('fill', d => d.criticality)
       .style('stroke', d => d.stroke)
       .style('stroke-width', '2px')
@@ -57,7 +60,7 @@ export function drawDiagram (stretchedChord) {
     d3.select('#RHS').selectAll().data(stretchedChord._RHSnodes).enter().append('path')
       .attr('id', d => 'n_' + d.id)
       .attr('name', d => d.name)
-      .attr('d', d3.arc().innerRadius(2 * stretchedChord._width / 5).outerRadius(stretchedChord._width / 2))
+      .attr('d', d3.arc().innerRadius(innerRadius).outerRadius(outerRadius))
       .style('fill', d => d.criticality)
       .style('stroke', d => d.stroke)
       .style('stroke-width', '2px')
@@ -65,14 +68,14 @@ export function drawDiagram (stretchedChord) {
       .style('cursor', 'pointer')
   }
   function link (link) {
-    const q1 = [2 * stretchedChord._width * Math.sin(link.source.startAngle) / 5, -2 * stretchedChord._width * Math.cos(link.source.startAngle) / 5]
-    const q2 = [9 * stretchedChord._width * Math.sin(link.source.startAngle) / 20, -9 * stretchedChord._width * Math.cos(link.source.startAngle) / 20]
-    const q3 = [9 * stretchedChord._width * Math.sin(link.source.endAngle) / 20, -9 * stretchedChord._width * Math.cos(link.source.endAngle) / 20]
-    const q4 = [2 * stretchedChord._width * Math.sin(link.source.endAngle) / 5, -2 * stretchedChord._width * Math.cos(link.source.endAngle) / 5]
-    const q5 = [2 * stretchedChord._width * Math.sin(link.target.endAngle) / 5, -2 * stretchedChord._width * Math.cos(link.target.endAngle) / 5]
-    const q6 = [9 * stretchedChord._width * Math.sin(link.target.endAngle) / 20, -9 * stretchedChord._width * Math.cos(link.target.endAngle) / 20]
-    const q7 = [9 * stretchedChord._width * Math.sin(link.target.startAngle) / 20, -9 * stretchedChord._width * Math.cos(link.target.startAngle) / 20]
-    const q8 = [2 * stretchedChord._width * Math.sin(link.target.startAngle) / 5, -2 * stretchedChord._width * Math.cos(link.target.startAngle) / 5]
+    const q1 = [innerRadius * Math.sin(link.source.startAngle), -innerRadius * Math.cos(link.source.startAngle)]
+    const q2 = [innerRadius * Math.sin(link.source.startAngle), -innerRadius * Math.cos(link.source.startAngle)]
+    const q3 = [innerRadius * Math.sin(link.source.endAngle), -innerRadius * Math.cos(link.source.endAngle)]
+    const q4 = [innerRadius * Math.sin(link.source.endAngle), -innerRadius * Math.cos(link.source.endAngle)]
+    const q5 = [innerRadius * Math.sin(link.target.endAngle), -innerRadius * Math.cos(link.target.endAngle)]
+    const q6 = [innerRadius * Math.sin(link.target.endAngle), -innerRadius * Math.cos(link.target.endAngle)]
+    const q7 = [innerRadius * Math.sin(link.target.startAngle), -innerRadius * Math.cos(link.target.startAngle)]
+    const q8 = [innerRadius * Math.sin(link.target.startAngle), -innerRadius * Math.cos(link.target.startAngle)]
 
     return 'M' + q2.join(' ') + 'L' + q3.join(' ') + 'L' + q4.join(' ') + 'Q 0 ' + (q4[1] + q5[1]) / 4 + ' ' + q5.join(' ') +
             'L' + q6.join(' ') + 'L' + q7.join(' ') + 'L' + q8.join(' ') + 'Q 0 ' + (q1[1] + q8[1]) / 4 + ' ' + q1.join(' ')

@@ -253,8 +253,10 @@ const config = {
 		"LHSnode": "55-407BB9255C384C6FBC48EA759CFE01DB"
     },
     "style" : {
-        "animateAttr": 1
-    }
+		"nodeColour": "#0080F0",
+		"flowProminence": 50,
+		"arcThickness": 20
+			}
 }
 
 describe('Visualisation', () => {
