@@ -128,9 +128,13 @@ export function drawDiagram (stretchedChord) {
 }
 
 export function createGradients (stretchedChord) {
+  const config = {
+    flowPeriod: stretchedChord._flowPeriod,
+    flowOpacity: stretchedChord._flowOpacity
+  }
   stretchedChord._links.forEach(function (d) {
     const col = d.criticality.slice(1); const dir = d.source.id === stretchedChord._LHSnodes[0].id ? 'r' : 'l'
-    if (!d3.select('#' + dir + col).node()) (dir === 'l' ? leftGradient : rightGradient)(d, d3.select('#defs').append('linearGradient').attr('id', dir + col))
+    if (!d3.select('#' + dir + col).node()) (dir === 'l' ? leftGradient : rightGradient)(d, d3.select('#defs').append('linearGradient').attr('id', dir + col), config)
   })
 }
 
@@ -151,38 +155,42 @@ export function addInteractivity (functions, stretchedChord) {
     .on('click', linkClick(functions.performAction))
 }
 
-function rightGradient (link, grad) {
-  grad.append('stop').attr('offset', '-50%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '-.5;0').attr('dur', '5s').attr('repeatCount', 'indefinite')
+function rightGradient (link, grad, config) {
+  const flowPeriod = config.flowPeriod
+  const flowOpacity = config.flowOpacity
+  grad.append('stop').attr('offset', '-50%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '-.5;0').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '-25%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '-.25;.25').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '0%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '0;.5').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '-.25;.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '0%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '0;.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '25%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '0.25;.75').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '50%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '.5;1').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '0.25;.75').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '50%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '.5;1').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '75%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '.75;1.25').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '100%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '1;1.5').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '.75;1.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '100%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '1;1.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
 }
 
-function leftGradient (link, grad) {
-  grad.append('stop').attr('offset', '0%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '0;-.5').attr('dur', '5s').attr('repeatCount', 'indefinite')
+function leftGradient (link, grad, config) {
+  const flowPeriod = config.flowPeriod
+  const flowOpacity = config.flowOpacity
+  grad.append('stop').attr('offset', '0%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '0;-.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '25%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '.25;-.25').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '50%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '.5;0').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '.25;-.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '50%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '.5;0').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '75%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '.75;.25').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '100%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '1;.5').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '.75;.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '100%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '1;.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '125%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '1.25;.75').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '150%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '1.5;1').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '1.25;.75').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '150%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '1.5;1').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
 }
 
 function getLabelFormatted (label, lineLength) {
