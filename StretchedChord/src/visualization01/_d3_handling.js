@@ -68,17 +68,16 @@ export function drawDiagram (stretchedChord) {
       .style('cursor', 'pointer')
   }
   function link (link) {
-    const q1 = [innerRadius * Math.sin(link.source.startAngle), -innerRadius * Math.cos(link.source.startAngle)]
-    const q2 = [innerRadius * Math.sin(link.source.startAngle), -innerRadius * Math.cos(link.source.startAngle)]
-    const q3 = [innerRadius * Math.sin(link.source.endAngle), -innerRadius * Math.cos(link.source.endAngle)]
-    const q4 = [innerRadius * Math.sin(link.source.endAngle), -innerRadius * Math.cos(link.source.endAngle)]
-    const q5 = [innerRadius * Math.sin(link.target.endAngle), -innerRadius * Math.cos(link.target.endAngle)]
-    const q6 = [innerRadius * Math.sin(link.target.endAngle), -innerRadius * Math.cos(link.target.endAngle)]
-    const q7 = [innerRadius * Math.sin(link.target.startAngle), -innerRadius * Math.cos(link.target.startAngle)]
-    const q8 = [innerRadius * Math.sin(link.target.startAngle), -innerRadius * Math.cos(link.target.startAngle)]
+    const srcStart = [innerRadius * Math.sin(link.source.startAngle), -innerRadius * Math.cos(link.source.startAngle)]
+    const srcEnd = [innerRadius * Math.sin(link.source.endAngle), -innerRadius * Math.cos(link.source.endAngle)]
+    const tgtEnd = [innerRadius * Math.sin(link.target.endAngle), -innerRadius * Math.cos(link.target.endAngle)]
+    const tgtStart = [innerRadius * Math.sin(link.target.startAngle), -innerRadius * Math.cos(link.target.startAngle)]
 
-    return 'M' + q2.join(' ') + 'L' + q3.join(' ') + 'L' + q4.join(' ') + 'Q 0 ' + (q4[1] + q5[1]) / 4 + ' ' + q5.join(' ') +
-            'L' + q6.join(' ') + 'L' + q7.join(' ') + 'L' + q8.join(' ') + 'Q 0 ' + (q1[1] + q8[1]) / 4 + ' ' + q1.join(' ')
+    return 'M' + srcStart.join(' ')                                          // Start at link starting angle on source node
+    + 'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + srcEnd.join(' ')   // draw arc following inside of source node to link end angle 
+    + 'Q 0 ' + (srcEnd[1] + tgtEnd[1]) / 4 + ' ' + tgtEnd.join(' ')          // draw quadratic Bezier curve to end angle of link on target node
+    + 'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + tgtStart.join(' ') // draw arc following inside of target node to link start angle
+    + 'Q 0 ' + (srcStart[1] + tgtStart[1]) / 4 + ' ' + srcStart.join(' ')    // draw quadratic Bezier curve to start angle of link on source node
   }
   function addLHSlabel () {
     d3.select('#LHS').selectAll('path').each(function (d) { addLabel(d3.select(this)) })
