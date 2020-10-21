@@ -166,7 +166,7 @@ export class StretchedChord {
         }
 
         // setup start and end angle
-        _Node.startAngle = _Index === 0 ? StretchedChord._arcStartAngle : (_NodeArray[_Index - 1].endAngle + (_offset * StretchedChord._nodeSeparation))
+        _Node.startAngle = _Index === 0 ? _offset * StretchedChord._arcStartAngle : (_NodeArray[_Index - 1].endAngle + (_offset * StretchedChord._nodeSeparation))
         _Node.endAngle = _Node.startAngle + (_offset * _nodeSize)
       }
 
