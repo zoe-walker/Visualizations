@@ -57,9 +57,9 @@ export class StretchedChord {
       // Copy links from configuration data and sort them in RHSnode order
       StretchedChord._links = config.data.links.sort(function (a, b) {
         // arrange links based on node IDs to allow for better connection/less crossing
-        var _AID = _NodeDict[a.target.id] === null ? 0 : _NodeDict[a.target.id].lhs === false ? a.target.id : a.source.id
-        var _BID = _NodeDict[b.target.id] === null ? 0 : _NodeDict[b.target.id].lhs === false ? b.target.id : b.source.id
-        return _AID.localeCompare(_BID)
+        var _AID = _NodeDict[a.target.id] === undefined ? undefined : _NodeDict[a.target.id].lhs === false ? a.target.id : a.source.id
+        var _BID = _NodeDict[b.target.id] === undefined ? undefined : _NodeDict[b.target.id].lhs === false ? b.target.id : b.source.id
+        return (_AID === undefined || _BID === undefined) ? 0 : _AID.localeCompare(_BID)
       }).map(function (l) {
 
         // lookup source and target nodes
@@ -67,7 +67,7 @@ export class StretchedChord {
         l._targetNode = _NodeDict[l.target.id]
 
         // make sure both nodes aren't left hand side
-        if (l._sourceNode.lhs !== l._targetNode.lhs) {
+        if (l._sourceNode !== undefined && l._targetNode !== undefined && l._sourceNode.lhs !== l._targetNode.lhs) {
 
           // update total bandwidth
           _totalLinkBandwidth += l.bw
