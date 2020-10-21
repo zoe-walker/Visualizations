@@ -24,19 +24,11 @@ export function drawDiagram (stretchedChord) {
 
   function drawLinks () {
     d3.select('#links').selectAll().data(stretchedChord._links).enter().append('path')
-      .attr('d', d => link(d))
-      .style('fill', d => 'url(#' + (compareID(d) ? 'r' : 'l') + d.criticality.slice(1) + ')')
+      .attr('d', d => linkPath(d))
+      .style('fill', d => 'url(#' + (d.sourceNode.isOnLHS ? 'r' : 'l') + d.criticality.slice(1) + ')')
       .style('opacity', 0.8)
-
-    function compareID (d) {
-      stretchedChord._LHSnodes.forEach(function (_LHSnode) {
-        if (_LHSnode.id === d.source.id) {
-          return true
-        }
-      })
-      return false
-    }
   }
+
   function drawLHSnode () {
     d3.select('#LHS').selectAll().data(stretchedChord._LHSnodes).enter().append('path')
       .attr('id', d => 'n_' + d.id)
@@ -68,28 +60,28 @@ export function drawDiagram (stretchedChord) {
       .style('opacity', 1)
       .style('cursor', 'pointer')
   }
-  function link (link) {
+  function linkPath (link) {
     const adjustedOffset = link.sourceNode.isOnLHS ? centreOffset : -centreOffset
-    
+
     const srcStart = [innerRadius * Math.sin(link.source.startAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.startAngle)]
     const srcEnd = [innerRadius * Math.sin(link.source.endAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.endAngle)]
     const tgtEnd = [innerRadius * Math.sin(link.target.endAngle) + adjustedOffset, -innerRadius * Math.cos(link.target.endAngle)]
     const tgtStart = [innerRadius * Math.sin(link.target.startAngle) + adjustedOffset, -innerRadius * Math.cos(link.target.startAngle)]
 
-    return 'M' + srcStart.join(' ')                                          // Start at link starting angle on source node
-    + 'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + srcEnd.join(' ')   // draw arc following inside of source node to link end angle 
-    + 'Q 0 ' + (srcEnd[1] + tgtEnd[1]) / 4 + ' ' + tgtEnd.join(' ')          // draw quadratic Bezier curve to end angle of link on target node
-    + 'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + tgtStart.join(' ') // draw arc following inside of target node to link start angle
-    + 'Q 0 ' + (srcStart[1] + tgtStart[1]) / 4 + ' ' + srcStart.join(' ')    // draw quadratic Bezier curve to start angle of link on source node
+    return 'M' + srcStart.join(' ') + // Start at link starting angle on source node
+    'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + srcEnd.join(' ') + // draw arc following inside of source node to link end angle
+    'Q 0 ' + (srcEnd[1] + tgtEnd[1]) / 4 + ' ' + tgtEnd.join(' ') + // draw quadratic Bezier curve to end angle of link on target node
+    'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + tgtStart.join(' ') + // draw arc following inside of target node to link start angle
+    'Q 0 ' + (srcStart[1] + tgtStart[1]) / 4 + ' ' + srcStart.join(' ') // draw quadratic Bezier curve to start angle of link on source node
   }
   function addLHSlabels () {
     addLabels('L')
   }
-  
+
   function addRHSlabels () {
     addLabels('R')
   }
-  
+
   function addLabels (side) {
     const nodeTag = '#' + side + 'HS'
     const labelTag = '#' + side
@@ -97,7 +89,7 @@ export function drawDiagram (stretchedChord) {
 
     function addLabel (path) {
       const offset = getOffset()
-      const formattedLabel = getLabelFormatted(path.attr('name'), stretchedChord._labelMargin * 0.9 + (outerRadius - Math.abs(offset[0]))/3)
+      const formattedLabel = getLabelFormatted(path.attr('name'), stretchedChord._labelMargin * 0.9 + (outerRadius - Math.abs(offset[0])) / 3)
       const label = d3.select(labelTag)
         .append('text')
         .style('alignment-baseline', 'left')
@@ -112,7 +104,7 @@ export function drawDiagram (stretchedChord) {
       function getOffset () {
         const center = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius).centroid(path.datum())
 
-        return [center[0]  , center[1]] //- stretchedChord._arcCentreSeparation / 2 - stretchedChord._width / 2
+        return [center[0], center[1]] // - stretchedChord._arcCentreSeparation / 2 - stretchedChord._width / 2
       }
     }
   }
@@ -124,8 +116,14 @@ export function createGradients (stretchedChord) {
     flowOpacity: stretchedChord._flowOpacity
   }
   stretchedChord._links.forEach(function (d) {
-    const col = d.criticality.slice(1); const dir = d.source.id === stretchedChord._LHSnodes[0].id ? 'r' : 'l'
-    if (!d3.select('#' + dir + col).node()) (dir === 'l' ? leftGradient : rightGradient)(d, d3.select('#defs').append('linearGradient').attr('id', dir + col), config)
+    const colour = d.criticality.slice(1)
+    const direction = d.sourceNode.isOnLHS ? 'r' : 'l'
+    if (!d3.select('#' + direction + colour).node()) {
+      (direction === 'l' ? leftGradient : rightGradient)(
+        d,
+        d3.select('#defs').append('linearGradient').attr('id', direction + colour),
+        config)
+    }
   })
 }
 

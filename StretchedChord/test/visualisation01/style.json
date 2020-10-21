@@ -2,7 +2,7 @@
     "nodeColour": "#0080F0",
     "nodeBorderColour": "#002090",
     "flowOpacity": 0.5,
-    "flowPeriod": "1s",
+    "flowPeriod": "5s",
     "arcThickness": 20,
     "arcCentreSeparation": 100,
     "labelMargin": 100,
