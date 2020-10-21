@@ -25,7 +25,7 @@ export function drawDiagram (stretchedChord) {
   function drawLinks () {
     d3.select('#links').selectAll().data(stretchedChord._links).enter().append('path')
       .attr('d', d => linkPath(d))
-      .style('fill', d => 'url(#' + (d.sourceNode.isOnLHS ? 'r' : 'l') + d.criticality.slice(1) + ')')
+      .style('fill', d => 'url(#' + (d._sourceNode.lhs ? 'r' : 'l') + d.criticality.slice(1) + ')')
       .style('opacity', 0.8)
   }
 
@@ -61,7 +61,7 @@ export function drawDiagram (stretchedChord) {
       .style('cursor', 'pointer')
   }
   function linkPath (link) {
-    const adjustedOffset = link.sourceNode.isOnLHS ? centreOffset : -centreOffset
+    const adjustedOffset = link._sourceNode.lhs ? centreOffset : -centreOffset
 
     const srcStart = [innerRadius * Math.sin(link.source.startAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.startAngle)]
     const srcEnd = [innerRadius * Math.sin(link.source.endAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.endAngle)]
@@ -117,7 +117,7 @@ export function createGradients (stretchedChord) {
   }
   stretchedChord._links.forEach(function (d) {
     const colour = d.criticality.slice(1)
-    const direction = d.sourceNode.isOnLHS ? 'r' : 'l'
+    const direction = d._sourceNode.lhs ? 'r' : 'l'
     if (!d3.select('#' + direction + colour).node()) {
       (direction === 'l' ? leftGradient : rightGradient)(
         d,
