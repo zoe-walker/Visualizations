@@ -248,9 +248,8 @@ const config = {
         }
       ]
     },
-  inputs: {
-    LHSnode: '55-407BB9255C384C6FBC48EA759CFE01DB'
-  },
+  inputs: [
+  ],
   style: {
     nodeColour: '#0080F0',
     nodeBorderColour: '#002090',

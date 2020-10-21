@@ -176,34 +176,11 @@ export class StretchedChord {
     }
 
     this.sourceChanged = function sourceChanged (value) {
-      if (typeof StretchedChord._LHSnodes === 'undefined') {
-        StretchedChord._LHSnodes = []
-      }
-
-      if (value.length > 0) {
-        StretchedChord._LHSnodes = value
         StretchedChord.dataChanged()
-      }
-      /*
-      // Only handle source, aka LHS, as a single element: a string not an array
-      if (typeof value === 'string' && value.length > 0) {
-        StretchedChord._LHSnodes = [Object.assign(config.data.nodes.find(d => d.id === value) || {}, { bw: 0 })]
-
-        StretchedChord.dataChanged()
-      } else if (Array.isArray(value) && value.length > 0) {
-        for (var l = 0; l < value.length; l++) {
-          if (!StretchedChord._LHSnodes.includes(value[l])) {
-            var _value = Object.assign(config.data.nodes.find(d => d.id === value[l]) || {}, { bw: 0 })
-            StretchedChord._LHSnodes.push(_value)
-          }
-        }
-        StretchedChord.dataChanged()
-      }
-      */
     }
 
     this.initialise = function initialise () {
-      StretchedChord.sourceChanged(config.inputs.LHSnode)
+      StretchedChord.sourceChanged()
     }
   }
 }

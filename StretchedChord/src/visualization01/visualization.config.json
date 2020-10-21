@@ -1,5 +1,5 @@
 {
-  "version": "0.1.8",
+  "version": "0.1.11",
   "id": "47634fff-3181-4e4e-8d78-000000000007",
   "name": "Stretched Chord",
   "supportedVersions": "0",
@@ -24,11 +24,6 @@
     }
   },    
   "inputs": [
-    {
-      "name": "LHSnode",
-      "displayName": "LHS Node",
-      "type": "elements"
-    }
   ],
   "outputs": [
     {

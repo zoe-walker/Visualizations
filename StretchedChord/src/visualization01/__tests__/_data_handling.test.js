@@ -13,17 +13,20 @@ const config = {
   },
   data:
     {
-      nodes: [
-        { name: 'Civilian Air Traffic Management', id: '55-98BD01BFBAAE4DD79CBB5123E578EAAA' },
-        { name: 'Coalition Strike Helo', id: '55-5F49AE0DC27340FFB3B47B7B42E89EF1' },
-        { name: 'Forward Operating Base', id: '55-3D2F35B1EA0A4313B3D78979A3607C2C' },
-        { name: 'HQ Afloat', id: '55-8F18CFBF4CCE4AECBD51BA222A54CC52' },
-        { name: 'Maritime Analysis & Operating Centre', id: '55-0F79D6F9323048B6A298473A6148B004' },
-        { name: 'Maritime Operating Base', id: '55-0829A1C4D265467EA86F2757C260C86C' },
-        { name: 'Maritime Patrol Aircraft', id: '55-407BB9255C384C6FBC48EA759CFE01DB' },
-        { name: 'Maritime Surveillance', id: '55-0E3055F74D7245CAA50A2CE03EB128C0' },
-        { name: 'Target', id: '55-4016D99A171745239EE07C7F0AD10473' }
-      ],
+	RHSnodes: [
+		{"name": "Civilian Air Traffic Management", "id": "55-98BD01BFBAAE4DD79CBB5123E578EAAA"},
+		{"name": "Coalition Strike Helo", "id": "55-5F49AE0DC27340FFB3B47B7B42E89EF1"},
+		{"name": "Forward Operating Base", "id": "55-3D2F35B1EA0A4313B3D78979A3607C2C"},
+		{"name": "HQ Afloat", "id": "55-8F18CFBF4CCE4AECBD51BA222A54CC52"},
+		{"name": "Maritime Analysis & Operating Centre", "id": "55-0F79D6F9323048B6A298473A6148B004"},
+		{"name": "Maritime Operating Base", "id": "55-0829A1C4D265467EA86F2757C260C86C"},
+		{"name": "Maritime Surveillance", "id": "55-0E3055F74D7245CAA50A2CE03EB128C0"},
+		{"name": "Target", "id": "55-4016D99A171745239EE07C7F0AD10473"}
+	], 
+	LHSnodes: [
+		{"name": "Maritime Patrol Aircraft", "id": "55-407BB9255C384C6FBC48EA759CFE01DB"},
+		{"name": "Temporary Test", "id": "55-8F18CFBF4CCE4AEAEAE1BA222A54CC52"}
+	],
       links: [
         {
           source: { id: '55-8F18CFBF4CCE4AECBD51BA222A54CC52' },
@@ -244,8 +247,9 @@ const config = {
         }
       ]
     },
-  inputs: {
-  },
+  inputs: [
+
+  ],
   style: {
     nodeColour: '#0080F0',
     nodeBorderColour: '#002090',
