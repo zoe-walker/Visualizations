@@ -1,6 +1,8 @@
 {"style" : {
     "nodeColour": "#0080F0",
     "nodeBorderColour": "#002090",
+    "nodeSeparation": 0.01,
+    "minimumNodeSizePercentage": 2,
     "flowOpacity": 0.5,
     "flowPeriod": "1s",
     "arcThickness": 20

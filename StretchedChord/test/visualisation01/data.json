@@ -12,13 +12,28 @@
 	], 
 	"LHSnodes": [
 		{"name": "Maritime Patrol Aircraft", "id": "55-407BB9255C384C6FBC48EA759CFE01DB"},
-		{"name": "Temporary Test", "id": "55-8F18CFBF4CCE4AEAEAE1BA222A54CC52"}
+		{"name": "Temporary Test", "id": "55-8F18CFBF4CCE4AEAEAE1BA222A54CC52"},
+		{"name": "Temporary Test", "id": "55-8F18CFBF4CCE4AEAEAEAEAEAEAEAEC52"}
 	],
 	"links": [
 		{
 			"source": {"id": "55-8F18CFBF4CCE4AEAEAE1BA222A54CC52"}, 
 			"target": {"id": "55-8F18CFBF4CCE4AECBD51BA222A54CC52"}, 
 			"id": "41-6D0DC9FD71F7408AEAEAEAE967E873C2", 
+			"bw": 2500, 
+			"criticality": "#FF0000"
+		},
+		{
+			"source": {"id": "55-8F18CFBF4CCE4AEAEAE1BA222A54CC52"}, 
+			"target": {"id": "55-8F18CFBF4CCE4AEAEAEAEAEAEAEAEC52"}, 
+			"id": "41-6D0DC9FD71F7408AEAEAEAE967E873C2", 
+			"bw": 2500, 
+			"criticality": "#FF0000"
+		},
+		{
+			"source": {"id": "55-8F18CFBF4CCE4AEAEAEAEAEAEAEAEC52"}, 
+			"target": {"id": "55-8F18CFBF4CCE4AECBD51BA222A54CC52"}, 
+			"id": "41-6D0DC9AEAEAE408AEAEAEAE967E873C2", 
 			"bw": 2500, 
 			"criticality": "#FF0000"
 		},
