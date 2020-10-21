@@ -1,6 +1,6 @@
 {
   "name": "webpackvisualization",
-  "version": "0.1.8",
+  "version": "0.1.11",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -66,5 +66,10 @@
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
       "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
     }
+  },
+  "standard": {
+    "ignore": [
+      "**/__tests__"
+    ]
   }
 }

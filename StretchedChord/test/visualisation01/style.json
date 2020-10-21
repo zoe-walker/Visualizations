@@ -4,7 +4,11 @@
     "nodeSeparation": 0.01,
     "minimumNodeSizePercentage": 2,
     "flowOpacity": 0.5,
-    "flowPeriod": "1s",
-    "arcThickness": 20
+    "flowPeriod": "5s",
+    "arcThickness": 20,
+    "arcCentreSeparation": 100,
+    "labelMargin": 100,
+    "headerHeight": 10,
+    "footerHeight": 10
 }
 }

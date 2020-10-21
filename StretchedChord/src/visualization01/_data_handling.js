@@ -1,18 +1,24 @@
 export class StretchedChord {
   constructor (config) {
     if (!config.inputs.LHSnodes) {
-      //config.functions.errorOccurred("The input for the 'Left Hand Side' is required to render properly.")
+      // config.functions.errorOccurred("The input for the 'Left Hand Side' is required to render properly.")
     }
 
     const StretchedChord = this
-    const sum = (accumulator, currentValue) => accumulator + currentValue
 
     StretchedChord._width = parseFloat(config.width)
     StretchedChord._height = parseFloat(config.height)
     StretchedChord._arcThickness = config.style.arcThickness
-    StretchedChord._nodeSeparation = config.style.nodeSeparation
-    StretchedChord._outerRadius = StretchedChord._width / 2
+    StretchedChord._arcCentreSeparation = config.style.arcCentreSeparation
+    StretchedChord._labelMargin = config.style.labelMargin
+    StretchedChord._labelOffsetFactor = 0.6
+    StretchedChord._outerRadius = (StretchedChord._width - StretchedChord._arcCentreSeparation - 2 * StretchedChord._labelMargin) / 2
     StretchedChord._innerRadius = StretchedChord._outerRadius - StretchedChord._arcThickness
+    StretchedChord._nodeSeparation = config.style.nodeSeparation
+    StretchedChord._arcHeight = StretchedChord._height - config.style.headerHeight - config.style.footerHeight
+    StretchedChord._arcStartAngle = Math.acos(Math.min((StretchedChord._arcHeight / 2) / StretchedChord._outerRadius, 1.0))
+    StretchedChord._flowPeriod = config.style.flowPeriod
+    StretchedChord._flowOpacity = config.style.flowOpacity
 
     this.dataChanged = function dataChanged () {
 
@@ -97,8 +103,8 @@ export class StretchedChord {
       var _RHSAngleLeftAfterMinimum = 1
       var _minimumSize = (config.style.minimumNodeSizePercentage / 100)
 
-      var _TotalLeftSize = (Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width) - (StretchedChord._nodeSeparation * (StretchedChord._LHSnodes.length - 1)))
-      var _TotalRightSize = (Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width) - (StretchedChord._nodeSeparation * (StretchedChord._RHSnodes.length - 1)))
+      var _TotalLeftSize = (Math.PI - 2 * StretchedChord._arcStartAngle - (StretchedChord._nodeSeparation * (StretchedChord._LHSnodes.length - 1)))
+      var _TotalRightSize = (Math.PI - 2 * StretchedChord._arcStartAngle - (StretchedChord._nodeSeparation * (StretchedChord._RHSnodes.length - 1)))
       var _TotalLeftBandwidth = 0
       var _TotalRightBandwidth = 0
       var _RightTooSmall = 0
@@ -127,7 +133,7 @@ export class StretchedChord {
 
         // apply any colouring to the node
         _Node.criticality = config.style.nodeColour
-        _Node.stroke = darkenColour(_Node.criticality, config.style.flowProminence)
+        _Node.stroke = config.style.nodeBorderColour
       }
 
       // decrease minimum sizes while
@@ -160,7 +166,7 @@ export class StretchedChord {
         }
 
         // setup start and end angle
-        _Node.startAngle = _Index === 0 ? (Math.acos(StretchedChord._height / StretchedChord._width) * _offset) : (_NodeArray[_Index - 1].endAngle + (_offset * StretchedChord._nodeSeparation))
+        _Node.startAngle = _Index === 0 ? StretchedChord._arcStartAngle : (_NodeArray[_Index - 1].endAngle + (_offset * StretchedChord._nodeSeparation))
         _Node.endAngle = _Node.startAngle + (_offset * _nodeSize)
       }
 
@@ -187,25 +193,11 @@ export class StretchedChord {
     }
 
     this.sourceChanged = function sourceChanged (value) {
-      if (typeof StretchedChord._LHSnodes === 'undefined') {
-        StretchedChord._LHSnodes = []
-      }
-
-      if (value.length > 0) {
-        StretchedChord._LHSnodes = value
         StretchedChord.dataChanged()
-      }
     }
 
     this.initialise = function initialise () {
-      StretchedChord.sourceChanged(config.inputs.LHSnode)
+      StretchedChord.sourceChanged()
     }
   }
-}
-
-function darkenColour (col, amt) {
-  return '#' + [col.slice(1, 3), col.slice(3, 5), col.slice(5)]
-    .map(d => Math.min(255, Math.max(0, (parseInt(d, 16) - amt))).toString(16))
-    .map(d => d.length === 1 ? '0' + d : d)
-    .join('')
 }

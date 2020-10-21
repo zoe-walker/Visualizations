@@ -14,28 +14,21 @@ export function drawDiagram (stretchedChord) {
 
   const innerRadius = stretchedChord._innerRadius
   const outerRadius = stretchedChord._outerRadius
+  const centreOffset = stretchedChord._arcCentreSeparation / 2
 
   drawLinks()
   drawLHSnode()
   drawRHSnodes()
-  addLHSlabel()
+  addLHSlabels()
   addRHSlabels()
 
   function drawLinks () {
     d3.select('#links').selectAll().data(stretchedChord._links).enter().append('path')
-      .attr('d', d => link(d))
-      .style('fill', d => 'url(#' + (compareID(d) ? 'r' : 'l') + d.criticality.slice(1) + ')')
+      .attr('d', d => linkPath(d))
+      .style('fill', d => 'url(#' + (d.sourceNode.isOnLHS ? 'r' : 'l') + d.criticality.slice(1) + ')')
       .style('opacity', 0.8)
-
-    function compareID (d) {
-      stretchedChord._LHSnodes.forEach(function (_LHSnode) {
-        if (_LHSnode.id === d.source.id) {
-          return true
-        }
-      })
-      return false
-    }
   }
+
   function drawLHSnode () {
     d3.select('#LHS').selectAll().data(stretchedChord._LHSnodes).enter().append('path')
       .attr('id', d => 'n_' + d.id)
@@ -67,70 +60,70 @@ export function drawDiagram (stretchedChord) {
       .style('opacity', 1)
       .style('cursor', 'pointer')
   }
-  function link (link) {
-    const q1 = [innerRadius * Math.sin(link.source.startAngle), -innerRadius * Math.cos(link.source.startAngle)]
-    const q2 = [innerRadius * Math.sin(link.source.startAngle), -innerRadius * Math.cos(link.source.startAngle)]
-    const q3 = [innerRadius * Math.sin(link.source.endAngle), -innerRadius * Math.cos(link.source.endAngle)]
-    const q4 = [innerRadius * Math.sin(link.source.endAngle), -innerRadius * Math.cos(link.source.endAngle)]
-    const q5 = [innerRadius * Math.sin(link.target.endAngle), -innerRadius * Math.cos(link.target.endAngle)]
-    const q6 = [innerRadius * Math.sin(link.target.endAngle), -innerRadius * Math.cos(link.target.endAngle)]
-    const q7 = [innerRadius * Math.sin(link.target.startAngle), -innerRadius * Math.cos(link.target.startAngle)]
-    const q8 = [innerRadius * Math.sin(link.target.startAngle), -innerRadius * Math.cos(link.target.startAngle)]
+  function linkPath (link) {
+    const adjustedOffset = link.sourceNode.isOnLHS ? centreOffset : -centreOffset
 
-    return 'M' + q2.join(' ') + 'L' + q3.join(' ') + 'L' + q4.join(' ') + 'Q 0 ' + (q4[1] + q5[1]) / 4 + ' ' + q5.join(' ') +
-            'L' + q6.join(' ') + 'L' + q7.join(' ') + 'L' + q8.join(' ') + 'Q 0 ' + (q1[1] + q8[1]) / 4 + ' ' + q1.join(' ')
+    const srcStart = [innerRadius * Math.sin(link.source.startAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.startAngle)]
+    const srcEnd = [innerRadius * Math.sin(link.source.endAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.endAngle)]
+    const tgtEnd = [innerRadius * Math.sin(link.target.endAngle) + adjustedOffset, -innerRadius * Math.cos(link.target.endAngle)]
+    const tgtStart = [innerRadius * Math.sin(link.target.startAngle) + adjustedOffset, -innerRadius * Math.cos(link.target.startAngle)]
+
+    return 'M' + srcStart.join(' ') + // Start at link starting angle on source node
+    'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + srcEnd.join(' ') + // draw arc following inside of source node to link end angle
+    'Q 0 ' + (srcEnd[1] + tgtEnd[1]) / 4 + ' ' + tgtEnd.join(' ') + // draw quadratic Bezier curve to end angle of link on target node
+    'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + tgtStart.join(' ') + // draw arc following inside of target node to link start angle
+    'Q 0 ' + (srcStart[1] + tgtStart[1]) / 4 + ' ' + srcStart.join(' ') // draw quadratic Bezier curve to start angle of link on source node
   }
-  function addLHSlabel () {
-    d3.select('#LHS').selectAll('path').each(function (d) { addLabel(d3.select(this)) })
-
-    function addLabel (path) {
-      const offset = getOffset()
-      const formattedLabel = getLabelFormatted(path.attr('name'), Math.abs(offset[0]))
-      const label = d3.select('#L')
-        .append('text')
-        .style('alignment-baseline', 'middle')
-        .style('text-anchor', 'middle')
-
-      if (!(isNaN(offset.x) || isNaN(offset.y))) {
-        label.attr('transform', 'translate(' + (offset[0] / 2) + ',' + (offset[1] - (7.5 * formattedLabel.length)) + ')')
-      }
-
-      formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', 15))
-
-      function getOffset () {
-        const center = d3.arc().innerRadius(stretchedChord._width / 2).outerRadius(stretchedChord._width / 2).centroid(path.datum())
-
-        return [center[0] * 0.85 - stretchedChord._width / 2, center[1] * 0.95]
-      }
-    }
+  function addLHSlabels () {
+    addLabels('L')
   }
+
   function addRHSlabels () {
-    d3.select('#RHS').selectAll('path').each(function (d) { addLabel(d3.select(this)) })
+    addLabels('R')
+  }
+
+  function addLabels (side) {
+    const nodeTag = '#' + side + 'HS'
+    const labelTag = '#' + side
+    d3.select(nodeTag).selectAll('path').each(function (d) { addLabel(d3.select(this)) })
 
     function addLabel (path) {
       const offset = getOffset()
-      const formattedLabel = getLabelFormatted(path.attr('name'), Math.abs(offset[0]))
-      const label = d3.select('#R')
+      const formattedLabel = getLabelFormatted(path.attr('name'), stretchedChord._labelMargin * 0.9 + (outerRadius - Math.abs(offset[0])) / 3)
+      const label = d3.select(labelTag)
         .append('text')
-        .attr('transform', 'translate(' + (offset[0] / 2) + ',' + (offset[1] - (7.5 * formattedLabel.length)) + ')')
-        .style('alignment-baseline', 'middle')
-        .style('text-anchor', 'middle')
+        .style('alignment-baseline', 'left')
+        .style('text-anchor', 'left')
+
+      if (!(isNaN(offset[0]) || isNaN(offset[1]))) {
+        label.attr('transform', 'translate(' + offset[0] * stretchedChord._labelOffsetFactor + ',' + (offset[1] - (7.5 * formattedLabel.length)) + ')')
+      }
 
       formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', 15))
 
       function getOffset () {
-        const center = d3.arc().innerRadius(stretchedChord._width / 2).outerRadius(stretchedChord._width / 2).centroid(path.datum())
+        const center = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius).centroid(path.datum())
 
-        return [center[0] * 0.85 - stretchedChord._width / 2, center[1] * 0.95]
+        return [center[0], center[1]] // - stretchedChord._arcCentreSeparation / 2 - stretchedChord._width / 2
       }
     }
   }
 }
 
 export function createGradients (stretchedChord) {
+  const config = {
+    flowPeriod: stretchedChord._flowPeriod,
+    flowOpacity: stretchedChord._flowOpacity
+  }
   stretchedChord._links.forEach(function (d) {
-    const col = d.criticality.slice(1); const dir = d.source.id === stretchedChord._LHSnodes[0].id ? 'r' : 'l'
-    if (!d3.select('#' + dir + col).node()) (dir === 'l' ? leftGradient : rightGradient)(d, d3.select('#defs').append('linearGradient').attr('id', dir + col))
+    const colour = d.criticality.slice(1)
+    const direction = d.sourceNode.isOnLHS ? 'r' : 'l'
+    if (!d3.select('#' + direction + colour).node()) {
+      (direction === 'l' ? leftGradient : rightGradient)(
+        d,
+        d3.select('#defs').append('linearGradient').attr('id', direction + colour),
+        config)
+    }
   })
 }
 
@@ -151,38 +144,42 @@ export function addInteractivity (functions, stretchedChord) {
     .on('click', linkClick(functions.performAction))
 }
 
-function rightGradient (link, grad) {
-  grad.append('stop').attr('offset', '-50%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '-.5;0').attr('dur', '5s').attr('repeatCount', 'indefinite')
+function rightGradient (link, grad, config) {
+  const flowPeriod = config.flowPeriod
+  const flowOpacity = config.flowOpacity
+  grad.append('stop').attr('offset', '-50%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '-.5;0').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '-25%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '-.25;.25').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '0%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '0;.5').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '-.25;.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '0%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '0;.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '25%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '0.25;.75').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '50%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '.5;1').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '0.25;.75').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '50%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '.5;1').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '75%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '.75;1.25').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '100%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '1;1.5').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '.75;1.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '100%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '1;1.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
 }
 
-function leftGradient (link, grad) {
-  grad.append('stop').attr('offset', '0%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '0;-.5').attr('dur', '5s').attr('repeatCount', 'indefinite')
+function leftGradient (link, grad, config) {
+  const flowPeriod = config.flowPeriod
+  const flowOpacity = config.flowOpacity
+  grad.append('stop').attr('offset', '0%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '0;-.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '25%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '.25;-.25').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '50%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '.5;0').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '.25;-.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '50%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '.5;0').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '75%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '.75;.25').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '100%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '1;.5').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '.75;.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '100%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '1;.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
   grad.append('stop').attr('offset', '125%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
-    .append('animate').attr('attributeName', 'offset').attr('values', '1.25;.75').attr('dur', '5s').attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '150%').attr('stop-color', link.criticality).attr('stop-opacity', '0.7')
-    .append('animate').attr('attributeName', 'offset').attr('values', '1.5;1').attr('dur', '5s').attr('repeatCount', 'indefinite')
+    .append('animate').attr('attributeName', 'offset').attr('values', '1.25;.75').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
+  grad.append('stop').attr('offset', '150%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+    .append('animate').attr('attributeName', 'offset').attr('values', '1.5;1').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
 }
 
 function getLabelFormatted (label, lineLength) {
