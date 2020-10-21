@@ -14,11 +14,12 @@ export function drawDiagram (stretchedChord) {
 
   const innerRadius = stretchedChord._innerRadius
   const outerRadius = stretchedChord._outerRadius
+  const centreOffset = stretchedChord._arcCentreSeparation / 2
 
   drawLinks()
   drawLHSnode()
   drawRHSnodes()
-  addLHSlabel()
+  addLHSlabels()
   addRHSlabels()
 
   function drawLinks () {
@@ -68,10 +69,12 @@ export function drawDiagram (stretchedChord) {
       .style('cursor', 'pointer')
   }
   function link (link) {
-    const srcStart = [innerRadius * Math.sin(link.source.startAngle), -innerRadius * Math.cos(link.source.startAngle)]
-    const srcEnd = [innerRadius * Math.sin(link.source.endAngle), -innerRadius * Math.cos(link.source.endAngle)]
-    const tgtEnd = [innerRadius * Math.sin(link.target.endAngle), -innerRadius * Math.cos(link.target.endAngle)]
-    const tgtStart = [innerRadius * Math.sin(link.target.startAngle), -innerRadius * Math.cos(link.target.startAngle)]
+    const adjustedOffset = link.sourceNode.isOnLHS ? centreOffset : -centreOffset
+    
+    const srcStart = [innerRadius * Math.sin(link.source.startAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.startAngle)]
+    const srcEnd = [innerRadius * Math.sin(link.source.endAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.endAngle)]
+    const tgtEnd = [innerRadius * Math.sin(link.target.endAngle) + adjustedOffset, -innerRadius * Math.cos(link.target.endAngle)]
+    const tgtStart = [innerRadius * Math.sin(link.target.startAngle) + adjustedOffset, -innerRadius * Math.cos(link.target.startAngle)]
 
     return 'M' + srcStart.join(' ')                                          // Start at link starting angle on source node
     + 'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + srcEnd.join(' ')   // draw arc following inside of source node to link end angle 
@@ -79,48 +82,37 @@ export function drawDiagram (stretchedChord) {
     + 'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + tgtStart.join(' ') // draw arc following inside of target node to link start angle
     + 'Q 0 ' + (srcStart[1] + tgtStart[1]) / 4 + ' ' + srcStart.join(' ')    // draw quadratic Bezier curve to start angle of link on source node
   }
-  function addLHSlabel () {
-    d3.select('#LHS').selectAll('path').each(function (d) { addLabel(d3.select(this)) })
-
-    function addLabel (path) {
-      const offset = getOffset()
-      const formattedLabel = getLabelFormatted(path.attr('name'), Math.abs(offset[0]))
-      const label = d3.select('#L')
-        .append('text')
-        .style('alignment-baseline', 'middle')
-        .style('text-anchor', 'middle')
-
-      if (!(isNaN(offset.x) || isNaN(offset.y))) {
-        label.attr('transform', 'translate(' + (offset[0] / 2) + ',' + (offset[1] - (7.5 * formattedLabel.length)) + ')')
-      }
-
-      formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', 15))
-
-      function getOffset () {
-        const center = d3.arc().innerRadius(stretchedChord._width / 2).outerRadius(stretchedChord._width / 2).centroid(path.datum())
-
-        return [center[0] * 0.85 - stretchedChord._width / 2, center[1] * 0.95]
-      }
-    }
+  function addLHSlabels () {
+    addLabels('L')
   }
+  
   function addRHSlabels () {
-    d3.select('#RHS').selectAll('path').each(function (d) { addLabel(d3.select(this)) })
+    addLabels('R')
+  }
+  
+  function addLabels (side) {
+    const nodeTag = '#' + side + 'HS'
+    const labelTag = '#' + side
+    d3.select(nodeTag).selectAll('path').each(function (d) { addLabel(d3.select(this)) })
 
     function addLabel (path) {
       const offset = getOffset()
-      const formattedLabel = getLabelFormatted(path.attr('name'), Math.abs(offset[0]))
-      const label = d3.select('#R')
+      const formattedLabel = getLabelFormatted(path.attr('name'), stretchedChord._labelMargin * 0.9 + (outerRadius - Math.abs(offset[0]))/3)
+      const label = d3.select(labelTag)
         .append('text')
-        .attr('transform', 'translate(' + (offset[0] / 2) + ',' + (offset[1] - (7.5 * formattedLabel.length)) + ')')
-        .style('alignment-baseline', 'middle')
-        .style('text-anchor', 'middle')
+        .style('alignment-baseline', 'left')
+        .style('text-anchor', 'left')
+
+      if (!(isNaN(offset[0]) || isNaN(offset[1]))) {
+        label.attr('transform', 'translate(' + offset[0] * stretchedChord._labelOffsetFactor + ',' + (offset[1] - (7.5 * formattedLabel.length)) + ')')
+      }
 
       formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', 15))
 
       function getOffset () {
-        const center = d3.arc().innerRadius(stretchedChord._width / 2).outerRadius(stretchedChord._width / 2).centroid(path.datum())
+        const center = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius).centroid(path.datum())
 
-        return [center[0] * 0.85 - stretchedChord._width / 2, center[1] * 0.95]
+        return [center[0]  , center[1]] //- stretchedChord._arcCentreSeparation / 2 - stretchedChord._width / 2
       }
     }
   }

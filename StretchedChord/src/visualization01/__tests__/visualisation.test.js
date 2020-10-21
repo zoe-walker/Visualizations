@@ -257,7 +257,11 @@ const config = {
 		"nodeBorderColour": "#002090",
 		"flowOpacity": 0.5,
 		"flowPeriod": "1s",
-		"arcThickness": 20
+		"arcThickness": 20,
+		"arcCentreSeparation": 30,
+		"labelMargin": 100,
+		"headerHeight": 10,
+		"footerHeight": 10
 		}
 }
 

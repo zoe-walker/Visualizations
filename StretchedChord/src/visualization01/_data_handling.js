@@ -11,8 +11,13 @@ export class StretchedChord {
     StretchedChord._width = parseFloat(config.width)
     StretchedChord._height = parseFloat(config.height)
     StretchedChord._arcThickness = config.style.arcThickness
-    StretchedChord._outerRadius = StretchedChord._width / 2
+    StretchedChord._arcCentreSeparation = config.style.arcCentreSeparation
+    StretchedChord._labelMargin = config.style.labelMargin
+    StretchedChord._labelOffsetFactor = 0.6
+    StretchedChord._outerRadius = (StretchedChord._width - StretchedChord._arcCentreSeparation - 2 * StretchedChord._labelMargin) / 2
     StretchedChord._innerRadius = StretchedChord._outerRadius - StretchedChord._arcThickness
+    StretchedChord._arcHeight = StretchedChord._height - config.style.headerHeight - config.style.footerHeight
+    StretchedChord._arcStartAngle = Math.acos(Math.min((StretchedChord._arcHeight / 2) / StretchedChord._outerRadius, 1.0))
     StretchedChord._flowPeriod = config.style.flowPeriod
     StretchedChord._flowOpacity = config.style.flowOpacity
 
@@ -51,10 +56,16 @@ export class StretchedChord {
       }
 
       // Copy RHS nodes from configuration data
-      StretchedChord._RHSnodes = config.data.RHSnodes.map(d => (d))
+      StretchedChord._RHSnodes = config.data.RHSnodes.map(d => ({
+          ...d,
+          isOnLHS: false
+        }))
 
       // Copy LHS nodes from configuration data
-      StretchedChord._LHSnodes = config.data.LHSnodes.map(d => (d))
+      StretchedChord._LHSnodes = config.data.LHSnodes.map(d => ({
+          ...d,
+          isOnLHS: true
+      }))
 
       //potential sort to make RHS nodes nicer
       //.sort((a, b) => a.id.localeCompare(b.id))
@@ -105,12 +116,12 @@ export class StretchedChord {
       // Calculate node bandwidths as sum of 
       StretchedChord._links.forEach(function (l) {
         _totalLinkBandwidth += l.bw
-        var _sourceNode = findNode(l.source.id)
-        var _targetNode = findNode(l.target.id)
-        _sourceNode.bw += l.bw
-        _sourceNode.bwOut += l.bw
-        _targetNode.bw += l.bw
-        _targetNode.bwOut += l.bw
+        l.sourceNode = findNode(l.source.id)
+        l.targetNode = findNode(l.target.id)
+        l.sourceNode.bw += l.bw
+        l.sourceNode.bwOut += l.bw
+        l.targetNode.bw += l.bw
+        l.targetNode.bwOut += l.bw
       })
 
       // potential sorting methods/options
@@ -141,8 +152,8 @@ export class StretchedChord {
 
       StretchedChord._LHSnodes.forEach(function (d, i, a) {
         // calculate node position
-        d.startAngle = i === 0 ? -Math.acos(StretchedChord._height / StretchedChord._width) : (a[i - 1].endAngle + g)
-        d.endAngle = d.startAngle - ((Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width) - (g * (a.length - 1))) * (d.bw / _totalLinkBandwidth))
+        d.startAngle = i === 0 ? -StretchedChord._arcStartAngle : (a[i - 1].endAngle + g)
+        d.endAngle = d.startAngle - ((Math.PI - 2 * StretchedChord._arcStartAngle - (g * (a.length - 1))) * (d.bw / _totalLinkBandwidth))
 
         d.criticality = config.style.nodeColour
         d.stroke = config.style.nodeBorderColour
@@ -150,8 +161,8 @@ export class StretchedChord {
 
       StretchedChord._RHSnodes.forEach(function (d, i, a) {
         // calculate node position
-        d.startAngle = i === 0 ? Math.acos(StretchedChord._height / StretchedChord._width) : (a[i - 1].endAngle + g)
-        d.endAngle = d.startAngle + ((Math.PI - 2 * Math.acos(StretchedChord._height / StretchedChord._width) - (g * (a.length - 1))) * ((d.bw / _totalLinkBandwidth)))
+        d.startAngle = i === 0 ? StretchedChord._arcStartAngle : (a[i - 1].endAngle + g)
+        d.endAngle = d.startAngle + ((Math.PI - 2 * StretchedChord._arcStartAngle - (g * (a.length - 1))) * ((d.bw / _totalLinkBandwidth)))
 
         d.criticality = config.style.nodeColour
         d.stroke = config.style.nodeBorderColour
