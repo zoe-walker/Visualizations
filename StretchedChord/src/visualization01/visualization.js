@@ -26,11 +26,11 @@ export function createStretchedChord (config) {
       { parent: 'svg', id: 'all', transform: 'translate(0,0)' },
       { parent: '#all', id: 'links', transform: 'translate(' + (chord._width / 2) + ',' + (chord._height / 2) + ')' },
       { parent: '#all', id: 'nodes' },
-      { parent: '#nodes', id: 'LHS', transform: 'translate(' + ((chord._width - chord._arcCentreSeparation) / 2) + ',' + (chord._height / 2) + ')'  },
-      { parent: '#nodes', id: 'RHS', transform: 'translate(' + ((chord._width + chord._arcCentreSeparation) / 2) + ',' + (chord._height / 2) + ')'   },
+      { parent: '#nodes', id: 'LHS', transform: 'translate(' + ((chord._width - chord._arcCentreSeparation) / 2) + ',' + (chord._height / 2) + ')' },
+      { parent: '#nodes', id: 'RHS', transform: 'translate(' + ((chord._width + chord._arcCentreSeparation) / 2) + ',' + (chord._height / 2) + ')' },
       { parent: '#all', id: 'labels', transform: 'translate(' + (chord._width / 2) + ',' + (chord._height / 2) + ')' },
-      { parent: '#labels', id: 'L', transform: 'translate(' + (-(chord._arcCentreSeparation / 2 + chord._arcThickness / 2 + chord._labelMargin * 1.0 + chord._outerRadius * (1-chord._labelOffsetFactor))) + ',0)' },
-      { parent: '#labels', id: 'R', transform: 'translate(' + (chord._arcCentreSeparation / 2 + chord._arcThickness / 2 + chord._labelMargin / 10 + chord._outerRadius * (1-chord._labelOffsetFactor)) + ',0)' },
+      { parent: '#labels', id: 'L', transform: 'translate(' + (-(chord._arcCentreSeparation / 2 + chord._arcThickness / 2 + chord._labelMargin * 1.0 + chord._outerRadius * (1 - chord._labelOffsetFactor))) + ',0)' },
+      { parent: '#labels', id: 'R', transform: 'translate(' + (chord._arcCentreSeparation / 2 + chord._arcThickness / 2 + chord._labelMargin / 10 + chord._outerRadius * (1 - chord._labelOffsetFactor)) + ',0)' },
       { parent: 'svg', id: 'defs' }
     )
 

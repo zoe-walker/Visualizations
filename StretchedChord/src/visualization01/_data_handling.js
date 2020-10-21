@@ -1,12 +1,11 @@
 export class StretchedChord {
   constructor (config) {
     if (!config.inputs.LHSnodes) {
-      //config.functions.errorOccurred("The input for the 'Left Hand Side' is required to render properly.")
+      // config.functions.errorOccurred("The input for the 'Left Hand Side' is required to render properly.")
     }
 
     const StretchedChord = this
     const g = 0.005
-    const sum = (accumulator, currentValue) => accumulator + currentValue
 
     StretchedChord._width = parseFloat(config.width)
     StretchedChord._height = parseFloat(config.height)
@@ -22,16 +21,6 @@ export class StretchedChord {
     StretchedChord._flowOpacity = config.style.flowOpacity
 
     this.dataChanged = function dataChanged () {
-
-      function returnIDExists (d) {
-        for (var l = 0; l < StretchedChord._LHSnodes.length; l++) {
-          if (StretchedChord._LHSnodes[l].id === d) {
-            return true
-          }
-        }
-        return false
-      }
-
       function findNode (_NodeID) {
         for (var _n = 0; _n < StretchedChord._LHSnodes.length; _n++) {
           if (StretchedChord._LHSnodes[_n].id === _NodeID) {
@@ -46,29 +35,20 @@ export class StretchedChord {
         return -1
       }
 
-      function findLinkIndex (_LinkID, _Array) {
-        for (var _l = 0; _l < _Array.length; _l++) {
-          if (_LinkID === _Array[_l].id) {
-            return _l
-          }
-        }
-        return -1
-      }
-
       // Copy RHS nodes from configuration data
       StretchedChord._RHSnodes = config.data.RHSnodes.map(d => ({
-          ...d,
-          isOnLHS: false
-        }))
+        ...d,
+        isOnLHS: false
+      }))
 
       // Copy LHS nodes from configuration data
       StretchedChord._LHSnodes = config.data.LHSnodes.map(d => ({
-          ...d,
-          isOnLHS: true
+        ...d,
+        isOnLHS: true
       }))
 
-      //potential sort to make RHS nodes nicer
-      //.sort((a, b) => a.id.localeCompare(b.id))
+      // potential sort to make RHS nodes nicer
+      // .sort((a, b) => a.id.localeCompare(b.id))
 
       // Copy links from configuration data and sort them in RHSnode order
       StretchedChord._links = config.data.links.sort(function (a, b) {
@@ -113,7 +93,7 @@ export class StretchedChord {
         node.lastLinkEndAngle = 0
       })
 
-      // Calculate node bandwidths as sum of 
+      // Calculate node bandwidths as sum of
       StretchedChord._links.forEach(function (l) {
         _totalLinkBandwidth += l.bw
         l.sourceNode = findNode(l.source.id)
