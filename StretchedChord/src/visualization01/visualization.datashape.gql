@@ -8,8 +8,8 @@ type link implements MooDElement{
 	source: endPoint!
 	target: endPoint!
 	id: ID!
-	bw: Number! @UI(name:"bandwidth")
-	criticality: Colour!
+	size: Number! @UI(name:"Size")
+	colour: Colour!
 }
 
 type node implements MooDElement{
