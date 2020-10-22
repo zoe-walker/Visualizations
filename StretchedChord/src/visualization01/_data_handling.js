@@ -30,9 +30,9 @@ export class StretchedChord {
       // Copy RHS nodes from configuration data
       StretchedChord._RHSnodes = config.data.RHSnodes.map(function (node) {
         // setup node details and add it to the node dictionary for use with links
-        node.bw = 0
-        node.bwIn = 0
-        node.bwOut = 0
+        node.size = 0
+        node.sizeIn = 0
+        node.sizeOut = 0
         node.lastLinkEndAngle = 0
         node.lhs = false
         _NodeDict[node.id] = _NodeDict[node.id] === undefined ? node : _NodeDict[node.id]
@@ -45,9 +45,9 @@ export class StretchedChord {
       // Copy LHS nodes from configuration data
       StretchedChord._LHSnodes = config.data.LHSnodes.map(function (node) {
         // setup node details and add it to the node dictionary for use with links
-        node.bw = 0
-        node.bwIn = 0
-        node.bwOut = 0
+        node.size = 0
+        node.sizeIn = 0
+        node.sizeOut = 0
         node.lastLinkEndAngle = 0
         node.lhs = true
         _NodeDict[node.id] = _NodeDict[node.id] === undefined ? node : _NodeDict[node.id]
@@ -72,13 +72,13 @@ export class StretchedChord {
         if (l._sourceNode !== undefined && l._targetNode !== undefined && l._sourceNode.lhs !== l._targetNode.lhs) {
 
           // update total bandwidth
-          _totalLinkBandwidth += l.bw
+          _totalLinkBandwidth += l.size
 
           // add onto node bandwidths
-          l._sourceNode.bw += l.bw
-          l._sourceNode.bwOut += l.bw
-          l._targetNode.bw += l.bw
-          l._targetNode.bwIn += l.bw
+          l._sourceNode.size += l.size
+          l._sourceNode.sizeOut += l.size
+          l._targetNode.size += l.size
+          l._targetNode.sizeIn += l.size
           return l
         }
 
@@ -97,7 +97,7 @@ export class StretchedChord {
         }
 
         // calculate link end position and update the last position on Node
-        _link[_SourceOrTarget].endAngle = _link[_SourceOrTarget].startAngle + ((_Node.endAngle - _Node.startAngle) * (_link.bw / _Node.bw))
+        _link[_SourceOrTarget].endAngle = _link[_SourceOrTarget].startAngle + ((_Node.endAngle - _Node.startAngle) * (_link.size / _Node.size))
         _Node.lastLinkEndAngle = _link[_SourceOrTarget].endAngle
       }
 
@@ -114,7 +114,7 @@ export class StretchedChord {
 
       function calculateNodeSizing (_Node, _vars) {
         // store current node percentage size for easier typing
-        var _nodeBWPercentage = _Node.bw / _totalLinkBandwidth
+        var _nodeBWPercentage = _Node.size / _totalLinkBandwidth
 
         // check if node is left hand side
         if (_Node.lhs) {
@@ -123,13 +123,13 @@ export class StretchedChord {
             _vars.leftTooSmall++
           } else {
             // add node to bandwidth calculations
-            _TotalLeftBandwidth += _Node.bw
+            _TotalLeftBandwidth += _Node.size
           }
         } else {
           if (_nodeBWPercentage * _RHSAngleLeftAfterMinimum < _MinimumSizeRight) {
             _vars.rightTooSmall++
           } else {
-            _TotalRightBandwidth += _Node.bw
+            _TotalRightBandwidth += _Node.size
           }
         }
       }
@@ -189,19 +189,19 @@ export class StretchedChord {
         // check if node is on the left
         if (_Node.lhs) {
           // check if node size is less than minimum
-          if (_Node.bw / _totalLinkBandwidth * _LHSAngleLeftAfterMinimum < _MinimumSizeLeft) {
+          if (_Node.size / _totalLinkBandwidth * _LHSAngleLeftAfterMinimum < _MinimumSizeLeft) {
             // set node size to be minimum
             _nodeSize = _TotalLeftSize * _MinimumSizeLeft
           } else {
             // set node size to be modified based on available size
-            _nodeSize = ((_Node.bw / _TotalLeftBandwidth) * _LHSAngleLeftAfterMinimum) * _TotalLeftSize
+            _nodeSize = ((_Node.size / _TotalLeftBandwidth) * _LHSAngleLeftAfterMinimum) * _TotalLeftSize
           }
         } else {
           // do the same for the right side
-          if (_Node.bw / _totalLinkBandwidth * _RHSAngleLeftAfterMinimum < _MinimumSizeRight) {
+          if (_Node.size / _totalLinkBandwidth * _RHSAngleLeftAfterMinimum < _MinimumSizeRight) {
             _nodeSize = _TotalRightSize * _MinimumSizeRight
           } else {
-            _nodeSize = ((_Node.bw / _TotalRightBandwidth) * _RHSAngleLeftAfterMinimum) * _TotalRightSize
+            _nodeSize = ((_Node.size / _TotalRightBandwidth) * _RHSAngleLeftAfterMinimum) * _TotalRightSize
           }
         }
 
@@ -210,7 +210,7 @@ export class StretchedChord {
         _Node.endAngle = _Node.startAngle + (_offset * _nodeSize)
 
         // apply any colouring to the node
-        _Node.criticality = config.style.nodeColour
+        _Node.colour = config.style.nodeColour
         _Node.stroke = config.style.nodeBorderColour
       }
 

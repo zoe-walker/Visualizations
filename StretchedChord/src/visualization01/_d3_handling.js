@@ -25,7 +25,7 @@ export function drawDiagram (stretchedChord) {
   function drawLinks () {
     d3.select('#links').selectAll().data(stretchedChord._links).enter().append('path')
       .attr('d', d => linkPath(d))
-      .style('fill', d => 'url(#' + (d._sourceNode.lhs ? 'r' : 'l') + d.criticality.slice(1) + ')')
+      .style('fill', d => 'url(#' + (d._sourceNode.lhs ? 'r' : 'l') + d.colour.slice(1) + ')')
       .style('opacity', 0.8)
   }
 
@@ -34,7 +34,7 @@ export function drawDiagram (stretchedChord) {
       .attr('id', d => 'n_' + d.id)
       .attr('name', d => d.name)
       .attr('d', d3.arc().innerRadius(innerRadius).outerRadius(outerRadius))
-      .style('fill', d => d.criticality)
+      .style('fill', d => d.colour)
       .style('stroke', d => d.stroke)
       .style('stroke-width', '2px')
       .style('opacity', 1)
@@ -43,7 +43,7 @@ export function drawDiagram (stretchedChord) {
     //   .attr('id', d => 'n_' + d.id)
     //   .attr('name', d => d.name)
     //   .attr('d', d3.arc().innerRadius(2 * stretchedChord._width / 5).outerRadius(stretchedChord._width / 2).startAngle(Math.PI + Math.acos(stretchedChord._height / stretchedChord._width)).endAngle(2 * Math.PI - Math.acos(stretchedChord._height / stretchedChord._width)))
-    //   .style('fill', d => d.criticality)
+    //   .style('fill', d => d.colour)
     //   .style('stroke', d => d.stroke)
     //   .style('stroke-width', '2px')
     //   .style('opacity', 1)
@@ -54,7 +54,7 @@ export function drawDiagram (stretchedChord) {
       .attr('id', d => 'n_' + d.id)
       .attr('name', d => d.name)
       .attr('d', d3.arc().innerRadius(innerRadius).outerRadius(outerRadius))
-      .style('fill', d => d.criticality)
+      .style('fill', d => d.colour)
       .style('stroke', d => d.stroke)
       .style('stroke-width', '2px')
       .style('opacity', 1)
@@ -118,7 +118,7 @@ export function createGradients (stretchedChord) {
     flowOpacity: stretchedChord._flowOpacity
   }
   stretchedChord._links.forEach(function (d) {
-    const colour = d.criticality.slice(1)
+    const colour = d.colour.slice(1)
     const direction = d._sourceNode.lhs ? 'r' : 'l'
     if (!d3.select('#' + direction + colour).node()) {
       (direction === 'l' ? leftGradient : rightGradient)(
@@ -149,38 +149,38 @@ export function addInteractivity (functions, stretchedChord) {
 function rightGradient (link, grad, config) {
   const flowPeriod = config.flowPeriod
   const flowOpacity = config.flowOpacity
-  grad.append('stop').attr('offset', '-50%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+  grad.append('stop').attr('offset', '-50%').attr('stop-color', link.colour).attr('stop-opacity', flowOpacity)
     .append('animate').attr('attributeName', 'offset').attr('values', '-.5;0').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '-25%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
+  grad.append('stop').attr('offset', '-25%').attr('stop-color', link.colour).attr('stop-opacity', '1')
     .append('animate').attr('attributeName', 'offset').attr('values', '-.25;.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '0%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+  grad.append('stop').attr('offset', '0%').attr('stop-color', link.colour).attr('stop-opacity', flowOpacity)
     .append('animate').attr('attributeName', 'offset').attr('values', '0;.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '25%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
+  grad.append('stop').attr('offset', '25%').attr('stop-color', link.colour).attr('stop-opacity', '1')
     .append('animate').attr('attributeName', 'offset').attr('values', '0.25;.75').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '50%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+  grad.append('stop').attr('offset', '50%').attr('stop-color', link.colour).attr('stop-opacity', flowOpacity)
     .append('animate').attr('attributeName', 'offset').attr('values', '.5;1').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '75%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
+  grad.append('stop').attr('offset', '75%').attr('stop-color', link.colour).attr('stop-opacity', '1')
     .append('animate').attr('attributeName', 'offset').attr('values', '.75;1.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '100%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+  grad.append('stop').attr('offset', '100%').attr('stop-color', link.colour).attr('stop-opacity', flowOpacity)
     .append('animate').attr('attributeName', 'offset').attr('values', '1;1.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
 }
 
 function leftGradient (link, grad, config) {
   const flowPeriod = config.flowPeriod
   const flowOpacity = config.flowOpacity
-  grad.append('stop').attr('offset', '0%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+  grad.append('stop').attr('offset', '0%').attr('stop-color', link.colour).attr('stop-opacity', flowOpacity)
     .append('animate').attr('attributeName', 'offset').attr('values', '0;-.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '25%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
+  grad.append('stop').attr('offset', '25%').attr('stop-color', link.colour).attr('stop-opacity', '1')
     .append('animate').attr('attributeName', 'offset').attr('values', '.25;-.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '50%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+  grad.append('stop').attr('offset', '50%').attr('stop-color', link.colour).attr('stop-opacity', flowOpacity)
     .append('animate').attr('attributeName', 'offset').attr('values', '.5;0').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '75%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
+  grad.append('stop').attr('offset', '75%').attr('stop-color', link.colour).attr('stop-opacity', '1')
     .append('animate').attr('attributeName', 'offset').attr('values', '.75;.25').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '100%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+  grad.append('stop').attr('offset', '100%').attr('stop-color', link.colour).attr('stop-opacity', flowOpacity)
     .append('animate').attr('attributeName', 'offset').attr('values', '1;.5').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '125%').attr('stop-color', link.criticality).attr('stop-opacity', '1')
+  grad.append('stop').attr('offset', '125%').attr('stop-color', link.colour).attr('stop-opacity', '1')
     .append('animate').attr('attributeName', 'offset').attr('values', '1.25;.75').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
-  grad.append('stop').attr('offset', '150%').attr('stop-color', link.criticality).attr('stop-opacity', flowOpacity)
+  grad.append('stop').attr('offset', '150%').attr('stop-color', link.colour).attr('stop-opacity', flowOpacity)
     .append('animate').attr('attributeName', 'offset').attr('values', '1.5;1').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
 }
 
@@ -222,11 +222,11 @@ function linkMouseover (stretchedChord, updateOutput) {
     const center = -(Math.cos(d.source.endAngle) + Math.cos(d.target.endAngle) + Math.cos(d.source.startAngle) + Math.cos(d.target.startAngle)) * 0.07125 * stretchedChord._width
 
     d3.select('#labels').append('rect').attr('transform', 'translate(0,' + center + ')')
-    d3.select('#labels').append('text').text(d.bw)
-      .attr('id', 'bandwidth').attr('transform', 'translate(0,' + center + ')')
+    d3.select('#labels').append('text').text(d.size)
+      .attr('id', 'size').attr('transform', 'translate(0,' + center + ')')
       .style('alignment-baseline', 'middle').style('text-anchor', 'middle')
 
-    const node = d3.select('#bandwidth').node().getBBox()
+    const node = d3.select('#size').node().getBBox()
 
     d3.select('#labels').append('rect').attr('transform', 'translate(0,' + center + ')')
       .style('x', -node.width / 2 - 2).style('y', -node.height / 2 - 2).style('rx', 4)
@@ -240,7 +240,7 @@ function linkMouseover (stretchedChord, updateOutput) {
 }
 
 function linkMouseleave () {
-  d3.select('#bandwidth').remove()
+  d3.select('#size').remove()
   d3.select('#labels').select('rect').remove()
 }
 
