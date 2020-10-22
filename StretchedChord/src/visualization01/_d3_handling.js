@@ -17,10 +17,10 @@ export function drawDiagram (stretchedChord) {
   const centreOffset = stretchedChord._arcCentreSeparation / 2
 
   drawLinks()
-  drawLHSnode()
-  drawRHSnodes()
-  addLHSlabels()
-  addRHSlabels()
+  drawNodes('#LHS', stretchedChord._LHSnodes)
+  drawNodes('#RHS', stretchedChord._RHSnodes)
+  addLabels('L')
+  addLabels('R')
 
   function drawLinks () {
     d3.select('#links').selectAll().data(stretchedChord._links).enter().append('path')
@@ -29,28 +29,8 @@ export function drawDiagram (stretchedChord) {
       .style('opacity', 0.8)
   }
 
-  function drawLHSnode () {
-    d3.select('#LHS').selectAll().data(stretchedChord._LHSnodes).enter().append('path')
-      .attr('id', d => 'n_' + d.id)
-      .attr('name', d => d.name)
-      .attr('d', d3.arc().innerRadius(innerRadius).outerRadius(outerRadius))
-      .style('fill', d => d.colour)
-      .style('stroke', d => d.stroke)
-      .style('stroke-width', '2px')
-      .style('opacity', 1)
-      .style('cursor', 'pointer')
-    // .enter().append('path')
-    //   .attr('id', d => 'n_' + d.id)
-    //   .attr('name', d => d.name)
-    //   .attr('d', d3.arc().innerRadius(2 * stretchedChord._width / 5).outerRadius(stretchedChord._width / 2).startAngle(Math.PI + Math.acos(stretchedChord._height / stretchedChord._width)).endAngle(2 * Math.PI - Math.acos(stretchedChord._height / stretchedChord._width)))
-    //   .style('fill', d => d.colour)
-    //   .style('stroke', d => d.stroke)
-    //   .style('stroke-width', '2px')
-    //   .style('opacity', 1)
-    //   .style('cursor', 'pointer')
-  }
-  function drawRHSnodes () {
-    d3.select('#RHS').selectAll().data(stretchedChord._RHSnodes).enter().append('path')
+  function drawNodes (_d3Search, _Data) {
+    d3.select(_d3Search).selectAll().data(_Data).enter().append('path')
       .attr('id', d => 'n_' + d.id)
       .attr('name', d => d.name)
       .attr('d', d3.arc().innerRadius(innerRadius).outerRadius(outerRadius))
@@ -60,6 +40,7 @@ export function drawDiagram (stretchedChord) {
       .style('opacity', 1)
       .style('cursor', 'pointer')
   }
+
   function linkPath (link) {
     const adjustedOffset = link._sourceNode.lhs ? centreOffset : -centreOffset
 
@@ -73,13 +54,6 @@ export function drawDiagram (stretchedChord) {
     'Q 0 ' + (srcEnd[1] + tgtEnd[1]) / 4 + ' ' + tgtEnd.join(' ') + // draw quadratic Bezier curve to end angle of link on target node
     'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + tgtStart.join(' ') + // draw arc following inside of target node to link start angle
     'Q 0 ' + (srcStart[1] + tgtStart[1]) / 4 + ' ' + srcStart.join(' ') // draw quadratic Bezier curve to start angle of link on source node
-  }
-  function addLHSlabels () {
-    addLabels('L')
-  }
-
-  function addRHSlabels () {
-    addLabels('R')
   }
 
   function addLabels (side) {
@@ -106,7 +80,7 @@ export function drawDiagram (stretchedChord) {
       function getOffset () {
         const center = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius).centroid(path.datum())
 
-        return [center[0], center[1]] // - stretchedChord._arcCentreSeparation / 2 - stretchedChord._width / 2
+        return [center[0], center[1]]
       }
     }
   }
