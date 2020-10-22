@@ -94,12 +94,14 @@ export function drawDiagram (stretchedChord) {
         .append('text')
         .style('alignment-baseline', 'left')
         .style('text-anchor', 'left')
+        .style('font-family', stretchedChord._labelFontFamily)
+        .style('font-size', stretchedChord._labelFontSize)
 
       if (!(isNaN(offset[0]) || isNaN(offset[1]))) {
-        label.attr('transform', 'translate(' + offset[0] * stretchedChord._labelOffsetFactor + ',' + (offset[1] - (7.5 * formattedLabel.length)) + ')')
+        label.attr('transform', 'translate(' + offset[0] * stretchedChord._labelOffsetFactor + ',' + (offset[1] - (stretchedChord._labelFontSize / 2 * formattedLabel.length)) + ')')
       }
 
-      formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', 15))
+      formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', stretchedChord._labelFontSize))
 
       function getOffset () {
         const center = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius).centroid(path.datum())
