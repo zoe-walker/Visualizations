@@ -11,6 +11,8 @@ export class StretchedChord {
     StretchedChord._arcThickness = config.style.arcThickness
     StretchedChord._arcCentreSeparation = config.style.arcCentreSeparation
     StretchedChord._labelMargin = config.style.labelMargin
+    StretchedChord._labelFontSize = config.style.labelFontSize
+    StretchedChord._labelFontFamily = config.style.labelFontFamily
     StretchedChord._labelOffsetFactor = 0.6
     StretchedChord._outerRadius = (StretchedChord._width - StretchedChord._arcCentreSeparation - 2 * StretchedChord._labelMargin) / 2
     StretchedChord._innerRadius = StretchedChord._outerRadius - StretchedChord._arcThickness

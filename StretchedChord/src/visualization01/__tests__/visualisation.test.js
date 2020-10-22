@@ -251,15 +251,19 @@ const config = {
   inputs: [
   ],
   style: {
-    nodeColour: '#0080F0',
-    nodeBorderColour: '#002090',
+    nodeColour: "#0080F0",
+    nodeBorderColour: "#002090",
+    nodeSeparation: 0.03,
+    minimumNodeSizePercentage: 5,
     flowOpacity: 0.5,
-    flowPeriod: '1s',
+    flowPeriod: "5s",
     arcThickness: 20,
-    arcCentreSeparation: 30,
-    labelMargin: 100,
-    headerHeight: 10,
-    footerHeight: 10
+    arcCentreSeparation: 100,
+    labelMargin: 140,
+    labelFontSize: 15,
+    labelFontFamily: "sans-serif",
+    headerHeight: 20,
+    footerHeight: 20
   }
 }
 
