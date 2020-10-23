@@ -14,13 +14,41 @@ export class StretchedChord {
     StretchedChord._labelFontSize = config.style.labelFontSize
     StretchedChord._labelFontFamily = config.style.labelFontFamily
     StretchedChord._labelOffsetFactor = 0.6
-    StretchedChord._outerRadius = (StretchedChord._width - StretchedChord._arcCentreSeparation - 2 * StretchedChord._labelMargin) / 2
+    
+    const arcHeight = StretchedChord._height - config.style.headerHeight - config.style.footerHeight
+    const arcWidth = StretchedChord._width - StretchedChord._arcCentreSeparation - 2 * StretchedChord._labelMargin
+    const maxDimension = Math.max(arcHeight, arcWidth)
+    const minDimension = Math.min(arcHeight, arcWidth)
+    //
+    // Constrain arc angle by viewing area aspect ratio
+    // Only a square view will display a full sem-circle
+    //
+    StretchedChord._arcStartAngle = 2 * Math.atan(maxDimension / minDimension) - Math.PI / 2
+    //
+    // Calculate the radius of the arc to fit the size of the view area
+    //
+    StretchedChord._outerRadius = minDimension / 2
+      / (1 - Math.cos(Math.PI / 2 - StretchedChord._arcStartAngle)) *
+      arcHeight / maxDimension
+    //
+    // Calculate the horizontal offset of the LHS arc centre from centre of view area
+    // The RHS arc centre offset is -1 * this
+    //
+    const arcCentreOffset = StretchedChord._labelMargin + StretchedChord._outerRadius - StretchedChord._width / 2
+    StretchedChord.arcCentreOffset = () => arcCentreOffset
+
     StretchedChord._innerRadius = StretchedChord._outerRadius - StretchedChord._arcThickness
     StretchedChord._nodeSeparation = config.style.nodeSeparation
-    StretchedChord._arcHeight = StretchedChord._height - config.style.headerHeight - config.style.footerHeight
-    StretchedChord._arcStartAngle = Math.acos(Math.min((StretchedChord._arcHeight / 2) / StretchedChord._outerRadius, 1.0))
     StretchedChord._flowPeriod = config.style.flowPeriod
     StretchedChord._flowOpacity = config.style.flowOpacity
+    //
+    // Calculate offsets from centre of view area to left boundary of label areas
+    // The LHS boundary would need to change to right boundary if right aligning LHS labels
+    //
+    const lhsLabelOffset = arcCentreOffset - StretchedChord._arcThickness / 2 - StretchedChord._labelMargin * 0.9 - StretchedChord._outerRadius * (1 - StretchedChord._labelOffsetFactor)
+    StretchedChord.lhsLabelOffset = () => lhsLabelOffset 
+    const rhsLabelOffset = -arcCentreOffset + StretchedChord._arcThickness / 2 + StretchedChord._outerRadius * (1 - StretchedChord._labelOffsetFactor)
+    StretchedChord.rhsLabelOffset = () => rhsLabelOffset 
 
     this.dataChanged = function dataChanged () {
 

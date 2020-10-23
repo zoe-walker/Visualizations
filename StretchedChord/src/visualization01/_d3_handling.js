@@ -14,7 +14,7 @@ export function drawDiagram (stretchedChord) {
 
   const innerRadius = stretchedChord._innerRadius
   const outerRadius = stretchedChord._outerRadius
-  const centreOffset = stretchedChord._arcCentreSeparation / 2
+  const centreOffset = stretchedChord.arcCentreOffset()
 
   drawLinks()
   drawLHSnode()
@@ -61,7 +61,7 @@ export function drawDiagram (stretchedChord) {
       .style('cursor', 'pointer')
   }
   function linkPath (link) {
-    const adjustedOffset = link._sourceNode.lhs ? centreOffset : -centreOffset
+    const adjustedOffset = link._sourceNode.lhs ? -centreOffset : centreOffset
 
     const srcStart = [innerRadius * Math.sin(link.source.startAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.startAngle)]
     const srcEnd = [innerRadius * Math.sin(link.source.endAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.endAngle)]
