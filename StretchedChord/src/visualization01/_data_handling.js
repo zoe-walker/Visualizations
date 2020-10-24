@@ -1,9 +1,5 @@
 export class StretchedChord {
   constructor (config) {
-    if (!config.inputs.LHSnodes) {
-      // config.functions.errorOccurred("The input for the 'Left Hand Side' is required to render properly.")
-    }
-
     const StretchedChord = this
 
     StretchedChord._width = parseFloat(config.width)
@@ -67,9 +63,6 @@ export class StretchedChord {
         return node
       })
 
-      // potential sort to make RHS nodes nicer
-      // .sort((a, b) => a.id.localeCompare(b.id))
-
       // Copy LHS nodes from configuration data
       StretchedChord._LHSnodes = config.data.LHSnodes.map(function (node) {
         // setup node details and add it to the node dictionary for use with links
@@ -91,7 +84,6 @@ export class StretchedChord {
         var _BID = _NodeDict[b.target.id] === undefined ? undefined : _NodeDict[b.target.id].lhs === false ? b.target.id : b.source.id
         return (_AID === undefined || _BID === undefined) ? 0 : _AID.localeCompare(_BID)
       }).map(function (l) {
-
         // lookup source and target nodes
         l._sourceNode = _NodeDict[l.source.id]
         l._targetNode = _NodeDict[l.target.id]
@@ -174,7 +166,7 @@ export class StretchedChord {
 
         do {
           // dynamically resize minimum size by 1% until it either
-          // fails because it's too small or succeeds
+          // fails because it's smaller than 0.1% or succeeds
           if (_vars.leftTooSmall * _MinimumSizeLeft > 1) {
             do {
               _MinimumSizeLeft *= 0.99
