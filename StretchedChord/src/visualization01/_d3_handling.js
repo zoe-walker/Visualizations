@@ -67,15 +67,20 @@ export function drawDiagram (stretchedChord) {
       const label = d3.select(labelTag)
         .append('text')
         .style('alignment-baseline', 'left')
-        .style('text-anchor', 'left')
+        .style('text-anchor', side === 'L' ? 'end' : 'start')
         .style('font-family', stretchedChord._labelFontFamily)
         .style('font-size', stretchedChord._labelFontSize)
+
+      var maxCharLength = 0
+      formattedLabel.forEach(f => {
+        if (f.length > maxCharLength) { maxCharLength = f.length }
+      })
 
       if (!(isNaN(offset[0]) || isNaN(offset[1]))) {
         label.attr('transform', 'translate(' + offset[0] * stretchedChord._labelOffsetFactor + ',' + (offset[1] - (stretchedChord._labelFontSize / 2 * formattedLabel.length)) + ')')
       }
 
-      formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', stretchedChord._labelFontSize))
+      formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', (side === 'L' ? maxCharLength * (stretchedChord._labelFontSize / 2) : 0)).attr('dy', stretchedChord._labelFontSize))
 
       function getOffset () {
         const center = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius).centroid(path.datum())
