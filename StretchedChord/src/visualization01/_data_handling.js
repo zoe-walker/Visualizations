@@ -10,7 +10,7 @@ export class StretchedChord {
     StretchedChord._labelFontSize = config.style.labelFontSize
     StretchedChord._labelFontFamily = config.style.labelFontFamily
     StretchedChord._labelOffsetFactor = 0.6
-    
+
     const arcHeight = StretchedChord._height - config.style.headerHeight - config.style.footerHeight
     const arcWidth = StretchedChord._width - StretchedChord._arcCentreSeparation - 2 * StretchedChord._labelMargin
     const maxDimension = Math.max(arcHeight, arcWidth)
@@ -23,8 +23,8 @@ export class StretchedChord {
     //
     // Calculate the radius of the arc to fit the size of the view area
     //
-    StretchedChord._outerRadius = minDimension / 2
-      / (1 - Math.cos(Math.PI / 2 - StretchedChord._arcStartAngle)) *
+    StretchedChord._outerRadius = minDimension / 2 /
+      (1 - Math.cos(Math.PI / 2 - StretchedChord._arcStartAngle)) *
       arcHeight / maxDimension
     //
     // Calculate the horizontal offset of the LHS arc centre from centre of view area
@@ -34,7 +34,7 @@ export class StretchedChord {
     StretchedChord.arcCentreOffset = () => arcCentreOffset
 
     StretchedChord._innerRadius = StretchedChord._outerRadius - StretchedChord._arcThickness
-    
+
     const nodeSeparationAngle = config.style.nodeSeparation / StretchedChord._innerRadius
     StretchedChord.nodeSeparationAngle = () => nodeSeparationAngle
 
@@ -45,12 +45,11 @@ export class StretchedChord {
     // The LHS boundary would need to change to right boundary if right aligning LHS labels
     //
     const lhsLabelOffset = arcCentreOffset - StretchedChord._arcThickness / 2 - StretchedChord._labelMargin * 0.9 - StretchedChord._outerRadius * (1 - StretchedChord._labelOffsetFactor)
-    StretchedChord.lhsLabelOffset = () => lhsLabelOffset 
+    StretchedChord.lhsLabelOffset = () => lhsLabelOffset
     const rhsLabelOffset = -arcCentreOffset + StretchedChord._arcThickness / 2 + StretchedChord._outerRadius * (1 - StretchedChord._labelOffsetFactor)
-    StretchedChord.rhsLabelOffset = () => rhsLabelOffset 
+    StretchedChord.rhsLabelOffset = () => rhsLabelOffset
 
     this.dataChanged = function dataChanged () {
-
       // store nodes in a dictionary for fast lookup
       var _NodeDict = {}
 
@@ -93,7 +92,6 @@ export class StretchedChord {
 
         // make sure both nodes aren't left hand side
         if (l._sourceNode !== undefined && l._targetNode !== undefined && l._sourceNode.lhs !== l._targetNode.lhs) {
-
           // update total bandwidth
           _totalLinkBandwidth += l.size
 
@@ -258,7 +256,7 @@ export class StretchedChord {
     }
 
     this.sourceChanged = function sourceChanged (value) {
-        StretchedChord.dataChanged()
+      StretchedChord.dataChanged()
     }
 
     this.initialise = function initialise () {
