@@ -34,7 +34,10 @@ export class StretchedChord {
     StretchedChord.arcCentreOffset = () => arcCentreOffset
 
     StretchedChord._innerRadius = StretchedChord._outerRadius - StretchedChord._arcThickness
-    StretchedChord._nodeSeparation = config.style.nodeSeparation
+    
+    const nodeSeparationAngle = config.style.nodeSeparation / StretchedChord._innerRadius
+    StretchedChord.nodeSeparationAngle = () => nodeSeparationAngle
+
     StretchedChord._flowPeriod = config.style.flowPeriod
     StretchedChord._flowOpacity = config.style.flowOpacity
     //
@@ -122,8 +125,8 @@ export class StretchedChord {
       }
 
       // setup variables for node size calculations
-      var _TotalLeftSize = (Math.PI - 2 * StretchedChord._arcStartAngle - (StretchedChord._nodeSeparation * (StretchedChord._LHSnodes.length - 1)))
-      var _TotalRightSize = (Math.PI - 2 * StretchedChord._arcStartAngle - (StretchedChord._nodeSeparation * (StretchedChord._RHSnodes.length - 1)))
+      var _TotalLeftSize = (Math.PI - 2 * StretchedChord._arcStartAngle - (StretchedChord.nodeSeparationAngle() * (StretchedChord._LHSnodes.length - 1)))
+      var _TotalRightSize = (Math.PI - 2 * StretchedChord._arcStartAngle - (StretchedChord.nodeSeparationAngle() * (StretchedChord._RHSnodes.length - 1)))
       var _MinimumSizeRight = (config.style.minimumNodeSizePercentage / 100)
       var _MinimumSizeLeft = (config.style.minimumNodeSizePercentage / 100)
 
@@ -226,7 +229,7 @@ export class StretchedChord {
         }
 
         // setup start and end angle
-        _Node.startAngle = _Index === 0 ? _offset * StretchedChord._arcStartAngle : (_NodeArray[_Index - 1].endAngle + (_offset * StretchedChord._nodeSeparation))
+        _Node.startAngle = _Index === 0 ? _offset * StretchedChord._arcStartAngle : (_NodeArray[_Index - 1].endAngle + (_offset * StretchedChord.nodeSeparationAngle()))
         _Node.endAngle = _Node.startAngle + (_offset * _nodeSize)
 
         // apply any colouring to the node

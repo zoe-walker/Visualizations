@@ -253,7 +253,7 @@ const config = {
   style: {
     nodeColour: "#0080F0",
     nodeBorderColour: "#002090",
-    nodeSeparation: 0.03,
+    nodeSeparation: 5,
     minimumNodeSizePercentage: 5,
     flowOpacity: 0.5,
     flowPeriod: "5s",
