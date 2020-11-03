@@ -51,7 +51,7 @@ export class StretchedChord {
 
     this.dataChanged = function dataChanged () {
       // store nodes in a dictionary for fast lookup
-      var _NodeDict = {}
+      var nodeDict = {}
 
       // Copy RHS nodes from configuration data
       StretchedChord._RHSnodes = config.data.RHSnodes.map(function (node) {
@@ -61,7 +61,7 @@ export class StretchedChord {
         node.sizeOut = 0
         node.lastLinkEndAngle = 0
         node.lhs = false
-        _NodeDict[node.id] = _NodeDict[node.id] === undefined ? node : _NodeDict[node.id]
+        nodeDict[node.id] = nodeDict[node.id] === undefined ? node : nodeDict[node.id]
         return node
       })
 
@@ -73,29 +73,29 @@ export class StretchedChord {
         node.sizeOut = 0
         node.lastLinkEndAngle = 0
         node.lhs = true
-        _NodeDict[node.id] = _NodeDict[node.id] === undefined ? node : _NodeDict[node.id]
+        nodeDict[node.id] = nodeDict[node.id] === undefined ? node : nodeDict[node.id]
         return node
       })
 
-      var _totalLinkBandwidth = 0
+      var totalLinkSize = 0
 
       // Copy links from configuration data and sort them in RHSnode order
       StretchedChord._links = config.data.links.sort(function (a, b) {
         // arrange links based on node IDs to allow for better connection/less crossing
-        var _AID = _NodeDict[a.target.id] === undefined ? undefined : _NodeDict[a.target.id].lhs === false ? a.target.id : a.source.id
-        var _BID = _NodeDict[b.target.id] === undefined ? undefined : _NodeDict[b.target.id].lhs === false ? b.target.id : b.source.id
-        return (_AID === undefined || _BID === undefined) ? 0 : _AID.localeCompare(_BID)
+        var aID = nodeDict[a.target.id] === undefined ? undefined : nodeDict[a.target.id].lhs === false ? a.target.id : a.source.id
+        var bID = nodeDict[b.target.id] === undefined ? undefined : nodeDict[b.target.id].lhs === false ? b.target.id : b.source.id
+        return (aID === undefined || bID === undefined) ? 0 : aID.localeCompare(bID)
       }).map(function (l) {
         // lookup source and target nodes
-        l._sourceNode = _NodeDict[l.source.id]
-        l._targetNode = _NodeDict[l.target.id]
+        l._sourceNode = nodeDict[l.source.id]
+        l._targetNode = nodeDict[l.target.id]
 
         // make sure both nodes aren't left hand side
         if (l._sourceNode !== undefined && l._targetNode !== undefined && l._sourceNode.lhs !== l._targetNode.lhs) {
-          // update total bandwidth
-          _totalLinkBandwidth += l.size
+          // update total size
+          totalLinkSize += l.size
 
-          // add onto node bandwidths
+          // add onto node size
           l._sourceNode.size += l.size
           l._sourceNode.sizeOut += l.size
           l._targetNode.size += l.size
@@ -107,50 +107,50 @@ export class StretchedChord {
         return null
       }).filter(l => (l != null))
 
-      function calculateLinkAngles (_link, _SourceOrTarget) {
+      function calculateLinkAngles (link, sourceOrTarget) {
         // if first link on node then start at node start
-        var _Node = _SourceOrTarget === 'source' ? _link._sourceNode : _link._targetNode
+        var node = sourceOrTarget === 'source' ? link._sourceNode : link._targetNode
 
-        if (_Node.lastLinkEndAngle === 0) {
-          _link[_SourceOrTarget].startAngle = _Node.startAngle
+        if (node.lastLinkEndAngle === 0) {
+          link[sourceOrTarget].startAngle = node.startAngle
         } else {
-          _link[_SourceOrTarget].startAngle = _Node.lastLinkEndAngle
+          link[sourceOrTarget].startAngle = node.lastLinkEndAngle
         }
 
         // calculate link end position and update the last position on Node
-        _link[_SourceOrTarget].endAngle = _link[_SourceOrTarget].startAngle + ((_Node.endAngle - _Node.startAngle) * (_link.size / _Node.size))
-        _Node.lastLinkEndAngle = _link[_SourceOrTarget].endAngle
+        link[sourceOrTarget].endAngle = link[sourceOrTarget].startAngle + ((node.endAngle - node.startAngle) * (link.size / node.size))
+        node.lastLinkEndAngle = link[sourceOrTarget].endAngle
       }
 
       // setup variables for node size calculations
-      var _TotalLeftSize = (Math.PI - 2 * StretchedChord._arcStartAngle - (StretchedChord.nodeSeparationAngle() * (StretchedChord._LHSnodes.length - 1)))
-      var _TotalRightSize = (Math.PI - 2 * StretchedChord._arcStartAngle - (StretchedChord.nodeSeparationAngle() * (StretchedChord._RHSnodes.length - 1)))
-      var _MinimumSizeRight = (config.style.minimumNodeSizePercentage / 100)
-      var _MinimumSizeLeft = (config.style.minimumNodeSizePercentage / 100)
+      var totalLeftAvailableSize = (Math.PI - 2 * StretchedChord._arcStartAngle - (StretchedChord.nodeSeparationAngle() * (StretchedChord._LHSnodes.length - 1)))
+      var totalRightAvailableSize = (Math.PI - 2 * StretchedChord._arcStartAngle - (StretchedChord.nodeSeparationAngle() * (StretchedChord._RHSnodes.length - 1)))
+      var minimumSizeRight = (config.style.minimumNodeSizePercentage / 100)
+      var minimumSizeLeft = (config.style.minimumNodeSizePercentage / 100)
 
-      var _TotalLeftBandwidth = 0
-      var _TotalRightBandwidth = 0
+      var totalLeftSize = 0
+      var totalRightSize = 0
       var _LHSAngleLeftAfterMinimum = 1
       var _RHSAngleLeftAfterMinimum = 1
 
-      function calculateNodeSizing (_Node, _vars) {
+      function calculateNodeSizing (node, vars) {
         // store current node percentage size for easier typing
-        var _nodeBWPercentage = _Node.size / _totalLinkBandwidth
+        var nodeSizeProportionOfTotal = node.size / totalLinkSize
 
         // check if node is left hand side
-        if (_Node.lhs) {
+        if (node.lhs) {
           // check if node size is less than minimum
-          if (_nodeBWPercentage * _LHSAngleLeftAfterMinimum < _MinimumSizeLeft) {
-            _vars.leftTooSmall++
+          if (nodeSizeProportionOfTotal * _LHSAngleLeftAfterMinimum < minimumSizeLeft) {
+            vars.leftTooSmall++
           } else {
-            // add node to bandwidth calculations
-            _TotalLeftBandwidth += _Node.size
+            // add node to size calculations
+            totalLeftSize += node.size
           }
         } else {
-          if (_nodeBWPercentage * _RHSAngleLeftAfterMinimum < _MinimumSizeRight) {
-            _vars.rightTooSmall++
+          if (nodeSizeProportionOfTotal * _RHSAngleLeftAfterMinimum < minimumSizeRight) {
+            vars.rightTooSmall++
           } else {
-            _TotalRightBandwidth += _Node.size
+            totalRightSize += node.size
           }
         }
       }
@@ -158,7 +158,7 @@ export class StretchedChord {
       // decrease minimum sizes while
       function checkSizeCalculations () {
         // store past variables between loops
-        var _vars = {
+        var vars = {
           oldLeftTooSmall: 0,
           oldRightTooSmall: 0,
           leftTooSmall: 0,
@@ -168,71 +168,71 @@ export class StretchedChord {
         do {
           // dynamically resize minimum size by 1% until it either
           // fails because it's smaller than 0.1% or succeeds
-          if (_vars.leftTooSmall * _MinimumSizeLeft > 1) {
+          if (vars.leftTooSmall * minimumSizeLeft > 1) {
             do {
-              _MinimumSizeLeft *= 0.99
-            } while (_vars.leftTooSmall * _MinimumSizeLeft > 1 && _MinimumSizeLeft > 0.001)
-            _MinimumSizeLeft = _MinimumSizeLeft * _vars.leftTooSmall > 1 ? 0 : _MinimumSizeLeft
+              minimumSizeLeft *= 0.99
+            } while (vars.leftTooSmall * minimumSizeLeft > 1 && minimumSizeLeft > 0.001)
+            minimumSizeLeft = minimumSizeLeft * vars.leftTooSmall > 1 ? 0 : minimumSizeLeft
           }
 
           // do the same for the right side
-          if (_vars.rightTooSmall * _MinimumSizeRight > 1) {
+          if (vars.rightTooSmall * minimumSizeRight > 1) {
             do {
-              _MinimumSizeRight *= 0.99
-            } while (_vars.rightTooSmall * _MinimumSizeRight > 1 && _MinimumSizeRight > 0.001)
-            _MinimumSizeRight = _MinimumSizeRight * _vars.rightTooSmall > 1 ? 0 : _MinimumSizeRight
+              minimumSizeRight *= 0.99
+            } while (vars.rightTooSmall * minimumSizeRight > 1 && minimumSizeRight > 0.001)
+            minimumSizeRight = minimumSizeRight * vars.rightTooSmall > 1 ? 0 : minimumSizeRight
           }
 
           // calculate remaining total size modifier
-          _LHSAngleLeftAfterMinimum = 1 - (_vars.leftTooSmall * _MinimumSizeLeft)
-          _RHSAngleLeftAfterMinimum = 1 - (_vars.rightTooSmall * _MinimumSizeRight)
+          _LHSAngleLeftAfterMinimum = 1 - (vars.leftTooSmall * minimumSizeLeft)
+          _RHSAngleLeftAfterMinimum = 1 - (vars.rightTooSmall * minimumSizeRight)
 
           // update past loop variables
-          _vars.oldLeftTooSmall = _vars.leftTooSmall
-          _vars.oldRightTooSmall = _vars.rightTooSmall
-          _vars.leftTooSmall = 0
-          _vars.rightTooSmall = 0
+          vars.oldLeftTooSmall = vars.leftTooSmall
+          vars.oldRightTooSmall = vars.rightTooSmall
+          vars.leftTooSmall = 0
+          vars.rightTooSmall = 0
 
           // reset variables used during this loop
-          _TotalLeftBandwidth = 0
-          _TotalRightBandwidth = 0;
+          totalLeftSize = 0
+          totalRightSize = 0;
 
           // check minimum sizes are fine with every node
-          [StretchedChord._LHSnodes, StretchedChord._RHSnodes].forEach(arrayArray => (arrayArray.forEach(function (node) { calculateNodeSizing(node, _vars) })))
-        } while (_vars.leftTooSmall !== _vars.oldLeftTooSmall || _vars.rightTooSmall !== _vars.oldRightTooSmall)
+          [StretchedChord._LHSnodes, StretchedChord._RHSnodes].forEach(arrayArray => (arrayArray.forEach(function (node) { calculateNodeSizing(node, vars) })))
+        } while (vars.leftTooSmall !== vars.oldLeftTooSmall || vars.rightTooSmall !== vars.oldRightTooSmall)
       }
 
-      function calculateNodeAngles (_Node, _Index, _NodeArray) {
+      function calculateNodeAngles (node, index, nodeArray) {
         // check if node is on the right or left side
-        var _offset = _Node.lhs === true ? -1 : 1
-        var _nodeSize = 0
+        var offset = node.lhs === true ? -1 : 1
+        var nodeSize = 0
 
         // check if node is on the left
-        if (_Node.lhs) {
+        if (node.lhs) {
           // check if node size is less than minimum
-          if (_Node.size / _totalLinkBandwidth * _LHSAngleLeftAfterMinimum < _MinimumSizeLeft) {
+          if (node.size / totalLinkSize * _LHSAngleLeftAfterMinimum < minimumSizeLeft) {
             // set node size to be minimum
-            _nodeSize = _TotalLeftSize * _MinimumSizeLeft
+            nodeSize = totalLeftAvailableSize * minimumSizeLeft
           } else {
             // set node size to be modified based on available size
-            _nodeSize = ((_Node.size / _TotalLeftBandwidth) * _LHSAngleLeftAfterMinimum) * _TotalLeftSize
+            nodeSize = ((node.size / totalLeftSize) * _LHSAngleLeftAfterMinimum) * totalLeftAvailableSize
           }
         } else {
           // do the same for the right side
-          if (_Node.size / _totalLinkBandwidth * _RHSAngleLeftAfterMinimum < _MinimumSizeRight) {
-            _nodeSize = _TotalRightSize * _MinimumSizeRight
+          if (node.size / totalLinkSize * _RHSAngleLeftAfterMinimum < minimumSizeRight) {
+            nodeSize = totalRightAvailableSize * minimumSizeRight
           } else {
-            _nodeSize = ((_Node.size / _TotalRightBandwidth) * _RHSAngleLeftAfterMinimum) * _TotalRightSize
+            nodeSize = ((node.size / totalRightSize) * _RHSAngleLeftAfterMinimum) * totalRightAvailableSize
           }
         }
 
         // setup start and end angle
-        _Node.startAngle = _Index === 0 ? _offset * StretchedChord._arcStartAngle : (_NodeArray[_Index - 1].endAngle + (_offset * StretchedChord.nodeSeparationAngle()))
-        _Node.endAngle = _Node.startAngle + (_offset * _nodeSize)
+        node.startAngle = index === 0 ? offset * StretchedChord._arcStartAngle : (nodeArray[index - 1].endAngle + (offset * StretchedChord.nodeSeparationAngle()))
+        node.endAngle = node.startAngle + (offset * nodeSize)
 
         // apply any colouring to the node
-        _Node.colour = config.style.nodeColour
-        _Node.stroke = config.style.nodeBorderColour
+        node.colour = config.style.nodeColour
+        node.stroke = config.style.nodeBorderColour
       }
 
       checkSizeCalculations();
@@ -241,10 +241,10 @@ export class StretchedChord {
       // Do one final sort on the links to arrange them so that
       // the chord is linked from top down I.E top left to top right
       StretchedChord._links.sort(function (a, b) {
-        var _aSource = a._sourceNode.lhs === true ? a._sourceNode : a._targetNode
-        var _bSource = b._sourceNode.lhs === true ? b._sourceNode : b._targetNode
-        if (_aSource.startAngle > _bSource.startAngle) { return -1 }
-        if (_aSource.startAngle < _bSource.startAngle) { return 1 }
+        var aSource = a._sourceNode.lhs === true ? a._sourceNode : a._targetNode
+        var bSource = b._sourceNode.lhs === true ? b._sourceNode : b._targetNode
+        if (aSource.startAngle > bSource.startAngle) { return -1 }
+        if (aSource.startAngle < bSource.startAngle) { return 1 }
         return 0
       })
 

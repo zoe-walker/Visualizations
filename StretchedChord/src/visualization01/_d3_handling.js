@@ -29,8 +29,8 @@ export function drawDiagram (stretchedChord) {
       .style('opacity', 0.8)
   }
 
-  function drawNodes (_d3Search, _Data) {
-    d3.select(_d3Search).selectAll().data(_Data).enter().append('path')
+  function drawNodes (d3Search, data) {
+    d3.select(d3Search).selectAll().data(data).enter().append('path')
       .attr('id', d => 'n_' + d.id)
       .attr('name', d => d.name)
       .attr('d', d3.arc().innerRadius(innerRadius).outerRadius(outerRadius))
