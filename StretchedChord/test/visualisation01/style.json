@@ -6,7 +6,7 @@
     "flowOpacity": 0.5,
     "flowPeriod": "5s",
     "arcThickness": 20,
-    "arcCentreSeparation": 50,
+    "arcCentreSeparation": 250,
     "labelMargin": 140,
     "labelFontSize": 15,
     "labelFontFamily": "sans-serif",
