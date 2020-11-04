@@ -260,6 +260,7 @@ const config = {
     arcThickness: 20,
     arcCentreSeparation: 100,
     labelMargin: 140,
+    labelOffset: 10,
     labelFontSize: 15,
     labelFontFamily: "sans-serif",
     headerHeight: 20,

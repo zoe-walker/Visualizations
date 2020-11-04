@@ -7,6 +7,7 @@ export class StretchedChord {
     StretchedChord._arcThickness = config.style.arcThickness
     StretchedChord._arcCentreSeparation = config.style.arcCentreSeparation
     StretchedChord._labelMargin = config.style.labelMargin
+    StretchedChord._labelOffset = config.style.labelOffset
     StretchedChord._labelFontSize = config.style.labelFontSize
     StretchedChord._labelFontFamily = config.style.labelFontFamily
     StretchedChord._labelOffsetFactor = 0.7
@@ -44,9 +45,9 @@ export class StretchedChord {
     // Calculate offsets from centre of view area to left boundary of label areas
     // The LHS boundary would need to change to right boundary if right aligning LHS labels
     //
-    const lhsLabelOffset = arcCentreOffset - StretchedChord._arcThickness / 2 - StretchedChord._labelMargin * 0.9 - StretchedChord._outerRadius * (1 - StretchedChord._labelOffsetFactor)
+    const lhsLabelOffset = arcCentreOffset
     StretchedChord.lhsLabelOffset = () => lhsLabelOffset
-    const rhsLabelOffset = -arcCentreOffset + StretchedChord._arcThickness / 2 + StretchedChord._outerRadius * (1 - StretchedChord._labelOffsetFactor)
+    const rhsLabelOffset = -lhsLabelOffset
     StretchedChord.rhsLabelOffset = () => rhsLabelOffset
 
     this.dataChanged = function dataChanged () {

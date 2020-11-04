@@ -1,6 +1,6 @@
 type data {
-	RHSnodes: [node!]!
 	LHSnodes: [node!]!
+	RHSnodes: [node!]!
 	links: [link!]!
 }
 

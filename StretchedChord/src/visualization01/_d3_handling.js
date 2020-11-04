@@ -59,11 +59,22 @@ export function drawDiagram (stretchedChord) {
   function addLabels (side) {
     const nodeTag = '#' + side + 'HS'
     const labelTag = '#' + side
-    d3.select(nodeTag).selectAll('path').each(function (d) { addLabel(d3.select(this)) })
+    d3.select(nodeTag).selectAll('path').each(function (d) { addLabel(d, d3.select(this)) })
 
-    function addLabel (path) {
+    function addLabel (node, path) {
       const offset = getOffset()
-      const formattedLabel = getLabelFormatted(path.attr('name'), stretchedChord._labelMargin * 0.9 + (outerRadius - Math.abs(offset[0])) / 3)
+      const xTrans = offset[0] +
+       Math.sign(offset[0]) * stretchedChord._labelOffset +
+       stretchedChord._arcThickness / 2 / Math.sin((node.endAngle + node.startAngle) / 2)
+
+      const formattedLabel = getLabelFormatted(
+        node.name,
+        stretchedChord._labelMargin + (outerRadius - Math.abs(xTrans)),
+        stretchedChord._labelFontFamily,
+        stretchedChord._labelFontSize)
+
+      const yTrans = offset[1] - (stretchedChord._labelFontSize * (formattedLabel.length - 0.5))
+
       const label = d3.select(labelTag)
         .append('text')
         .style('alignment-baseline', 'left')
@@ -71,16 +82,11 @@ export function drawDiagram (stretchedChord) {
         .style('font-family', stretchedChord._labelFontFamily)
         .style('font-size', stretchedChord._labelFontSize)
 
-      var maxCharLength = 0
-      formattedLabel.forEach(f => {
-        if (f.length > maxCharLength) { maxCharLength = f.length }
-      })
-
-      if (!(isNaN(offset[0]) || isNaN(offset[1]))) {
-        label.attr('transform', 'translate(' + offset[0] * stretchedChord._labelOffsetFactor + ',' + (offset[1] - (stretchedChord._labelFontSize / 2 * formattedLabel.length)) + ')')
+      if (!(isNaN(xTrans) || isNaN(yTrans))) {
+        label.attr('transform', 'translate(' + xTrans + ',' + yTrans + ')')
       }
 
-      formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', (side === 'L' ? maxCharLength * (stretchedChord._labelFontSize / 2) : 0)).attr('dy', stretchedChord._labelFontSize))
+      formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', stretchedChord._labelFontSize))
 
       function getOffset () {
         const center = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius).centroid(path.datum())
@@ -163,8 +169,10 @@ function leftGradient (link, grad, config) {
     .append('animate').attr('attributeName', 'offset').attr('values', '1.5;1').attr('dur', flowPeriod).attr('repeatCount', 'indefinite')
 }
 
-function getLabelFormatted (label, lineLength) {
+function getLabelFormatted (label, lineLength, labelFontFamily, labelFontSize) {
   d3.select('svg').append('text').attr('id', 'temp')
+    .style('font-family', labelFontFamily)
+    .style('font-size', labelFontSize)
 
   let line = []; const lines = []
   let labels = label
