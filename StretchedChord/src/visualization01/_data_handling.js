@@ -10,7 +10,6 @@ export class StretchedChord {
     StretchedChord._labelOffset = config.style.labelOffset
     StretchedChord._labelFontSize = config.style.labelFontSize
     StretchedChord._labelFontFamily = config.style.labelFontFamily
-    StretchedChord._labelOffsetFactor = 0.7
 
     const arcHeight = StretchedChord._height - config.style.headerHeight - config.style.footerHeight
     const arcWidth = StretchedChord._width - StretchedChord._arcCentreSeparation - 2 * StretchedChord._labelMargin
