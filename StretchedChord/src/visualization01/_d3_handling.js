@@ -24,6 +24,7 @@ export function drawDiagram (stretchedChord) {
 
   function drawLinks () {
     d3.select('#links').selectAll().data(stretchedChord._links).enter().append('path')
+      .attr('id', d => 'l_' + d.id)
       .attr('d', d => linkPath(d))
       .style('fill', d => 'url(#' + (d._sourceNode.lhs ? 'r' : 'l') + d.colour.slice(1) + ')')
       .style('opacity', 0.8)
