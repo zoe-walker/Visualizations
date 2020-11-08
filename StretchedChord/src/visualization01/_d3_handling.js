@@ -12,8 +12,8 @@ export function drawDiagram (stretchedChord) {
   d3.select('#L').selectAll('*').remove()
   d3.select('#R').selectAll('*').remove()
 
-  const innerRadius = stretchedChord._innerRadius
-  const outerRadius = stretchedChord._outerRadius
+  const innerRadius = stretchedChord.innerRadius()
+  const outerRadius = stretchedChord.outerRadius()
   const centreOffset = stretchedChord.arcCentreOffset()
 
   drawLinks()
@@ -45,10 +45,10 @@ export function drawDiagram (stretchedChord) {
   function linkPath (link) {
     const adjustedOffset = link._sourceNode.lhs ? -centreOffset : centreOffset
 
-    const srcStart = [innerRadius * Math.sin(link.source.startAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.startAngle)]
-    const srcEnd = [innerRadius * Math.sin(link.source.endAngle) - adjustedOffset, -innerRadius * Math.cos(link.source.endAngle)]
-    const tgtEnd = [innerRadius * Math.sin(link.target.endAngle) + adjustedOffset, -innerRadius * Math.cos(link.target.endAngle)]
-    const tgtStart = [innerRadius * Math.sin(link.target.startAngle) + adjustedOffset, -innerRadius * Math.cos(link.target.startAngle)]
+    const srcStart = link.source.startPos
+    const srcEnd = link.source.endPos
+    const tgtEnd = link.target.endPos
+    const tgtStart = link.target.startPos
 
     return 'M' + srcStart.join(' ') + // Start at link starting angle on source node
     'A' + innerRadius + ' ' + innerRadius + ' 0 0 0 ' + srcEnd.join(' ') + // draw arc following inside of source node to link end angle
@@ -81,7 +81,7 @@ export function drawDiagram (stretchedChord) {
         .style('alignment-baseline', 'left')
         .style('text-anchor', side === 'L' ? 'end' : 'start')
         .style('font-family', stretchedChord._labelFontFamily)
-        .style('font-size', stretchedChord._labelFontSize)
+        .style('font-size', stretchedChord._labelFontSize + 'px')
 
       if (!(isNaN(xTrans) || isNaN(yTrans))) {
         label.attr('transform', 'translate(' + xTrans + ',' + yTrans + ')')
@@ -173,7 +173,7 @@ function leftGradient (link, grad, config) {
 function getLabelFormatted (label, lineLength, labelFontFamily, labelFontSize) {
   d3.select('svg').append('text').attr('id', 'temp')
     .style('font-family', labelFontFamily)
-    .style('font-size', labelFontSize)
+    .style('font-size', labelFontSize + 'px')
 
   let line = []; const lines = []
   let labels = label
@@ -207,20 +207,51 @@ function getLabelFormatted (label, lineLength, labelFontFamily, labelFontSize) {
 
 function linkMouseover (stretchedChord, updateOutput) {
   return function (d) {
-    const center = -(Math.cos(d.source.endAngle) + Math.cos(d.target.endAngle) + Math.cos(d.source.startAngle) + Math.cos(d.target.startAngle)) * 0.07125 * stretchedChord._width
+    // calculate centre y coordinate of the 2 quadratic bezier curves for the link at horizontal mid-point
+    function yCentre(start, control, end)
+    {
+      // Calculate Bexier curve parameter t for horizontal mid-point in window
+      // Note: source and target points are not necessarily equi-distant from mid-point
+      // So, solve quadratic equation to find t where x coord = 0
+      // at^2 + bt + c = 0
+      const a = start[0] - 2 * control[0] + end[0]
+      const b = 2 * (control[0] - start[0])
+      const c = start[0]
+      const t1 = (-b - Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a)
+      const t2 = (-b + Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a)
+      const t = (t1 >= 0 && t1 <= 1) ? t1 : t2
+      // Return y coordinate at mid-point
+      return (1 - t) ** 2 * start[1] + 2 * t * (1 - t) * control[1] + t ** 2 * end[1]
+    }
+    const topCentre = yCentre(d.source.endPos, [0, (d.source.endPos[1] + d.target.endPos[1]) / 4], d.target.endPos)
+    const bottomCentre = yCentre(d.target.startPos, [0, (d.target.startPos[1] + d.source.startPos[1]) / 4], d.source.startPos)
+    const center = (topCentre + bottomCentre) / 2
 
-    d3.select('#labels').append('rect').attr('transform', 'translate(0,' + center + ')')
     d3.select('#labels').append('text').text(d.size)
-      .attr('id', 'size').attr('transform', 'translate(0,' + center + ')')
+      .attr('id', 'temp').attr('transform', 'translate(0,' + center + ')')
       .style('alignment-baseline', 'middle').style('text-anchor', 'middle')
+      .style('font-family', stretchedChord._labelFontFamily)
+      .style('font-size', stretchedChord._labelFontSize + 'px')
+  
+    const node = d3.select('#temp').node().getBBox()
+    const width = node.width
+    const height = node.height
+    d3.select('#temp').remove()
+    const boxStroke = 1
+    const boxBoundary = boxStroke + 2
 
-    const node = d3.select('#size').node().getBBox()
+    d3.select('#labels').append('text').text(d.size)
+    .attr('id', 'size').attr('transform', 'translate(0, ' + (center + height / 4) + ')')
+    .attr('alignment-baseline', 'middle')
+    .style('text-anchor', 'middle')
+    .style('font-family', stretchedChord._labelFontFamily)
+    .style('font-size', stretchedChord._labelFontSize + 'px')
 
-    d3.select('#labels').append('rect').attr('transform', 'translate(0,' + center + ')')
-      .style('x', -node.width / 2 - 2).style('y', -node.height / 2 - 2).style('rx', 4)
-      .style('width', node.width + 4).style('height', node.height + 4)
+    d3.select('#labels').append('rect').attr('transform', 'translate(0, ' + center  + ')')
+      .attr('x', -(width + boxBoundary) / 2 - 1).attr('y', -(height + 2 * boxBoundary) / 2 - 1).attr('rx', 2 * boxBoundary)
+      .attr('width', width + 2 * boxBoundary).attr('height', height + 2 * boxBoundary)
       .style('fill', '#f2f2f2').style('opacity', 0.9)
-      .style('stroke', '#a2a2a2').style('stroke-width', '1px')
+      .style('stroke', '#a2a2a2').style('stroke-width', boxStroke + 'px')
       .lower()
 
     updateOutput('hoverLink', d.id)

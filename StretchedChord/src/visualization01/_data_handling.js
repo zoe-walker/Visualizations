@@ -23,19 +23,21 @@ export class StretchedChord {
     //
     // Calculate the radius of the arc to fit the size of the view area
     //
-    StretchedChord._outerRadius = minDimension / 2 /
+    const outerRadius = minDimension / 2 /
       (1 - Math.cos(Math.PI / 2 - StretchedChord._arcStartAngle)) *
       arcHeight / maxDimension
-    //
+    StretchedChord.outerRadius = () => outerRadius
+      //
     // Calculate the horizontal offset of the LHS arc centre from centre of view area
     // The RHS arc centre offset is -1 * this
     //
-    const arcCentreOffset = StretchedChord._labelMargin + StretchedChord._outerRadius - StretchedChord._width / 2
+    const arcCentreOffset = StretchedChord._labelMargin + outerRadius - StretchedChord._width / 2
     StretchedChord.arcCentreOffset = () => arcCentreOffset
 
-    StretchedChord._innerRadius = StretchedChord._outerRadius - StretchedChord._arcThickness
+    const innerRadius = outerRadius - StretchedChord._arcThickness
+    StretchedChord.innerRadius = () => innerRadius
 
-    const nodeSeparationAngle = config.style.nodeSeparation / StretchedChord._innerRadius
+    const nodeSeparationAngle = config.style.nodeSeparation / innerRadius
     StretchedChord.nodeSeparationAngle = () => nodeSeparationAngle
 
     StretchedChord._flowPeriod = config.style.flowPeriod
@@ -110,6 +112,7 @@ export class StretchedChord {
       function calculateLinkAngles (link, sourceOrTarget) {
         // if first link on node then start at node start
         var node = sourceOrTarget === 'source' ? link._sourceNode : link._targetNode
+        const adjustedOffset = node.lhs ? -arcCentreOffset : arcCentreOffset
 
         if (node.lastLinkEndAngle === 0) {
           link[sourceOrTarget].startAngle = node.startAngle
@@ -120,6 +123,10 @@ export class StretchedChord {
         // calculate link end position and update the last position on Node
         link[sourceOrTarget].endAngle = link[sourceOrTarget].startAngle + ((node.endAngle - node.startAngle) * (link.size / node.size))
         node.lastLinkEndAngle = link[sourceOrTarget].endAngle
+
+        // calculate coordinates of link on node inner arc
+        link[sourceOrTarget].startPos = [innerRadius * Math.sin(link[sourceOrTarget].startAngle) - adjustedOffset, -innerRadius * Math.cos(link[sourceOrTarget].startAngle)]
+        link[sourceOrTarget].endPos = [innerRadius * Math.sin(link[sourceOrTarget].endAngle) - adjustedOffset, -innerRadius * Math.cos(link[sourceOrTarget].endAngle)]
       }
 
       // setup variables for node size calculations
