@@ -169,23 +169,20 @@ export class StretchedChord {
 
       function checkSideSizeCalculations (nodes) {
         // store past variables between loops
+        var totalAvailableAngle = (Math.PI - 2 * arcStartAngle - (StretchedChord.nodeSeparationAngle() * (nodes.length - 1)))
         var vars = {
           oldTooSmall: 0,
           tooSmall: 0,
-          sizeUsed: 0,
+          sizeUsed: totalAvailableAngle,
           minimumProportionAdjustment: 1,
           minimumSizeProportion: config.style.minimumNodeSizePercentage / 100
         }
-        var totalAvailableAngle = (Math.PI - 2 * arcStartAngle - (StretchedChord.nodeSeparationAngle() * (nodes.length - 1)))
   
         do {
-          // dynamically resize minimum size by 1% until it either
-          // fails because it's smaller than 0.1% or succeeds
-          if (vars.tooSmall * vars.minimumSizeProportion > 1) {
-            do {
-              vars.minimumSizeProportion *= 0.99
-            } while (vars.tooSmall * vars.minimumSizeProportion > 1 && vars.minimumSizeProportion > 0.001)
-            vars.minimumSizeProportion = vars.minimumSizeProportion * vars.tooSmall > 1 ? 0 : vars.minimumSizeProportion
+          if (vars.tooSmall * vars.minimumSizeProportion > 1 || vars.sizeUsed === 0) {
+            // Minimum percentage configured is too large for data
+            // All nodes will be equal size
+            vars.minimumSizeProportion = 1 / vars.tooSmall
           }
 
           // calculate remaining total size modifier
