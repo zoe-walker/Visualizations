@@ -1,7 +1,7 @@
 {
   "id": "47634fff-3181-4e4e-8d78-000000000000",
   "name": "stretched_chord",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "supportedVersions": "0",
   "dependencies": {
     "d3": "./d3/visualization.js",
