@@ -56,38 +56,35 @@ export class StretchedChord {
       var nodeDict = {}
 
       // Copy RHS nodes from configuration data
-      StretchedChord._RHSnodes = config.data.RHSnodes.map(function (node) {
+      StretchedChord._RHSnodes = config.data.RHSnodes.map(function (node, index) {
         // setup node details and add it to the node dictionary for use with links
         node.size = 0
         node.sizeIn = 0
         node.sizeOut = 0
         node.lastLinkEndAngle = 0
         node.lhs = false
+        node.order = index
         nodeDict[node.id] = nodeDict[node.id] === undefined ? node : nodeDict[node.id]
         return node
       })
 
       // Copy LHS nodes from configuration data
-      StretchedChord._LHSnodes = config.data.LHSnodes.map(function (node) {
+      StretchedChord._LHSnodes = config.data.LHSnodes.map(function (node, index) {
         // setup node details and add it to the node dictionary for use with links
         node.size = 0
         node.sizeIn = 0
         node.sizeOut = 0
         node.lastLinkEndAngle = 0
         node.lhs = true
+        node.order = index
         nodeDict[node.id] = nodeDict[node.id] === undefined ? node : nodeDict[node.id]
         return node
       })
 
       var totalLinkSize = 0
 
-      // Copy links from configuration data and sort them in RHSnode order
-      StretchedChord._links = config.data.links.sort(function (a, b) {
-        // arrange links based on node IDs to allow for better connection/less crossing
-        var aID = nodeDict[a.target.id] === undefined ? undefined : nodeDict[a.target.id].lhs === false ? a.target.id : a.source.id
-        var bID = nodeDict[b.target.id] === undefined ? undefined : nodeDict[b.target.id].lhs === false ? b.target.id : b.source.id
-        return (aID === undefined || bID === undefined) ? 0 : aID.localeCompare(bID)
-      }).map(function (l) {
+      // Copy links from configuration
+      StretchedChord._links = config.data.links.map(function (l) {
         // lookup source and target nodes
         l._sourceNode = nodeDict[l.source.id]
         l._targetNode = nodeDict[l.target.id]
@@ -107,7 +104,21 @@ export class StretchedChord {
 
         // finally filter out all nulls
         return null
-      }).filter(l => (l != null))
+      }).filter(l => (l != null)).sort(function (a, b) {
+        // arrange links based on node position to allow for better connection/less crossing
+        const aRHS = a._targetNode.lhs === false ? a._targetNode : a._sourceNode
+        const aLHS = a._targetNode.lhs === true ? a._targetNode : a._sourceNode
+        const bRHS = b._targetNode.lhs === false ? b._targetNode : b._sourceNode
+        const bLHS = b._targetNode.lhs === true ? b._targetNode : b._sourceNode
+        var comparison
+        if (aRHS.order === bRHS.order) {
+          comparison = aLHS.order - bLHS.order
+        }
+        else {
+          comparison = aRHS.order - bRHS.order
+        }
+        return comparison
+      })
 
       function calculateLinkAngles (link, sourceOrTarget) {
         // if first link on node then start at node start
