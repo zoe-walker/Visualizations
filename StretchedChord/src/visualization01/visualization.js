@@ -8,8 +8,8 @@ import 'core-js/stable/object/values'
 import 'core-js/stable/object/entries'
 import 'core-js/stable/string/includes'
 
-import { setUpEnvironment, drawDiagram, createGradients, addInteractivity } from './_d3_handling'
-import { StretchedChord } from './_data_handling'
+import { setUpEnvironment, drawDiagram, createGradients, addInteractivity } from './d3_handling'
+import { StretchedChord } from './stretched_chord'
 
 export function createStretchedChord (config) {
   const chord = new StretchedChord(config)
