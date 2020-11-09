@@ -1,10 +1,15 @@
 import * as d3 from 'd3'
 import 'd3-interpolate'
 
+const normalLinkOpacity = 0.8
+const highlightLinkOpacity = 1.0
+const lowlightLinkOpacity = 0.2
+
 export function setUpEnvironment (config) {
   d3.select('#' + config.element).append('svg').attr('width', parseFloat(config.width)).attr('height', parseFloat(config.height))
   Array.from(arguments).slice(1).forEach(d => d3.select(d.parent).append('g').attr('id', d.id).attr('transform', d.transform))
 }
+
 export function drawDiagram (stretchedChord) {
   d3.select('#links').selectAll('*').remove()
   d3.select('#LHS').selectAll('*').remove()
@@ -14,7 +19,6 @@ export function drawDiagram (stretchedChord) {
 
   const innerRadius = stretchedChord.innerRadius()
   const outerRadius = stretchedChord.outerRadius()
-  const centreOffset = stretchedChord.arcCentreOffset()
 
   drawLinks()
   drawNodes('#LHS', stretchedChord.lhsNodes())
@@ -27,7 +31,7 @@ export function drawDiagram (stretchedChord) {
       .attr('id', d => 'l_' + d.id)
       .attr('d', d => linkPath(d))
       .style('fill', d => 'url(#' + (d.sourceNode.lhs ? 'r' : 'l') + d.colour.slice(1) + ')')
-      .style('opacity', 0.8)
+      .style('opacity', normalLinkOpacity)
   }
 
   function drawNodes (d3Search, data) {
@@ -275,13 +279,13 @@ function linkClick (performAction) {
 
 function nodeMouseover (updateOutput) {
   return function (d) {
-    d3.select('#links').selectAll('path').style('opacity', l => (l.source.id === d.id) || (l.target.id === d.id) ? 1 : 0.2)
+    d3.select('#links').selectAll('path').style('opacity', l => (l.source.id === d.id) || (l.target.id === d.id) ? highlightLinkOpacity : lowlightLinkOpacity)
     updateOutput('hoverNode', d.id)
   }
 }
 
 function nodeMouseleave () {
-  d3.select('#links').selectAll('path').style('opacity', 0.8)
+  d3.select('#links').selectAll('path').style('opacity', normalLinkOpacity)
 }
 
 function nodeClick (performAction, from) {
