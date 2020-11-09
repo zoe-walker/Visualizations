@@ -235,16 +235,6 @@ export class StretchedChord {
         nodes.forEach(function (node, index, array) { calculateNodeAngles(node, index, array, sizeControl) })
       })
 
-      // Do one final sort on the links to arrange them so that
-      // the chord is linked from top down I.E top left to top right
-      links.sort(function (a, b) {
-        var aSource = a.sourceNode.lhs === true ? a.sourceNode : a.targetNode
-        var bSource = b.sourceNode.lhs === true ? b.sourceNode : b.targetNode
-        if (aSource.startAngle > bSource.startAngle) { return -1 }
-        if (aSource.startAngle < bSource.startAngle) { return 1 }
-        return 0
-      })
-
       // calculate start and end angle for links
       links.forEach(function (l) {
         calculateLinkAngles(l, 'source')
