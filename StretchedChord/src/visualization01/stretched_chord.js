@@ -154,108 +154,74 @@ export class StretchedChord {
         link[sourceOrTarget].endPos = [innerRadius * Math.sin(link[sourceOrTarget].endAngle) - adjustedOffset, -innerRadius * Math.cos(link[sourceOrTarget].endAngle)]
       }
 
-      // setup variables for node size calculations
-      var totalLeftAvailableAngle = (Math.PI - 2 * arcStartAngle - (StretchedChord.nodeSeparationAngle() * (lhsNodes.length - 1)))
-      var totalRightAvailableAngle = (Math.PI - 2 * arcStartAngle - (StretchedChord.nodeSeparationAngle() * (rhsNodes.length - 1)))
-      var minimumSizeRightProportion = (config.style.minimumNodeSizePercentage / 100)
-      var minimumSizeLeftProportion = (config.style.minimumNodeSizePercentage / 100)
-
-      var leftSizeUsed = 0
-      var rightSizeUsed = 0
-      var lhsMinimumProportionAdjustment = 1
-      var rhsMinimumProportionAdjustment = 1
-
       function calculateNodeSizing (node, vars) {
         // store current node percentage size for easier typing
         var nodeSizeProportionOfTotal = node.size / totalLinkSize
 
-        // check if node is left hand side
-        if (node.lhs) {
-          // check if node size is less than minimum
-          if (nodeSizeProportionOfTotal * lhsMinimumProportionAdjustment < minimumSizeLeftProportion) {
-            vars.leftTooSmall++
-          } else {
-            // add node to size calculations
-            leftSizeUsed += node.size
-          }
+        // check if node size is less than minimum
+        if (nodeSizeProportionOfTotal * vars.minimumProportionAdjustment < vars.minimumSizeProportion) {
+          vars.tooSmall++
         } else {
-          if (nodeSizeProportionOfTotal * rhsMinimumProportionAdjustment < minimumSizeRightProportion) {
-            vars.rightTooSmall++
-          } else {
-            rightSizeUsed += node.size
-          }
+          // add node to size calculations
+          vars.sizeUsed += node.size
         }
       }
 
-      // decrease minimum sizes while
-      function checkSizeCalculations () {
+      function checkSideSizeCalculations (nodes) {
         // store past variables between loops
         var vars = {
-          oldLeftTooSmall: 0,
-          oldRightTooSmall: 0,
-          leftTooSmall: 0,
-          rightTooSmall: 0
+          oldTooSmall: 0,
+          tooSmall: 0,
+          sizeUsed: 0,
+          minimumProportionAdjustment: 1,
+          minimumSizeProportion: config.style.minimumNodeSizePercentage / 100
         }
-
+        var totalAvailableAngle = (Math.PI - 2 * arcStartAngle - (StretchedChord.nodeSeparationAngle() * (nodes.length - 1)))
+  
         do {
           // dynamically resize minimum size by 1% until it either
           // fails because it's smaller than 0.1% or succeeds
-          if (vars.leftTooSmall * minimumSizeLeftProportion > 1) {
+          if (vars.tooSmall * vars.minimumSizeProportion > 1) {
             do {
-              minimumSizeLeftProportion *= 0.99
-            } while (vars.leftTooSmall * minimumSizeLeftProportion > 1 && minimumSizeLeftProportion > 0.001)
-            minimumSizeLeftProportion = minimumSizeLeftProportion * vars.leftTooSmall > 1 ? 0 : minimumSizeLeftProportion
-          }
-
-          // do the same for the right side
-          if (vars.rightTooSmall * minimumSizeRightProportion > 1) {
-            do {
-              minimumSizeRightProportion *= 0.99
-            } while (vars.rightTooSmall * minimumSizeRightProportion > 1 && minimumSizeRightProportion > 0.001)
-            minimumSizeRightProportion = minimumSizeRightProportion * vars.rightTooSmall > 1 ? 0 : minimumSizeRightProportion
+              vars.minimumSizeProportion *= 0.99
+            } while (vars.tooSmall * vars.minimumSizeProportion > 1 && vars.minimumSizeProportion > 0.001)
+            vars.minimumSizeProportion = vars.minimumSizeProportion * vars.tooSmall > 1 ? 0 : vars.minimumSizeProportion
           }
 
           // calculate remaining total size modifier
-          lhsMinimumProportionAdjustment = 1 - (vars.leftTooSmall * minimumSizeLeftProportion)
-          rhsMinimumProportionAdjustment = 1 - (vars.rightTooSmall * minimumSizeRightProportion)
+          vars.minimumProportionAdjustment = 1 - (vars.tooSmall * vars.minimumSizeProportion)
 
           // update past loop variables
-          vars.oldLeftTooSmall = vars.leftTooSmall
-          vars.oldRightTooSmall = vars.rightTooSmall
-          vars.leftTooSmall = 0
-          vars.rightTooSmall = 0
+          vars.oldTooSmall = vars.tooSmall
+          vars.tooSmall = 0
 
           // reset variables used during this loop
-          leftSizeUsed = 0
-          rightSizeUsed = 0;
+          vars.sizeUsed = 0
 
           // check minimum sizes are fine with every node
-          [lhsNodes, rhsNodes].forEach(arrayArray => (arrayArray.forEach(function (node) { calculateNodeSizing(node, vars) })))
-        } while (vars.leftTooSmall !== vars.oldLeftTooSmall || vars.rightTooSmall !== vars.oldRightTooSmall)
+          nodes.forEach(function (node) { calculateNodeSizing(node, vars) })
+        } while (vars.tooSmall !== vars.oldTooSmall)
+
+        return {
+          totalAvailableAngle: totalAvailableAngle,
+          minimumSizeProportion: vars.minimumSizeProportion,
+          minimumProportionAdjustment: vars.minimumProportionAdjustment,
+          sizeUsed: vars.sizeUsed
+        }
       }
 
-      function calculateNodeAngles (node, index, nodeArray) {
+      function calculateNodeAngles (node, index, nodeArray, sizeControl) {
         // check if node is on the right or left side
         var offset = node.lhs === true ? -1 : 1
         var nodeSize = 0
 
-        // check if node is on the left
-        if (node.lhs) {
-          // check if node size is less than minimum
-          if (node.size / totalLinkSize * lhsMinimumProportionAdjustment < minimumSizeLeftProportion) {
-            // set node size to be minimum
-            nodeSize = totalLeftAvailableAngle * minimumSizeLeftProportion
-          } else {
-            // set node size to be modified based on available size
-            nodeSize = ((node.size / leftSizeUsed) * lhsMinimumProportionAdjustment) * totalLeftAvailableAngle
-          }
+        // check if node size is less than minimum
+        if (node.size / totalLinkSize * sizeControl.minimumProportionAdjustment < sizeControl.minimumSizeProportion) {
+          // set node size to be minimum
+          nodeSize = sizeControl.totalAvailableAngle * sizeControl.minimumSizeProportion
         } else {
-          // do the same for the right side
-          if (node.size / totalLinkSize * rhsMinimumProportionAdjustment < minimumSizeRightProportion) {
-            nodeSize = totalRightAvailableAngle * minimumSizeRightProportion
-          } else {
-            nodeSize = ((node.size / rightSizeUsed) * rhsMinimumProportionAdjustment) * totalRightAvailableAngle
-          }
+          // set node size to be modified based on available size
+          nodeSize = ((node.size / sizeControl.sizeUsed) * sizeControl.minimumProportionAdjustment) * sizeControl.totalAvailableAngle
         }
 
         // setup start and end angle
@@ -267,8 +233,10 @@ export class StretchedChord {
         node.stroke = config.style.nodeBorderColour
       }
 
-      checkSizeCalculations();
-      [lhsNodes, rhsNodes].forEach(arrayArray => (arrayArray.forEach(function (node, index, array) { calculateNodeAngles(node, index, array) })))
+      [lhsNodes, rhsNodes].forEach(nodes => {
+        var sizeControl = checkSideSizeCalculations(nodes)
+        nodes.forEach(function (node, index, array) { calculateNodeAngles(node, index, array, sizeControl) })
+      })
 
       // Do one final sort on the links to arrange them so that
       // the chord is linked from top down I.E top left to top right
