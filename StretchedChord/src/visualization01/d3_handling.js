@@ -217,9 +217,15 @@ function linkMouseover (stretchedChord, updateOutput) {
       const a = start[0] - 2 * control[0] + end[0]
       const b = 2 * (control[0] - start[0])
       const c = start[0]
-      const t1 = (-b - Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a)
-      const t2 = (-b + Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a)
-      const t = (t1 >= 0 && t1 <= 1) ? t1 : t2
+      var t
+      if (a === 0) {
+        t = 0.5
+      }
+      else {
+        const t1 = (-b - Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a)
+        const t2 = (-b + Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a)
+        t = (t1 >= 0 && t1 <= 1) ? t1 : t2
+      }
       // Return y coordinate at mid-point
       return (1 - t) ** 2 * start[1] + 2 * t * (1 - t) * control[1] + t ** 2 * end[1]
     }
