@@ -17,16 +17,16 @@ export function drawDiagram (stretchedChord) {
   const centreOffset = stretchedChord.arcCentreOffset()
 
   drawLinks()
-  drawNodes('#LHS', stretchedChord._LHSnodes)
-  drawNodes('#RHS', stretchedChord._RHSnodes)
+  drawNodes('#LHS', stretchedChord.lhsNodes())
+  drawNodes('#RHS', stretchedChord.rhsNodes())
   addLabels('L')
   addLabels('R')
 
   function drawLinks () {
-    d3.select('#links').selectAll().data(stretchedChord._links).enter().append('path')
+    d3.select('#links').selectAll().data(stretchedChord.links()).enter().append('path')
       .attr('id', d => 'l_' + d.id)
       .attr('d', d => linkPath(d))
-      .style('fill', d => 'url(#' + (d._sourceNode.lhs ? 'r' : 'l') + d.colour.slice(1) + ')')
+      .style('fill', d => 'url(#' + (d.sourceNode.lhs ? 'r' : 'l') + d.colour.slice(1) + ')')
       .style('opacity', 0.8)
   }
 
@@ -43,8 +43,6 @@ export function drawDiagram (stretchedChord) {
   }
 
   function linkPath (link) {
-    const adjustedOffset = link._sourceNode.lhs ? -centreOffset : centreOffset
-
     const srcStart = link.source.startPos
     const srcEnd = link.source.endPos
     const tgtEnd = link.target.endPos
@@ -65,29 +63,29 @@ export function drawDiagram (stretchedChord) {
     function addLabel (node, path) {
       const offset = getOffset()
       const xTrans = offset[0] +
-       Math.sign(offset[0]) * stretchedChord._labelOffset +
-       stretchedChord._arcThickness / 2 / Math.sin((node.endAngle + node.startAngle) / 2)
+       Math.sign(offset[0]) * stretchedChord.labelOffset() +
+       stretchedChord.arcThickness() / 2 / Math.sin((node.endAngle + node.startAngle) / 2)
 
       const formattedLabel = getLabelFormatted(
         node.name,
-        stretchedChord._labelMargin + (outerRadius - Math.abs(xTrans)),
-        stretchedChord._labelFontFamily,
-        stretchedChord._labelFontSize)
+        stretchedChord.labelMargin() + (outerRadius - Math.abs(xTrans)),
+        stretchedChord.labelFontFamily(),
+        stretchedChord.labelFontSize())
 
-      const yTrans = offset[1] - (stretchedChord._labelFontSize * (formattedLabel.length - 0.5))
+      const yTrans = offset[1] - (stretchedChord.labelFontSize() * (formattedLabel.length - 0.5))
 
       const label = d3.select(labelTag)
         .append('text')
         .style('alignment-baseline', 'left')
         .style('text-anchor', side === 'L' ? 'end' : 'start')
-        .style('font-family', stretchedChord._labelFontFamily)
-        .style('font-size', stretchedChord._labelFontSize + 'px')
+        .style('font-family', stretchedChord.labelFontFamily())
+        .style('font-size', stretchedChord.labelFontSize() + 'px')
 
       if (!(isNaN(xTrans) || isNaN(yTrans))) {
         label.attr('transform', 'translate(' + xTrans + ',' + yTrans + ')')
       }
 
-      formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', stretchedChord._labelFontSize))
+      formattedLabel.forEach(d => label.append('tspan').text(d).attr('x', 0).attr('dy', stretchedChord.labelFontSize() + 'px'))
 
       function getOffset () {
         const center = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius).centroid(path.datum())
@@ -100,12 +98,12 @@ export function drawDiagram (stretchedChord) {
 
 export function createGradients (stretchedChord) {
   const config = {
-    flowPeriod: stretchedChord._flowPeriod,
-    flowOpacity: stretchedChord._flowOpacity
+    flowPeriod: stretchedChord.flowPeriod(),
+    flowOpacity: stretchedChord.flowOpacity()
   }
-  stretchedChord._links.forEach(function (d) {
+  stretchedChord.links().forEach(function (d) {
     const colour = d.colour.slice(1)
-    const direction = d._sourceNode.lhs ? 'r' : 'l'
+    const direction = d.sourceNode.lhs ? 'r' : 'l'
     if (!d3.select('#' + direction + colour).node()) {
       (direction === 'l' ? leftGradient : rightGradient)(
         d,
@@ -236,8 +234,8 @@ function linkMouseover (stretchedChord, updateOutput) {
     d3.select('#labels').append('text').text(d.size)
       .attr('id', 'temp').attr('transform', 'translate(0,' + center + ')')
       .style('alignment-baseline', 'middle').style('text-anchor', 'middle')
-      .style('font-family', stretchedChord._labelFontFamily)
-      .style('font-size', stretchedChord._labelFontSize + 'px')
+      .style('font-family', stretchedChord.labelFontFamily())
+      .style('font-size', stretchedChord.labelFontSize() + 'px')
   
     const node = d3.select('#temp').node().getBBox()
     const width = node.width
@@ -250,8 +248,8 @@ function linkMouseover (stretchedChord, updateOutput) {
     .attr('id', 'size').attr('transform', 'translate(0, ' + center + ')')
     .attr('alignment-baseline', 'middle')
     .style('text-anchor', 'middle')
-    .style('font-family', stretchedChord._labelFontFamily)
-    .style('font-size', stretchedChord._labelFontSize + 'px')
+    .style('font-family', stretchedChord.labelFontFamily())
+    .style('font-size', stretchedChord.labelFontSize() + 'px')
 
     d3.select('#labels').append('rect').attr('transform', 'translate(0, ' + center  + ')')
       .attr('x', -(width + 2 * boxBoundary) / 2).attr('y', -(height + 2 * boxBoundary) / 2 - 1).attr('rx', 2 * (boxBoundary - boxStroke))

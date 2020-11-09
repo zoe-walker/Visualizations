@@ -23,7 +23,7 @@ export function createStretchedChord (config) {
     chord.initialise()
 
     setUpEnvironment(config,
-      { parent: 'svg', id: 'all', transform: 'translate(' + (chord._width / 2) + ',' + (chord._height / 2) + ')' },
+      { parent: 'svg', id: 'all', transform: 'translate(' + (chord.width() / 2) + ',' + (chord.height() / 2) + ')' },
       { parent: '#all', id: 'links' },
       { parent: '#all', id: 'nodes' },
       { parent: '#nodes', id: 'LHS', transform: 'translate(' + chord.arcCentreOffset() + ',0)' },
