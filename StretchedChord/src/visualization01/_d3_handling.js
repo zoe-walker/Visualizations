@@ -238,17 +238,17 @@ function linkMouseover (stretchedChord, updateOutput) {
     const height = node.height
     d3.select('#temp').remove()
     const boxStroke = 1
-    const boxBoundary = boxStroke + 2
+    const boxBoundary = boxStroke + 3
 
     d3.select('#labels').append('text').text(d.size)
-    .attr('id', 'size').attr('transform', 'translate(0, ' + (center + height / 4) + ')')
+    .attr('id', 'size').attr('transform', 'translate(0, ' + center + ')')
     .attr('alignment-baseline', 'middle')
     .style('text-anchor', 'middle')
     .style('font-family', stretchedChord._labelFontFamily)
     .style('font-size', stretchedChord._labelFontSize + 'px')
 
     d3.select('#labels').append('rect').attr('transform', 'translate(0, ' + center  + ')')
-      .attr('x', -(width + boxBoundary) / 2 - 1).attr('y', -(height + 2 * boxBoundary) / 2 - 1).attr('rx', 2 * boxBoundary)
+      .attr('x', -(width + 2 * boxBoundary) / 2).attr('y', -(height + 2 * boxBoundary) / 2 - 1).attr('rx', 2 * (boxBoundary - boxStroke))
       .attr('width', width + 2 * boxBoundary).attr('height', height + 2 * boxBoundary)
       .style('fill', '#f2f2f2').style('opacity', 0.9)
       .style('stroke', '#a2a2a2').style('stroke-width', boxStroke + 'px')
