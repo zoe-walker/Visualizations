@@ -36,7 +36,7 @@ export class StretchedChord {
       (1 - Math.cos(Math.PI / 2 - arcStartAngle)) *
       arcHeight / maxDimension
     StretchedChord.outerRadius = () => outerRadius
-      //
+    //
     // Calculate the horizontal offset of the LHS arc centre from centre of view area
     // The RHS arc centre offset is -1 * this
     //
@@ -64,7 +64,7 @@ export class StretchedChord {
 
     this.dataChanged = function dataChanged () {
       // store nodes in a dictionary for fast lookup
-      var nodeDict = {}
+      const nodeDict = {}
 
       // Copy RHS nodes from configuration data
       const rhsNodes = config.data.RHSnodes.map(function (node, index) {
@@ -94,7 +94,7 @@ export class StretchedChord {
       })
       StretchedChord.lhsNodes = () => lhsNodes
 
-      var totalLinkSize = 0
+      let totalLinkSize = 0
 
       // Copy links from configuration
       const links = config.data.links.map(function (l) {
@@ -123,11 +123,10 @@ export class StretchedChord {
         const aLHS = a.targetNode.lhs === true ? a.targetNode : a.sourceNode
         const bRHS = b.targetNode.lhs === false ? b.targetNode : b.sourceNode
         const bLHS = b.targetNode.lhs === true ? b.targetNode : b.sourceNode
-        var comparison
+        let comparison
         if (aRHS.order === bRHS.order) {
           comparison = aLHS.order - bLHS.order
-        }
-        else {
+        } else {
           comparison = aRHS.order - bRHS.order
         }
         return comparison
@@ -136,7 +135,7 @@ export class StretchedChord {
 
       function calculateLinkAngles (link, sourceOrTarget) {
         // if first link on node then start at node start
-        var node = sourceOrTarget === 'source' ? link.sourceNode : link.targetNode
+        const node = sourceOrTarget === 'source' ? link.sourceNode : link.targetNode
         const adjustedOffset = node.lhs ? -arcCentreOffset : arcCentreOffset
 
         if (node.lastLinkEndAngle === 0) {
@@ -156,7 +155,7 @@ export class StretchedChord {
 
       function calculateNodeSizing (node, vars) {
         // store current node percentage size for easier typing
-        var nodeSizeProportionOfTotal = node.size / totalLinkSize
+        const nodeSizeProportionOfTotal = node.size / totalLinkSize
 
         // check if node size is less than minimum
         if (nodeSizeProportionOfTotal * vars.minimumProportionAdjustment < vars.minimumSizeProportion) {
@@ -169,15 +168,15 @@ export class StretchedChord {
 
       function checkSideSizeCalculations (nodes) {
         // store past variables between loops
-        var totalAvailableAngle = (Math.PI - 2 * arcStartAngle - (StretchedChord.nodeSeparationAngle() * (nodes.length - 1)))
-        var vars = {
+        const totalAvailableAngle = (Math.PI - 2 * arcStartAngle - (StretchedChord.nodeSeparationAngle() * (nodes.length - 1)))
+        const vars = {
           oldTooSmall: 0,
           tooSmall: 0,
           sizeUsed: totalAvailableAngle,
           minimumProportionAdjustment: 1,
           minimumSizeProportion: config.style.minimumNodeSizePercentage / 100
         }
-  
+
         do {
           if (vars.tooSmall * vars.minimumSizeProportion > 1 || vars.sizeUsed === 0) {
             // Minimum percentage configured is too large for data
@@ -209,8 +208,8 @@ export class StretchedChord {
 
       function calculateNodeAngles (node, index, nodeArray, sizeControl) {
         // check if node is on the right or left side
-        var offset = node.lhs === true ? -1 : 1
-        var nodeSize = 0
+        const offset = node.lhs === true ? -1 : 1
+        let nodeSize = 0
 
         // check if node size is less than minimum
         if (node.size / totalLinkSize * sizeControl.minimumProportionAdjustment < sizeControl.minimumSizeProportion) {
@@ -231,7 +230,7 @@ export class StretchedChord {
       }
 
       [lhsNodes, rhsNodes].forEach(nodes => {
-        var sizeControl = checkSideSizeCalculations(nodes)
+        const sizeControl = checkSideSizeCalculations(nodes)
         nodes.forEach(function (node, index, array) { calculateNodeAngles(node, index, array, sizeControl) })
       })
 

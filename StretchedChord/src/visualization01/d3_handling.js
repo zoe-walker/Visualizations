@@ -210,20 +210,18 @@ function getLabelFormatted (label, lineLength, labelFontFamily, labelFontSize) {
 function linkMouseover (stretchedChord, updateOutput) {
   return function (d) {
     // calculate centre y coordinate of the 2 quadratic bezier curves for the link at horizontal mid-point
-    function yCentre(start, control, end)
-    {
-      // Calculate Bexier curve parameter t for horizontal mid-point in window
+    function yCentre (start, control, end) {
+      // Calculate Bezier curve parameter t for horizontal mid-point in window
       // Note: source and target points are not necessarily equi-distant from mid-point
       // So, solve quadratic equation to find t where x coord = 0
       // at^2 + bt + c = 0
       const a = start[0] - 2 * control[0] + end[0]
       const b = 2 * (control[0] - start[0])
       const c = start[0]
-      var t
+      let t
       if (a === 0) {
         t = 0.5
-      }
-      else {
+      } else {
         const t1 = (-b - Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a)
         const t2 = (-b + Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a)
         t = (t1 >= 0 && t1 <= 1) ? t1 : t2
@@ -240,7 +238,7 @@ function linkMouseover (stretchedChord, updateOutput) {
       .style('alignment-baseline', 'middle').style('text-anchor', 'middle')
       .style('font-family', stretchedChord.labelFontFamily())
       .style('font-size', stretchedChord.labelFontSize() + 'px')
-  
+
     const node = d3.select('#temp').node().getBBox()
     const width = node.width
     const height = node.height
@@ -249,13 +247,13 @@ function linkMouseover (stretchedChord, updateOutput) {
     const boxBoundary = boxStroke + 3
 
     d3.select('#labels').append('text').text(d.size)
-    .attr('id', 'size').attr('transform', 'translate(0, ' + center + ')')
-    .attr('alignment-baseline', 'middle')
-    .style('text-anchor', 'middle')
-    .style('font-family', stretchedChord.labelFontFamily())
-    .style('font-size', stretchedChord.labelFontSize() + 'px')
+      .attr('id', 'size').attr('transform', 'translate(0, ' + center + ')')
+      .attr('alignment-baseline', 'middle')
+      .style('text-anchor', 'middle')
+      .style('font-family', stretchedChord.labelFontFamily())
+      .style('font-size', stretchedChord.labelFontSize() + 'px')
 
-    d3.select('#labels').append('rect').attr('transform', 'translate(0, ' + center  + ')')
+    d3.select('#labels').append('rect').attr('transform', 'translate(0, ' + center + ')')
       .attr('x', -(width + 2 * boxBoundary) / 2).attr('y', -(height + 2 * boxBoundary) / 2 - 1).attr('rx', 2 * (boxBoundary - boxStroke))
       .attr('width', width + 2 * boxBoundary).attr('height', height + 2 * boxBoundary)
       .style('fill', '#f2f2f2').style('opacity', 0.9)

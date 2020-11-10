@@ -14,7 +14,7 @@ import { StretchedChord } from './stretched_chord'
 export function createStretchedChord (config) {
   const chord = new StretchedChord(config)
 
-  var superDataChanged = config.functions.dataChanged
+  const superDataChanged = config.functions.dataChanged
   config.functions.dataChanged = function dataChanged (data) {
     superDataChanged(data)
 
@@ -39,7 +39,7 @@ export function createStretchedChord (config) {
     addInteractivity(config.functions, chord)
   }
 
-  var superInputChanged = config.functions.inputChanged
+  const superInputChanged = config.functions.inputChanged
   config.functions.inputChanged = function inputChanged (name, value, addOrSet) {
     superInputChanged(name, value)
     addOrSet = addOrSet || false
