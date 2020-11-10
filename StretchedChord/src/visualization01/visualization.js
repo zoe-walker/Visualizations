@@ -39,22 +39,5 @@ export function createStretchedChord (config) {
     addInteractivity(config.functions, chord)
   }
 
-  const superInputChanged = config.functions.inputChanged
-  config.functions.inputChanged = function inputChanged (name, value, addOrSet) {
-    superInputChanged(name, value)
-    addOrSet = addOrSet || false
-
-    if (name.toLowerCase() === 'lhsnode') {
-      if (addOrSet) {
-        if (!config.inputs.LHSnode.includes(value)) {
-          config.inputs.LHSnode.push(value)
-        }
-      } else {
-        config.inputs.LHSnode = [value]
-      }
-      config.functions.dataChanged(config.data)
-    }
-  }
-
   config.functions.dataChanged(config.data)
 }
