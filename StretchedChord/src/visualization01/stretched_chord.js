@@ -1,3 +1,5 @@
+import { NodeDictionary } from './node_dictionary'
+
 export class StretchedChord {
   constructor (config) {
     const StretchedChord = this
@@ -55,7 +57,6 @@ export class StretchedChord {
     StretchedChord.flowOpacity = () => flowOpacity
     //
     // Calculate offsets from centre of view area to left boundary of label areas
-    // The LHS boundary would need to change to right boundary if right aligning LHS labels
     //
     const lhsLabelOffset = arcCentreOffset
     StretchedChord.lhsLabelOffset = () => lhsLabelOffset
@@ -64,7 +65,7 @@ export class StretchedChord {
 
     this.dataChanged = function dataChanged () {
       // store nodes in a dictionary for fast lookup
-      const nodeDict = {}
+      const nodeDict = new NodeDictionary()
 
       // Copy RHS nodes from configuration data
       const rhsNodes = config.data.RHSnodes.map((node, index) => ({
@@ -79,8 +80,8 @@ export class StretchedChord {
         order: index
       }))
       // add nodes to the node dictionary for use with links
-        rhsNodes.forEach(function (node) {
-        nodeDict[node.id] = node
+      rhsNodes.forEach(function (node) {
+        nodeDict.add(node)
       })
       StretchedChord.rhsNodes = () => rhsNodes
 
@@ -98,50 +99,50 @@ export class StretchedChord {
       }))
       // add nodes to the node dictionary for use with links
       lhsNodes.forEach(function (node) {
-        nodeDict[node.id] = node
+        nodeDict.add(node)
       })
       StretchedChord.lhsNodes = () => lhsNodes
 
       // Copy links from configuration
       const links = config.data.links.map(link => ({
-        source: {id: link.source.id },
-        target: {id: link.target.id },
+        source: { id: link.source.id },
+        target: { id: link.target.id },
         id: link.id,
         size: link.size,
         colour: link.colour,
         // lookup source and target nodes
-        sourceNode: nodeDict[link.source.id],
-        targetNode: nodeDict[link.target.id]
+        sourceNode: nodeDict.find(link.source.id),
+        targetNode: nodeDict.findOnOtherSide(link.source.id, link.target.id)
       })).filter(link => (
-          link.sourceNode !== undefined &&
+        link.sourceNode !== undefined &&
           link.targetNode !== undefined &&
           link.sourceNode.lhs !== link.targetNode.lhs))
-      .sort(function (a, b) {
+        .sort(function (a, b) {
         // arrange links based on node position to allow for better connection/less crossing
-        const aRHS = a.targetNode.lhs === false ? a.targetNode : a.sourceNode
-        const aLHS = a.targetNode.lhs === true ? a.targetNode : a.sourceNode
-        const bRHS = b.targetNode.lhs === false ? b.targetNode : b.sourceNode
-        const bLHS = b.targetNode.lhs === true ? b.targetNode : b.sourceNode
-        let comparison
-        if (aRHS.order === bRHS.order) {
-          comparison = aLHS.order - bLHS.order
-        } else {
-          comparison = aRHS.order - bRHS.order
-        }
-        return comparison
-      })
+          const aRHS = a.targetNode.lhs === false ? a.targetNode : a.sourceNode
+          const aLHS = a.targetNode.lhs === true ? a.targetNode : a.sourceNode
+          const bRHS = b.targetNode.lhs === false ? b.targetNode : b.sourceNode
+          const bLHS = b.targetNode.lhs === true ? b.targetNode : b.sourceNode
+          let comparison
+          if (aRHS.order === bRHS.order) {
+            comparison = aLHS.order - bLHS.order
+          } else {
+            comparison = aRHS.order - bRHS.order
+          }
+          return comparison
+        })
 
       // Sum link sizes for the source and target nodes
       let totalLinkSize = 0
       links.forEach(function (link) {
-          // update total size
-          totalLinkSize += link.size
+        // update total size
+        totalLinkSize += link.size
 
-          // add onto node size
-          link.sourceNode.size += link.size
-          link.sourceNode.sizeOut += link.size
-          link.targetNode.size += link.size
-          link.targetNode.sizeIn += link.size
+        // add onto node size
+        link.sourceNode.size += link.size
+        link.sourceNode.sizeOut += link.size
+        link.targetNode.size += link.size
+        link.targetNode.sizeIn += link.size
       })
       StretchedChord.links = () => links
 

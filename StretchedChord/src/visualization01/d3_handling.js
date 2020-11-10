@@ -21,8 +21,8 @@ export function drawDiagram (stretchedChord) {
   const outerRadius = stretchedChord.outerRadius()
 
   drawLinks()
-  drawNodes('#LHS', stretchedChord.lhsNodes())
-  drawNodes('#RHS', stretchedChord.rhsNodes())
+  drawNodes('L', stretchedChord.lhsNodes())
+  drawNodes('R', stretchedChord.rhsNodes())
   addLabels('L')
   addLabels('R')
 
@@ -34,9 +34,9 @@ export function drawDiagram (stretchedChord) {
       .style('opacity', normalLinkOpacity)
   }
 
-  function drawNodes (d3Search, data) {
-    d3.select(d3Search).selectAll().data(data).enter().append('path')
-      .attr('id', d => 'n_' + d.id)
+  function drawNodes (side, data) {
+    d3.select('#' + side + 'HS').selectAll().data(data).enter().append('path')
+      .attr('id', d => side + 'n_' + d.id)
       .attr('name', d => d.name)
       .attr('d', d3.arc().innerRadius(innerRadius).outerRadius(outerRadius))
       .style('fill', d => d.colour)

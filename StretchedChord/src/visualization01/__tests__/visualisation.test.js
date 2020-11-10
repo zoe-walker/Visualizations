@@ -284,9 +284,9 @@ describe('Visualisation', () => {
 
     expect(mockDataChanged).toHaveBeenCalled()
 
-    var element = document.getElementById('n_' + config.data.LHSnodes[0].id)
+    var element = document.getElementById('Ln_' + config.data.LHSnodes[0].id)
     expect(element).not.toBeNull()
-    element = document.getElementById('n_' + config.data.RHSnodes[config.data.RHSnodes.length - 1].id)
+    element = document.getElementById('Rn_' + config.data.RHSnodes[config.data.RHSnodes.length - 1].id)
     expect(element).not.toBeNull()
     element = document.getElementById('l_' + config.data.links[config.data.links.length - 1].id)
     expect(element).not.toBeNull()
@@ -301,7 +301,7 @@ describe('Visualisation', () => {
     expect(mockDataChanged).toHaveBeenCalled()
 
     let lastRHSNodeId = config.data.RHSnodes[config.data.RHSnodes.length - 1].id
-    let element = document.getElementById('n_' + lastRHSNodeId)
+    let element = document.getElementById('Rn_' + lastRHSNodeId)
     expect(element).not.toBeNull()
 
     const dummy = config.data.RHSnodes.pop()
@@ -309,7 +309,7 @@ describe('Visualisation', () => {
     config.functions.dataChanged(config.data)
 
     expect(mockDataChanged).toHaveBeenCalled()
-    element = document.getElementById('n_' + lastRHSNodeId)
+    element = document.getElementById('Rn_' + lastRHSNodeId)
     expect(element).toBeNull()
     //
     // Restore config to original state
@@ -325,7 +325,7 @@ describe('Visualisation', () => {
     config.data.links.push(
       {
         source: { id: 'Unknown node' },
-        target: { id: '55-407BB9255C384C6FBC48EA759CFE01DB' },
+        target: { id: config.data.LHSnodes[0].id },
         id: 'Unknown-1',
         size: 1000,
         colour: '#FF0000'
@@ -334,7 +334,7 @@ describe('Visualisation', () => {
     // Add link to unknown node
     config.data.links.push(
       {
-        source: { id: '55-8F18CFBF4CCE4AECBD51BA222A54CC52' },
+        source: { id: config.data.LHSnodes[0].id },
         target: { id: 'Unknown node' },
         id: 'Unknown-2',
         size: 1000,
@@ -356,9 +356,9 @@ describe('Visualisation', () => {
 
     expect(mockDataChanged).toHaveBeenCalled()
 
-    let element = document.getElementById('n_' + config.data.LHSnodes[0].id)
+    let element = document.getElementById('Ln_' + config.data.LHSnodes[0].id)
     expect(element).not.toBeNull()
-    element = document.getElementById('n_' + config.data.RHSnodes[config.data.RHSnodes.length - 1].id)
+    element = document.getElementById('Rn_' + config.data.RHSnodes[config.data.RHSnodes.length - 1].id)
     expect(element).not.toBeNull()
     element = document.getElementById('l_' + config.data.links[config.data.links.length - 4].id)
     expect(element).not.toBeNull()
@@ -383,8 +383,8 @@ describe('Visualisation', () => {
     // Add link to self on LHS
     config.data.links.push(
       {
-        source: { id: '55-407BB9255C384C6FBC48EA759CFE01DB' },
-        target: { id: '55-407BB9255C384C6FBC48EA759CFE01DB' },
+        source: { id: config.data.LHSnodes[0].id },
+        target: { id: config.data.LHSnodes[0].id },
         id: 'Link2Self',
         size: 1000,
         colour: '#FF0000'
@@ -393,8 +393,8 @@ describe('Visualisation', () => {
     // Add link to and from LHS
     config.data.links.push(
       {
-        source: { id: '55-407BB9255C384C6FBC48EA759CFE01DB' },
-        target: { id: '55-8F18CFBF4CCE4AEAEAE1BA222A54CC52' },
+        source: { id: config.data.LHSnodes[0].id },
+        target: { id: config.data.LHSnodes[1].id },
         id: 'LinkLHSOnly',
         size: 1000,
         colour: '#FF0000'
@@ -403,8 +403,8 @@ describe('Visualisation', () => {
     // Add link to and from RHS
     config.data.links.push(
       {
-        source: { id: '55-5F49AE0DC27340FFB3B47B7B42E89EF1' },
-        target: { id: '55-0F79D6F9323048B6A298473A6148B004' },
+        source: { id: config.data.RHSnodes[0].id },
+        target: { id: config.data.RHSnodes[1].id },
         id: 'LinkRHSOnly',
         size: 1000,
         colour: '#FF0000'
@@ -415,9 +415,9 @@ describe('Visualisation', () => {
 
     expect(mockDataChanged).toHaveBeenCalled()
 
-    var element = document.getElementById('n_' + config.data.LHSnodes[0].id)
+    var element = document.getElementById('Ln_' + config.data.LHSnodes[0].id)
     expect(element).not.toBeNull()
-    element = document.getElementById('n_' + config.data.RHSnodes[config.data.RHSnodes.length - 1].id)
+    element = document.getElementById('Rn_' + config.data.RHSnodes[config.data.RHSnodes.length - 1].id)
     expect(element).not.toBeNull()
     element = document.getElementById('l_' + config.data.links[config.data.links.length - 4].id)
     expect(element).not.toBeNull()
@@ -430,6 +430,69 @@ describe('Visualisation', () => {
     //
     // Restore config to original state
     //
+    config.data.links.pop()
+    config.data.links.pop()
+    config.data.links.pop()
+  })
+
+  it('Same node on both sides with links', () => {
+    document.body.innerHTML =
+			'<div id="visualisation01_element_guid"></div>'
+
+    const dupNode = config.data.RHSnodes[config.data.RHSnodes.length - 1]
+    config.data.LHSnodes.push(dupNode)
+
+    // Add link to self
+    config.data.links.push(
+      {
+        source: { id: dupNode.id },
+        target: { id: dupNode.id },
+        id: 'Link2Self',
+        size: 1000,
+        colour: '#FF0000'
+      }
+    )
+    // Add link to duplicated node from node on RHS
+    config.data.links.push(
+      {
+        source: { id: config.data.RHSnodes[0].id },
+        target: { id: dupNode.id },
+        id: 'LinkFromRHS',
+        size: 1000,
+        colour: '#FF0000'
+      }
+    )
+    // Add link to duplicated node from node on LHS
+    config.data.links.push(
+      {
+        source: { id: config.data.LHSnodes[0].id },
+        target: { id: dupNode.id },
+        id: 'LinkFromLHS',
+        size: 1000,
+        colour: '#FF0000'
+      }
+    )
+
+    createStretchedChord(config)
+
+    expect(mockDataChanged).toHaveBeenCalled()
+
+    var element = document.getElementById('Ln_' + dupNode.id)
+    expect(element).not.toBeNull()
+    element = document.getElementById('Rn_' + dupNode.id)
+    expect(element).not.toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 4].id)
+    expect(element).not.toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 3].id)
+    expect(element).not.toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 2].id)
+    expect(element).not.toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 1].id)
+    expect(element).not.toBeNull()
+    //
+    // Restore config to original state
+    //
+    config.data.LHSnodes.pop()
     config.data.links.pop()
     config.data.links.pop()
     config.data.links.pop()
