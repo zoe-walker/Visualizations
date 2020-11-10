@@ -8,13 +8,13 @@ import 'core-js/stable/object/values'
 import 'core-js/stable/object/entries'
 import 'core-js/stable/string/includes'
 
-import { setUpEnvironment, drawDiagram, createGradients, addInteractivity } from './_d3_handling'
-import { StretchedChord } from './_data_handling'
+import { setUpEnvironment, drawDiagram, createGradients, addInteractivity } from './d3_handling'
+import { StretchedChord } from './stretched_chord'
 
 export function createStretchedChord (config) {
   const chord = new StretchedChord(config)
 
-  var superDataChanged = config.functions.dataChanged
+  const superDataChanged = config.functions.dataChanged
   config.functions.dataChanged = function dataChanged (data) {
     superDataChanged(data)
 
@@ -23,30 +23,20 @@ export function createStretchedChord (config) {
     chord.initialise()
 
     setUpEnvironment(config,
-      { parent: 'svg', id: 'all', transform: 'translate(0,0)' },
-      { parent: '#all', id: 'links', transform: 'translate(' + (chord._width / 2) + ',' + (chord._height / 2) + ') scale(0.85,0.95)' },
-      { parent: '#all', id: 'nodes', transform: 'translate(' + (chord._width / 2) + ',' + (chord._height / 2) + ') scale(0.85,0.95)' },
-      { parent: '#nodes', id: 'LHS' },
-      { parent: '#nodes', id: 'RHS' },
-      { parent: '#all', id: 'labels', transform: 'translate(' + (chord._width / 2) + ',' + (chord._height / 2) + ')' },
-      { parent: '#labels', id: 'L', transform: 'translate(' + (chord._width * -0.4625) + ',0)' },
-      { parent: '#labels', id: 'R', transform: 'translate(' + (chord._width / 2) + ',0)' },
+      { parent: 'svg', id: 'all', transform: 'translate(' + (chord.width() / 2) + ',' + (chord.height() / 2) + ')' },
+      { parent: '#all', id: 'links' },
+      { parent: '#all', id: 'nodes' },
+      { parent: '#nodes', id: 'LHS', transform: 'translate(' + chord.arcCentreOffset() + ',0)' },
+      { parent: '#nodes', id: 'RHS', transform: 'translate(' + -chord.arcCentreOffset() + ',0)' },
+      { parent: '#all', id: 'labels' },
+      { parent: '#labels', id: 'L', transform: 'translate(' + chord.lhsLabelOffset() + ',0)' },
+      { parent: '#labels', id: 'R', transform: 'translate(' + chord.rhsLabelOffset() + ',0)' },
       { parent: 'svg', id: 'defs' }
     )
 
     createGradients(chord)
     drawDiagram(chord)
     addInteractivity(config.functions, chord)
-  }
-
-  var superInputChanged = config.functions.inputChanged
-  config.functions.inputChanged = function inputChanged (name, value) {
-    superInputChanged(name, value)
-
-    if (name.toLowerCase() === 'lhsnode') {
-      config.inputs.LHSnode = value
-      config.functions.dataChanged(config.data)
-    }
   }
 
   config.functions.dataChanged(config.data)

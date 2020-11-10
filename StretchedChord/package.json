@@ -1,7 +1,8 @@
 {
-  "name": "webpackvisualization",
-  "version": "0.1.8",
-  "description": "",
+  "name": "stretched-chord",
+  "version": "0.1.23",
+  "description": "Stretched Chord visualisation based on work of visualcinnamon.com for Deloitte, see https://www.visualcinnamon.com/2015/08/stretched-chord",
+  "repository": "https://supportportal.moodinternational.com",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server  --config webpack.dev.js --open",
@@ -46,6 +47,7 @@
     "jest": "^26.5.3",
     "json-loader": "^0.5.7",
     "save-dev": "0.0.1-security",
+    "standard": "^16.0.1",
     "terser-webpack-plugin": "^4.2.3",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
@@ -66,5 +68,10 @@
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
       "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
     }
+  },
+  "standard": {
+    "ignore": [
+      "**/__tests__"
+    ]
   }
 }

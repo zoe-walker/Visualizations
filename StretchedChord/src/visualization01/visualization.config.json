@@ -1,5 +1,5 @@
 {
-  "version": "0.1.8",
+  "version": "0.1.23",
   "id": "47634fff-3181-4e4e-8d78-000000000007",
   "name": "Stretched Chord",
   "supportedVersions": "0",
@@ -10,13 +10,25 @@
     "file": "./visualization.js",
     "function": "vis.createStretchedChord"
   },
-  "style": { "animateAttr": "opacity" },
-  "inputs": [
-    {
-      "name": "LHSnode",
-      "displayName": "LHS Node",
-      "type": "elements"
+  "style": {
+    "JSON": {
+      "nodeColour": "#0080F0",
+      "nodeBorderColour": "#002090",
+      "nodeSeparation": 5,
+      "flowOpacity": 0.5,
+      "minimumNodeSizePercentage": 5,
+      "flowPeriod": "5s",
+      "arcThickness": 20,
+      "arcCentreSeparation": 100,
+      "labelMargin": 220,
+      "labelOffset": 10,
+      "labelFontSize": 15,
+      "labelFontFamily": "sans-serif",
+      "headerHeight": 10,
+      "footerHeight": 10
     }
+  },    
+  "inputs": [
   ],
   "outputs": [
     {
@@ -33,30 +45,16 @@
   "Actions": {
     "Source Click": {
       "description": "A source shape representing an element has been clicked.",
-      "actions": [
-        {
-          "method": "navigate",
-          "title": "Navigate"
-        }
-      ]
-    },
+      "title": "Source"
+      },
     "Target Click": {
       "description": "A target shape representing an element has been clicked.",
-      "actions": [
-        {
-          "method": "navigate",
-          "title": "Navigate"
-        }
-      ]
-    },
+      "title": "Target"
+      },
     "Chord Click": {
       "description": "A chord representing the relationship between source and target has been clicked.",
-      "actions": [
-        {
-          "method": "navigate",
-          "title": "Navigate"
-        }
-      ]
+      "title": "Link"
+      }
     }
-  }
 }
+
