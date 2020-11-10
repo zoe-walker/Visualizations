@@ -292,25 +292,147 @@ describe('Visualisation', () => {
     expect(element).not.toBeNull()
   })
 
-  it('data changed', () => {
+  it('Data changed', () => {
     document.body.innerHTML =
 			'<div id="visualisation01_element_guid"></div>'
 
-      createStretchedChord(config)
+    createStretchedChord(config)
 
     expect(mockDataChanged).toHaveBeenCalled()
 
-    var lastRHSNodeId = config.data.RHSnodes[config.data.RHSnodes.length - 1].id
-    var element = document.getElementById('n_' + lastRHSNodeId)
+    let lastRHSNodeId = config.data.RHSnodes[config.data.RHSnodes.length - 1].id
+    let element = document.getElementById('n_' + lastRHSNodeId)
     expect(element).not.toBeNull()
 
-    var dummy = config.data.RHSnodes.pop()
+    const dummy = config.data.RHSnodes.pop()
 
     config.functions.dataChanged(config.data)
 
     expect(mockDataChanged).toHaveBeenCalled()
     element = document.getElementById('n_' + lastRHSNodeId)
     expect(element).toBeNull()
+    //
+    // Restore config to original state
+    //
+    config.data.RHSnodes.push(dummy)
+  })
+
+  it('Link involving unknown nodes', () => {
+    document.body.innerHTML =
+			'<div id="visualisation01_element_guid"></div>'
+
+    // Add link from unknown node
+    config.data.links.push(
+      {
+        source: { id: 'Unknown node' },
+        target: { id: '55-407BB9255C384C6FBC48EA759CFE01DB' },
+        id: 'Unknown-1',
+        size: 1000,
+        colour: '#FF0000'
+      }
+    )
+    // Add link to unknown node
+    config.data.links.push(
+      {
+        source: { id: '55-8F18CFBF4CCE4AECBD51BA222A54CC52' },
+        target: { id: 'Unknown node' },
+        id: 'Unknown-2',
+        size: 1000,
+        colour: '#FF0000'
+      }
+    )
+    // Add link to and from unknown nodes
+    config.data.links.push(
+      {
+        source: { id: 'Unknown node' },
+        target: { id: 'Unknown node' },
+        id: 'Unknown-3',
+        size: 1000,
+        colour: '#FF0000'
+      }
+    )
+
+    createStretchedChord(config)
+
+    expect(mockDataChanged).toHaveBeenCalled()
+
+    let element = document.getElementById('n_' + config.data.LHSnodes[0].id)
+    expect(element).not.toBeNull()
+    element = document.getElementById('n_' + config.data.RHSnodes[config.data.RHSnodes.length - 1].id)
+    expect(element).not.toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 4].id)
+    expect(element).not.toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 3].id)
+    expect(element).toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 2].id)
+    expect(element).toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 1].id)
+    expect(element).toBeNull()
+    //
+    // Restore config to original state
+    //
+    config.data.links.pop()
+    config.data.links.pop()
+    config.data.links.pop()
+  })
+
+  it('Links between node on same side', () => {
+    document.body.innerHTML =
+			'<div id="visualisation01_element_guid"></div>'
+
+    // Add link to self on LHS
+    config.data.links.push(
+      {
+        source: { id: '55-407BB9255C384C6FBC48EA759CFE01DB' },
+        target: { id: '55-407BB9255C384C6FBC48EA759CFE01DB' },
+        id: 'Link2Self',
+        size: 1000,
+        colour: '#FF0000'
+      }
+    )
+    // Add link to and from LHS
+    config.data.links.push(
+      {
+        source: { id: '55-407BB9255C384C6FBC48EA759CFE01DB' },
+        target: { id: '55-8F18CFBF4CCE4AEAEAE1BA222A54CC52' },
+        id: 'LinkLHSOnly',
+        size: 1000,
+        colour: '#FF0000'
+      }
+    )
+    // Add link to and from RHS
+    config.data.links.push(
+      {
+        source: { id: '55-5F49AE0DC27340FFB3B47B7B42E89EF1' },
+        target: { id: '55-0F79D6F9323048B6A298473A6148B004' },
+        id: 'LinkRHSOnly',
+        size: 1000,
+        colour: '#FF0000'
+      }
+    )
+
+    createStretchedChord(config)
+
+    expect(mockDataChanged).toHaveBeenCalled()
+
+    var element = document.getElementById('n_' + config.data.LHSnodes[0].id)
+    expect(element).not.toBeNull()
+    element = document.getElementById('n_' + config.data.RHSnodes[config.data.RHSnodes.length - 1].id)
+    expect(element).not.toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 4].id)
+    expect(element).not.toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 3].id)
+    expect(element).toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 2].id)
+    expect(element).toBeNull()
+    element = document.getElementById('l_' + config.data.links[config.data.links.length - 1].id)
+    expect(element).toBeNull()
+    //
+    // Restore config to original state
+    //
+    config.data.links.pop()
+    config.data.links.pop()
+    config.data.links.pop()
   })
 
   afterEach(() => {
