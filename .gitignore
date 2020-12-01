@@ -3,3 +3,7 @@ dist/
 WebpackReactVisualization/visualizations.zip
 StretchedChord/visualizations.zip
 StretchedChord/debug.log
+*.gz
+*.tf1
+*.tfb
+StretchedChord/.tfignore
