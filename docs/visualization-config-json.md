@@ -137,6 +137,9 @@ The configuration of a visualization.
         } 
     ] 
     ```
+ __Property__: state - string or Object
+    * This is the name for the content passed to the visualization and which if set to editable the visualization can update and save back to the repository. The intention of state is to allow a visualization to store user configured changes to layout, appearance or behaviour from the web to be persisted if the solution builder using the visualization has allowed it to do so.
+
 [README Visualization Package Contents](../README.md#visualization-package-contents)
 
 [README](../README.md)
