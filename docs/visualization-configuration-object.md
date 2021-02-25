@@ -50,7 +50,7 @@ The configuration object contains the following fields:
    * updateOutput
       * __Parameters__: the name of the output and the value
          * Called by the visualization when an output changes passing the name of the output and the value. Active Enterprise will then post this back to the server and inform any panels that affected by the visualization
-* updateState
+  * updateState
       * __Parameters__: the new state value
          * Called by the visualization when new state needs to be persisted/saved passing the value. Active Enterprise will then post this back to the server and save the state if state editing is switched on.
    * performAction 
