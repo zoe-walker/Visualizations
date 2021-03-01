@@ -50,7 +50,7 @@ union Any = String | Date | Number | Boolean
 GraphQL interfaces represent a list of named fields and their arguments. GraphQL objects can then implement these interfaces which requires that the object type will define all fields defined by those interfaces.
 * [GraphQL Interfaces](http://spec.graphql.org/June2018/#sec-Interfaces)
 
-MooD Business Architect implicitly recognises one additional interface `MooDElement`. The `MooDElement` interface is for defining where the data to visualize is a set of MooD elements, e.g. from a MooD query. For example a simple tabular data visualization would have a data type that would implement and add to the MooDElement interface for values from an Element in the repository like the name or a field value. 
+MooD Business Architect implicitly recognises `MooDElement`. The `MooDElement` interface is for defining where the data to visualize is a set of MooD elements, e.g. from a MooD query. For example a simple tabular data visualization would have a data type that would implement and add to the MooDElement interface for values from an Element in the repository like the name or a field value. 
 
    ```
    interface MooDElement { 
@@ -58,6 +58,13 @@ MooD Business Architect implicitly recognises one additional interface `MooDElem
    ```
 
 Using the type `ID` when in the context of the MooDElement gives a unique identifier for the MooDElement (see the Simple Tabular row type example). 
+
+Another implicit interface is 'MooDMetaModel'. The 'MooDMetaModel' interface is for defining a point in your data where the MooD meta model will be output. This includes aliases, field and relationship information. Note that any fields defined inside the 'MooDMetaModel' interface will be ignored.
+
+   ```
+   interface MooDMetaModel { 
+   } 
+   ```
 
 [Table of Contents](#table-of-contents)
 

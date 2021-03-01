@@ -10,16 +10,22 @@ The configuration object contains the following fields:
 
 ### element - String 
 * The identifier of the HTML element that MAE has created to contain the visualization
+
 ### width - String
 * The width in pixels, e.g. "800px", allowed for the element created by MAE to contain the visualization
+
 ### height - String 
 * The height in pixels, e.g. "600px", allowed for the element created by MAE to contain the visualization
+
 ### animation - Boolean
 * Is the visualization to perform any animation, usually specified as false when a screenshot of the visualization is being made and true when being shown in the web
+
 ### data - Object 
 * The data, conforming to the data shape defined by the visualization, for the visualization to render
+
 ### style - Object 
 * This object conforms to the structure of the `style.JSON` property defined in the `visualization.config.json` file, or will be null if no style is defined in JSON. The default values defined in the visualization configuration can be amended within MooD Business Architect and it is these values that will be passed to the entry function
+
 ### inputs - Object 
 * This object conforms to the structure of the `inputs` property defined in the `visualization.config.json` file. The content is populated by MooD Business Architect. 
 ### state - Object (Introduced in Customer Release 6)
@@ -29,7 +35,8 @@ The configuration object contains the following fields:
 * The content is populated by MooD Business Architect.
 ### functions - Object 
 * The functions object holds functions used to interact between Active Enterprise and the Visualization and vice versa. The Visualization is expected to override (assign) new functions to those that it wants to react to, all functions have an implementation which should not raise exceptions. 
-   ```
+
+   ```JavaScript
    errorOccurred(error: Error): void; 
    dataChanged(data: object): void;  
    inputChanged(name: string; value: any): void; 
@@ -37,6 +44,7 @@ The configuration object contains the following fields:
    updateState(state: string): void; 
    performAction(name: string, id: string, event: object): void; 
    ```
+
    * errorOccurred 
       * __Parameter__: the error object
          * Called by Active Enterprise as and when a problem occurs with the visualization, it can also be called by the visualization when it has errors or problems. Can be overridden if the visualization has a particular way of displaying problems
@@ -50,7 +58,7 @@ The configuration object contains the following fields:
    * updateOutput
       * __Parameters__: the name of the output and the value
          * Called by the visualization when an output changes passing the name of the output and the value. Active Enterprise will then post this back to the server and inform any panels that affected by the visualization
-  * updateState
+   * updateState
       * __Parameters__: the new state value
          * Called by the visualization when new state needs to be persisted/saved passing the value. Active Enterprise will then post this back to the server and save the state if state editing is switched on.
    * performAction 
