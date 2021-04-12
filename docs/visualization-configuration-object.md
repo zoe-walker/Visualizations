@@ -58,15 +58,15 @@ The configuration object contains the following fields:
    * updateOutput
       * __Parameters__: the name of the output and the value
          * Called by the visualization when an output changes passing the name of the output and the value. Active Enterprise will then post this back to the server and inform any panels that affected by the visualization
-   * updateState
+   * updateState (Introduced in Customer Release 6)
       * __Parameters__: the new state value
          * Called by the visualization when new state needs to be persisted/saved passing the value. Active Enterprise will then post this back to the server and save the state if state editing is switched on.
    * performAction 
       * __Parameters__: the name of the event being responded to, the id of the element and the event that triggered it if available
          * Called by the visualization when a user interacts with it and visualization has defined an action in the visualization.config.json actions property that corresponds with that. The visualization passes the name of the action as defined in its configuration, the id of the row or element that this action is associated with and the event that triggered it, the event is used if the solution builder has configured more than one thing for the web user to choose from for this action so it can position the menu of choices appropriately using the pageX and pageY properties of the event.   
-  * hasAction 
-      * __Parameters__: the name of the event being responded to, the id of the element or an array of ids, and a callback function to accept the answer
-         * Called by the visualization to determine if there would be a response if performAction were to be called for this or these elements. The visualization passes the name of the action as defined in its configuration, the id or array of ids of the rows or elements that this action is associated with, and a callback function that accepts the result bool and the id (for arrays of ids then this callback will be called for each id).
+  * hasAction (Introduced in Customer Release 6)
+      * __Parameters__: the name of the event that would be responded to, the id of the element or an array of ids, and a callback function to accept the answer
+         * Called by the visualization to determine if there would be a response if performAction were to be called for this or these elements. The visualization passes the name of the action as defined in its configuration, the id or array of ids of the rows or elements that this action is associated with, and a callback function that accepts the result bool and the id (for arrays of ids then this callback will be called for each id). An example of use for this would be if the visualization wants to indicate that an area is hot or will do something when clicked either by changing the mouse hover pointer or displaying it slightly differently, the visualization can ask if the id for the area has an action and if it does make it hot, or not if it doesn't.
  
 [README MooD Active Enterprise (MAE)](../README.md#mood-active-enterprise-mae)
 
