@@ -63,7 +63,11 @@ Another implicit interface is 'MooDMetaModel'. The 'MooDMetaModel' interface is 
 
    ```
    interface MooDMetaModel { 
-   } 
+   }
+   
+   # For example:
+   type Meta implements MooDMetaModel { }
+   type data { meta: Meta }
    ```
 
 [Table of Contents](#table-of-contents)
