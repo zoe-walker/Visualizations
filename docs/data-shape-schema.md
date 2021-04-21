@@ -73,29 +73,35 @@ Another implicit interface is 'MooDMetaModel'. The 'MooDMetaModel' interface is 
 In the above example here is an extract of the JSON you will recieve:
 
    ```
-   "meta": 
+	"meta": 
 	{
 		"aliases": [
 			{
-				"name": "Process", 
-				"id": "2036E42C84B241DEA7877065FC9DB020", 
+				"name": "Person", 
+				"id": "00000000000000000000000000000001", 
 				"type": "primary element", 
 				"fields": [
-					{"name": "Identifier", "id": "2036E42C84B241DE5F3A7D625B274620", "type": "string", "relationship_alias_id": null},
-					{"name": "MyRel", "id": "2036E42C84B241DEE28A4819C10C45D9", "type": "relationship field", "relationship_alias_id": "F192518D3AAF2E9973F85897C6D89E48"}
+					{"name": "Identifier", "id": "00000000000000000000000000000002", "type": "string", "relationship_alias_id": null},
+					{"name": "PersonToTeam", "id": "00000000000000000000000000000003", "type": "relationship field", "relationship_alias_id": "00000000000000000000000000000005"}
 				], 
 				"allowed_aliases": []
 			},
+			{
+				"name": "Team", 
+				"id": "00000000000000000000000000000004", 
+				"type": "primary element", 
+				"fields": [], 
+				"allowed_aliases": []
+			},
 							{
-				"name": "MyRel", 
-				"id": "F192518D3AAF2E9973F85897C6D89E48", 
+				"name": "PersonToTeam", 
+				"id": "00000000000000000000000000000005", 
 				"type": "element relationship", 
 				"fields": [], 
-				"allowed_aliases": [{"name": "Process", "id": "2036E42C84B241DEA7877065FC9DB020"}]
+				"allowed_aliases": [{"name": "Team", "id": "00000000000000000000000000000004"}]
 			}
 		]
-	}
-   ```
+	}   ```
 This enables visualizations such as the one below to be created:
 
 ![MetaModel](https://user-images.githubusercontent.com/19664605/115558878-13c95100-a2ab-11eb-89fc-4c2bde4f4fc8.png)
