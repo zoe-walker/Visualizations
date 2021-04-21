@@ -101,7 +101,9 @@ In the above example here is an extract of the JSON you will recieve:
 				"allowed_aliases": [{"name": "Team", "id": "00000000000000000000000000000004"}]
 			}
 		]
-	}   ```
+	}   
+```
+
 This enables visualizations such as the one below to be created:
 
 ![MetaModel](https://user-images.githubusercontent.com/19664605/115558878-13c95100-a2ab-11eb-89fc-4c2bde4f4fc8.png)
