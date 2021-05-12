@@ -50,7 +50,7 @@ union Any = String | Date | Number | Boolean
 GraphQL interfaces represent a list of named fields and their arguments. GraphQL objects can then implement these interfaces which requires that the object type will define all fields defined by those interfaces.
 * [GraphQL Interfaces](http://spec.graphql.org/June2018/#sec-Interfaces)
 
-MooD Business Architect implicitly recognises one additional interface `MooDElement`. The `MooDElement` interface is for defining where the data to visualize is a set of MooD elements, e.g. from a MooD query. For example a simple tabular data visualization would have a data type that would implement and add to the MooDElement interface for values from an Element in the repository like the name or a field value. 
+MooD Business Architect implicitly recognises `MooDElement`. The `MooDElement` interface is for defining where the data to visualize is a set of MooD elements, e.g. from a MooD query. For example a simple tabular data visualization would have a data type that would implement and add to the MooDElement interface for values from an Element in the repository like the name or a field value. 
 
    ```
    interface MooDElement { 
@@ -58,6 +58,55 @@ MooD Business Architect implicitly recognises one additional interface `MooDElem
    ```
 
 Using the type `ID` when in the context of the MooDElement gives a unique identifier for the MooDElement (see the Simple Tabular row type example). 
+
+Another implicit interface is 'MooDMetaModel'. The 'MooDMetaModel' interface is for defining a point in your data where the MooD meta model will be output. This includes aliases, field and relationship information. Note that any fields defined inside the 'MooDMetaModel' interface will be ignored.
+
+   ```
+   interface MooDMetaModel { 
+   }
+   
+   # For example:
+   type Meta implements MooDMetaModel { }
+   type data { meta: Meta }
+   ```
+
+In the above example here is an extract of the JSON you will recieve:
+
+   ```
+	"meta": 
+	{
+		"aliases": [
+			{
+				"name": "Person", 
+				"id": "00000000000000000000000000000001", 
+				"type": "primary element", 
+				"fields": [
+					{"name": "Identifier", "id": "00000000000000000000000000000002", "type": "string", "relationship_alias_id": null},
+					{"name": "PersonToTeam", "id": "00000000000000000000000000000003", "type": "relationship field", "relationship_alias_id": "00000000000000000000000000000005"}
+				], 
+				"allowed_aliases": []
+			},
+			{
+				"name": "Team", 
+				"id": "00000000000000000000000000000004", 
+				"type": "primary element", 
+				"fields": [], 
+				"allowed_aliases": []
+			},
+							{
+				"name": "PersonToTeam", 
+				"id": "00000000000000000000000000000005", 
+				"type": "element relationship", 
+				"fields": [], 
+				"allowed_aliases": [{"name": "Team", "id": "00000000000000000000000000000004"}]
+			}
+		]
+	}   
+```
+
+This enables visualizations such as the one below to be created:
+
+![MetaModel](https://user-images.githubusercontent.com/19664605/115558878-13c95100-a2ab-11eb-89fc-4c2bde4f4fc8.png)
 
 [Table of Contents](#table-of-contents)
 

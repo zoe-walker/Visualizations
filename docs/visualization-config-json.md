@@ -9,14 +9,16 @@ The configuration of a visualization.
     * This is the globally unique identifier (GUID) for this visualization.  It enables the use of the same name of a visualization without causing conflicts and uniquely identifies a visualization for use when upgrading or trying to find where it has been used within the MooD application
     * The visualization template includes a script to generate a GUID for your visualization
 * __Property__: name 
-    * The name for this specific visualization, if not specified, the package.json name should be used
+    * The name for this specific visualization. If not specified, the package.json name will be used
 * __Property__: description 
-    * The description for this specific visualization
+    * The description for this specific visualization. If not specified, the package.json description will be used
+    * The description is displayed in the information section of the flip-side of the visualization
 * __Property__: version 
     * The version of this specific visualization, if not specified, the package.json version should be used
 * __Property__: dependencies 
     * These are a list of dependencies that this visualization requires or contains, and is added to the list from the package
-    ```
+    
+    ```JavaScript
     dependencies: { 
         jQuery: "2.2.3", 
         YUI: ["2.8", "2.9"], 
@@ -25,10 +27,15 @@ The configuration of a visualization.
     ```
 * __Property__: supportedVersions 
     * This optional property tells the MooD application what previous versions of this visualization supports (upgrades from).  It would only support previous versions if it could take the configuration and data in the shape provided and transform it (within itself) into the right shape for the newer version
+    * The property specifies a root version and all versions from that root are suitable for upgrading. For instance "1.1" means all versions "1.1.0", "1.1.1" etc can be upgraded
     * An example where a new version cannot be upgraded is where a new field is added to the data shape that can't be calculated by the new version
     * Thus, for a non-breaking change, older "supported" versions of the visualization are updated to the new version. Older non-supported versions remain as they were, so you can end up with multiple versions of the visualization in the MooD repository
     * When MooD BA upgrades older supported versions to a new version that involves a change to the data shape, some of the wiring ("pins") may be lost. Thus, when importing a new version you should check existing uses of the visualisation in case they need to be re-pinned
-    * This entry being blank or not existing means that there are no previous supported versions and no upgrades will take place
+    * This entry being blank or not existing means that there are no previous supported versions and no upgrades will take place. However, if there is a value defined for the supportedVersions property in `package.json`, then that will be used instead
+
+    ```JavaScript
+    supportedVersions: "0.1"
+    ```
 * __Property__: moodVersion 
     * This would be the MooD version that this package was built against and would be an indication of the version of MooD Business Architect that this visualization was created for.  This is useful for users of the visualization to know what the minimum version of MooD is that this visualization supports (even though the visualization would likely be supported in previous versions)
 <a name="dynamic-data"></a>
@@ -47,9 +54,10 @@ The configuration of a visualization.
     * __Field__: URL
         * A relative path to a location within the package to a template CSS document injected into the page when rendering. The CSS document can be edited in Business Architect. It is the responsibility of the visualization developer to provide a specificity for these styles to ensure that they only affect this visualization
     * Example
-    ```
+
+```JavaScript
     style: { 
-        URL: "visualization.css", 
+        URL: "visualization01/visualization.css", 
         JSON: { 
             XAxis: { 
                 label: "X Axis",
@@ -63,14 +71,15 @@ The configuration of a visualization.
             } 
         } 
     }
-    ```
+```
 * __Property__: actions 
     * This is a mapped object where each sub-property is an action.  Each action can have one or more of the following sub-properties: 
     * description: This is optional and is a brief but useful description of where this action may be triggered and by what user action
     * title: This is optional and is the title of the action to be displayed on the menu (if a menu is required) when the user interacts with the visualization in some way
     * info: This is some more information to be displayed on the menu under the title
     * Example
-    ```
+
+    ```JavaScript
     actions: { 
         "Line clicked": { 
             description: "A line in the graph representing a row of data has been clicked", 
@@ -106,12 +115,13 @@ The configuration of a visualization.
     * This is the name for the fields that can be used when connecting to other components and can be set within the visualization code itself when the user clicks on an area of the visualization for example. Defined in the same way as the inputs
     * Inputs and Outputs Structure 
     * The inputs and outputs are arrays of objects where each object defines an input or output, the object definition is:
-    ```
+
+    ```JSON
     [{ 
-        name: "<input or output name>", 
-        displayName: "<optional display name in the UI if different from the name>", 
-        type: "String | Boolean | Date | Number | Elements | Colour | Image | Shape", 
-         default: "<Optional default value of appropriate type>"
+        "name": "<input or output name>", 
+        "displayName": "<optional display name in the UI if different from the name>", 
+        "type": "String | Boolean | Date | Number | Elements | Colour | Image | Shape", 
+         "default": "<Optional default value of appropriate type>"
     }] 
     ```
     * Values for the "elements" type may be a single element unique id string, a comma separated list of unique ids or an array of unique ids representing the element instances, for example: 
@@ -121,22 +131,30 @@ The configuration of a visualization.
     * For colour and shape types the value is determined using a pick selected by the user when configuring the visualization, that is if the visualization outputs a colour it will be mapped to a pick item from the pick type with that colour and the pick item will be used as the output in MooD, and vice versa a pick input variable will be given for any colour or shape defined input
     * For image types an input to the visualization of this type will be given a URL to the image, and vice versa for an image output MooD expects the URL as the value
     * Example:
-    ```
-    inputs: [ 
+
+    ```JSON
+    {
+    ...
+    "inputs": [ 
         { 
-            name: "xaxisminimum", 
-            displayName: "X Axis Minimum", 
-            type: "Number", 
-            default: 0 
+            "name": "xaxisminimum", 
+            "displayName": "X Axis Minimum", 
+            "type": "Number", 
+            "default": 0 
         }, 
         { 
-            name: "xaxismaximum", 
-            displayName: "X Axis Maximum",
-            type: "Number",
-            default: 100 
+            "name": "xaxismaximum", 
+            "displayName": "X Axis Maximum",
+            "type": "Number",
+            "default": 100 
         } 
-    ] 
+    ]
+    ... 
+    }
     ```
+* __Property__: state - string or Object (Introduced in Customer Release 6)
+    * This is the name for the content passed to the visualization and which if set to editable the visualization can update and save back to the repository. The intention of state is to allow a visualization to store user configured changes to layout, appearance or behaviour from the web to be persisted if the solution builder using the visualization has allowed it to do so.
+
 [README Visualization Package Contents](../README.md#visualization-package-contents)
 
 [README](../README.md)

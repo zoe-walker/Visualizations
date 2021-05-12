@@ -142,14 +142,28 @@ See [Visualization Configuration Object specification](docs/visualization-config
 The visualization package (zip) can contain the following files: 
 
 * `package.json`: a general configuration file for the package
-  * This file is used to set general configuration settings for this package.  Its specification and format is defined [here](http://wiki.commonjs.org/wiki/Packages/1.1#Package_Descriptor_File). It is primarily used by NPM when publishing a package to the NPM library repository.  All the relevant properties have been listed and described below:
+  * This file is used to communicate general configuration settings for this package to MooD Business Architect (MBA). Its specification and format is similar to [CommonJS Descriptor File](http://wiki.commonjs.org/wiki/Packages/1.1#Package_Descriptor_File).  All the relevant properties have been listed and described below:
   *  __Property__: id 
      * This property requires a globally unique identifier (GUID) and is not a standard package.json property, but it is useful to uniquely identify this package of visualization(s)
 	 * The visualization template includes a script to generate a GUID for your visualization package
   * __Property__: name 
-     * This is the name of the visualization package; this name may be used to list the visualization within Business Architect if the visualization config has no name specified
+     * This is the name of the visualization package; MBA uses this as the name of the package displayed in the gallery and also as the name of the visualization if visualization config (`visualization.config.json`) has no name specified
+     * The strict rules of CommonJS descriptor file for the name property are not enforced by MBA. The name can include capital letters and spaces. You can safely ignore non-conformity problems reported by your IDE, e.g. VS Code, for this property.
+  * __Property__: description
+     * A description of the visualization package. MBA will display this in the information section of the flip-side of visualizations in the package that don't have a description of their own
   * __Property__: version 
-     * This is the version of the visualization package.  This version will be used and displayed in the list of visualizations within Business Architect. Business Architect may use and display two or more versions of the same visualization, if there is no upgrade from one version to another
+     * This is the version of the visualization package.  This version will be used and displayed in the list of visualizations within MBA. MBA may use and display two or more versions of the same visualization, if there is no upgrade from one version to another
+  * __Property__: supportedVersions 
+    * This optional property tells the MooD application what previous versions of visualizations in the package supports (upgrades from) if visualization config (`visualization.config.json`) has no supportedVersions specified.  It would only support previous versions if it could take the configuration and data in the shape provided and transform it (within itself) into the right shape for the newer version
+    * The property specifies a root version and all versions from that root are suitable for upgrading. For instance "1.1" means all versions "1.1.0", "1.1.1" etc can be upgraded
+    * An example where a new version cannot be upgraded is where a new field is added to the data shape that can't be calculated by the new version
+    * Thus, for a non-breaking change, older "supported" versions of the visualization are updated to the new version. Older non-supported versions remain as they were, so you can end up with multiple versions of the visualization in the MooD repository
+    * When MooD BA upgrades older supported versions to a new version that involves a change to the data shape, some of the wiring ("pins") may be lost. Thus, when importing a new version you should check existing uses of the visualisation in case they need to be re-pinned
+    * This entry being blank or not existing means that there are no previous supported versions and no upgrades will take place. However, individual visualizations can define supportedVersions in `visualization.config.json`
+
+    ```JavaScript
+    supportedVersions: "0.1"
+    ```
   * __Property__: dependencies 
      * These are a list of dependencies that all visualization in this package requires or contains. It is appended to the list in each `visualization.config.json`
 * Visualization Folder 
@@ -195,11 +209,18 @@ Close the window in the browser and stop the debugging session in the terminal w
 
 # Creating the visualization package
 
+__Warning: Before attempting to create the package for the first time make sure you have run the `npm start` at least once. This will ensure that all of the generated files exist. Once the generated files exist the webpack configuration will ensure that they are re-generated each time. Failure to do so will result in an error such as__
+
+```
+Invalid configuration object. Webpack has been initialised using a configuration object that does not match the API schema
+```
+
 MooD imports visualization packages in the form of a zip file. As you have got this far through the guide, generating the zip file is simply achieved by executing the following in the VS Code terminal
 
 ```npm run-script build```
 
-This will create the visualization package zip file in the top level folder of your workspace.
+
+This will create the visualization package zip file `visualization.zip` in the top level folder of your VS Code workspace. You will probably want to rename this before importing into MooD.
 
 Note: this automatically increments the patch number in the semantic version number of the visualization package. This is done to ensure that each time you build the visualization after a code change, MooD will recognise the change. You can manually maintain the semantic version number by editing the top level `package.json` file.
 
