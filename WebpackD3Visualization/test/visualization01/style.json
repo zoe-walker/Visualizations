@@ -1,4 +1,6 @@
-{"style" : {
+{
+    "URL": "visualization01/simple.css",
+    "style" : {
     "margin": {
         "left": 20,
         "right": 20,
