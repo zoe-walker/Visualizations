@@ -1,9 +1,9 @@
 {
-  "id": "f3aa5b37-1a45-4fde-b742-072967cd6f8e",
   "name": "line_chart",
   "description": "Example simple line chart based on React framework and recharts library",
-  "version": "0.0.13",
+  "version": "0.0.15",
   "supportedVersions": "0",
+  "license": "MIT",
   "dependencies": {
     "@types/recharts": "^1.8.9",
     "prop-types": "^15.7.2",
