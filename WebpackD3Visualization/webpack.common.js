@@ -92,6 +92,13 @@ function getPlugins() {
                         this.directoryName))
                     .filter(f => path.extname(f) == '.png');
                 }
+        cssFiles() {
+            return fs.readdirSync(
+                        path.join(__dirname,
+                        'src',
+                        this.directoryName))
+                    .filter(f => path.extname(f) == '.css');
+                }
         configFiles() {
             return [
                 'visualization.config.json',
@@ -140,11 +147,19 @@ function getPlugins() {
         .map(d => Object(new CopyPlugin(
             d.imageFiles().map(f => getCopyPluginOption(d.directoryName, f))))
         );
+//
+// CopyPlugin for each CSS file
+//
+    let vcssCopyPlugins = VisualizationDirectories
+        .map(d => Object(new CopyPlugin(
+            d.cssFiles().map(f => getCopyPluginOption(d.directoryName, f))))
+        );
 
     return [vpcVersionFile, vpcCopyPlugin]
         .concat(vcVersionFiles)
         .concat(vcCopyPlugins)
-        .concat(viCopyPlugins);
+        .concat(viCopyPlugins)
+        .concat(vcssCopyPlugins);
 }
 
 /**

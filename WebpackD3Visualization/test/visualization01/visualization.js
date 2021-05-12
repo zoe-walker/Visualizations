@@ -20,16 +20,33 @@ for (key in dataConfig) {
 }
 
 for (key in styleConfig) {
-    if(styleConfig.hasOwnProperty(key)) {
+    if (styleConfig.hasOwnProperty(key) && key !== 'URL') {
         config[key] = styleConfig[key];
     }
 }
 
 for (key in inputsConfig) {
-    if(inputsConfig.hasOwnProperty(key)) {
+    if (inputsConfig.hasOwnProperty(key)) {
         config[key] = inputsConfig[key];
     }
 }
 
-   console.log(JSON.stringify(config));
-   visualization(config);
+    console.log(JSON.stringify(config));
+    addCSSFile(css);
+
+    var el = document.getElementById(config.element)
+    el.style.height = config.height
+    el.style.width = config.width
+    visualization(config);
+
+    function addCSSFile(cssURL) {
+        if (cssURL !== undefined && cssURL !== null) {
+            var link = document.createElement("link");
+            link.href = cssURL
+            link.type = "text/css";
+            link.rel = "stylesheet";
+            link.media = "screen,print";
+
+            document.getElementsByTagName("head")[0].appendChild(link);
+        }
+    }
