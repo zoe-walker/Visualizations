@@ -1,3 +1,5 @@
-{"style" : {
-    }
+{
+  "URL": "<URL of CSS file, e.g. visualization01/simple.css or delete property if not applicable>",
+  "style": {
+  }
 }

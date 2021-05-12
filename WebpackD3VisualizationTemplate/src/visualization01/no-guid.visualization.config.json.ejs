@@ -1,16 +1,20 @@
 {
   "id": "<%= uuid.v4(); %>",
   "name": "<Visualization Name>",
+  "description": "<Visualization Description>",
   "version": "<%%= package.version %%>",
-  "supportedVersions": "Visualization Semantic supported base version number x.y.z or delete property if no supported versions",
-  "moodVersion": "16.0.67",
+  "supportedVersions": "Visualization Semantic supported base version number x.y or delete property if no supported versions",
+  "moodVersion": "16.0.076",
   "entry": {
     "file": "visualization.js",
     "function": "vis.visualization"
   },
   "supportedBrowsers": "<List of browsers that the visualization supports, e.g. Chrome, Edge, Firefox>",
   "inputs": [
-    ],
+  ],
   "style": {
+    "URL": "<For example visualization01/simple.css, or delete property if not applicable>",
+    "JSON": {
+    }
   }
 }

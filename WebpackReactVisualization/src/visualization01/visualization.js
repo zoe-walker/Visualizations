@@ -19,7 +19,7 @@ export function visualization(config) {
   var width = parseFloat(config.width);
   var height = parseFloat(config.height);
   var animation = config.animation;
- 
+
   //console.log(JSON.stringify(config));
   const renderLineChart = (
     <LineChart width={width} height={height} data={data} margin={margin} >

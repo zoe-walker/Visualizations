@@ -1,9 +1,10 @@
 {
   "id": "<%= uuid.v4(); %>",
   "name": "Recharts Line Chart",
+  "description": "Example of a line chart using Recharts framework",
   "version": "<%%= package.version %%>",
-  "supportedVersions": "0.0.0",
-  "moodVersion": "16.0.67",
+  "supportedVersions": "0",
+  "moodVersion": "16.0.76",
   "entry": {
     "file": "visualization.js",
     "function": "vis.visualization"
@@ -17,15 +18,15 @@
         "right": 20,
         "top": 20,
         "bottom": 20
-    },
-    "line": {
+      },
+      "line": {
         "type": "monotone",
-        "strokeColour" : "#8884d8"
-    },
-    "CartesianGrid": {
+        "strokeColour": "#8884d8"
+      },
+      "CartesianGrid": {
         "stroke": "#ccc",
-        "strokeDasharray" : "5 5"
+        "strokeDasharray": "5 5"
+      }
     }
   }
-}
 }
