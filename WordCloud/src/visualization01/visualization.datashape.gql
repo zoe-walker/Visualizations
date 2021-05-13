@@ -4,6 +4,5 @@ type data {
 
 type row implements MooDElement{
 	key: ID!
-	x: Number!
-	y: Number!
+	text: String!
 }
