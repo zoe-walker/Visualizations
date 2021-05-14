@@ -6,6 +6,10 @@
         "right": 20,
         "top": 20,
         "bottom": 20
-    }
+    },
+    "minWordLength": 3,
+    "minInstanceCount": 1,
+    "baseFontSize": 20,
+    "instanceMultiplier": 10
     }
 }
