@@ -8,8 +8,10 @@
         "bottom": 20
     },
     "minWordLength": 3,
-    "minInstanceCount": 1,
+    "minInstanceCount": 2,
     "baseFontSize": 20,
-    "instanceMultiplier": 10
+    "instanceMultiplier": 10,
+    "ignoreWords": [
+        "the", "and", "this", "are", "but", "its", "for", "that", "also"]
     }
 }

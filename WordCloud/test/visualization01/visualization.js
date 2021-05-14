@@ -36,7 +36,32 @@ for (key in inputsConfig) {
     }
 }
 
-//    console.log(JSON.stringify(config));
+    //
+    // Define updateOutput function to log to console changes to output
+    //
+    var errorOccurred = function(error) {
+        console.log(error)
+    }
+    //
+    // Define performAction function to log to console actions triggered by visualisation
+    //
+    var performAction = function(name, id, event) {
+        console.log('Perform Action: name = ' + name + ', id = ' + id + ', event: ' + JSON.stringify(event))
+        config.functions.inputChanged('highlightNode', id)
+    }
+    //
+    // Define inputChanged function
+    //
+    var inputChanged = function (name, value) {
+        console.log('Inputs Changed: name = ' + name + ', value: ' + JSON.stringify(value))
+    }
+
+    config.functions = {
+        errorOccurred: errorOccurred,
+        performAction: performAction,
+        inputChanged: inputChanged
+    };
+    //    console.log(JSON.stringify(config));
     addCSSFile(css);
 
     var el = document.getElementById(config.element)
