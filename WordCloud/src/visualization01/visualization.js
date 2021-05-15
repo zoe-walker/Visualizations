@@ -2,11 +2,11 @@
 // D3 word cloud
 // https://www.d3-graph-gallery.com/graph/wordcloud_size.html
 //
-// ** MooD BA customisation - start **
 //    Entry function declaration
 //
 import * as d3 from "d3";
 import * as d3Cloud from "d3-cloud"
+import * as d3Chromatic from "d3-scale-chromatic"
 /**
  * 
  * @param {object} config MooD visualisation config object 
@@ -26,13 +26,17 @@ export function visualization(config) {
     style.baseFontSize = style.baseFontSize || 20
     style.instanceMultiplier = style.instanceMultiplier || 10
     style.ignoreWords = style.ignoreWords ? style.ignoreWords.map(word => word[0].toUpperCase() + word.substring(1)) : []
-
     //
-    // ** MooD BA customisation - end **
+    // Define colour data
     //
-    
+    const colourScale = d3Chromatic.interpolateSpectral //interpolateRdYlBu //interpolateSpectral
+  
+    const colourRangeInfo = {
+      colourStart: 0,
+      colourEnd: 1,
+      useEndAsStart: false,
+    };    
     //
-    // ** MooD BA customisation - start **
     //    append the svg to the element in MooD config
     //
     // set the dimensions and margins of the graph
@@ -45,11 +49,6 @@ export function visualization(config) {
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")")
     //
-    // ** MooD BA customisation - end **
-    //
-    
-    //
-    // ** MooD BA customisation - start **
     //    Read the data
     //
     let data = config.data.rows
@@ -93,42 +92,65 @@ export function visualization(config) {
       .map(function(word) {return {...word, size: style.baseFontSize + (word.count - style.minInstanceCount) * style.instanceMultiplier}} )
     // console.log(JSON.stringify(wordsOfInterest))
     //
-    // ** MooD BA customisation - end **
+    // Check if there are any words to put in the cloud
     //
+    if (wordsOfInterest.length > 0) {
+      //
+      // Get range of occurrences
+      //
+      const occurenceRange = wordsOfInterest.reduce((accumulator, value) => {
+        return {min: Math.min(accumulator.min, value.count), max: Math.max(accumulator.max, value.count)}
+      }, {min: Number.POSITIVE_INFINITY, max: Number.NEGATIVE_INFINITY})
+      //
+      // Calculate colour interval size
+      //
+      const occurenceRangeSize = (occurenceRange.max - occurenceRange.min)
+      const intervalSize = occurenceRangeSize > 0 ?
+        (colourRangeInfo.colourEnd - colourRangeInfo.colourStart) / occurenceRangeSize : 0
+        
+      // console.log(JSON.stringify(intervalSize))
 
-    // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
-    // Wordcloud features that are different from one word to the other must be here
-    let layout = d3Cloud()
-      .size([width, height])
-      .words(wordsOfInterest.map(function(d) { return {text: d.word, size:d.size}; }))
-      .padding(5)        //space between words
-      .rotate(function() { return ~~(Math.random() * 2) * 90; })
-      .fontSize(function(d) { return d.size; })      // font size of words
-      .on("end", draw);
-    layout.start();
+      // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
+      // Wordcloud features that are different from one word to the other must be here
+      let layout = d3Cloud()
+        .size([width, height])
+        .words(wordsOfInterest.map(function(d) { return {text: d.word, size:d.size, count:d.count}; }))
+        .padding(5)        //space between words
+        .rotate(function() { return ~~(Math.random() * 2) * 90; })
+        .fontSize(function(d) { return d.size; })      // font size of words
+        .on("end", draw);
+      layout.start();
 
-    // This function takes the output of 'layout' above and draw the words
-    // Wordcloud features that are THE SAME from one word to the other can be here
-    function draw(words) {
-      svg
-        .append("g")
-          .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
-          .selectAll("text")
-            .data(words)
-          .enter().append("text")
-            .style("font-size", function(d) { return d.size + "px"; })
-            .style("fill", "#69b3a2")
-            .attr("text-anchor", "middle")
-            .style("font-family", "Impact")
-            .attr("transform", function(d) {
-              return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-            })
-            .text(function(d) { return d.text; });  
+      // This function takes the output of 'layout' above and draw the words
+      // Wordcloud features that are THE SAME from one word to the other can be here
+      function draw(words) {
+        svg
+          .append("g")
+            .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
+            .selectAll("text")
+              .data(words)
+            .enter().append("text")
+              .style("font-size", function(d) { return d.size + "px" })
+              .style("fill", function(d) { return calculateColour(d.count) })
+              .attr("text-anchor", "middle")
+              .style("font-family", "Impact")
+              .attr("transform", function(d) {
+                return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")"
+              })
+              .text(function(d) { return d.text; })
+      }
+      //
+      // Function to choose colour
+      //
+      function calculateColour(value) {
+        let { colourStart, colourEnd, useEndAsStart } = colourRangeInfo
+        const colourPoint = useEndAsStart
+        ? (colourEnd - ((value - occurenceRange.min) * intervalSize))
+        : (colourStart + ((value - occurenceRange.min) * intervalSize))
+        let colour = colourScale(colourPoint)
+        return colour
+      }
     }
-  //
-  // ** MooD BA customisation - start **
-  //    Catch exceptions
-  //
   } catch (e) {
     //
     // Write error message to the canvas
@@ -136,12 +158,6 @@ export function visualization(config) {
     console.log('Error caught')
     const el = document.getElementById(config.element)
     let errorMessage = e.name + ': ' + e.message
-    if ('stack' in e) {
-      errorMessage = e.stack
-    }
-    if ('lineNumber' in e && 'fileName' in e) {
-      errorMessage += 'At ' + e.fileName + ':' + e.lineNumber
-    } 
     console.log('Error: ' + errorMessage)
 
     const errorEl = document.createElement('text')
@@ -155,8 +171,5 @@ export function visualization(config) {
     //
     config.functions.errorOccurred(errorMessage)
   }
-  //
-  // ** MooD BA customisation - end **
-  //
 }
   
