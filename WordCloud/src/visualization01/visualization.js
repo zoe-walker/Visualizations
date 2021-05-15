@@ -6,7 +6,6 @@
 //
 import * as d3 from "d3";
 import * as d3Cloud from "d3-cloud"
-import * as d3Chromatic from "d3-scale-chromatic"
 /**
  * 
  * @param {object} config MooD visualisation config object 
@@ -26,16 +25,17 @@ export function visualization(config) {
     style.baseFontSize = style.baseFontSize || 20
     style.instanceMultiplier = style.instanceMultiplier || 10
     style.ignoreWords = style.ignoreWords ? style.ignoreWords.map(word => word[0].toUpperCase() + word.substring(1)) : []
-    //
-    // Define colour data
-    //
-    const colourScale = d3Chromatic.interpolateSpectral //interpolateRdYlBu //interpolateSpectral
-  
-    const colourRangeInfo = {
-      colourStart: 0,
-      colourEnd: 1,
-      useEndAsStart: false,
-    };    
+    const colourPalette = style.colourPalette
+
+    if (!colourPalette) {
+      throw new Error('colour Palette is not defined')
+    }
+    if (!Array.isArray(colourPalette)) {
+      throw new Error('colour Palette is not defined as an array')
+    }
+    if (colourPalette.length === 0) {
+      throw new Error('colour Palette is empty')
+    }
     //
     //    append the svg to the element in MooD config
     //
@@ -95,6 +95,7 @@ export function visualization(config) {
     // Check if there are any words to put in the cloud
     //
     if (wordsOfInterest.length > 0) {
+      console.log('Word count: ' + wordsOfInterest.length)
       //
       // Get range of occurrences
       //
@@ -102,14 +103,11 @@ export function visualization(config) {
         return {min: Math.min(accumulator.min, value.count), max: Math.max(accumulator.max, value.count)}
       }, {min: Number.POSITIVE_INFINITY, max: Number.NEGATIVE_INFINITY})
       //
-      // Calculate colour interval size
+      // Calculate colour palette mapping data
       //
       const occurenceRangeSize = (occurenceRange.max - occurenceRange.min)
-      const intervalSize = occurenceRangeSize > 0 ?
-        (colourRangeInfo.colourEnd - colourRangeInfo.colourStart) / occurenceRangeSize : 0
+      const colourMapFactor = colourPalette.length / (occurenceRangeSize + 1)
         
-      // console.log(JSON.stringify(intervalSize))
-
       // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
       // Wordcloud features that are different from one word to the other must be here
       let layout = d3Cloud()
@@ -143,12 +141,8 @@ export function visualization(config) {
       // Function to choose colour
       //
       function calculateColour(value) {
-        let { colourStart, colourEnd, useEndAsStart } = colourRangeInfo
-        const colourPoint = useEndAsStart
-        ? (colourEnd - ((value - occurenceRange.min) * intervalSize))
-        : (colourStart + ((value - occurenceRange.min) * intervalSize))
-        let colour = colourScale(colourPoint)
-        return colour
+        const colourIndex = Math.round(colourMapFactor * (value - occurenceRange.min))
+        return colourPalette[colourIndex]
       }
     }
   } catch (e) {

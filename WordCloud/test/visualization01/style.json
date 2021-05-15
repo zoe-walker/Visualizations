@@ -1,17 +1,29 @@
 {
     "URL": "visualization01/simple.css",
     "style" : {
-    "margin": {
-        "left": 20,
-        "right": 20,
-        "top": 20,
-        "bottom": 20
-    },
-    "minWordLength": 3,
-    "minInstanceCount": 2,
-    "baseFontSize": 20,
-    "instanceMultiplier": 10,
-    "ignoreWords": [
-        "the", "and", "this", "are", "but", "its", "for", "that", "also"]
+        "margin": {
+            "left": 20,
+            "right": 20,
+            "top": 20,
+            "bottom": 20
+        },
+        "minWordLength": 3,
+        "minInstanceCount": 2,
+        "baseFontSize": 20,
+        "instanceMultiplier": 10,
+        "ignoreWords": [
+            "the", "and", "this", "are", "but", "its", "for", "that", "also"
+        ],
+        "colourPalette": [
+            "#00876c",
+            "#57a18b",
+            "#8cbcac",
+            "#bed6ce",
+            "#d1d1d1",
+            "#f1c6c6",
+            "#ec9c9d",
+            "#e27076",
+            "#d43d51"
+        ]
     }
 }
