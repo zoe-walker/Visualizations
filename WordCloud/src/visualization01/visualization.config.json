@@ -16,14 +16,15 @@
     "URL": "visualization01/simple.css",
     "JSON": {
       "margin": {
-        "top": 20,
-        "bottom": 20,
-        "left": 20,
-        "right": 20
+        "top": 5,
+        "bottom": 5,
+        "left": 5,
+        "right": 5
       },
       "minWordLength": 3,
       "minInstanceCount": 2,
       "baseFontSize": 20,
+      "maxFontSize": 100,
       "instanceMultiplier": 10,
       "ignoreWords": [
       "the", "and", "this", "are", "but", "its", "for", "that", "also"

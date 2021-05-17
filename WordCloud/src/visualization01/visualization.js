@@ -23,6 +23,7 @@ export function visualization(config) {
     style.minWordLength = Math.max(1, style.minWordLength)
     style.minInstanceCount = Math.max(1, style.minInstanceCount)
     style.baseFontSize = style.baseFontSize || 20
+    style.maxFontSize = style.maxFontSize || 100
     style.instanceMultiplier = style.instanceMultiplier || 10
     style.ignoreWords = style.ignoreWords ? style.ignoreWords.map(word => word[0].toUpperCase() + word.substring(1)) : []
     const colourPalette = style.colourPalette
@@ -89,7 +90,7 @@ export function visualization(config) {
     //
     const wordsOfInterest = uniqueWords
       .filter(word => word.count >= style.minInstanceCount && !style.ignoreWords.includes(word.word))
-      .map(function(word) {return {...word, size: style.baseFontSize + (word.count - style.minInstanceCount) * style.instanceMultiplier}} )
+      .map(function(word) {return {...word, size: Math.min(style.baseFontSize + (word.count - style.minInstanceCount) * style.instanceMultiplier, style.maxFontSize)}} )
     // console.log(JSON.stringify(wordsOfInterest))
     //
     // Check if there are any words to put in the cloud
