@@ -1,0 +1,10 @@
+{
+  "id": "34e97031-06ba-471a-a2ed-99b081e1e683",
+  "name": "Word Cloud",
+  "description": "Word Cloud using D3",
+  "version": "0.2.0",
+  "supportedVersions": "",
+  "dependencies": {
+    "d3": "./d3/visualization.js"
+  }
+}

@@ -7,3 +7,4 @@ StretchedChord/debug.log
 *.tf1
 *.tfb
 StretchedChord/.tfignore
+WordCloud/visualizations.zip

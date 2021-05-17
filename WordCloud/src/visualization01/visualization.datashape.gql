@@ -1,0 +1,8 @@
+type data {
+	rows: [row]
+}
+
+type row implements MooDElement{
+	key: ID!
+	text: String!
+}
