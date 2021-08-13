@@ -1,7 +1,7 @@
 {"data" :
     {
         "rows": [
-            {"key": "55-E9C9400BC68F4F1E9067BDE3EF5F3460", "name": "United States", "value": 12394},
+            {"key": "55-E9C9400BC68F4F1E9067BDE3EF5F3460", "name": "United States Long label spanning 3 lines on y axis xxx", "value": 12394},
             {"key": "55-E9C9400BC68F4F1E9067BDE3EF5F3460", "name": "Russia", "value": 6148},
             {"key": "55-D038F1E958AC4F29AF992616175528BB", "name": "Germany (FRG)", "value": 1653},
             {"key": "55-CE99425D5BD14153952EB477F196F482", "name": "France", "value": 2162},

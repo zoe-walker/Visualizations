@@ -118,6 +118,7 @@ export function visualization(config) {
         while (word = words.pop()) {
           line.push(word)
           tspan.text(line.join(" "))
+          // console.log('Text: "' + tspan.text() + '" length: ' + tspan.node().getComputedTextLength())
           if (tspan.node().getComputedTextLength() > width) {
             line.pop()
             tspan.text(line.join(" "))
@@ -125,7 +126,7 @@ export function visualization(config) {
             tspan = text.append("tspan")
                   .attr("x", x)
                   .attr("y", y)
-                  .attr("dy", `${++lineNumber * lineHeight + dy}em`)
+                  .attr("dy", `${lineHeight}em`)
                   .text(word)
           }
         }
