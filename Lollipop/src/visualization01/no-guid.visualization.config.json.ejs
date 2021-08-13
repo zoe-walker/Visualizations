@@ -1,0 +1,31 @@
+{
+  "id": "<%= uuid.v4(); %>",
+  "name": "Lollipop chart",
+  "description": "Lollipop chart using D3",
+  "version": "<%%= package.version %%>",
+  "supportedVersions": "0",
+  "moodVersion": "16.0.76",
+  "entry": {
+    "file": "visualization.js",
+    "function": "vis.visualization"
+  },
+  "supportedBrowsers": "Chrome, Edge, Firefox",
+  "inputs": [
+  ],
+  "style": {
+    "URL": "visualization01/simple.css",
+    "JSON": {
+      "margin": {
+        "top": 5,
+        "bottom": 5,
+        "left": 5,
+        "right": 5
+      },
+      "lineStroke": "grey",
+      "circleStroke": "black",
+      "circleFill": "#69b3a2",
+      "circleRadius": "7",
+      "includeXZero": false
+    }
+  }
+}

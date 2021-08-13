@@ -1,0 +1,16 @@
+{
+    "URL": "visualization01/simple.css",
+    "style" : {
+        "margin": {
+            "left": 150,
+            "right": 5,
+            "top": 5,
+            "bottom": 40
+        },
+        "lineStroke": "grey",
+        "circleStroke": "black",
+        "circleFill": "#69b3a2",
+        "circleRadius": "7",
+        "includeXZero": true
+    }
+}

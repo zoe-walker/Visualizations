@@ -1,0 +1,17 @@
+{"data" :
+    {
+        "rows": [
+            {"key": "55-E9C9400BC68F4F1E9067BDE3EF5F3460", "name": "United States Long label spanning 3 lines on y axis xxx", "value": 12394},
+            {"key": "55-E9C9400BC68F4F1E9067BDE3EF5F3460", "name": "Russia", "value": 6148},
+            {"key": "55-D038F1E958AC4F29AF992616175528BB", "name": "Germany (FRG)", "value": 1653},
+            {"key": "55-CE99425D5BD14153952EB477F196F482", "name": "France", "value": 2162},
+            {"key": "55-B661EC978A6F4DEAB8A946D601D3C3C7", "name": "United Kingdom", "value": 1214},
+            {"key": "55-057B8517797945C79F6243BC36B68738", "name": "China", "value": 1131},
+            {"key": "55-057B8517797945C79F6243BC36B68738", "name": "Spain", "value": 814},
+            {"key": "55-057B8517797945C79F6243BC36B68738", "name": "Netherlands", "value": 1167},
+            {"key": "55-C550EFDCD52F42378706E3A6EBC9491A", "name": "Italy", "value": 660},
+            {"key": "55-6ACA9DA1842245CD822FDC2D23DB2828", "name": "Israel", "value": 1263}
+            ]
+    }
+}
+
