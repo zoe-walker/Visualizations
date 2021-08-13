@@ -1,6 +1,6 @@
 //
-// D3 word cloud
-// https://www.d3-graph-gallery.com/graph/wordcloud_size.html
+// D3 Lollipop chart
+// https://www.d3-graph-gallery.com/graph/lollipop_ordered.html
 //
 //    Entry function declaration
 //
