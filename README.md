@@ -4,6 +4,7 @@ Templates and documentation enabling you to bring 3rd party visualizations into 
 # Table of Contents
 
 *   [Introduction](#introduction)
+*   [Example Custom Visualisations](#example-custom-visualisations)
 *   [Selecting a chart](#selecting-a-chart)
 *   [Development Environment](#development-environment)
     * [Installing Visual Studio Code](#installing-visual-studio-code)
@@ -35,6 +36,14 @@ The guide will show you how to create a visualization package using a Windows PC
 MooD provides templates for the following JavaScript chart frameworks
 * Data Driven Documents (D3)
 * React
+
+# Example Custom Visualizations
+
+![D3 Lollipop](docs/images/lollipop-thumbnail.png) [D3 Ordered Lollipop](docs/d3-lollipop-guide.md)
+
+![D3 Word Cloud](docs/images/word-cloud-thumbnail.png) [D3 Word Cloud](docs/d3-word-cloud-guide.md)
+
+![Stretched Chord](docs/images/stretched-chord-thumbnail.png) [Stretched Chord](docs/stretched-chord-guide.md)
 
 # Selecting a chart
 
