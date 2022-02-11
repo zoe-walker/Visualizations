@@ -11,7 +11,7 @@ Initially:
 
 Each build:
 - Edit ```code\visualization.config.json``` to increment the version.
-- Run ```package.bat``` to produce the ```visualizations.zip``` file which can be added to Business Architect.
+- Run ```build.bat``` to produce the ```visualizations.zip``` file which can be added to Business Architect.
 
 ## Testing the visualization
 
