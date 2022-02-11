@@ -1,0 +1,8 @@
+{
+	"id":     "2764d6b0-1d6b-4f27-bce7-cc6467cd8c60",
+	"name":   "ECharts Meta Model",
+	"version":"1.0.3",
+	"supportedVersions":"1",
+	"main":"/Meta Model/Meta Model.js",
+	"dependencies":{"echarts":"./ECharts/echarts.min.js"}
+}
