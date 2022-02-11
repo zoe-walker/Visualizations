@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "id": "INSERT_GUID_HERE",
+  "name": "Simple Custom Visualization",
+  "supportedVersions": "1",
+  "moodVersion": "16.0.085",
+  "entry": {
+    "file": "Code.js",
+    "function": "createVisualization"
+  },
+  "dependencies":{
+    "style": "code/style.css"
+  },
+  "supportedBrowsers": "Chrome, Edge, FireFox",
+  "style": {
+  }
+}

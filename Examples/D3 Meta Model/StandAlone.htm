@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>
+        </title>
+        <meta http-equiv="X-UA-Compatible" content="IE=11" />
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <script src="force layout/force layout.js"></script>
+        <script src="data.js"></script>
+        <link rel="stylesheet" type="text/css" href="force layout/style.css">
+
+        <script>
+
+            __doPostBack = function doPostBack() { };
+            // Make sure console.log() exists
+            if (typeof console === 'undefined' || !console) { console = { }; }
+            if (typeof console.log === 'undefined' || !console.log) {
+                console.log = function log() { };
+            }
+
+            // Functions to override the alert, prompt and confirm window functions, as we don't want these to happen
+            window.alert = function alert() { };
+            window.confirm = function confirm() { };
+            window.prompt = function prompt() { };
+
+            // Create the visualization namespace
+            if (typeof MooDVisualization === 'undefined' || !MooDVisualization) {
+                var MooDVisualization = { __namespace: true, __typeName: 'MooDVisualization' };
+            }
+
+            /**
+            * Creates the visualization 
+            * @method create
+            * @param {Function} creationFunction, the creation function for the visualization
+            * @param {Object} config, the configuration for the visualization
+            * @param {Object} css, the css (if any) to be passed to the visualization
+            * @static
+            */
+            MooDVisualization.create = function create(creationFunction, config, css) {
+                // Add functions for the visualization to call or to be called on the visualization
+                // a visualization my decide to override/assign their own functions to these to act or react to interactions and us
+                config.functions = {};
+
+                // This is how we handle errors, by default add errors to the div, the visualization can override this and display errors how it likes
+                config.functions.errorOccurred = function errorOccurred(e) {
+                    var div = document.getElementById(config.Element);
+
+                    if (div) {
+                        div.appendChild(document.createTextNode('There was a problem with the visualization: ' + e));
+                    }
+                };
+
+                // This is how we notify the visualization that data has changed
+                config.functions.dataChanged = function dataChanged(data) { };
+
+                // This is how we notify the visualization that an input has changed
+                config.functions.inputChanged = function inputChanged(name, value) { };
+
+                // This is how a visualization tells us that an output has changed
+                config.functions.updateOutput = function updateOutput(name, value) { };
+
+                // This is how a visualization tells us to update state
+                config.functions.updateState = function updateState(state, scope) { };
+
+                // This is how a visualization tells us an element has been clicked or selected and we should navigate
+                // or set this as the selected element or do an action provided by the visualization like centre or expand
+                config.functions.performAction = function performAction(name, id) { };
+
+                try {
+                    // Call the creation function and remember the instance
+                    MooDVisualization.instance = creationFunction(config, css);
+                } catch (e) {
+                    config.functions.errorOccurred(e);
+                }
+            };
+
+        </script>
+    </head>
+
+    <body style="padding:0;margin:0;background-color:#FFFFFF;font:13px/1.231 arial,helvetica,clean,sans-serif;">
+        <div id='mood-visualization' class='mood-visualization'></div>
+        <script>
+            MooDVisualization.create(createForceLayout, {
+                    data:  testData,		
+                    element: 'mood-visualization',
+                    width: '2000',
+                    height: '1500',
+                    style: {
+                        "URL":"Style.css",
+                        "Node Colour":"#EEE",
+                        "Relationship Colour": "#0000FF",
+                        "Node Line Colour":"#111",
+                        "Edge Colour":"#444",
+                        "Show Icons":true,
+                        "Min Node Size": 20,
+                        "Max Node Size": 40,
+                        "Ignore Nodes": ["Represents", "Connects To"]
+                    },
+                    inputs: {},
+                    outputs: {},
+                    });
+        </script>
+    </body>
+</html>

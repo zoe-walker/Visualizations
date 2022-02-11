@@ -9,3 +9,5 @@ StretchedChord/debug.log
 StretchedChord/.tfignore
 WordCloud/visualizations.zip
 Lollipop/visualizations.zip
+.vs/
+*.bak

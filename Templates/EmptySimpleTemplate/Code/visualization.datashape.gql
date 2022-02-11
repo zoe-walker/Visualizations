@@ -1,0 +1,5 @@
+
+type data 
+{ 
+    title: String! @UI(default:"hello world") 
+}

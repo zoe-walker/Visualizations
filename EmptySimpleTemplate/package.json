@@ -1,8 +1,0 @@
-{
-	"id":     "INSERT_GUID_HERE",
-	"name":   "Simple Custom Visualization",
-	"version":"1.0.0",
-	"supportedVersions":"16.085",
-	"main":"/Code/Code.js",
-	"dependencies":{}
-}

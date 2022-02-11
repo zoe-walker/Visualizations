@@ -1,2 +1,0 @@
-type Meta implements MooDMetaModel { }
-type data { meta: Meta }
