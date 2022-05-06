@@ -41,6 +41,9 @@ The configuration of a visualization.
 <a name="dynamic-data"></a>
 * __Property__: dynamicData 
     * Indicates if the visualization supports data being posted to it to update itself or does it need to be completely re-rendered. The value is either true or false and if true data after the initial load will be passed to the visualization using the dataChanged(data) function. See [JavaScript Configuration Object -> Functions Object](visualization-configuration-object.md#functions-object)
+<a name="can-overflow"></a>
+* __Property__: canOverflow (Introduced in Customer Release 6) 
+    * Indicates that when rendered, the visualization may exceed the bounds of the panel and wishes to increase the size of the panel and page to fully accommodate it. The visualization needs to call [updateSize function](visualization-configuration-object.md#update-size) to effect the resizing. The value is either true or false.
 * __Property__: entry - Object
     * Defines the location of the visualization entry function within the package
     * __Field__: file

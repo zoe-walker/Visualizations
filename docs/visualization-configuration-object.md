@@ -41,6 +41,7 @@ The configuration object contains the following fields:
    dataChanged(data: object): void;  
    inputChanged(name: string; value: any): void; 
    updateOutput(name: string, value: any): void; 
+   updateSize(width: integer, height: integer): void;
    updateState(state: string): void; 
    performAction(name: string, id: string, event: object): void; 
    hasAction(name: string, id: string, callback: function): void; 
@@ -60,6 +61,10 @@ The configuration object contains the following fields:
    * updateOutput
       * __Parameters__: the name of the output and the value
          * Called by the visualization when an output changes passing the name of the output and the value. Active Enterprise will then post this back to the server and inform any panels that affected by the visualization
+<a name="update-size"></a>
+   * updateSize (Introduced in Customer Release 6)
+      * __Parameters__: the width and heigth of the rendered custom visualisation
+         * Called by the visualization when it has completed rendering itself and thus knows its dimensions. If the [canOverflow property](visualization-config-json.md#can-overflow) is set to true by the visualisation and the Overflow option is set in Business Architect to allow it, Active Enterprise will increase the size, if necessary, of both the custom visualization panel and the page to allow the visualisation to be fully visible (subject to scrolling). Note: Active Enterprise will not shrink the page if the visualisation does not need all the space allocated to it in the panel.
    * updateState (Introduced in Customer Release 6)
       * __Parameters__: the new state value
          * Called by the visualization when new state needs to be persisted/saved passing the value. Active Enterprise will then post this back to the server and save the state if state editing is switched on.
