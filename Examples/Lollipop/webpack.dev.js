@@ -1,7 +1,7 @@
 const CopyPlugin = require('copy-webpack-plugin');
 const path = require("path");
 const common = require("./webpack.common");
-const merge = require("webpack-merge");
+const { merge } = require("webpack-merge");
 const fs = require('fs')
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
@@ -28,5 +28,12 @@ plugins: [
   mode: "development",
   optimization: {
     minimize: false
-}
+  },
+  devServer: {
+      allowedHosts: "all",
+      port: 8080,
+      proxy: {
+          "/api": "http://localhost:8080"
+      }
+  }
 });
