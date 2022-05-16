@@ -1,7 +1,7 @@
 //process.traceDeprecation = true;
 const ZipFilesPlugin = require('zip-webpack-plugin');
 const common = require('./webpack.common');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
