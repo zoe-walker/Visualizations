@@ -19,11 +19,12 @@ module.exports = {
                             [
                                 '@babel/preset-env',
                                 {
-                                    useBuiltIns: 'entry',
+                                    useBuiltIns: 'usage',
                                     //
                                     //  TODO: Amend CoreJS version and supported browsers if necessary
                                     //
-                                    corejs: '3.1.4',
+                                    corejs: '3.22',
+                                    forceAllTransforms: false,
                                     targets: {
                                         chrome: 34,
                                         ie: 11,
@@ -60,6 +61,15 @@ module.exports = {
     output: {
         filename: '[name]/visualization.js',
         path: outputPath,
+        environment: {
+            arrowFunction: false,
+            bigIntLiteral: false,
+            const: false,
+            destructuring: false,
+            dynamicImport: false,
+            forOf: false,
+            module: false
+        },
         //libraryTarget: "var",
         library: 'vis'
     },
@@ -108,6 +118,12 @@ function getPlugins() {
     {
         constructor(dirName) {
             this.directoryName = dirName;
+
+            this.ejsFiles = fs.readdirSync(path.join(__dirname, 'src', dirName))
+                            .filter(f => path.extname(f) === '.ejs');
+        }
+        containsEJS() {
+            return this.ejsFiles.length > 0
         }
         imageFiles() {
             return fs.readdirSync(
@@ -118,12 +134,12 @@ function getPlugins() {
                 }
         cssFiles() {
             return fs.readdirSync(
-                path.join(__dirname,
-                    'src',
-                    this.directoryName))
-                .filter(f => path.extname(f) == '.css');
-        }
-       configFiles() {
+                        path.join(__dirname,
+                        'src',
+                        this.directoryName))
+                    .filter(f => path.extname(f) == '.css');
+                }
+        configFiles() {
             return [
                 'visualization.config.json',
                 'visualization.datashape.gql'
@@ -146,6 +162,7 @@ function getPlugins() {
 //  VersionFiles for each visualization configuration
 //
     let vcVersionFiles = VisualizationDirectories
+        .filter(d => d.containsEJS() === true)
         .map(d => Object(new VersionFile({
             packageFile: path.join(__dirname, 'package.json'),
             template: path.join(__dirname, 'src', d.directoryName, 'visualization.config.json.ejs'),
@@ -154,36 +171,30 @@ function getPlugins() {
 //
 // CopyPlugin for visualization package configuration
 //
-    let vpcCopyPlugin = Object(new CopyPlugin(
-        [getCopyPluginOption('', 'package.json')]
-    ));
+    let copyPatterns = [getCopyPluginOption('', 'package.json')]
 //
 // CopyPlugin for each visualization configuration
 //
-    let vcCopyPlugins = VisualizationDirectories
-    .map(d => Object(new CopyPlugin(
-        d.configFiles().map(f => getCopyPluginOption(d.directoryName, f))))
-    );
+    VisualizationDirectories
+        .filter(d => d.containsEJS() === true)
+        .map(d => d.configFiles().forEach(f => copyPatterns.push(getCopyPluginOption(d.directoryName, f))))
 //
 // CopyPlugin for each visualization image file
 //
-    let viCopyPlugins = VisualizationDirectories
-        .map(d => Object(new CopyPlugin(
-            d.imageFiles().map(f => getCopyPluginOption(d.directoryName, f))))
-        );
+    VisualizationDirectories
+        .map(d => d.imageFiles().forEach(f => copyPatterns.push(getCopyPluginOption(d.directoryName, f))))
 //
 // CopyPlugin for each CSS file
 //
-    let vcssCopyPlugins = VisualizationDirectories
-        .map(d => Object(new CopyPlugin(
-            d.cssFiles().map(f => getCopyPluginOption(d.directoryName, f))))
-        );
+    VisualizationDirectories
+        .map(d => d.cssFiles().forEach(f => copyPatterns.push(getCopyPluginOption(d.directoryName, f))))
 
-    return [vpcVersionFile, vpcCopyPlugin]
+let copyPlugins = Object(new CopyPlugin({
+    patterns: copyPatterns
+}))
+
+return [vpcVersionFile, copyPlugins]
         .concat(vcVersionFiles)
-        .concat(vcCopyPlugins)
-        .concat(viCopyPlugins)
-        .concat(vcssCopyPlugins);
 }
 
 /**
