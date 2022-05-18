@@ -9,8 +9,9 @@ The x-axis range is enlarged in such a way that its minimum and maximum are nice
 
 ## Data Summary
 The Lollipop visualisation consumes a single data set. The details of the attributes of the data set is provided in the section Data Details section
+
 1.	Rows
-    a.	A list of variables to visualise
+    1.	A list of variables to visualise
 
 ## Style
 The style of the visualisation is controlled by CSS and a collection of properties.
