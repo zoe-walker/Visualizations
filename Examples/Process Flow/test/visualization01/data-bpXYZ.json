@@ -1,0 +1,351 @@
+{"data" :
+  {
+    "process": {"id": "55-B28C9D2B4F0A495F8FFF89D762162E7D", "name": "BP XYX - Management Process", "version": "4.2", "testNavigation": true}, 
+    "actors": [
+      {
+        "id": "41-8C53A1E426B441109BD77C783BDBC96A", 
+        "target": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Customer", "navigable": true, "backgroundColour": null, "textColour": null}
+      },
+      {
+        "id": "41-C9FF24D95AB440C883E73DAC564A369B", 
+        "target": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier", "navigable": true, "backgroundColour": null, "textColour": null}
+      }
+    ], 
+    "phases": [], 
+    "steps": [
+      {
+        "id": "55-64F5E0146D9745BC98E2A444376A155D", 
+        "name": "Start", 
+        "type": "Start", 
+        "navigable": false, 
+        "swimlanes": [{"id": "x", "actor": 
+          {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}},
+          {"id": "x", "actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Customer"}}
+          ], 
+        "phase": null
+      },
+      {
+        "id": "55-032B2D6C782D4E229C4E97321002E885", 
+        "name": "Management data in", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": 
+          {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Customer"}},
+          {"id": "x", "actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}}
+        ], 
+        "phase": null
+      },
+      {
+        "id": "55-A150F2D1EE234A14B53673A0E2A87A2E", 
+        "name": "Item of interest identified", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}}], 
+        "phase": null
+      },
+      {
+        "id": "55-F9CC9203585B49E89D1D2AFF56F9C846", 
+        "name": "Conduct risk analysis and document", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}}], 
+        "phase": null
+      },
+      {
+        "id": "55-1FAD7E8F2D0245E78262D39AF66B31EB", 
+        "name": "Update Risk Register", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}}], 
+        "phase": null
+      },
+      {
+        "id": "55-E3D2D2E1C87B4D2FA73398F0E574A924", 
+        "name": "Manager issues alert and adds to agenda for Management Committee", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}}], 
+        "phase": null
+      },
+      {
+        "id": "55-710884FB9FE4449CAAE2A931706FA9D7", 
+        "name": "Supplier conducts option review and risk analysis produce report and issue", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}}], 
+        "phase": null
+      },
+      {
+        "id": "55-7FA7E1E5B38243BBA2131D3A233F5A3D", 
+        "name": "Joint review", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": 
+          {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}},
+          {"id": "x", "actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Customer"}}
+        ], 
+        "phase": null
+      },
+      {
+        "id": "55-C303478D78E24661827DA4C24EC7279D", 
+        "name": "Resolution agreed. Is supplier required to resolve the issue?", 
+        "type": "Decision", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Customer"}}], 
+        "phase": null
+      },
+      {
+        "id": "55-43AF03E72888429CB957156AD9EFBB45", 
+        "name": "Supplier to conduct task", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}}], 
+        "phase": null
+      },
+      {
+        "id": "55-0BEFDC10DAAF457C909A5FC3AE07553F", 
+        "name": "Customer to issue task to Design Authority", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Customer"}}], 
+        "phase": null
+      },
+      {
+        "id": "55-B8DDA1EEA02044B2AB4F64153C969670", 
+        "name": "Solutions are reviewed by Committee and implementation plan created", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": 
+          {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Customer"}},
+          {"id": "x", "actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}}
+        ], 
+        "phase": null
+      },
+      {
+        "id": "55-31871AD00BB8406CB0A6E3566368A7FD", 
+        "name": "Implementation Plan approved by Manager?", 
+        "type": "Decision", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Customer"}}], 
+        "phase": null
+      },
+      {
+        "id": "55-092468929A8B4A0EAADC491517264FE7", 
+        "name": "Execute Implementation Plan", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": 
+          {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}},
+          {"id": "x", "actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Customer"}}
+        ], 
+        "phase": null
+      },
+      {
+        "id": "55-D7E484BA645A49B3A0F72BF218003336", 
+        "name": "Update Risk Register", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}}], 
+        "phase": null
+      },
+      {
+        "id": "55-12F9592265AA4B098BAA6C4419856E97", 
+        "name": "Update all relevant documents / systems", 
+        "type": "Process Step", 
+        "navigable": true, 
+        "swimlanes": [{"id": "x", "actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Customer"}}], 
+        "phase": null
+      },
+      {
+        "id": "55-197035430C5448AAB57BB5C6360B1947", 
+        "name": "End", 
+        "type": "End", 
+        "navigable": false, 
+        "swimlanes": [{"id": "x", "actor": 
+          {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Customer"}},
+          {"id": "x", "actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Supplier"}}
+        ], 
+        "phase": null
+      }
+    ], 
+    "stepFlows": [
+      {
+        "id": "41-92205BC11ACC4016BA72682BB4480867", 
+        "source": {"id": "55-710884FB9FE4449CAAE2A931706FA9D7", "name": "Supplier conducts option review and risk analysis produce report and issue"}, 
+        "target": {"id": "55-7FA7E1E5B38243BBA2131D3A233F5A3D", "name": "Joint review"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-947253F9CBCF4CA6B3A489D10E1AEC88", 
+        "source": {"id": "55-43AF03E72888429CB957156AD9EFBB45", "name": "Supplier to conduct task"}, 
+        "target": {"id": "55-B8DDA1EEA02044B2AB4F64153C969670", "name": "Solutions are reviewed by Committee and implementation plan created"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-B4E8D3D7F95B47BEA39F60AD2EDEA70F", 
+        "source": {"id": "55-F9CC9203585B49E89D1D2AFF56F9C846", "name": "Conduct risk analysis and document"}, 
+        "target": {"id": "55-E3D2D2E1C87B4D2FA73398F0E574A924", "name": "Manager issues alert and adds to agenda for Management Committee"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-3ACA419E23664D25AF6F0E8040D3018E", 
+        "source": {"id": "55-F9CC9203585B49E89D1D2AFF56F9C846", "name": "Conduct risk analysis and document"}, 
+        "target": {"id": "55-1FAD7E8F2D0245E78262D39AF66B31EB", "name": "Update Risk Register"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-FE367F7ABAF046C5B58E4A50CD8EC529", 
+        "source": {"id": "55-0BEFDC10DAAF457C909A5FC3AE07553F", "name": "Customer to issue task to Design Authority"}, 
+        "target": {"id": "55-B8DDA1EEA02044B2AB4F64153C969670", "name": "Solutions are reviewed by Committee and implementation plan created"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-3587CEAA84904103997B592CCF46AF82", 
+        "source": {"id": "55-092468929A8B4A0EAADC491517264FE7", "name": "Execute Implementation Plan"}, 
+        "target": {"id": "55-12F9592265AA4B098BAA6C4419856E97", "name": "Update all relevant documents / systems"}, 
+        "label": "... Customer", 
+        "labelPosition": 90,
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-2ABEA3F944754C368B6EB256CB61F0C3", 
+        "source": {"id": "55-092468929A8B4A0EAADC491517264FE7", "name": "Execute Implementation Plan"}, 
+        "target": {"id": "55-D7E484BA645A49B3A0F72BF218003336", "name": "Update Risk Register"}, 
+        "label": "Supplier then ...", 
+        "labelPosition": 90,
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-9D9AF75B26A943C69DE95F2E48DA9633", 
+        "source": {"id": "55-31871AD00BB8406CB0A6E3566368A7FD", "name": "Implementation Plan approved by Manager?"}, 
+        "target": {"id": "55-092468929A8B4A0EAADC491517264FE7", "name": "Execute Implementation Plan"}, 
+        "label": "Yes", 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-37FC3925D0494129B2FCAAD4C901DDCF", 
+        "source": {"id": "55-31871AD00BB8406CB0A6E3566368A7FD", "name": "Implementation Plan approved by Manager?"}, 
+        "target": {"id": "55-7FA7E1E5B38243BBA2131D3A233F5A3D", "name": "Joint review"}, 
+        "label": "No", 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-39BF73BC33AE450BA249E40DD12904FE", 
+        "source": {"id": "55-7FA7E1E5B38243BBA2131D3A233F5A3D", "name": "Joint review"}, 
+        "target": {"id": "55-C303478D78E24661827DA4C24EC7279D", "name": "Resolution agreed. Is supplier required to resolve the issue?"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-C6862F5786E1494EA643B7B5F528318B", 
+        "source": {"id": "55-032B2D6C782D4E229C4E97321002E885", "name": "Management data in"}, 
+        "target": {"id": "55-A150F2D1EE234A14B53673A0E2A87A2E", "name": "Item of interest identified"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-D698C79D4B76499BA9FFA8A86952CA73", 
+        "source": {"id": "55-E3D2D2E1C87B4D2FA73398F0E574A924", "name": "Manager issues alert and adds to agenda for Management Committee"}, 
+        "target": {"id": "55-710884FB9FE4449CAAE2A931706FA9D7", "name": "Supplier conducts option review and risk analysis produce report and issue"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-AF9107AF2CC94DEAB4EAAACEA6028964", 
+        "source": {"id": "55-A150F2D1EE234A14B53673A0E2A87A2E", "name": "Item of interest identified"}, 
+        "target": {"id": "55-F9CC9203585B49E89D1D2AFF56F9C846", "name": "Conduct risk analysis and document"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-9673A796120642BAB31DDD78CDA56FFD", 
+        "source": {"id": "55-C303478D78E24661827DA4C24EC7279D", "name": "Resolution agreed. Is supplier required to resolve the issue?"}, 
+        "target": {"id": "55-43AF03E72888429CB957156AD9EFBB45", "name": "Supplier to conduct task"}, 
+        "label": "Yes", 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-EA091388D29744A391A244FA5ADA1699", 
+        "source": {"id": "55-C303478D78E24661827DA4C24EC7279D", "name": "Resolution agreed. Is supplier required to resolve the issue?"}, 
+        "target": {"id": "55-0BEFDC10DAAF457C909A5FC3AE07553F", "name": "Customer to issue task to Design Authority"}, 
+        "label": "No", 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-60AFD2AEDE2E4A48A051463F7E15E33A", 
+        "source": {"id": "55-B8DDA1EEA02044B2AB4F64153C969670", "name": "Solutions are reviewed by Committee and implementation plan created"}, 
+        "target": {"id": "55-31871AD00BB8406CB0A6E3566368A7FD", "name": "Implementation Plan approved by Manager?"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-1D5555E57C4E4EE0B17528A77350603F", 
+        "source": {"id": "55-64F5E0146D9745BC98E2A444376A155D", "name": "Start"}, 
+        "target": {"id": "55-032B2D6C782D4E229C4E97321002E885", "name": "Management data in"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-1932DF6CFE544C6D8BDB84040F1B632F", 
+        "source": {"id": "55-12F9592265AA4B098BAA6C4419856E97", "name": "Update all relevant documents / systems"}, 
+        "target": {"id": "55-197035430C5448AAB57BB5C6360B1947", "name": "End"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      },
+      {
+        "id": "41-0E0FB3B031484987B3A0202E1DB84570", 
+        "source": {"id": "55-D7E484BA645A49B3A0F72BF218003336", "name": "Update Risk Register"}, 
+        "target": {"id": "55-197035430C5448AAB57BB5C6360B1947", "name": "End"}, 
+        "label": null, 
+        "offPageConnection": false, 
+        "offPageOutputLabel": null, 
+        "offPageInputLabel": null
+      }
+    ], 
+    "stepInputs": [], 
+    "stepOutputs": [], 
+    "stepGroups": [], 
+    "stepGroupSteps": []
+  }
+}

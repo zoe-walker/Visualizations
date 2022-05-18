@@ -1,0 +1,1291 @@
+{"data" :
+    {
+        "process": {"id": "55-1CF8616D159342A0893E526694E569EC", "name": "BP 135 - Support Operations Planning", "version": "1.2", "testNavigation": true}, 
+        "actors": [
+            {
+                "id": "41-A7DF0D0717B642E1A57145D6357A1D94", 
+                "target": 
+                    {
+                        "id": "55-99F5D465A52D490CA0F3E02DE3230409", 
+                        "name": "A 1", 
+                        "navigable": true, 
+                        "backgroundColour": "#F08080", 
+                        "textColour": "#FFFFFF", 
+                        "relatedColourDefinition": null
+                    }
+                , 
+                "backgroundColour": null, 
+                "textColour": null, 
+                "swimlanes": 3
+            },
+            {
+                "id": "41-4CE9816B127D49D5A4ECB7F649223CDE", 
+                "target": 
+                    {
+                        "id": "55-EF267339E2C44F3D80E26762171D9E9A", 
+                        "name": "A 2", 
+                        "navigable": true, 
+                        "backgroundColour": null, 
+                        "textColour": null, 
+                        "relatedColourDefinition": null
+                    }
+                , 
+                "backgroundColour": null, 
+                "textColour": null, 
+                "swimlanes": null
+            },
+            {
+                "id": "41-AA5B7838A7254EA4AF0A0201FE1AA1B6", 
+                "target": 
+                    {
+                        "id": "55-658BF7716FD247969D4B0FB777F122F7", 
+                        "name": "A 3", 
+                        "navigable": true, 
+                        "backgroundColour": null, 
+                        "textColour": null, 
+                        "relatedColourDefinition": {"id": "related-colour-01", "backgroundColour": "#80F080", "textColour": "#000000"}
+                    }
+                , 
+                "backgroundColour": null, 
+                "textColour": null, 
+                "swimlanes": null
+            }
+        ], 
+        "phases": [
+            {"id": "55-CC2ACA9F70FB4133BD50ADA6A080D2AF", "name": "Phase 1: Compilation of the Maintenance Task Library", "navigable": false},
+            {"id": "55-774343BE90D845D0A18A25887CFBA2FA", "name": "Phase 2: Key Maintenance Tasks", "navigable": false},
+            {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods", "navigable": false},
+            {"id": "55-A8DD229ED4534606B08335B5F521F1D9", "name": "Phase 4: Maintenance and Update", "navigable": false}
+        ], 
+        "steps": [
+            {
+                "id": "55-1C9C7616A00A47E69305BFE3BFA56EDC", 
+                "name": "Start", 
+                "type": "Start", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-35C98B6917A3476B9F6FDCC1E8B691A4", 
+                        "actor": {"id": "55-EF267339E2C44F3D80E26762171D9E9A", "name": "A 2"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-CC2ACA9F70FB4133BD50ADA6A080D2AF", "name": "Phase 1: Compilation of the Maintenance Task Library"}
+            },
+            {
+                "id": "55-9298949BCB5246FFA836D0A085662F97", 
+                "name": "01. Define criteria for selection of key maintenance tasks for inclusion", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-8CB8B77DA3504382B7A2B36AE458AF51", 
+                        "actor": {"id": "55-EF267339E2C44F3D80E26762171D9E9A", "name": "A 2"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-CC2ACA9F70FB4133BD50ADA6A080D2AF", "name": "Phase 1: Compilation of the Maintenance Task Library"}
+            },
+            {
+                "id": "55-5C30EF8A551B4F1A8AF533AD2411B7B9", 
+                "name": "02. Capture & rationalise relevant tasks / requirements", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-33F56358AD7D4E8B8C544DDD3252E4B0", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": 1, 
+                        "maxIndex": 3
+                    },
+                    {
+                        "id": "41-4C4C129530A74024B2A385C66F07034B", 
+                        "actor": {"id": "55-EF267339E2C44F3D80E26762171D9E9A", "name": "A 2"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-CC2ACA9F70FB4133BD50ADA6A080D2AF", "name": "Phase 1: Compilation of the Maintenance Task Library"}
+            },
+            {
+                "id": "55-A4C7F59CB9F24C2D918029AB0CB4DE2C", 
+                "name": "03. Propose planning assumptions & capture in Maintenance Planning Assumption List", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-806F149E9BD049E783DADC708A40C7F0", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": 3, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-CC2ACA9F70FB4133BD50ADA6A080D2AF", "name": "Phase 1: Compilation of the Maintenance Task Library"}
+            },
+            {
+                "id": "55-A439B3CEDD1544DC89BD6140C19363E7", 
+                "name": "04. Identify associated and significant Work", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-A1DCCE5D589D422381A1CDE37A84EDC3", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": 2, 
+                        "maxIndex": 2
+                    }
+                ], 
+                "phase": {"id": "55-CC2ACA9F70FB4133BD50ADA6A080D2AF", "name": "Phase 1: Compilation of the Maintenance Task Library"}
+            },
+            {
+                "id": "55-C5C5FBD9DC51498182EE1300A34B5C14", 
+                "name": "05. Estimate volumes of maintenance and material “allow fors”", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-0721D6F61F3243039A16A4C695CB5B81", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": 1, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-CC2ACA9F70FB4133BD50ADA6A080D2AF", "name": "Phase 1: Compilation of the Maintenance Task Library"}
+            },
+            {
+                "id": "55-5A47AAD98DB045C0885B2A621CB49F0A", 
+                "name": "06. Produce rationalised Maintenance Task Library (inc. planning data of man hrs and material)", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-7891CCF37F784CF2892AE467845F2A89", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": 1, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-CC2ACA9F70FB4133BD50ADA6A080D2AF", "name": "Phase 1: Compilation of the Maintenance Task Library"}
+            },
+            {
+                "id": "55-505412476A3448898482C2ABB20A8BAD", 
+                "name": "07. Approve Maintenance Task Library?", 
+                "type": "Decision", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-27AEEF58B53946DDB859607646E25FFE", 
+                        "actor": {"id": "55-EF267339E2C44F3D80E26762171D9E9A", "name": "A 2"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-CC2ACA9F70FB4133BD50ADA6A080D2AF", "name": "Phase 1: Compilation of the Maintenance Task Library"}
+            },
+            {
+                "id": "55-65C0D71FD36F468693A2699FB793727F", 
+                "name": "08. Plot key maintenance tasks against Support Periods", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-8AE0055F11E7477D9BED3B0A52172BAB", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": 3, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-774343BE90D845D0A18A25887CFBA2FA", "name": "Phase 2: Key Maintenance Tasks"}
+            },
+            {
+                "id": "55-D803D71F2CA549F0B326ED22F64678DB", 
+                "name": "09. Analyse the periodicity / frequency of key tasks and duration of critical path activities", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-6A6F5EC0874842B0ABA5BDBA97BEEF5A", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": 2, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-774343BE90D845D0A18A25887CFBA2FA", "name": "Phase 2: Key Maintenance Tasks"}
+            },
+            {
+                "id": "55-19CD659C770640B1802E7F65BE2E068D", 
+                "name": "10. Identify critical misalignment timing inconsistencies or duration", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-BB3B3889354D42F99A4D02B468C0F430", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": 1, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-774343BE90D845D0A18A25887CFBA2FA", "name": "Phase 2: Key Maintenance Tasks"}
+            },
+            {
+                "id": "55-495CC16ABDE24B688C4F5E2502405BC7", 
+                "name": "11. Establish impacts and identify proposed change to maintenance task requirements", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-CA978FF2DFFB4182AD2A0C9A2A523E29", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-774343BE90D845D0A18A25887CFBA2FA", "name": "Phase 2: Key Maintenance Tasks"}
+            },
+            {
+                "id": "55-72E8576D9C5147A88F97EBDB80DE9998", 
+                "name": "12. Raise proposals for change as necessary", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-BF81DB17EF6B4D6FABFFC1503D9EFB7A", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-774343BE90D845D0A18A25887CFBA2FA", "name": "Phase 2: Key Maintenance Tasks"}
+            },
+            {
+                "id": "55-801F299F263F43629EC7468FC5DF086F", 
+                "name": "13. Set manhour budget target for each Support Period", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-40E458BAB4E449E8A7C3BE7B62E7980A", 
+                        "actor": {"id": "55-EF267339E2C44F3D80E26762171D9E9A", "name": "A 2"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-FBA637D48A5A4FCCBA436CB60DDB6E65", 
+                "name": "14. Compile a list of all relevant maintenance tasks in the planning horizon", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-2D63344D594A41DCA80D87AF7402BAA9", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-449D4E6C77F24C81B1A87F79B7AEF921", 
+                "name": "15. Allocate maintenance tasks and manhours to Support Periods", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-BCBCE6944D924666B06C03E075D38EE0", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-6BC1A0B25A10424D9652F4829BAD70A4", 
+                "name": "16. Capature and add planned Alterations to Support periods and check choerence with maintenance tasks", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-962D80AD00FD40D6B1371409D45CC347", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-1B8C8746E3E74A2CA86ACB37DC55D455", 
+                "name": "17. Capture and add resource requirements to the Support Periods", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-1FF406B68DAB44D199F21BEEAC8B24D0", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-733B16077DC6426C966B164EC016CD3C", 
+                "name": "18. Identify and assess risks to delivery of draft Plans", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-3A38AF543C2A4A459B22DAEDD1D4815A", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-7F19E3EE4FAC41DC80CDC7B7A38BE076", 
+                "name": "19. Present draft Plans for peer review", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-33147F0D1FDE41CCB7153E3B95564CB5", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-3413AE77DB0B455DA76942D004B90C76", 
+                "name": "20. Are Plans viable?", 
+                "type": "Decision", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-3DE02BEBE45F464F8431101B41C83DF9", 
+                        "actor": {"id": "55-EF267339E2C44F3D80E26762171D9E9A", "name": "A 2"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-802CA9E71F624AD2B9066E0A2EBB989A", 
+                "name": "21. Provide direction as basis for rationalisation", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-3F0FF0FADE1248C59326740750D03799", 
+                        "actor": {"id": "55-EF267339E2C44F3D80E26762171D9E9A", "name": "A 2"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-62B5F48D34CC41E594293869566ED5E8", 
+                "name": "22. Align / rationalise requirements with constraints and propose revisions", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-1941EEE64EB741FCA9879D8FCD7A36DB", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": 2, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-DBDA4C5A6CCE48DC8F3D83C46BF323C4", 
+                "name": "23. Assess & decide", 
+                "type": "Decision", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-AA7A071F65354AD898BC24EC4689852D", 
+                        "actor": {"id": "55-658BF7716FD247969D4B0FB777F122F7", "name": "A 3"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-51731CBB3A214C1488295DBF7384CF18", 
+                "name": "24. Update or propose changes to affected requirements / artefacts", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-C0D95B778724416ABF7851E92A5CEE31", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-050B7BF54DD047AB89B051D0AE36F520", 
+                "name": "25. Baseline the Plans and create connsolidated Support Operations Plan", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-54A78B473E504F6C92541B54CA0C52D7", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-193CC4EEA5254BE7ABD79E4F47180D24", "name": "Phase 3: Assign Task to Support Periods"}
+            },
+            {
+                "id": "55-B395D9DD784A478F946B1180FE67AE69", 
+                "name": "26. Do plans need updating?", 
+                "type": "Decision", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-1993CC09C05A48E4AE403A1C6F35213E", 
+                        "actor": {"id": "55-EF267339E2C44F3D80E26762171D9E9A", "name": "A 2"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-A8DD229ED4534606B08335B5F521F1D9", "name": "Phase 4: Maintenance and Update"}
+            },
+            {
+                "id": "55-BEFCE61C100948688EF8F1564287645D", 
+                "name": "27. Capture excluded tasks and identify requirements and options for reallocation", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-9C7123095744437D90ABC564D4E9C0D5", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-A8DD229ED4534606B08335B5F521F1D9", "name": "Phase 4: Maintenance and Update"}
+            },
+            {
+                "id": "55-4628E3475F24453094D1410A0D7B93DF", 
+                "name": "28. Capture changes and assess impact on Plans", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-80CBD9354168438AAFDF8D9BC6604FA5", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-A8DD229ED4534606B08335B5F521F1D9", "name": "Phase 4: Maintenance and Update"}
+            },
+            {
+                "id": "55-E645D955E0474F5F950C5A4C701C8D31", 
+                "name": "29. Determine update embodiment priority", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-E1CF57C583274088B5E98450E7B8611A", 
+                        "actor": {"id": "55-EF267339E2C44F3D80E26762171D9E9A", "name": "A 2"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-A8DD229ED4534606B08335B5F521F1D9", "name": "Phase 4: Maintenance and Update"}
+            },
+            {
+                "id": "55-E3E4A23F9DED4231AA66C25DBA88176E", 
+                "name": "30. Initiate appropriate Update activities", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-CABA90AC5529403C8C2598259A6565A5", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-A8DD229ED4534606B08335B5F521F1D9", "name": "Phase 4: Maintenance and Update"}
+            },
+            {
+                "id": "55-440222CF7E2B40149E1D6CF999484DEA", 
+                "name": "30a. Type of Maintenance?", 
+                "type": "Decision", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-CCE3EA81CA7944CFAD1A4EBEA0C25E1E", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-A8DD229ED4534606B08335B5F521F1D9", "name": "Phase 4: Maintenance and Update"}
+            },
+            {
+                "id": "55-3C5A52959E2544DC906F313696603F36", 
+                "name": "30b. LfE Type", 
+                "type": "Decision", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-00F49704393543D3884D0F3334CD2772", 
+                        "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 1"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-A8DD229ED4534606B08335B5F521F1D9", "name": "Phase 4: Maintenance and Update"}
+            },
+            {
+                "id": "55-E0ABB82272C14563A99F15F8EF546835", 
+                "name": "31. Retire plan and archive", 
+                "type": "Process Step", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-678FE9ADEA0C453AB241FF97BD5A63DF", 
+                        "actor": {"id": "55-EF267339E2C44F3D80E26762171D9E9A", "name": "A 2"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-A8DD229ED4534606B08335B5F521F1D9", "name": "Phase 4: Maintenance and Update"}
+            },
+            {
+                "id": "55-962D10B094DD4A488FE969576C283263", 
+                "name": "End", 
+                "type": "End", 
+                "navigable": true, 
+                "swimlanes": [
+                    {
+                        "id": "41-088CF5BBA9224A3E8E45190A67A56CCD", 
+                        "actor": {"id": "55-EF267339E2C44F3D80E26762171D9E9A", "name": "A 2"}, 
+                        "minIndex": null, 
+                        "maxIndex": null
+                    }
+                ], 
+                "phase": {"id": "55-A8DD229ED4534606B08335B5F521F1D9", "name": "Phase 4: Maintenance and Update"}
+            }
+        ], 
+        "stepFlows": [
+            {
+                "id": "41-840C7433911543AAB5D34CFCDC8C8138", 
+                "source": {"id": "55-9298949BCB5246FFA836D0A085662F97", "name": "01. Define criteria for selection of key maintenance tasks for inclusion"}, 
+                "target": {"id": "55-5C30EF8A551B4F1A8AF533AD2411B7B9", "name": "02. Capture & rationalise relevant tasks / requirements"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-D055CE7815ED43A88B9646CA4FEE97B7", 
+                "source": {"id": "55-5C30EF8A551B4F1A8AF533AD2411B7B9", "name": "02. Capture & rationalise relevant tasks / requirements"}, 
+                "target": {"id": "55-A4C7F59CB9F24C2D918029AB0CB4DE2C", "name": "03. Propose planning assumptions & capture in Maintenance Planning Assumption List"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-6599E061428D47F2B406B88761D32AA4", 
+                "source": {"id": "55-A4C7F59CB9F24C2D918029AB0CB4DE2C", "name": "03. Propose planning assumptions & capture in Maintenance Planning Assumption List"}, 
+                "target": {"id": "55-A439B3CEDD1544DC89BD6140C19363E7", "name": "04. Identify associated and significant Work"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-0E888205494C4043A7B7DFF0916998C1", 
+                "source": {"id": "55-A439B3CEDD1544DC89BD6140C19363E7", "name": "04. Identify associated and significant Work"}, 
+                "target": {"id": "55-C5C5FBD9DC51498182EE1300A34B5C14", "name": "05. Estimate volumes of maintenance and material “allow fors”"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-E342A9E28E29432BAD2886C2B7F89277", 
+                "source": {"id": "55-C5C5FBD9DC51498182EE1300A34B5C14", "name": "05. Estimate volumes of maintenance and material “allow fors”"}, 
+                "target": {"id": "55-5A47AAD98DB045C0885B2A621CB49F0A", "name": "06. Produce rationalised Maintenance Task Library (inc. planning data of man hrs and material)"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-91344A81AE8F483BB007D76346F1E683", 
+                "source": {"id": "55-5A47AAD98DB045C0885B2A621CB49F0A", "name": "06. Produce rationalised Maintenance Task Library (inc. planning data of man hrs and material)"}, 
+                "target": {"id": "55-505412476A3448898482C2ABB20A8BAD", "name": "07. Approve Maintenance Task Library?"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-A2B6F14F9EB04300ACC17BE240D3839A", 
+                "source": {"id": "55-505412476A3448898482C2ABB20A8BAD", "name": "07. Approve Maintenance Task Library?"}, 
+                "target": {"id": "55-5C30EF8A551B4F1A8AF533AD2411B7B9", "name": "02. Capture & rationalise relevant tasks / requirements"}, 
+                "label": "No", 
+                "offPageConnection": true, 
+                "offPageOutputLabel": "To Step 2", 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-53C01001BBDC431DB771768C786C82CB", 
+                "source": {"id": "55-505412476A3448898482C2ABB20A8BAD", "name": "07. Approve Maintenance Task Library?"}, 
+                "target": {"id": "55-65C0D71FD36F468693A2699FB793727F", "name": "08. Plot key maintenance tasks against Support Periods"}, 
+                "label": "Yes", 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-BB7E210B414E4BD28D2DB2EFB4D6AEE8", 
+                "source": {"id": "55-65C0D71FD36F468693A2699FB793727F", "name": "08. Plot key maintenance tasks against Support Periods"}, 
+                "target": {"id": "55-D803D71F2CA549F0B326ED22F64678DB", "name": "09. Analyse the periodicity / frequency of key tasks and duration of critical path activities"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-6AE576A850E34863AD33B8654CACA373", 
+                "source": {"id": "55-D803D71F2CA549F0B326ED22F64678DB", "name": "09. Analyse the periodicity / frequency of key tasks and duration of critical path activities"}, 
+                "target": {"id": "55-19CD659C770640B1802E7F65BE2E068D", "name": "10. Identify critical misalignment timing inconsistencies or duration"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-7AA75052607B4B2C8124388D624071E6", 
+                "source": {"id": "55-19CD659C770640B1802E7F65BE2E068D", "name": "10. Identify critical misalignment timing inconsistencies or duration"}, 
+                "target": {"id": "55-495CC16ABDE24B688C4F5E2502405BC7", "name": "11. Establish impacts and identify proposed change to maintenance task requirements"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-78097028AA1144ECAE04FC3F7874541B", 
+                "source": {"id": "55-495CC16ABDE24B688C4F5E2502405BC7", "name": "11. Establish impacts and identify proposed change to maintenance task requirements"}, 
+                "target": {"id": "55-72E8576D9C5147A88F97EBDB80DE9998", "name": "12. Raise proposals for change as necessary"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-A3457B4242EA4282835F6506549C6D21", 
+                "source": {"id": "55-72E8576D9C5147A88F97EBDB80DE9998", "name": "12. Raise proposals for change as necessary"}, 
+                "target": {"id": "55-801F299F263F43629EC7468FC5DF086F", "name": "13. Set manhour budget target for each Support Period"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-2A8E96E48B7746C3ACCD79E86A39318E", 
+                "source": {"id": "55-801F299F263F43629EC7468FC5DF086F", "name": "13. Set manhour budget target for each Support Period"}, 
+                "target": {"id": "55-FBA637D48A5A4FCCBA436CB60DDB6E65", "name": "14. Compile a list of all relevant maintenance tasks in the planning horizon"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-64F4918DF2604B069EAB77B4098742B3", 
+                "source": {"id": "55-FBA637D48A5A4FCCBA436CB60DDB6E65", "name": "14. Compile a list of all relevant maintenance tasks in the planning horizon"}, 
+                "target": {"id": "55-449D4E6C77F24C81B1A87F79B7AEF921", "name": "15. Allocate maintenance tasks and manhours to Support Periods"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-855986670AEC4D72ADAB655AA8728A5F", 
+                "source": {"id": "55-449D4E6C77F24C81B1A87F79B7AEF921", "name": "15. Allocate maintenance tasks and manhours to Support Periods"}, 
+                "target": {"id": "55-6BC1A0B25A10424D9652F4829BAD70A4", "name": "16. Capature and add planned Alterations to Support periods and check choerence with maintenance tasks"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-F26E97C70A03497D90C8B2DE0B0DA858", 
+                "source": {"id": "55-6BC1A0B25A10424D9652F4829BAD70A4", "name": "16. Capature and add planned Alterations to Support periods and check choerence with maintenance tasks"}, 
+                "target": {"id": "55-1B8C8746E3E74A2CA86ACB37DC55D455", "name": "17. Capture and add resource requirements to the Support Periods"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-BCB63B11F49349D3B2F2EBEC92D77C5D", 
+                "source": {"id": "55-1B8C8746E3E74A2CA86ACB37DC55D455", "name": "17. Capture and add resource requirements to the Support Periods"}, 
+                "target": {"id": "55-733B16077DC6426C966B164EC016CD3C", "name": "18. Identify and assess risks to delivery of draft Plans"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-A80B2C29480945BD908ADC7755AD1F41", 
+                "source": {"id": "55-733B16077DC6426C966B164EC016CD3C", "name": "18. Identify and assess risks to delivery of draft Plans"}, 
+                "target": {"id": "55-7F19E3EE4FAC41DC80CDC7B7A38BE076", "name": "19. Present draft Plans for peer review"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-3642C5C8ED5242F7B0B70B23C0000C63", 
+                "source": {"id": "55-7F19E3EE4FAC41DC80CDC7B7A38BE076", "name": "19. Present draft Plans for peer review"}, 
+                "target": {"id": "55-3413AE77DB0B455DA76942D004B90C76", "name": "20. Are Plans viable?"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-68F216EE9C7D406EA440893FC970FD7C", 
+                "source": {"id": "55-3413AE77DB0B455DA76942D004B90C76", "name": "20. Are Plans viable?"}, 
+                "target": {"id": "55-802CA9E71F624AD2B9066E0A2EBB989A", "name": "21. Provide direction as basis for rationalisation"}, 
+                "label": "No", 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-0C6502BD0F3146BF99B9F27FB631B7C0", 
+                "source": {"id": "55-3413AE77DB0B455DA76942D004B90C76", "name": "20. Are Plans viable?"}, 
+                "target": {"id": "55-51731CBB3A214C1488295DBF7384CF18", "name": "24. Update or propose changes to affected requirements / artefacts"}, 
+                "label": "Yes", 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-A07687482EB44A719CE059D69DF1A652", 
+                "source": {"id": "55-802CA9E71F624AD2B9066E0A2EBB989A", "name": "21. Provide direction as basis for rationalisation"}, 
+                "target": {"id": "55-62B5F48D34CC41E594293869566ED5E8", "name": "22. Align / rationalise requirements with constraints and propose revisions"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-48AE570532D04EEEB0BE8DFC855C9A1B", 
+                "source": {"id": "55-62B5F48D34CC41E594293869566ED5E8", "name": "22. Align / rationalise requirements with constraints and propose revisions"}, 
+                "target": {"id": "55-DBDA4C5A6CCE48DC8F3D83C46BF323C4", "name": "23. Assess & decide"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-437B0196D34B47CDA20937DD5AA9E55F", 
+                "source": {"id": "55-DBDA4C5A6CCE48DC8F3D83C46BF323C4", "name": "23. Assess & decide"}, 
+                "target": {"id": "55-802CA9E71F624AD2B9066E0A2EBB989A", "name": "21. Provide direction as basis for rationalisation"}, 
+                "label": "Reject", 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-95E536C4A82D46149FF47182C0928C63", 
+                "source": {"id": "55-DBDA4C5A6CCE48DC8F3D83C46BF323C4", "name": "23. Assess & decide"}, 
+                "target": {"id": "55-51731CBB3A214C1488295DBF7384CF18", "name": "24. Update or propose changes to affected requirements / artefacts"}, 
+                "label": "Approve", 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-91149C1DC3B64C9BB99FBFA8CC5BABAF", 
+                "source": {"id": "55-51731CBB3A214C1488295DBF7384CF18", "name": "24. Update or propose changes to affected requirements / artefacts"}, 
+                "target": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-2BC957AFB2854A8A8A06DE74E80E3A7A", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-B395D9DD784A478F946B1180FE67AE69", "name": "26. Do plans need updating?"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-9D7A9760F4B34F31A71334E2B12D796C", 
+                "source": {"id": "55-B395D9DD784A478F946B1180FE67AE69", "name": "26. Do plans need updating?"}, 
+                "target": {"id": "55-BEFCE61C100948688EF8F1564287645D", "name": "27. Capture excluded tasks and identify requirements and options for reallocation"}, 
+                "label": "Yes", 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-003DE8AF22A743C09207019F1B31F6F8", 
+                "source": {"id": "55-B395D9DD784A478F946B1180FE67AE69", "name": "26. Do plans need updating?"}, 
+                "target": {"id": "55-E0ABB82272C14563A99F15F8EF546835", "name": "31. Retire plan and archive"}, 
+                "label": "No", 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-F21FAD31AE1B43059917E99D77C7F916", 
+                "source": {"id": "55-BEFCE61C100948688EF8F1564287645D", "name": "27. Capture excluded tasks and identify requirements and options for reallocation"}, 
+                "target": {"id": "55-4628E3475F24453094D1410A0D7B93DF", "name": "28. Capture changes and assess impact on Plans"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-E40056A8B50446E8B220ED9A474E8A40", 
+                "source": {"id": "55-4628E3475F24453094D1410A0D7B93DF", "name": "28. Capture changes and assess impact on Plans"}, 
+                "target": {"id": "55-E645D955E0474F5F950C5A4C701C8D31", "name": "29. Determine update embodiment priority"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-CB9B5153541B47999356206D6EDCBE6C", 
+                "source": {"id": "55-E645D955E0474F5F950C5A4C701C8D31", "name": "29. Determine update embodiment priority"}, 
+                "target": {"id": "55-E3E4A23F9DED4231AA66C25DBA88176E", "name": "30. Initiate appropriate Update activities"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-4FE37EBD35D24510A7FDCDDDE7F4E045", 
+                "source": {"id": "55-E3E4A23F9DED4231AA66C25DBA88176E", "name": "30. Initiate appropriate Update activities"}, 
+                "target": {"id": "55-65C0D71FD36F468693A2699FB793727F", "name": "08. Plot key maintenance tasks against Support Periods"}, 
+                "label": null, 
+                "offPageConnection": true, 
+                "offPageOutputLabel": "Support Period: Go to step 8", 
+                "offPageInputLabel": "From Step 30 (Phase 4)"
+            },
+            {
+                "id": "41-B1573F314D1E40818A9406F2E0C87BB8", 
+                "source": {"id": "55-E3E4A23F9DED4231AA66C25DBA88176E", "name": "30. Initiate appropriate Update activities"}, 
+                "target": {"id": "55-801F299F263F43629EC7468FC5DF086F", "name": "13. Set manhour budget target for each Support Period"}, 
+                "label": null, 
+                "offPageConnection": true, 
+                "offPageOutputLabel": "Budget: Go to step 13", 
+                "offPageInputLabel": "From Step 30 (Phase 4)"
+            },
+            {
+                "id": "41-C5909567B6F3497EB0A71D0604D5B0C9", 
+                "source": {"id": "55-E3E4A23F9DED4231AA66C25DBA88176E", "name": "30. Initiate appropriate Update activities"}, 
+                "target": {"id": "55-FBA637D48A5A4FCCBA436CB60DDB6E65", "name": "14. Compile a list of all relevant maintenance tasks in the planning horizon"}, 
+                "label": null, 
+                "offPageConnection": true, 
+                "offPageOutputLabel": "Annual Reset: Go to step 14", 
+                "offPageInputLabel": "From Step 30 (Phase 4)"
+            },
+            {
+                "id": "41-422CE665BC794501AE65FFCA8463ACA0", 
+                "source": {"id": "55-E3E4A23F9DED4231AA66C25DBA88176E", "name": "30. Initiate appropriate Update activities"}, 
+                "target": {"id": "55-6BC1A0B25A10424D9652F4829BAD70A4", "name": "16. Capature and add planned Alterations to Support periods and check choerence with maintenance tasks"}, 
+                "label": null, 
+                "offPageConnection": true, 
+                "offPageOutputLabel": "Alterations: Go to step 16", 
+                "offPageInputLabel": "From Step 30 (Phase 4)"
+            },
+            {
+                "id": "41-FCD3AC451BF843EDA5C3D28844801005", 
+                "source": {"id": "55-E3E4A23F9DED4231AA66C25DBA88176E", "name": "30. Initiate appropriate Update activities"}, 
+                "target": {"id": "55-1B8C8746E3E74A2CA86ACB37DC55D455", "name": "17. Capture and add resource requirements to the Support Periods"}, 
+                "label": null, 
+                "offPageConnection": true, 
+                "offPageOutputLabel": "Resource: Go to step 17", 
+                "offPageInputLabel": "From Step 30 (Phase 4)"
+            },
+            {
+                "id": "41-151B119372EA4F34B203F23366778C24", 
+                "source": {"id": "55-E3E4A23F9DED4231AA66C25DBA88176E", "name": "30. Initiate appropriate Update activities"}, 
+                "target": {"id": "55-440222CF7E2B40149E1D6CF999484DEA", "name": "30a. Type of Maintenance?"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-2D5AB3E62BD446CC92479C4BE736DE6C", 
+                "source": {"id": "55-E3E4A23F9DED4231AA66C25DBA88176E", "name": "30. Initiate appropriate Update activities"}, 
+                "target": {"id": "55-3C5A52959E2544DC906F313696603F36", "name": "30b. LfE Type"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-369E7D193A1445C5A134FAA7DF02C9EC", 
+                "source": {"id": "55-440222CF7E2B40149E1D6CF999484DEA", "name": "30a. Type of Maintenance?"}, 
+                "target": {"id": "55-5C30EF8A551B4F1A8AF533AD2411B7B9", "name": "02. Capture & rationalise relevant tasks / requirements"}, 
+                "label": "Tasks", 
+                "offPageConnection": true, 
+                "offPageOutputLabel": "Maintenance: Go to Step 2", 
+                "offPageInputLabel": "From Steps 7 and 30a (Phase 4)"
+            },
+            {
+                "id": "41-9322B9A692904C5288EE9FA32BF4BC14", 
+                "source": {"id": "55-440222CF7E2B40149E1D6CF999484DEA", "name": "30a. Type of Maintenance?"}, 
+                "target": {"id": "55-495CC16ABDE24B688C4F5E2502405BC7", "name": "11. Establish impacts and identify proposed change to maintenance task requirements"}, 
+                "label": "Impacts", 
+                "offPageConnection": true, 
+                "offPageOutputLabel": "Maintenance: Got to step 11", 
+                "offPageInputLabel": "From Step 30a (Phase 4)"
+            },
+            {
+                "id": "41-6BF16651516E4C649963FD089C61B861", 
+                "source": {"id": "55-3C5A52959E2544DC906F313696603F36", "name": "30b. LfE Type"}, 
+                "target": {"id": "55-A4C7F59CB9F24C2D918029AB0CB4DE2C", "name": "03. Propose planning assumptions & capture in Maintenance Planning Assumption List"}, 
+                "label": "Planning", 
+                "offPageConnection": true, 
+                "offPageOutputLabel": "LfE: Go to step 3", 
+                "offPageInputLabel": "From Step 30b (Phase 4)"
+            },
+            {
+                "id": "41-24DE62E4AA3F46C6BB2FD10BEAEAAB77", 
+                "source": {"id": "55-3C5A52959E2544DC906F313696603F36", "name": "30b. LfE Type"}, 
+                "target": {"id": "55-C5C5FBD9DC51498182EE1300A34B5C14", "name": "05. Estimate volumes of maintenance and material “allow fors”"}, 
+                "label": "Volumes", 
+                "offPageConnection": true, 
+                "offPageOutputLabel": "LfE: Go to step 5", 
+                "offPageInputLabel": "From Step 30b (Phase 4)"
+            },
+            {
+                "id": "41-DB5C0F3C236140469727AE20008938DE", 
+                "source": {"id": "55-3C5A52959E2544DC906F313696603F36", "name": "30b. LfE Type"}, 
+                "target": {"id": "55-733B16077DC6426C966B164EC016CD3C", "name": "18. Identify and assess risks to delivery of draft Plans"}, 
+                "label": "Risks", 
+                "offPageConnection": true, 
+                "offPageOutputLabel": "LfE: Go to step 18", 
+                "offPageInputLabel": "From Step 30b (Phase 4)"
+            },
+            {
+                "id": "41-36514D83565F4C6AB3072B310E6CB601", 
+                "source": {"id": "55-E0ABB82272C14563A99F15F8EF546835", "name": "31. Retire plan and archive"}, 
+                "target": {"id": "55-962D10B094DD4A488FE969576C283263", "name": "End"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            },
+            {
+                "id": "41-D8D0318538F24EBAA28669EFD24B1C47", 
+                "source": {"id": "55-1C9C7616A00A47E69305BFE3BFA56EDC", "name": "Start"}, 
+                "target": {"id": "55-9298949BCB5246FFA836D0A085662F97", "name": "01. Define criteria for selection of key maintenance tasks for inclusion"}, 
+                "label": null, 
+                "offPageConnection": false, 
+                "offPageOutputLabel": null, 
+                "offPageInputLabel": null
+            }
+        ], 
+        "stepInputs": [
+            {
+                "id": "41-8A1CD99A95C8433BAFFCF58ECE88B703", 
+                "target": {"id": "55-5C30EF8A551B4F1A8AF533AD2411B7B9", "name": "02. Capture & rationalise relevant tasks / requirements"}, 
+                "source": {"id": "55-F40D1BE6D61049A88B03AD72557ED246", "name": "BP 106 - A Guide to Maintaining Platform Certification and Regulatory Compliance", "shortName": "BP 106", "type": "Process", "navigable": true}, 
+                "label": null
+            },
+            {
+                "id": "41-2BE08901312D405A8F7E4830D7FD63BE", 
+                "target": {"id": "55-5C30EF8A551B4F1A8AF533AD2411B7B9", "name": "02. Capture & rationalise relevant tasks / requirements"}, 
+                "source": {"id": "55-8D6018C34CC54861B458070A9D8CCF46", "name": "Generic Spec (if produced) Registers/Logs", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-DB49B6C34C804A68A7D0E0DE34C3F584", 
+                "target": {"id": "55-5C30EF8A551B4F1A8AF533AD2411B7B9", "name": "02. Capture & rationalise relevant tasks / requirements"}, 
+                "source": {"id": "55-64440C3B118E44ABAC963A7FE1041B8F", "name": "Maintenance MS", "shortName": null, "type": "Database / Application", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-082763F2B9E74A6F9437F89EC67310C2", 
+                "target": {"id": "55-65C0D71FD36F468693A2699FB793727F", "name": "08. Plot key maintenance tasks against Support Periods"}, 
+                "source": {"id": "55-15A85334E6934F8F8D04C01E80AC7D44", "name": "SP Timetable", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-80AEE03DA06E4AED8B1C0828B61078F2", 
+                "target": {"id": "55-801F299F263F43629EC7468FC5DF086F", "name": "13. Set manhour budget target for each Support Period"}, 
+                "source": {"id": "55-C3D24CFA06D840A19900B3FCD46FF6C6", "name": "Approved Budget", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-F93EFA2DB2E84CC38A9052D37F36783F", 
+                "target": {"id": "55-FBA637D48A5A4FCCBA436CB60DDB6E65", "name": "14. Compile a list of all relevant maintenance tasks in the planning horizon"}, 
+                "source": {"id": "55-A3BACEE400A1400A9E96F6836F837291", "name": "Maintenace MS records", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-4CF296C6464B41F8A1CE2CA79CB6B7C9", 
+                "target": {"id": "55-449D4E6C77F24C81B1A87F79B7AEF921", "name": "15. Allocate maintenance tasks and manhours to Support Periods"}, 
+                "source": {"id": "55-66F9A52CF3DF44AF8C711FF7D98C0515", "name": "SP Timetable (Modified)", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-93EC581CA9B54E17B47509AD37DD766C", 
+                "target": {"id": "55-6BC1A0B25A10424D9652F4829BAD70A4", "name": "16. Capature and add planned Alterations to Support periods and check choerence with maintenance tasks"}, 
+                "source": {"id": "55-E229B545E3B548D3BAF9BB47AA6E4D7A", "name": "Planning Tool", "shortName": null, "type": "Database / Application", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-D57165A9D87B4EBB86325CC2922FB151", 
+                "target": {"id": "55-1B8C8746E3E74A2CA86ACB37DC55D455", "name": "17. Capture and add resource requirements to the Support Periods"}, 
+                "source": {"id": "55-7730F12105E3487097B2220133A9E7CC", "name": "Role Plans", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-547D36278D94437BAF3137EE66635466", 
+                "target": {"id": "55-733B16077DC6426C966B164EC016CD3C", "name": "18. Identify and assess risks to delivery of draft Plans"}, 
+                "source": {"id": "55-C3D24CFA06D840A19900B3FCD46FF6C6", "name": "Approved Budget", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-DF16FDF09AA944059F1CC10E5F216359", 
+                "target": {"id": "55-733B16077DC6426C966B164EC016CD3C", "name": "18. Identify and assess risks to delivery of draft Plans"}, 
+                "source": {"id": "55-D486D4AB174E4E5FACCE3CFEF6AF40AE", "name": "Support Plan", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-854794D499D2482F8CE8AD7856C84644", 
+                "target": {"id": "55-733B16077DC6426C966B164EC016CD3C", "name": "18. Identify and assess risks to delivery of draft Plans"}, 
+                "source": {"id": "55-8353D09FCE954A589DCB677581D5B468", "name": "Resource plans (from BP 129)", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-8461737C93754815932CA5EEDA912D15", 
+                "target": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "source": {"id": "55-6CFE5C660619481C8BAA0E8921ED9ED4", "name": "Budget", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-CD4DA2728A0140C0ABF8A1496B5046FB", 
+                "target": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "source": {"id": "55-D486D4AB174E4E5FACCE3CFEF6AF40AE", "name": "Support Plan", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-483B621C4D6F4363A95128F8EC10C2E5", 
+                "target": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "source": {"id": "55-E229B545E3B548D3BAF9BB47AA6E4D7A", "name": "Planning Tool", "shortName": null, "type": "Database / Application", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-C061FADE99784679BE9B0DC897D8974C", 
+                "target": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "source": {"id": "55-64440C3B118E44ABAC963A7FE1041B8F", "name": "Maintenance MS", "shortName": null, "type": "Database / Application", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-049382ED6E764E03A3A83EBA6D1AE224", 
+                "target": {"id": "55-BEFCE61C100948688EF8F1564287645D", "name": "27. Capture excluded tasks and identify requirements and options for reallocation"}, 
+                "source": {"id": "55-E367B9FED3CC483399C168F964E22F37", "name": "Project Change Register (PCR)", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-B5D5C8337CC341C493403C872B0814DA", 
+                "target": {"id": "55-4628E3475F24453094D1410A0D7B93DF", "name": "28. Capture changes and assess impact on Plans"}, 
+                "source": {"id": "55-585D1D3E77D7480087BAC3243C129B83", "name": "Budgetary Triggers", "shortName": null, "type": "Database / Application", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-2112B7B0771E458489500EB90A088F50", 
+                "target": {"id": "55-4628E3475F24453094D1410A0D7B93DF", "name": "28. Capture changes and assess impact on Plans"}, 
+                "source": {"id": "55-9EA9917C817E4D96B420AE0372CFE508", "name": "Maintenance Triggers", "shortName": null, "type": "Database / Application", "navigable": false}, 
+                "label": null
+            },
+            {
+                "id": "41-5BFC272A12154EFC9E1E1618B649212C", 
+                "target": {"id": "55-4628E3475F24453094D1410A0D7B93DF", "name": "28. Capture changes and assess impact on Plans"}, 
+                "source": {"id": "55-D81E66CB3F2A48ABA1ED600672A184EF", "name": "Programme Triggers", "shortName": null, "type": "Database / Application", "navigable": false}, 
+                "label": null
+            }
+        ], 
+        "stepOutputs": [
+            {
+                "id": "41-43871EDFE4DB4D44992CDCBD8E77B278", 
+                "source": {"id": "55-A4C7F59CB9F24C2D918029AB0CB4DE2C", "name": "03. Propose planning assumptions & capture in Maintenance Planning Assumption List"}, 
+                "target": {"id": "55-1122DBE114884C58AFCA0FF6716F3D45", "name": "MDAL", "shortName": null, "type": "Database / Application", "navigable": false}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-64A529E95CFF4EB1B170177C5ECD57BC", 
+                "source": {"id": "55-72E8576D9C5147A88F97EBDB80DE9998", "name": "12. Raise proposals for change as necessary"}, 
+                "target": {"id": "55-41DE0DB9134E4320A67BCCE7BB8D7CF2", "name": "BP 025 - Management of Maintenance Requirements for In-Service Equipment", "shortName": "BP 025", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": true
+            },
+            {
+                "id": "41-02D887DE85864468A757FA8E17E73A02", 
+                "source": {"id": "55-72E8576D9C5147A88F97EBDB80DE9998", "name": "12. Raise proposals for change as necessary"}, 
+                "target": {"id": "55-907AE08F51F6452EAE0BBED0EC6AACCE", "name": "Change Proposal (impact on planning)", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-A04241766C0941E3A4B795DF189941C1", 
+                "source": {"id": "55-51731CBB3A214C1488295DBF7384CF18", "name": "24. Update or propose changes to affected requirements / artefacts"}, 
+                "target": {"id": "55-93E1CEE3A4C5480BBB4DCE0B95592946", "name": "BP 118 - Management of Product and Maintenance Concessions", "shortName": "BP 118", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-B927215B27724EA98AE8E9630B3AF71E", 
+                "source": {"id": "55-51731CBB3A214C1488295DBF7384CF18", "name": "24. Update or propose changes to affected requirements / artefacts"}, 
+                "target": {"id": "55-6CFE5C660619481C8BAA0E8921ED9ED4", "name": "Budget", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-D80D55F81DF4479CBC090CE2F4830AEF", 
+                "source": {"id": "55-51731CBB3A214C1488295DBF7384CF18", "name": "24. Update or propose changes to affected requirements / artefacts"}, 
+                "target": {"id": "55-D486D4AB174E4E5FACCE3CFEF6AF40AE", "name": "Support Plan", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-42F488480D2A46FCA7C5198F3BBD16C2", 
+                "source": {"id": "55-51731CBB3A214C1488295DBF7384CF18", "name": "24. Update or propose changes to affected requirements / artefacts"}, 
+                "target": {"id": "55-E229B545E3B548D3BAF9BB47AA6E4D7A", "name": "Planning Tool", "shortName": null, "type": "Database / Application", "navigable": false}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-D5A26BBA6A894A0E86F91F3A2446BEA5", 
+                "source": {"id": "55-51731CBB3A214C1488295DBF7384CF18", "name": "24. Update or propose changes to affected requirements / artefacts"}, 
+                "target": {"id": "55-64440C3B118E44ABAC963A7FE1041B8F", "name": "Maintenance MS", "shortName": null, "type": "Database / Application", "navigable": false}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-A1284C34693647D08C59099D465CFA99", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-CE99425D5BD14153952EB477F196F482", "name": "BP 006 - Equipment Delivery Planning for Updates and Upgrades", "shortName": "BP 006", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-206B6142FB49426085B52EA5EDE63C58", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-F15462F627144ABFB23E075EF54C7570", "name": "BP 012 - Plan, Prepare, Produce an Upkeep Work Package", "shortName": "BP 012", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-8B71E2EE1B48426F878B21283720B9C4", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-B28C9D2B4F0A495F8FFF89D762162E7D", "name": "BP 027 - Managing Planned Support", "shortName": "BP 027", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-7214862F896A4CF7A6B19880B9F780A9", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-F40D1BE6D61049A88B03AD72557ED246", "name": "BP 106 - A Guide to Maintaining Platform Certification and Regulatory Compliance", "shortName": "BP 106", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-099161D468304AD89BB3367095803A3F", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-4819B07F6B2F4E548BEC0090C258FC68", "name": "BP 115 - Resource Demand Planning for Maintenance Activity", "shortName": "BP 115", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-8AC6A543189A48ACA2459B36F5068ADF", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-93E1CEE3A4C5480BBB4DCE0B95592946", "name": "BP 118 - Management of Product and Maintenance Concessions", "shortName": "BP 118", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-0D275A91EE864371B21D754D0360A661", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-E5F0FD5E39274F4DA3FCCA3BBF64F2A1", "name": "BP 122 - Financial Management of Non-Specified Work", "shortName": "BP 122", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-BB75A096231A4DA495A96482F91D86A8", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-05AB9D193877431D95067E6B1354C97B", "name": "BP 128 - Planning and Scheduling", "shortName": "BP 128", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-E0C6EE501335430DA5BE8926B011188C", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-C637C7974CFE48C585672D11726A8615", "name": "BP 129 - Workforce Planning", "shortName": "BP 129", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-A3A8A13137D449A18FEA4B4DF8A89927", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-53DA6E42315E4281A40B1DC59B9D2F93", "name": "BP 160 - Supply Chain Management", "shortName": "BP 160", "type": "Process", "navigable": true}, 
+                "label": null, 
+                "flow": null
+            },
+            {
+                "id": "41-E503AFA0EC4A40D9A82B0CEDAEF99E9D", 
+                "source": {"id": "55-050B7BF54DD047AB89B051D0AE36F520", "name": "25. Baseline the Plans and create connsolidated Support Operations Plan"}, 
+                "target": {"id": "55-E9490F0A08B34B74B59362C26C926A95", "name": "SP Ops Plan", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "label": null, 
+                "flow": null
+            }
+        ], 
+		"stepGroups": [
+			{"id": "55-B4C7ED5C9FCE4C688604F4EB160F6C34", "name": "Group 1", "labelPosition": null, "navigable": false}
+        ], 
+        "stepGroupSteps": [
+            {
+                "id": "41-FE9336A79C7844F59AC174A4DF8C8B01", 
+                "group": {"id": "55-B4C7ED5C9FCE4C688604F4EB160F6C34", "name": "Group 1"}, 
+                "step": {"id": "55-C5C5FBD9DC51498182EE1300A34B5C14", "name": "05. Estimate volumes of maintenance and material “allow fors”"}
+            },
+            {
+                "id": "41-FE9336A79C7844F59AC174A4DF8C8B02", 
+                "group": {"id": "55-B4C7ED5C9FCE4C688604F4EB160F6C34", "name": "Group 1"}, 
+                "step": {"id": "55-5A47AAD98DB045C0885B2A621CB49F0A", "name": "06. Produce rationalised Maintenance Task Library (inc. planning data of man hrs and material)"}
+            }
+        ]
+    }
+}

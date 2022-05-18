@@ -1,0 +1,258 @@
+/*
+ * Process Header
+ */
+/* Process header div */
+.process-flow .process-flow-header {
+     font-size: 16px;
+     color: black;
+ }
+
+/*
+ * Phase Label
+ */
+/* Phase label rectangle */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-vlabel > rect {
+    fill: lightgray;
+    stroke: #0000E0;
+    stroke-width: 0;
+ }
+
+/* Phase label text */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-vlabel > text {
+    font-size: 14px;
+    color: black;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+/* Phase label extent box */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-phaseextent > path {
+    fill-opacity: 1;
+    stroke:  black;
+    stroke-width: 1;
+    stroke-dasharray: 30 30;
+}
+/*
+ * Actor
+ */
+/* actor watermark text odd and even numbered lanes */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-actor .actor-watermark {
+   font-size: 16px;
+   font-family: sans-serif;
+   font-weight: bold;
+}
+
+/* actor watermark text odd numbered lanes */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-actor .actor-watermark[even="false"] {
+   fill: black;
+}
+
+/* actor watermark text even numbered lanes */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-actor .actor-watermark[even="true"] {
+   fill: black;
+}
+
+/* actor watermark rectangle */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-actor > rect[joint-selector="watermark"][fill] {
+   fill-opacity: 0.4
+}
+
+/* actor rectangle odd numbered lanes */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-actor > rect[even="false"] {
+    fill: lightgray;
+    stroke: #0000E0;
+    stroke-width: 0;
+ }
+
+ .process-flow .joint-element.joint-type-mood.joint-type-mood-actor > rect[even="true"] {
+    /* actor rectangle even numbered lanes */
+    fill: white;
+    stroke: #0000E0;
+    stroke-width: 0;
+ }
+
+/*
+ * Input / Output elements
+ */
+/* Input/Output lanes */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-actor > rect.io  {
+   /* Colour of Input / Output lanes is defined by odd / even actor lanes above 
+      When actor lanes colours override odd / even colours you can define the
+      colour of both input and output lane by uncommenting and amending the section below
+   */
+   /*
+   fill: gray;
+   stroke: #0000E0;
+   */
+   stroke-width: 0;
+}
+
+/* Input/Output watermark text */
+/*
+.process-flow .joint-element.joint-type-mood.joint-type-mood-actor .actor-watermark.io {
+   fill: red;
+}
+*/
+
+/* Input/Output generic element shape body */
+.process-flow .joint-element.joint-type-mood .mood-graph-io {
+     fill: white;
+     stroke: black;
+     stroke-width: 1;
+ }
+/* Input/Output element shape label */
+.process-flow .joint-element.joint-type-mood .mood-graph-io-label {
+   font-family: sans-serif;
+   font-size: 12px;
+   fill: black;
+}
+
+/* External Data shape body */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-externaldata .mood-graph-io[joint-selector="body"] {
+    fill: white;
+    stroke: black;
+    stroke-width: 1;
+ }
+
+/* Process shape body */
+ .process-flow .joint-element.joint-type-mood.joint-type-mood-process .mood-graph-io[joint-selector="body"] {
+    fill: lightgray;
+    stroke: black;
+    stroke-width: 1;
+ }
+
+ /* Process shape inner part */
+ .process-flow .joint-element.joint-type-mood.joint-type-mood-process .mood-graph-io[joint-selector="inner"] {
+    fill: white;
+    stroke: black;
+    stroke-width: 1;
+ }
+ /*
+  * In addition to .joint-type-mood-externaldata and .joint-type-mood-process, other IO shape classes are
+  * .joint-type-mood-database
+  * .joint-type-mood-document
+  * .joint-type-mood-data
+  * .joint-type-mood-other
+  */
+/*
+ * Process Steps
+ */
+/* Process step element shape body */
+.process-flow .joint-element.joint-type-mood .mood-graph-step {
+    fill: lightblue;
+    stroke: black;
+    stroke-width: 1;
+}
+/* Sub Process step shape body */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-subprocess .mood-graph-step[joint-selector="body"] {
+   fill: lightblue;
+   stroke: black;
+   stroke-width: 1;
+}
+
+/* Sub Process step shape inner part */
+.process-flow .joint-element.joint-type-mood.joint-type-mood-subprocess .mood-graph-step[joint-selector="inner"] {
+   fill: white;
+   stroke: black;
+   stroke-width: 1;
+}
+
+/* Process step element shape label */
+.process-flow .joint-element.joint-type-mood .mood-graph-step-label {
+    font-size: 12px;
+    font-family: sans-serif;
+    fill: black;
+}
+/*
+ * Process Flow
+ */
+/* Flow label box */
+.process-flow g.label > rect {
+    fill: black;
+}
+
+/* Flow label text */
+.process-flow g.label > text {
+    font-size: 12px;
+    font-family: sans-serif;
+    fill: white;
+}
+/*
+ * Process Activity (step) Group
+ */
+/* Process step grouping element shape body */
+.process-flow .joint-element.joint-type-mood .mood-graph-step-group {
+   fill: mediumslateblue;
+   fill-opacity: 0.3;
+   stroke: black;
+   stroke-width: 1;
+   stroke-dasharray: 2 2;
+}
+
+/* Process step grouping element shape label */
+.process-flow .joint-element.joint-type-mood .mood-graph-step-group-label {
+   font-size: 14px;
+   font-family: sans-serif;
+   font-weight: bold;
+   fill: black;
+}
+
+/* Highlight primary IO element shape body */
+ .process-flow .joint-element.joint-type-mood.highlight-primary .mood-graph-io[joint-selector="body"] {
+    stroke: yellow;
+    stroke-width: 3;
+ }
+
+/* Highlight secondary IO element shape body */
+.process-flow .joint-element.joint-type-mood.highlight-secondary .mood-graph-io[joint-selector="body"] {
+   stroke: coral;
+   stroke-width: 3;
+}
+
+/* Highlight primary IO element shape inner */
+.process-flow .joint-element.joint-type-mood.highlight-primary .mood-graph-io[joint-selector="inner"] {
+   stroke: yellow;
+   stroke-width: 3;
+}
+
+/* Highlight secondary IO element shape inner */
+.process-flow .joint-element.joint-type-mood.highlight-secondary .mood-graph-io[joint-selector="inner"] {
+   stroke: coral;
+   stroke-width: 3;
+}
+
+/* Highlight primary step element shape body */
+ .process-flow .joint-element.joint-type-mood.highlight-primary .mood-graph-step[joint-selector="body"] {
+    stroke: yellow;
+    stroke-width: 3;
+ }
+
+/* Highlight secondary step element shape body */
+.process-flow .joint-element.joint-type-mood.highlight-secondary .mood-graph-step[joint-selector="body"] {
+   stroke: coral;
+   stroke-width: 3;
+}
+
+/* Highlight primary step element shape inner */
+.process-flow .joint-element.joint-type-mood.highlight-primary .mood-graph-step[joint-selector="inner"] {
+   stroke: yellow;
+   stroke-width: 3;
+}
+
+/* Highlight secondary step element shape inner */
+.process-flow .joint-element.joint-type-mood.highlight-secondary .mood-graph-step[joint-selector="inner"] {
+  stroke: coral;
+  stroke-width: 3;
+}
+
+/* Highlight primary link line */
+ .process-flow .joint-cell.joint-type-standard-link.highlight-primary [joint-selector="wrapper"] {
+    stroke: yellow;
+    stroke-width: 6;
+ }
+
+/* Highlight secondary link line */
+.process-flow .joint-cell.joint-type-standard-link.highlight-secondary [joint-selector="wrapper"] {
+   stroke: coral;
+   stroke-width: 6;
+}

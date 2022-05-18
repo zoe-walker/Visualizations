@@ -1,0 +1,94 @@
+/*
+ * Process Header
+ */
+/* Process header element */
+.process-flow .process-flow-header {
+     font-size: 16px;
+     color: black;
+ }
+
+ /*
+  * Column header element
+  * Alignment of text
+  */
+ .process-flow-column-header {
+   vertical-align: middle;
+   justify-content: center;
+   align-items: center;
+}
+
+/*
+ * Phase header
+ */
+/* Phase label rectangle */
+.process-flow-column-header.phase {
+    background-color: lightgray;
+    border-color: #0000E0;
+    border-width: thick;
+    border-style: none;
+    box-sizing: border-box;
+ }
+
+/*
+ * Actor and I/O headers
+ */
+/* actor header text odd and even numbered lanes */
+.process-flow-column-header.actor text {
+   font-size: 16px;
+   font-family: sans-serif;
+   font-weight: bold;
+}
+
+/* actor header text odd numbered lanes */
+.process-flow-column-header.actor[even="false"] text {
+   color: black;
+}
+
+/* actor header text even numbered lanes */
+.process-flow-column-header.actor[even="true"] text {
+   color: black;
+}
+
+/* actor header rectangle odd numbered lanes */
+.process-flow-column-header.actor[even="false"] {
+    background-color: lightgray;
+    border-color: #0000E0;
+    border-width: thick;
+    border-style: none;
+    box-sizing: border-box;
+ }
+
+/* actor header rectangle even numbered lanes */
+.process-flow-column-header.actor[even="true"] {
+    background-color: white;
+    border-color: #0000E0;
+    border-width: thick;
+    border-style: none;
+    box-sizing: border-box;
+ }
+
+/*
+ * Input / Output elements
+ */
+/* Input/Output lanes */
+.process-flow-column-header.actor:not([id])  {
+   /* Colour of Input / Output lanes is defined by odd / even actor lanes above 
+      When actor lanes colours override odd / even colours you can define the
+      colour of both input and output lane by uncommenting and amending the section below
+   */
+   /*
+   background-color: white;
+   border-color: #0000E0;
+   border-width: thick;
+   border-style: none;
+   box-sizing: border-box;
+   */
+}
+
+/* Input/Output header text */
+.process-flow-column-header.actor:not([id]) text {
+/*
+   color: red;
+*/
+}
+

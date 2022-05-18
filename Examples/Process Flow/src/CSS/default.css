@@ -1,0 +1,11 @@
+ .joint-element.joint-type-mood {
+    /* JointJS elements created by custom visualisation */
+    cursor: pointer;
+ }
+ 
+ .joint-element.joint-type-mood .no-interaction {
+   /* JointJS elements created by custom visualisation that have no user interaction with MooD */
+   cursor: default;
+}
+
+

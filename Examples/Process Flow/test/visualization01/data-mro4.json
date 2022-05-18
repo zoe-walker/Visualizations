@@ -1,0 +1,461 @@
+{"data" :
+	{
+		"process": {"id": "55-C3DEF2151B8941CAA3C925238091EC09", "name": "MRO4", "version": "1", "testNavigation": true}, 
+		"actors": [
+			{
+				"id": "41-A17C2AD3D4E04855AA34B01AA7678314", 
+				"target": 
+					{
+						"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", 
+						"name": "Actor 1", 
+						"navigable": true, 
+						"backgroundColour": "#BD8DE0", 
+						"textColour": null, 
+						"relatedColourDefinition": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "backgroundColour": null, "textColour": null}
+					}
+				, 
+				"backgroundColour": null, 
+				"textColour": null, 
+				"swimlanes": 3
+			},
+			{
+				"id": "41-074E01380FFE4D069D3EE2C02197BA5C", 
+				"target": 
+					{
+						"id": "55-529BDDEE64CB40BE883FB8C507C61B93", 
+						"name": "Actor 2", 
+						"navigable": true, 
+						"backgroundColour": "#AED7FF", 
+						"textColour": null, 
+						"relatedColourDefinition": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "backgroundColour": null, "textColour": null}
+					}
+				, 
+				"backgroundColour": null, 
+				"textColour": null, 
+				"swimlanes": 3
+			}
+		], 
+		"phases": [], 
+		"steps": [
+			{
+				"id": "55-FD97A85B83E840D9BDCF75EEC02A7529", 
+				"name": "Start", 
+				"type": "Start", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-7A968D564C544640B9442108E83E3FE2", 
+						"actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Actor 2"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-DC994043DA4040D28028F225BC984817", 
+				"name": "Step 01", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-B2FCD7846A194EFDACE2E5861A098336", 
+						"actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Actor 2"}, 
+						"minIndex": 3, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-BA617E9A838F462F829555D6C0E511AE", 
+				"name": "Step 02", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-39737B086C0248C8886D96742305E3E2", 
+						"actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Actor 2"}, 
+						"minIndex": 3, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-FD4F2CCC7A624805A2E1C94310B61E92", 
+				"name": "Step 03", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-0CFE89357D8D42A0B416B49472D43322", 
+						"actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Actor 1"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-3393A6A767714B4BB48B78AD46F88CEA", 
+				"name": "Step 04", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-D2084F303EDA46D582DE94E813C64268", 
+						"actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Actor 1"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-CE80B848E323451DAE1E8533EBEA00E4", 
+				"name": "Step 05", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-43071B86BAC94C81B0D4719935B41DB9", 
+						"actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Actor 1"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-096DB845CE674C33A71C5E97D975F5CA", 
+				"name": "Step 06", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-7937230A3C2748249D259FFFE89682D8", 
+						"actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Actor 1"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-FED4816DB4A6465AB2851A5DA6A26E86", 
+				"name": "Step 07", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-54ED3F77B2E44F419627A86E216E3DBB", 
+						"actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Actor 1"}, 
+						"minIndex": 3, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null,
+				"preventSharingRow": false
+			},
+			{
+				"id": "55-BAD6828AEAB54E698C1C8EC9EFB28AF9", 
+				"name": "Step 09", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-5019FFB69F26459980BB01AED77C61EE", 
+						"actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Actor 2"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-36E9E8BD767444758DEB620C8373DEEB", 
+				"name": "Step 08", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-5F9F62F7125F456B8305EF66D640A1BE", 
+						"actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Actor 2"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-ED4801F75EE34A3492795A3440561757", 
+				"name": "Step 10", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-97D82A41696B4504BCAD0CE23EE9284E", 
+						"actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Actor 2"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-321D09797EED43E4857A08DCBCFFD527", 
+				"name": "Step 11", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-C8FFC3BE6FEA4E62BDE800877383FB49", 
+						"actor": {"id": "55-3527A0C1FE1A45B781ABC78C237D3D25", "name": "Actor 1"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null,
+				"preventSharingRow": false
+			},
+			{
+				"id": "55-CE7A9E8B68644CE594AB0DB1DCB7B84E", 
+				"name": "Step 12", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-0BAB3D6569FE47E59BF33DE564CF6E77", 
+						"actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Actor 2"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-982FFFC13C5146CBA19BC9891CB55165", 
+				"name": "Step 13", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-CE01257E1B70428CAF86C525EB2550BD", 
+						"actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Actor 2"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-F38F80F153F744A1B712386FDEC6CDEE", 
+				"name": "End", 
+				"type": "End", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-DA0850A90107419795D2ACAB6077E2A1", 
+						"actor": {"id": "55-529BDDEE64CB40BE883FB8C507C61B93", "name": "Actor 2"}, 
+						"minIndex": 2, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			}
+		], 
+		"stepFlows": [
+			{
+				"id": "41-B7A7A6B9D06346E7BDBB14F9269A3174", 
+				"source": {"id": "55-CE7A9E8B68644CE594AB0DB1DCB7B84E", "name": "Step 12"}, 
+				"target": {"id": "55-982FFFC13C5146CBA19BC9891CB55165", "name": "Step 13"}, 
+				"label": "Yes", 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-ABA3ED8E148646EF856156C89257B315", 
+				"source": {"id": "55-CE7A9E8B68644CE594AB0DB1DCB7B84E", "name": "Step 12"}, 
+				"target": {"id": "55-BA617E9A838F462F829555D6C0E511AE", "name": "Step 02"}, 
+				"label": "No", 
+				"offPageConnection": false, 
+				"offPageOutputLabel": "To Step 02", 
+				"offPageInputLabel": "From Step 12",
+				"sourcePort": "right",
+				"targetPort": "bottom"
+			},
+			{
+				"id": "41-2571E281711746669005031654C8488D", 
+				"source": {"id": "55-3393A6A767714B4BB48B78AD46F88CEA", "name": "Step 04"}, 
+				"target": {"id": "55-CE80B848E323451DAE1E8533EBEA00E4", "name": "Step 05"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-21745CB1E9D1469A9F944FFBD1D59E29", 
+				"source": {"id": "55-982FFFC13C5146CBA19BC9891CB55165", "name": "Step 13"}, 
+				"target": {"id": "55-F38F80F153F744A1B712386FDEC6CDEE", "name": "End"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-0F78B3FF9DE743139443EAB687C2EC23", 
+				"source": {"id": "55-321D09797EED43E4857A08DCBCFFD527", "name": "Step 11"}, 
+				"target": {"id": "55-CE7A9E8B68644CE594AB0DB1DCB7B84E", "name": "Step 12"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null,
+				"sequence": 1,
+				"targetPort": "left"
+			},
+			{
+				"id": "41-9B02C78300CD494CBB965CDDE3CE3ED7", 
+				"source": {"id": "55-096DB845CE674C33A71C5E97D975F5CA", "name": "Step 06"}, 
+				"target": {"id": "55-321D09797EED43E4857A08DCBCFFD527", "name": "Step 11"}, 
+				"label": "Yes", 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null,
+				"sequence": null
+			},
+			{
+				"id": "41-0F5D25368BAC4609BC0B221A76D515F5", 
+				"source": {"id": "55-096DB845CE674C33A71C5E97D975F5CA", "name": "Step 06"}, 
+				"target": {"id": "55-FED4816DB4A6465AB2851A5DA6A26E86", "name": "Step 07"}, 
+				"label": "No", 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-53B8F9A0B1B545F6AB98A01E0256F395", 
+				"source": {"id": "55-ED4801F75EE34A3492795A3440561757", "name": "Step 10"}, 
+				"target": {"id": "55-321D09797EED43E4857A08DCBCFFD527", "name": "Step 11"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-553865CDAEAA48249C971A2EC8B43FCA", 
+				"source": {"id": "55-36E9E8BD767444758DEB620C8373DEEB", "name": "Step 08"}, 
+				"target": {"id": "55-ED4801F75EE34A3492795A3440561757", "name": "Step 10"}, 
+				"label": "Yes", 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-F5B674E91F7D4EA891DBB54BB6B039DD", 
+				"source": {"id": "55-36E9E8BD767444758DEB620C8373DEEB", "name": "Step 08"}, 
+				"target": {"id": "55-BAD6828AEAB54E698C1C8EC9EFB28AF9", "name": "Step 09"}, 
+				"label": "No", 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null,
+				"sourcePort": "top",
+				"targetPort": "bottom"
+			},
+			{
+				"id": "41-A023A207EF984ABFBB0592FAA353F23F", 
+				"source": {"id": "55-DC994043DA4040D28028F225BC984817", "name": "Step 01"}, 
+				"target": {"id": "55-BA617E9A838F462F829555D6C0E511AE", "name": "Step 02"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-802B4B99BB28483DBDCECB7086A4EF31", 
+				"source": {"id": "55-FED4816DB4A6465AB2851A5DA6A26E86", "name": "Step 07"}, 
+				"target": {"id": "55-36E9E8BD767444758DEB620C8373DEEB", "name": "Step 08"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null,
+				"sourcePort": null,
+				"targetPort": "left"
+			},
+			{
+				"id": "41-C61A02A4BD444E64BF619895D4CCCA28", 
+				"source": {"id": "55-FD97A85B83E840D9BDCF75EEC02A7529", "name": "Start"}, 
+				"target": {"id": "55-DC994043DA4040D28028F225BC984817", "name": "Step 01"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-F9653D3DCE1C438FBBEBC42DA3446197", 
+				"source": {"id": "55-CE80B848E323451DAE1E8533EBEA00E4", "name": "Step 05"}, 
+				"target": {"id": "55-096DB845CE674C33A71C5E97D975F5CA", "name": "Step 06"}, 
+				"label": "Yes", 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-025FF2012BF14CC19E4FFD2D5493F43D", 
+				"source": {"id": "55-CE80B848E323451DAE1E8533EBEA00E4", "name": "Step 05"}, 
+				"target": {"id": "55-BA617E9A838F462F829555D6C0E511AE", "name": "Step 02"}, 
+				"label": "No", 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null,
+				"sourcePort": null,
+				"targetPort": "bottom"
+			},
+			{
+				"id": "41-0A618BA1D7FC478089E1C153B7D12F7C", 
+				"source": {"id": "55-BA617E9A838F462F829555D6C0E511AE", "name": "Step 02"}, 
+				"target": {"id": "55-FD4F2CCC7A624805A2E1C94310B61E92", "name": "Step 03"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null,
+				"sourcePort": "left",
+				"targetPort": null
+			},
+			{
+				"id": "41-137F6CBAFE7E420699E1CA09F60047DD", 
+				"source": {"id": "55-FD4F2CCC7A624805A2E1C94310B61E92", "name": "Step 03"}, 
+				"target": {"id": "55-3393A6A767714B4BB48B78AD46F88CEA", "name": "Step 04"}, 
+				"label": "Accept", 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-9320454BF5184FE6B51D8D7C1C9539CA", 
+				"source": {"id": "55-FD4F2CCC7A624805A2E1C94310B61E92", "name": "Step 03"}, 
+				"target": {"id": "55-982FFFC13C5146CBA19BC9891CB55165", "name": "Step 13"}, 
+				"label": "Reject", 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-E45BD03F88F949C48F2E362B6D041CDC", 
+				"source": {"id": "55-FD4F2CCC7A624805A2E1C94310B61E92", "name": "Step 03"}, 
+				"target": {"id": "55-BA617E9A838F462F829555D6C0E511AE", "name": "Step 02"}, 
+				"label": "More info req'd", 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null,
+				"sourcePort": null,
+				"targetPort": "bottom"
+			}
+		], 
+		"stepInputs": [], 
+		"stepOutputs": [], 
+		"stepGroups": [], 
+		"stepGroupSteps": []
+	}
+}

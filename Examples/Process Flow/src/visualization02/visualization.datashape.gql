@@ -1,0 +1,44 @@
+type data {
+	process: process
+	actors: [processActor]
+	phases: [phase]
+}
+
+type process implements MooDElement{
+	id: ID!
+	name: String! @UI(name:"Name" default: "name")
+	version: String!  @UI(name:"Version")
+}
+
+type actor implements MooDElement{
+	id: ID!
+	name: String! @UI(name:"Name" default: "name")
+	navigable: Boolean @UI(name:"Can navigate to element (has model)")
+	backgroundColour: Colour @UI(name:"Colour of swim-lane")
+	textColour: Colour @UI(name:"Colour of swim-lane watermark text")
+	relatedColourDefinition: colourDefinition @UI(name:"Colours defined in related element")
+}
+
+type phase implements MooDElement{
+	id: ID!
+	name: String! @UI(name:"Name" default: "name")
+}
+
+type processActor implements MooDElement{
+	id: ID!
+	target: actor!
+	backgroundColour: Colour @UI(name:"Colour of swim-lane")
+	textColour: Colour @UI(name:"Colour of swim-lane watermark text")
+	swimlanes: Int @UI(name: "Number of swimlanes for actor")
+}
+
+type endPoint implements MooDElement{
+	id: ID!
+	name: String! @UI(name:"Name" default: "name")
+}
+
+type colourDefinition implements MooDElement{
+	id: ID!
+	backgroundColour: Colour @UI(name:"Colour of swim-lane")
+	textColour: Colour @UI(name:"Colour of swim-lane watermark text")
+}

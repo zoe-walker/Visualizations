@@ -8,6 +8,9 @@ An example of showing data about your Repository meta model, built using ECharts
 ### Lollipop
 An example of a Lollipop chart built using D3 and webpack.
 
+### Process Flow
+An example of a process flow diagram using on JointJS (built on Backbone) and webpack.
+
 ### StretchedChord
 An example of a Stretched Chord diagram built using D3 and webpack.
 

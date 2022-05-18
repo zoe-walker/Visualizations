@@ -1,0 +1,1289 @@
+{"data" :
+	{
+		"process": {"id": "55-2A50432807AC4CAFABE7505D6FFB9437", "name": "F1 Demand Process (to be)", "version": "0.1", "testNavigation": true}, 
+		"actors": [
+			{
+				"id": "41-49EE1D38DC024D1184149CA06BB3379D", 
+				"target": 
+					{
+						"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", 
+						"name": "Demanding Unit", 
+						"navigable": true, 
+						"backgroundColour": null, 
+						"textColour": null, 
+						"relatedColourDefinition": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "backgroundColour": null, "textColour": null}
+					}
+				, 
+				"backgroundColour": null, 
+				"textColour": null, 
+				"swimlanes": null
+			},
+			{
+				"id": "41-35B5FA52117E4BA28E7A7C7EF1546C0C", 
+				"target": 
+					{
+						"id": "55-43D551E4C61040C69FAF71F8CE892C91", 
+						"name": "Affiliated Unit", 
+						"navigable": true, 
+						"backgroundColour": null, 
+						"textColour": null, 
+						"relatedColourDefinition": {"id": "55-43D551E4C61040C69FAF71F8CE892C91", "backgroundColour": null, "textColour": null}
+					}
+				, 
+				"backgroundColour": null, 
+				"textColour": null, 
+				"swimlanes": null
+			},
+			{
+				"id": "41-D16E070E5DC54294B37C8ABC92CFF091", 
+				"target": 
+					{
+						"id": "55-F57D16C52C9445C591D05E3A537598B3", 
+						"name": "Outsource", 
+						"navigable": true, 
+						"backgroundColour": null, 
+						"textColour": null, 
+						"relatedColourDefinition": {"id": "55-F57D16C52C9445C591D05E3A537598B3", "backgroundColour": null, "textColour": null}
+					}
+				, 
+				"backgroundColour": null, 
+				"textColour": null, 
+				"swimlanes": null
+			},
+			{
+				"id": "41-3C10193503AF463385A4E88926ADCC4A", 
+				"target": 
+					{
+						"id": "55-23E24E3506C94AD898472A863A469D81", 
+						"name": "Supplier", 
+						"navigable": true, 
+						"backgroundColour": null, 
+						"textColour": null, 
+						"relatedColourDefinition": {"id": "55-23E24E3506C94AD898472A863A469D81", "backgroundColour": null, "textColour": null}
+					}
+				, 
+				"backgroundColour": null, 
+				"textColour": null, 
+				"swimlanes": null
+			},
+			{
+				"id": "41-DA65B4A2A8F64783BC20719A269E38CA", 
+				"target": 
+					{
+						"id": "55-F45D4AFE5F82413F91E8C3006C64F01D", 
+						"name": "Ops Team", 
+						"navigable": true, 
+						"backgroundColour": null, 
+						"textColour": null, 
+						"relatedColourDefinition": {"id": "55-F45D4AFE5F82413F91E8C3006C64F01D", "backgroundColour": null, "textColour": null}
+					}
+				, 
+				"backgroundColour": null, 
+				"textColour": null, 
+				"swimlanes": 3
+			},
+			{
+				"id": "41-EAF62DD3B5A341A5A6332AA3F9ACF1B6", 
+				"target": 
+					{
+						"id": "55-300FF4B9076E40AAB869A687D90D5FBB", 
+						"name": "Head Office", 
+						"navigable": true, 
+						"backgroundColour": null, 
+						"textColour": null, 
+						"relatedColourDefinition": {"id": "55-300FF4B9076E40AAB869A687D90D5FBB", "backgroundColour": null, "textColour": null}
+					}
+				, 
+				"backgroundColour": null, 
+				"textColour": null, 
+				"swimlanes": null
+			}
+		], 
+		"phases": [], 
+		"steps": [
+			{
+				"id": "55-A9ABA4CA46184E9DBE2693D3D2E1C79E", 
+				"name": "F1.01 Start", 
+				"type": "Start", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-BB13DFB96FBC47F6A23B66C783C48339", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-E933EAE10E664E0694327FDBA026B3E9", 
+				"name": "F1.02 Need Event Identified", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-51A1FA60DA194443A363CE486B915AEC", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-7F0C139CC9914174A3159A4B1FD55A18", 
+				"name": "F1.03 Populate local form", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-2D80F5B8CAF44EF48E5DDFE310CCE8E2", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-E9BCCC79D9A24B129302A2866088A69C", 
+				"name": "F1.04 Transcribe demand into System", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-CDB9BA268D4A48189D03849A7AFA4F16", 
+						"actor": {"id": "55-43D551E4C61040C69FAF71F8CE892C91", "name": "Affiliated Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-274A80D8103342E1AE88F198F19411DC", 
+				"name": "F1.05 Demander is authorised?", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-74E628FA631140118E550EFA7C81458E", 
+						"actor": {"id": "55-43D551E4C61040C69FAF71F8CE892C91", "name": "Affiliated Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null,
+				"preventSharingRow": false
+			},
+			{
+				"id": "55-8C1D5889C1E54668814B227E9DDF3493-05a", 
+				"name": "F1.05a correct", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-321C4816EC3C4ABD9F05EB5467AEDB1B", 
+						"actor": {"id": "55-23E24E3506C94AD898472A863A469D81", "name": "Supplier"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-6B338FA6CAC942689F93929B6EE35E28", 
+				"name": "F1.06 Place demand on behalf of Consumer", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-409CA667ED024F7B813ABE9DEDD6C73B", 
+						"actor": {"id": "55-43D551E4C61040C69FAF71F8CE892C91", "name": "Affiliated Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-8C1D5889C1E54668814B227E9DDF3493", 
+				"name": "F1.07 Receive demand", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-321C4816EC3C4ABD9F05EB5467AEDB1B", 
+						"actor": {"id": "55-F57D16C52C9445C591D05E3A537598B3", "name": "Outsource"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-680B3006D02B42F4B87BCF8E56682C01", 
+				"name": "F1.08 Demander in lookup table?", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-0EB4A8B9E9284C70A85E5684E01C8D45", 
+						"actor": {"id": "55-F57D16C52C9445C591D05E3A537598B3", "name": "Outsource"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-FBA2981B5BFF4D9C83C43301C98E2235", 
+				"name": "F1.09 Send demand info to supplier via email", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-63A6FCF8F9D0446A94921745A3168AC5", 
+						"actor": {"id": "55-F57D16C52C9445C591D05E3A537598B3", "name": "Outsource"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-FB0A315A4C9D4E9DB59639D7C7CB159D", 
+				"name": "F1.10 Validate request", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-E8220EEF415B408B9E83774BAD21CB07", 
+						"actor": {"id": "55-43D551E4C61040C69FAF71F8CE892C91", "name": "Affiliated Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					},
+					{
+						"id": "41-4F21F359E0B046DE84024426002640B6", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-3364BF4AA07D4D97BAEB93FD9C4578EE", 
+				"name": "F1.11 Request status", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-D170186577AF4BEBACFFE5DE335ABE9F", 
+						"actor": {"id": "55-F45D4AFE5F82413F91E8C3006C64F01D", "name": "Ops Team"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-3D1F7ED790924C87B948C7BE471C14E5", 
+				"name": "F1.12 Raise Issue Order", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-E92B930187F04082B5B1C81598D4F0E6", 
+						"actor": {"id": "55-F45D4AFE5F82413F91E8C3006C64F01D", "name": "Ops Team"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-D74C86D39F5C409090F63B759C03C5C7", 
+				"name": "F1.13 Instruct unit to cancel demand", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-AF3A3C2F0FF74F4894120BB557C54896", 
+						"actor": {"id": "55-300FF4B9076E40AAB869A687D90D5FBB", "name": "Head Office"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-1815EEC516C6430A9085BFF0AB35E25E", 
+				"name": "F1.14 Cancel demand on System", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-2A37DA39A6F1457F953F4891ECD19B07", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					},
+					{
+						"id": "41-73392D10C7CB4DA3BF7AA1D693E571AF", 
+						"actor": {"id": "55-43D551E4C61040C69FAF71F8CE892C91", "name": "Affiliated Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-1BBEB1177F1D4E2F955E87B6AB2E218D", 
+				"name": "F1.15 Receive & Review Demand", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-1C19AC333E464D6BAB4AD6B1FB7B62ED", 
+						"actor": {"id": "55-23E24E3506C94AD898472A863A469D81", "name": "Supplier"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-6CB564A960D34BDEAA1DC3465EDBD97F", 
+				"name": "F1.16 Delivery date acceptable?", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-6FDA5A4D0C23441693FDB3754122BF0D", 
+						"actor": {"id": "55-23E24E3506C94AD898472A863A469D81", "name": "Supplier"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-DC654C1F61EE4E038691FF1A46B51352", 
+				"name": "F1.17 Review impact on current demand", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-9A2024B6185E473F9F975E3826B1FA15", 
+						"actor": {"id": "55-F45D4AFE5F82413F91E8C3006C64F01D", "name": "Ops Team"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-DF7C2E0918BB4AA0A20A72D84277EFE0", 
+				"name": "F1.18 Accept impact?", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-CED9B58ACA304C99BEE8B14BDEA876EF", 
+						"actor": {"id": "55-F45D4AFE5F82413F91E8C3006C64F01D", "name": "Ops Team"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-899C73AF23DE42D58517845AD479D1B6", 
+				"name": "F1.19 Interrogate Info System", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-ED189C9712FE42D7A57EED73DC9E9A7C", 
+						"actor": {"id": "55-F45D4AFE5F82413F91E8C3006C64F01D", "name": "Ops Team"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-178C3033DEF34E448A6D69DDEE232F97", 
+				"name": "F1.20 Cancel demand?", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-EE6445C3EC0045D7B0F35F31A1993C65", 
+						"actor": {"id": "55-F45D4AFE5F82413F91E8C3006C64F01D", "name": "Ops Team"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null,
+				"preventSharingRow": false
+			},
+			{
+				"id": "55-A12D3B1A05CF4A27B8AED906BE8F2094", 
+				"name": "F1.21 Plan delivery", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-26D77F4AA6A44490A78B24D27ED160D3", 
+						"actor": {"id": "55-23E24E3506C94AD898472A863A469D81", "name": "Supplier"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null,
+				"preventSharingRow": true
+			},
+			{
+				"id": "55-C0C2C075B89B412DB834EE5939817F5C", 
+				"name": "F1.22 Cancel demand on System", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-CDD062C620D944A38CFFF850FF3B7AA5", 
+						"actor": {"id": "55-F45D4AFE5F82413F91E8C3006C64F01D", "name": "Ops Team"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null,
+				"preventSharingRow": false
+			},
+			{
+				"id": "55-28F263B602A74BB8A88DD0189A9289E6", 
+				"name": "F1.23 Contact unit to check consignee can accept", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-F735CE0D8F994FE0AE290D695BD03CAF", 
+						"actor": {"id": "55-23E24E3506C94AD898472A863A469D81", "name": "Supplier"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-9AD16001A631446D984673DC4C8DD282", 
+				"name": "F1.24 Can Consignee Accept?", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-1A3481DF29F34A24A5121A0CF76B52F8", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-DF45DE5E421B43BEAC7F35C5ED59045C", 
+				"name": "F1.25 Amend or Cancel demand?", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-A422B8FA34AB44AE978925F6AAAA5F50", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-06A435FA896848678DA02953B1182BBD", 
+				"name": "F1.26 Amend delivery date on System", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-F66608E49EAB43A5AE8AA7D51956CDC1", 
+						"actor": {"id": "55-43D551E4C61040C69FAF71F8CE892C91", "name": "Affiliated Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-8332803EC57B475CBAC53796F4B18052", 
+				"name": "F1.27 Produce conveyance note", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-F6816BF243BE4FAF814EB72554F45530", 
+						"actor": {"id": "55-23E24E3506C94AD898472A863A469D81", "name": "Supplier"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-683E3D54951B410A9D46090A33518C4A", 
+				"name": "Delivery Item(s)", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-BDF63DE444BB4843A880DE0F88C86549", 
+						"actor": {"id": "55-23E24E3506C94AD898472A863A469D81", "name": "Supplier"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-5E18A96A761D4BDAA2CEA718B894430D", 
+				"name": "F1.29 Receive item(s)", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-4D38C690ABBB4AE29B8B78516C367830", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-66793A4B6C4C4B1A8EF3F2E7DFDA12CA", 
+				"name": "F1.30 Accept item(s)?", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-BFDFB88899594C999A338D5CCCFC5CCA", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-503445CFEF154C71ACEDB3DFB21E341F", 
+				"name": "F1.31 Raise discrepany report (DR)", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-868B0A3D65A84F66B7E414E648312BBE", 
+						"actor": {"id": "55-43D551E4C61040C69FAF71F8CE892C91", "name": "Affiliated Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-9D901568C31747B08A87E8A691851EF4", 
+				"name": "F1.32 Send DR to Ops Team", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-42E2452540444D30956149C367C26572", 
+						"actor": {"id": "55-43D551E4C61040C69FAF71F8CE892C91", "name": "Affiliated Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-F06BD92A4DE64AB7BD6F90A703470B1A", 
+				"name": "F1.33 Acknowleddge DR and accept", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-FB9EAF2A71654F0392E260683FFDE0DB", 
+						"actor": {"id": "55-F45D4AFE5F82413F91E8C3006C64F01D", "name": "Ops Team"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-4692F08286E84110B3CD56BF0A7663C3", 
+				"name": "F1.34 Sign conveyance note", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-41C0007C54974301AAAA792CC8C21CB2", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-AD3C40C86ECC405FA02348824F2483B4", 
+				"name": "F1.35 Record receipt with invoice number in System", 
+				"type": "Decision", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-51DD4AAFFA8D46C396CEAEAEB4939466", 
+						"actor": {"id": "55-43D551E4C61040C69FAF71F8CE892C91", "name": "Affiliated Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-AD3C40C86ECC405FA02348824F248301", 
+				"name": "F1.35a", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-51DD4AAFFA8D46C396CEAEAEB4939466", 
+						"actor": {"id": "55-43D551E4C61040C69FAF71F8CE892C91", "name": "Affiliated Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-4692F08286E84110B3CD56BF0A766301", 
+				"name": "F1.36", 
+				"type": "Process Step", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-41C0007C54974301AAAA792CC8C21CB2", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			},
+			{
+				"id": "55-7F29270E75CA4871BF2C578C0A0EC6CD", 
+				"name": "F1.99 End", 
+				"type": "End", 
+				"navigable": true, 
+				"swimlanes": [
+					{
+						"id": "41-B583D536754244279E6F904F41CDE7D3", 
+						"actor": {"id": "55-F153EC5DD4B744CAA435B5EFBE833F51", "name": "Demanding Unit"}, 
+						"minIndex": null, 
+						"maxIndex": null
+					}
+				], 
+				"phase": null
+			}
+		], 
+		"stepFlows": [
+			{
+				"id": "41-21F15D105AC7403BB48167786165FF1B", 
+				"source": {"id": "55-A9ABA4CA46184E9DBE2693D3D2E1C79E", "name": "F1.01 Start"}, 
+				"target": {"id": "55-E933EAE10E664E0694327FDBA026B3E9", "name": "F1.02 Need Event Identified"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-212F7B458E75479EB3E4895338F935DA", 
+				"source": {"id": "55-E933EAE10E664E0694327FDBA026B3E9", "name": "F1.02 Need Event Identified"}, 
+				"target": {"id": "55-7F0C139CC9914174A3159A4B1FD55A18", "name": "F1.03 Populate local form"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-444C104A5B9A422A85DCD61CC7A209E9", 
+				"source": {"id": "55-7F0C139CC9914174A3159A4B1FD55A18", "name": "F1.03 Populate local form"}, 
+				"target": {"id": "55-E9BCCC79D9A24B129302A2866088A69C", "name": "F1.04 Transcribe demand into System"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-BA9685EEB24A4072A3E071065A1D81DB", 
+				"source": {"id": "55-E9BCCC79D9A24B129302A2866088A69C", "name": "F1.04 Transcribe demand into System"}, 
+				"target": {"id": "55-274A80D8103342E1AE88F198F19411DC", "name": "F1.05 Demander is authorised?"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-603B5F723DA5425FA39FC3359BC21A32", 
+				"source": {"id": "55-274A80D8103342E1AE88F198F19411DC", "name": "F1.05 Demander is authorised?"}, 
+				"target": {"id": "55-8C1D5889C1E54668814B227E9DDF3493-05a", "name": "F1.05a Correct"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-603B5F723DA5425FA39FC3359BC21A32-02", 
+				"source": {"id": "55-8C1D5889C1E54668814B227E9DDF3493-05a", "name": "F1.05a Correct"}, 
+				"target": {"id": "55-274A80D8103342E1AE88F198F19411DC", "name": "F1.05 Demander is authorised?"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-74FED644C6124DEDA11EAD547454B2F0", 
+				"source": {"id": "55-274A80D8103342E1AE88F198F19411DC", "name": "F1.05 Demander is authorised?"}, 
+				"target": {"id": "55-6B338FA6CAC942689F93929B6EE35E28", "name": "F1.06 Place demand on behalf of Consumer"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-3AAC209AA904495C8D91C2AF12E6314A", 
+				"source": {"id": "55-6B338FA6CAC942689F93929B6EE35E28", "name": "F1.06 Place demand on behalf of Consumer"}, 
+				"target": {"id": "55-8C1D5889C1E54668814B227E9DDF3493", "name": "F1.07 Receive demand"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-3E29636EF6B84480B5378A76C1BF2C14", 
+				"source": {"id": "55-8C1D5889C1E54668814B227E9DDF3493", "name": "F1.07 Receive demand"}, 
+				"target": {"id": "55-680B3006D02B42F4B87BCF8E56682C01", "name": "F1.08 Demander in lookup table?"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-891B8E017A884B109E622D2F073866F2", 
+				"source": {"id": "55-680B3006D02B42F4B87BCF8E56682C01", "name": "F1.08 Demander in lookup table?"}, 
+				"target": {"id": "55-FBA2981B5BFF4D9C83C43301C98E2235", "name": "F1.09 Send demand info to supplier via email"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-15F0F064732D4BD497A8895A8F6220AA", 
+				"source": {"id": "55-680B3006D02B42F4B87BCF8E56682C01", "name": "F1.08 Demander in lookup table?"}, 
+				"target": {"id": "55-FB0A315A4C9D4E9DB59639D7C7CB159D", "name": "F1.10 Validate request"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-E9F32C442C7546608438D674413E901D", 
+				"source": {"id": "55-FBA2981B5BFF4D9C83C43301C98E2235", "name": "F1.09 Send demand info to supplier via email"}, 
+				"target": {"id": "55-1BBEB1177F1D4E2F955E87B6AB2E218D", "name": "F1.15 Receive & Review Demand"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-21151FD7443B479EAE2BC70E48B9B6EE", 
+				"source": {"id": "55-FB0A315A4C9D4E9DB59639D7C7CB159D", "name": "F1.10 Validate request"}, 
+				"target": {"id": "55-3364BF4AA07D4D97BAEB93FD9C4578EE", "name": "F1.11 Request status"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-F3FB42ECDFFF44B28B094BD44806FCBD", 
+				"source": {"id": "55-3364BF4AA07D4D97BAEB93FD9C4578EE", "name": "F1.11 Request status"}, 
+				"target": {"id": "55-3D1F7ED790924C87B948C7BE471C14E5", "name": "F1.12 Raise Issue Order"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-99CAB4FD4E774693B25AE10DD2E97AEA", 
+				"source": {"id": "55-3364BF4AA07D4D97BAEB93FD9C4578EE", "name": "F1.11 Request status"}, 
+				"target": {"id": "55-D74C86D39F5C409090F63B759C03C5C7", "name": "F1.13 Instruct unit to cancel demand"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-F3672B9C31004A56B379DF1C33CE7AEC", 
+				"source": {"id": "55-3D1F7ED790924C87B948C7BE471C14E5", "name": "F1.12 Raise Issue Order"}, 
+				"target": {"id": "55-FBA2981B5BFF4D9C83C43301C98E2235", "name": "F1.09 Send demand info to supplier via email"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-BE0768F82BBC4474834A9BD6A025ACDA", 
+				"source": {"id": "55-D74C86D39F5C409090F63B759C03C5C7", "name": "F1.13 Instruct unit to cancel demand"}, 
+				"target": {"id": "55-1815EEC516C6430A9085BFF0AB35E25E", "name": "F1.14 Cancel demand on System"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-261EE93FDE284BA4B4AAB2D5F186EA88", 
+				"source": {"id": "55-1815EEC516C6430A9085BFF0AB35E25E", "name": "F1.14 Cancel demand on System"}, 
+				"target": {"id": "55-4692F08286E84110B3CD56BF0A766301", "name": "F1.36"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": "To End", 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-C0583A279F50433DA7DBAE539B36CD81", 
+				"source": {"id": "55-1BBEB1177F1D4E2F955E87B6AB2E218D", "name": "F1.15 Receive & Review Demand"}, 
+				"target": {"id": "55-6CB564A960D34BDEAA1DC3465EDBD97F", "name": "F1.16 Delivery date acceptable?"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-7053D1CEDA3A4D7DB769CA5C97A0B656", 
+				"source": {"id": "55-6CB564A960D34BDEAA1DC3465EDBD97F", "name": "F1.16 Delivery date acceptable?"}, 
+				"target": {"id": "55-DC654C1F61EE4E038691FF1A46B51352", "name": "F1.17 Review impact on current demand"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-B36CB789CE824F569A8C83AE6112C6CF", 
+				"source": {"id": "55-6CB564A960D34BDEAA1DC3465EDBD97F", "name": "F1.16 Delivery date acceptable?"}, 
+				"target": {"id": "55-A12D3B1A05CF4A27B8AED906BE8F2094", "name": "F1.21 Plan delivery"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-00F74E55B5E94A87BB274A4DEDBC17A2", 
+				"source": {"id": "55-DC654C1F61EE4E038691FF1A46B51352", "name": "F1.17 Review impact on current demand"}, 
+				"target": {"id": "55-DF7C2E0918BB4AA0A20A72D84277EFE0", "name": "F1.18 Accept impact?"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-E365DDE18D5F4CC88E0FBD77422924B2", 
+				"source": {"id": "55-DF7C2E0918BB4AA0A20A72D84277EFE0", "name": "F1.18 Accept impact?"}, 
+				"target": {"id": "55-899C73AF23DE42D58517845AD479D1B6", "name": "F1.19 Interrogate Info System"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-948C0E033B4A4B0BA1B27710158CA89D", 
+				"source": {"id": "55-DF7C2E0918BB4AA0A20A72D84277EFE0", "name": "F1.18 Accept impact?"}, 
+				"target": {"id": "55-A12D3B1A05CF4A27B8AED906BE8F2094", "name": "F1.21 Plan delivery"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-60F4318236D145E59953B569547BD867", 
+				"source": {"id": "55-899C73AF23DE42D58517845AD479D1B6", "name": "F1.19 Interrogate Info System"}, 
+				"target": {"id": "55-178C3033DEF34E448A6D69DDEE232F97", "name": "F1.20 Cancel demand?"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-713D32EC71334F9DA5F3DF2F42EA9141", 
+				"source": {"id": "55-178C3033DEF34E448A6D69DDEE232F97", "name": "F1.20 Cancel demand?"}, 
+				"target": {"id": "55-A12D3B1A05CF4A27B8AED906BE8F2094", "name": "F1.21 Plan delivery"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-CA657CBA9B764D29910A350AAFC55C83", 
+				"source": {"id": "55-178C3033DEF34E448A6D69DDEE232F97", "name": "F1.20 Cancel demand?"}, 
+				"target": {"id": "55-C0C2C075B89B412DB834EE5939817F5C", "name": "F1.22 Cancel demand on System"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-4DB24661874B4497AC7C371B080FFC54", 
+				"source": {"id": "55-A12D3B1A05CF4A27B8AED906BE8F2094", "name": "F1.21 Plan delivery"}, 
+				"target": {"id": "55-28F263B602A74BB8A88DD0189A9289E6", "name": "F1.23 Contact unit to check consignee can accept"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-35BF3999706A44EEB8C5D32E3A1EE76B", 
+				"source": {"id": "55-C0C2C075B89B412DB834EE5939817F5C", "name": "F1.22 Cancel demand on System"}, 
+				"target": {"id": "55-7F29270E75CA4871BF2C578C0A0EC6CD", "name": "F1.99 End"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": "To End", 
+				"offPageInputLabel": "From F1.22"
+			},
+			{
+				"id": "41-DAF1698463814502B1B8F92EE49C8823", 
+				"source": {"id": "55-28F263B602A74BB8A88DD0189A9289E6", "name": "F1.23 Contact unit to check consignee can accept"}, 
+				"target": {"id": "55-9AD16001A631446D984673DC4C8DD282", "name": "F1.24 Can Consignee Accept?"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-FD726B80D39240E2A18F89991F940932", 
+				"source": {"id": "55-9AD16001A631446D984673DC4C8DD282", "name": "F1.24 Can Consignee Accept?"}, 
+				"target": {"id": "55-DF45DE5E421B43BEAC7F35C5ED59045C", "name": "F1.25 Amend or Cancel demand?"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-E46E3C3094F54104BECD37297C00A3F0", 
+				"source": {"id": "55-9AD16001A631446D984673DC4C8DD282", "name": "F1.24 Can Consignee Accept?"}, 
+				"target": {"id": "55-8332803EC57B475CBAC53796F4B18052", "name": "F1.27 Produce conveyance note"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-FA609FDB47F74BAF8C5E220A36D8489D", 
+				"source": {"id": "55-DF45DE5E421B43BEAC7F35C5ED59045C", "name": "F1.25 Amend or Cancel demand?"}, 
+				"target": {"id": "55-C0C2C075B89B412DB834EE5939817F5C", "name": "F1.22 Cancel demand on System"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null,
+				"sequence": 1
+			},
+			{
+				"id": "41-B5234C5CBFD0461581A8036050EFFB9A", 
+				"source": {"id": "55-DF45DE5E421B43BEAC7F35C5ED59045C", "name": "F1.25 Amend or Cancel demand?"}, 
+				"target": {"id": "55-06A435FA896848678DA02953B1182BBD", "name": "F1.26 Amend delivery date on System"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-32703E66AA274C2A88A3B79E68886751", 
+				"source": {"id": "55-06A435FA896848678DA02953B1182BBD", "name": "F1.26 Amend delivery date on System"}, 
+				"target": {"id": "55-8332803EC57B475CBAC53796F4B18052", "name": "F1.27 Produce conveyance note"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-521251EB59D748FCAE467B62F4C693FC", 
+				"source": {"id": "55-8332803EC57B475CBAC53796F4B18052", "name": "F1.27 Produce conveyance note"}, 
+				"target": {"id": "55-683E3D54951B410A9D46090A33518C4A", "name": "Delivery Item(s)"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-5E5344FA0D544AB0B5CFC9FFED3B9F79", 
+				"source": {"id": "55-683E3D54951B410A9D46090A33518C4A", "name": "Delivery Item(s)"}, 
+				"target": {"id": "55-5E18A96A761D4BDAA2CEA718B894430D", "name": "F1.29 Receive item(s)"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-44ADBBF656B643F2A8EDF52CCC68C00C", 
+				"source": {"id": "55-5E18A96A761D4BDAA2CEA718B894430D", "name": "F1.29 Receive item(s)"}, 
+				"target": {"id": "55-66793A4B6C4C4B1A8EF3F2E7DFDA12CA", "name": "F1.30 Accept item(s)?"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-F5EAD63334CA458F971B2BB1CEF015BA", 
+				"source": {"id": "55-66793A4B6C4C4B1A8EF3F2E7DFDA12CA", "name": "F1.30 Accept item(s)?"}, 
+				"target": {"id": "55-503445CFEF154C71ACEDB3DFB21E341F", "name": "F1.31 Raise discrepany report (DR)"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-23D8D7E689654795B41F83BD0D123A48", 
+				"source": {"id": "55-66793A4B6C4C4B1A8EF3F2E7DFDA12CA", "name": "F1.30 Accept item(s)?"}, 
+				"target": {"id": "55-4692F08286E84110B3CD56BF0A7663C3", "name": "F1.34 Sign conveyance note"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-2CE8F9CFD38141759306CD5530C545BA", 
+				"source": {"id": "55-503445CFEF154C71ACEDB3DFB21E341F", "name": "F1.31 Raise discrepany report (DR)"}, 
+				"target": {"id": "55-9D901568C31747B08A87E8A691851EF4", "name": "F1.32 Send DR to Ops Team"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null,
+				"informationCarried": [{"id": "Link-to-DR-01", "target": {"id": "55-2003BFAE2AA44F299D4C46E815E53A12", "name": "Discrepancy Report", "shortName": null, "type": "Document / Form", "navigable": true}, "label": null}]
+			},
+			{
+				"id": "41-835981F70FE440AAA37960C124D90F1F", 
+				"source": {"id": "55-9D901568C31747B08A87E8A691851EF4", "name": "F1.32 Send DR to Ops Team"}, 
+				"target": {"id": "55-F06BD92A4DE64AB7BD6F90A703470B1A", "name": "F1.33 Acknowleddge DR and accept"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null,
+				"informationCarried": [{"id": "Link-to-DR-02", "target": {"id": "55-2003BFAE2AA44F299D4C46E815E53A12", "name": "Discrepancy Report", "shortName": null, "type": "Document / Form", "navigable": true}, "label": null}]
+			},
+			{
+				"id": "41-9800D7D165DA44C2BE70DBD476EF8031", 
+				"source": {"id": "55-F06BD92A4DE64AB7BD6F90A703470B1A", "name": "F1.33 Acknowleddge DR and accept"}, 
+				"target": {"id": "55-4692F08286E84110B3CD56BF0A766301", "name": "F1.36"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null,
+				"sequence": 100
+			},
+			{
+				"id": "41-DB251A75155948CC9F95D5B451C69B81", 
+				"source": {"id": "55-4692F08286E84110B3CD56BF0A7663C3", "name": "F1.34 Sign conveyance note"}, 
+				"target": {"id": "55-AD3C40C86ECC405FA02348824F2483B4", "name": "F1.35 Record receipt with invoice number in System"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-20A2541154C54B6DBA1BE066961F9701", 
+				"source": {"id": "55-AD3C40C86ECC405FA02348824F2483B4", "name": "F1.35 Record receipt with invoice number in System"}, 
+				"target": {"id": "55-AD3C40C86ECC405FA02348824F248301", "name": "F1.35a"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-20A2541154C54B6DBA1BE066961F973F", 
+				"source": {"id": "55-AD3C40C86ECC405FA02348824F2483B4", "name": "F1.35 Record receipt with invoice number in System"}, 
+				"target": {"id": "55-4692F08286E84110B3CD56BF0A766301", "name": "F1.36"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-20A2541154C54B6DBA1BE066961F9702", 
+				"source": {"id": "55-AD3C40C86ECC405FA02348824F248301", "name": "F1.35a"}, 
+				"target": {"id": "55-7F29270E75CA4871BF2C578C0A0EC6CD", "name": "F1.99 End"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			},
+			{
+				"id": "41-20A2541154C54B6DBA1BE066961F9703", 
+				"source": {"id": "55-4692F08286E84110B3CD56BF0A766301", "name": "F1.36"}, 
+				"target": {"id": "55-7F29270E75CA4871BF2C578C0A0EC6CD", "name": "F1.99 End"}, 
+				"label": null, 
+				"offPageConnection": false, 
+				"offPageOutputLabel": null, 
+				"offPageInputLabel": null
+			}
+		], 
+		"stepInputs": [
+			{
+				"id": "41-F5C66CB1115D432FA5A8B4B6A9537C10", 
+				"target": {"id": "55-E9BCCC79D9A24B129302A2866088A69C", "name": "F1.04 Transcribe demand into System"}, 
+				"source": {"id": "55-F0E08AA3B8E64C798E0D2094F950C75A", "name": "Local Demand Form", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null
+			},
+			{
+				"id": "41-AB7A26BEA6C7489D99D8D11DEE6BAA1C", 
+				"target": {"id": "55-E9BCCC79D9A24B129302A2866088A69C", "name": "F1.04 Transcribe demand into System"}, 
+				"source": {"id": "55-2DA0605A6B794D1B8C0F6F58F416945F", "name": "Inventory", "shortName": null, "type": "Database / Application", "navigable": true}, 
+				"label": null
+			},
+			{
+				"id": "41-006A075A47F24143A42CBB2DA5D6A3B4", 
+				"target": {"id": "55-899C73AF23DE42D58517845AD479D1B6", "name": "F1.19 Interrogate Info System"}, 
+				"source": {"id": "55-FA0C517AD3B4413F8E866CCC91C7F834", "name": "Info System", "shortName": null, "type": "Database / Application", "navigable": true}, 
+				"label": null
+			},
+			{
+				"id": "41-E1269BBA1C5842F384DE547103A882C1", 
+				"target": {"id": "55-5E18A96A761D4BDAA2CEA718B894430D", "name": "F1.29 Receive item(s)"}, 
+				"source": {"id": "55-F90AF4D99AAC40848D64B48D867BA400", "name": "Conveyance note", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null
+			},
+			{
+				"id": "41-84651FFEFF314AD5803A575F3E087B63", 
+				"target": {"id": "55-5E18A96A761D4BDAA2CEA718B894430D", "name": "F1.29 Receive item(s)"}, 
+				"source": {"id": "55-16AA99F5D8304F9FB8EDFF0DC536CE09", "name": "Invoice", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null
+			},
+			{
+				"id": "41-3C6E7AACF42D426FBF999EF99B4B3B67", 
+				"target": {"id": "55-503445CFEF154C71ACEDB3DFB21E341F", "name": "F1.31 Raise discrepany report (DR)"}, 
+				"source": {"id": "55-F90AF4D99AAC40848D64B48D867BA400", "name": "Conveyance note", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null
+			},
+			{
+				"id": "41-3AA242F924974CD697E98F474926BB06", 
+				"target": {"id": "55-4692F08286E84110B3CD56BF0A7663C3", "name": "F1.34 Sign conveyance note"}, 
+				"source": {"id": "55-F90AF4D99AAC40848D64B48D867BA400", "name": "Conveyance note", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null
+			},
+			{
+				"id": "41-D9D1D997DF6E4E99A170F4C9A0DD43C8", 
+				"target": {"id": "55-AD3C40C86ECC405FA02348824F2483B4", "name": "F1.35 Record receipt with invoice number in System"}, 
+				"source": {"id": "55-F90AF4D99AAC40848D64B48D867BA400", "name": "Conveyance note", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null
+			},
+			{
+				"id": "41-090A79A3CCA1487D90BEA47D4E28C05C", 
+				"target": {"id": "55-AD3C40C86ECC405FA02348824F2483B4", "name": "F1.35 Record receipt with invoice number in System"}, 
+				"source": {"id": "55-16AA99F5D8304F9FB8EDFF0DC536CE09", "name": "Invoice", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null
+			}
+		], 
+		"stepOutputs": [
+			{
+				"id": "41-C332F999DDFE48F8A945F3D8C78332D3", 
+				"source": {"id": "55-7F0C139CC9914174A3159A4B1FD55A18", "name": "F1.03 Populate local form"}, 
+				"target": {"id": "55-F0E08AA3B8E64C798E0D2094F950C75A", "name": "Local Demand Form", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			},
+			{
+				"id": "41-A11D88BFF3D84FF1A97A12E290F9B6F7", 
+				"source": {"id": "55-E9BCCC79D9A24B129302A2866088A69C", "name": "F1.04 Transcribe demand into System"}, 
+				"target": {"id": "55-2DA0605A6B794D1B8C0F6F58F416945F", "name": "Inventory", "shortName": null, "type": "Database / Application", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			},
+			{
+				"id": "41-C09BE4AC53AC44D3BFBD7E58952B48E5", 
+				"source": {"id": "55-3D1F7ED790924C87B948C7BE471C14E5", "name": "F1.12 Raise Issue Order"}, 
+				"target": {"id": "55-FA0C517AD3B4413F8E866CCC91C7F834", "name": "Info System", "shortName": null, "type": "Database / Application", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			},
+			{
+				"id": "41-A6EE890BC57A42B2B4DEF89A1AE91501", 
+				"source": {"id": "55-1815EEC516C6430A9085BFF0AB35E25E", "name": "F1.14 Cancel demand on System"}, 
+				"target": {"id": "55-2DA0605A6B794D1B8C0F6F58F416945F", "name": "Inventory", "shortName": null, "type": "Database / Application", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			},
+			{
+				"id": "41-18C62DDC7ED44D7DACFED9B703BC6855", 
+				"source": {"id": "55-C0C2C075B89B412DB834EE5939817F5C", "name": "F1.22 Cancel demand on System"}, 
+				"target": {"id": "55-FA0C517AD3B4413F8E866CCC91C7F834", "name": "Info System", "shortName": null, "type": "Database / Application", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			},
+			{
+				"id": "41-9ADBE361A4634AAD8724690CC2A97B94", 
+				"source": {"id": "55-8332803EC57B475CBAC53796F4B18052", "name": "F1.27 Produce conveyance note"}, 
+				"target": {"id": "55-F90AF4D99AAC40848D64B48D867BA400", "name": "Conveyance note", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			},
+			{
+				"id": "41-622ED339A73C4938B6AC5602EC2621C6", 
+				"source": {"id": "55-8332803EC57B475CBAC53796F4B18052", "name": "F1.27 Produce conveyance note"}, 
+				"target": {"id": "55-16AA99F5D8304F9FB8EDFF0DC536CE09", "name": "Invoice", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			},
+			{
+				"id": "41-D000CE8813C2426391CAA6756DF45E61", 
+				"source": {"id": "55-F06BD92A4DE64AB7BD6F90A703470B1A", "name": "F1.33 Acknowleddge DR and accept"}, 
+				"target": {"id": "55-FA0C517AD3B4413F8E866CCC91C7F834", "name": "Info System", "shortName": null, "type": "Database / Application", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			},
+			{
+				"id": "41-B3567F6FCFB24F1A84CE3E90C498A906", 
+				"source": {"id": "55-4692F08286E84110B3CD56BF0A7663C3", "name": "F1.34 Sign conveyance note"}, 
+				"target": {"id": "55-F90AF4D99AAC40848D64B48D867BA400", "name": "Conveyance note", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			},
+			{
+				"id": "41-234E6AA13C7F4E17882F3E7E42B7071D", 
+				"source": {"id": "55-AD3C40C86ECC405FA02348824F2483B4", "name": "F1.35 Record receipt with invoice number in System"}, 
+				"target": {"id": "55-2DA0605A6B794D1B8C0F6F58F416945F", "name": "Inventory", "shortName": null, "type": "Database / Application", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			},
+			{
+				"id": "41-9ADBE361A4634AAD8724690CC2A97B01", 
+				"source": {"id": "55-4692F08286E84110B3CD56BF0A766301", "name": "F1.36"}, 
+				"target": {"id": "55-F90AF4D99AAC40848D64B48D867BA401", "name": "Process", "shortName": null, "type": "Process", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			},
+			{
+				"id": "41-622ED339A73C4938B6AC5602EC262102", 
+				"source": {"id": "55-4692F08286E84110B3CD56BF0A766301", "name": "F1.36"}, 
+				"target": {"id": "55-16AA99F5D8304F9FB8EDFF0DC536CE09", "name": "Invoice", "shortName": null, "type": "Document / Form", "navigable": true}, 
+				"label": null, 
+				"flow": null
+			}
+		], 
+		"stepGroups": [], 
+		"stepGroupSteps": []
+	}
+}

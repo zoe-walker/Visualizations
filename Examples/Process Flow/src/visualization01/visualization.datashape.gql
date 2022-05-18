@@ -1,0 +1,122 @@
+type data {
+	process: process
+	actors: [processActor]
+	phases: [phase]
+	steps: [step!]!
+	stepFlows: [link!]!
+	stepInputs: [stepInput]
+	stepOutputs: [stepOutput]
+	stepGroups: [stepGroup]
+	stepGroupSteps: [stepGroupStep]
+}
+
+type process implements MooDElement{
+	id: ID!
+	name: String! @UI(name:"Name" default: "name")
+	version: String!  @UI(name:"Version")
+	testNavigation: Boolean! @UI(name:"Test node navigation" default: False)
+}
+
+type actor implements MooDElement{
+	id: ID!
+	name: String! @UI(name:"Name" default: "name")
+	backgroundColour: Colour @UI(name:"Colour of swim-lane")
+	textColour: Colour @UI(name:"Colour of swim-lane watermark text")
+	relatedColourDefinition: colourDefinition @UI(name:"Colours defined in related element")
+}
+
+type phase implements MooDElement{
+	id: ID!
+	name: String! @UI(name:"Name" default: "name")
+}
+
+type step implements MooDElement{
+	id: ID!
+	name: String! @UI(name:"Name" default: "name")
+	type: String! @UI(name:"Step Type")
+	swimlanes: [swimlaneRange!] @UI(name:"Swimlane ranges(s)")
+	phase: endPoint
+	preventSharingRow: Boolean @UI(name:"Prevent step sharing row with next step")
+}
+
+type information implements MooDElement{
+	id: ID!
+	name: String! @UI(name:"Name" default: "name")
+	shortName: String @UI(name:"Short Name")
+	type: String! @UI(name:"Information Type")
+}
+
+type flowInformation implements MooDElement{
+	id: ID!
+	target: information! @UI(name:"Information")
+	label: String
+}
+
+type link implements MooDElement{
+	id: ID!
+	source: endPoint!
+	target: endPoint!
+	label: String
+	labelPosition: Int @UI(name:"Position of label along flow")
+	offPageConnection: Boolean! @UI(name:"Draw with Off Page Connectors" default: false)
+	offPageOutputLabel: String @UI(name:"Off Page Output Connector Label")
+	offPageInputLabel: String @UI(name:"Off Page Input Connector Label")
+	sequence: Int @UI(name:"Drawing sequence number")
+	informationCarried: [flowInformation] @UI(name:"Information contained in Flow")
+	sourcePort: String @UI(name:"Side of step to flow out of")
+	targetPort: String @UI(name:"Side of step to flow into")
+}
+
+type stepInput implements MooDElement{
+	id: ID!
+	target: endPoint! @UI(name:"Step")
+	source: information! @UI(name:"Input")
+	label: String
+}
+
+type stepOutput implements MooDElement{
+	id: ID!
+	source: endPoint! @UI(name:"Step")
+	target: information! @UI(name:"Output")
+	label: String
+	flow: Boolean @UI(name:"Draw link as a flow")
+}
+
+type processActor implements MooDElement{
+	id: ID!
+	target: actor!
+	backgroundColour: Colour @UI(name:"Colour of swim-lane")
+	textColour: Colour @UI(name:"Colour of swim-lane watermark text")
+	swimlanes: Int @UI(name: "Number of swimlanes for actor")
+}
+
+type stepGroup implements MooDElement{
+	id: ID!
+	name: String! @UI(name:"Label")
+	labelPosition: String @UI(name:"Label Position")
+}
+
+type stepGroupStep implements MooDElement{
+	id: ID!
+	group: endPoint! @UI(name:"Activity Group")
+	step: endPoint! @UI(name:"Step")
+}
+
+type endPoint implements MooDElement{
+	id: ID!
+	name: String! @UI(name:"Name" default: "name")
+}
+
+type colourDefinition implements MooDElement{
+	id: ID!
+	backgroundColour: Colour @UI(name:"Colour of swim-lane")
+	textColour: Colour @UI(name:"Colour of swim-lane watermark text")
+}
+
+type swimlaneRange implements MooDElement{
+	id: ID!
+	actor: endPoint! @UI(name: "Actor")
+	minIndex: Int @UI(name: "Index of leftmost swimlane under actor") 
+	maxIndex: Int @UI(name: "Index of rightmost swimlane under actor") 
+}
+
