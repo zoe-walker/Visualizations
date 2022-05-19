@@ -41,11 +41,13 @@ MooD provides templates for the following JavaScript chart frameworks
 
 # Example Custom Visualizations
 
-![D3 Lollipop](docs/images/lollipop-thumbnail.png) [D3 Ordered Lollipop](docs/d3-lollipop-guide.md)
+![D3 Lollipop](docs/images/lollipop-thumbnail.png) [D3 Ordered Lollipop](Examples/Lollipop/README.md)
 
-![D3 Word Cloud](docs/images/word-cloud-thumbnail.png) [D3 Word Cloud](docs/d3-word-cloud-guide.md)
+![Process Flow](docs/images/process-flow-thumbnail.png) [Process Flow](Examples/ProcessFlow/README.md)
 
-![Stretched Chord](docs/images/stretched-chord-thumbnail.png) [Stretched Chord](docs/stretched-chord-guide.md)
+![Stretched Chord](docs/images/stretched-chord-thumbnail.png) [Stretched Chord](Examples/StretchedChord/README.md)
+
+![D3 Word Cloud](docs/images/word-cloud-thumbnail.png) [D3 Word Cloud](Examples/WordCloud/README.md)
 
 # Selecting a chart
 

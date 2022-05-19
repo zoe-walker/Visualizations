@@ -1,3 +1,5 @@
+[README](../../README.md)
+
 # ProcessFlow
 Draw a Process Flow
 
@@ -24,6 +26,8 @@ Draw a Process Flow
     
 
 # Purpose
+![Process Flow](images/process-flow.png)
+
 The Process Flow visualisation renders a process: a set of activities (steps), with their inputs and outputs, joined into a sequence (flow) by links between them. The elements (activities, inputs and outputs) are automatically positioned on the diagram and the flows (links) between the elements are routed around the elements.
 
 A process can be a collaboration between different organisations (actors) within an enterprise. The collaboration is represented by partitioning the activities into swim-lanes, where each swim-lane corresponds to the organisation performing the activity. The swim-lanes are drawn vertically on the diagram. A swim-lane is drawn on the left for Inputs, and a swim-lane on the right for Outputs.
@@ -48,26 +52,26 @@ The Process Flow package contains two visualisations:
 The process flow visualisation consumes nine data sets. The details of the attributes of the data sets is provided in the [Data Details](#data-details) section.
 
 1.	__Process__
-    1.	Summary information about the process
+    *	Summary information about the process
 1.	__Actors__
-    1.	The set of organisations that each own, or have responsibility for, activities in the process
-    1.	At least one actor is required
+    *	The set of organisations that each own, or have responsibility for, activities in the process
+    *	At least one actor is required
 1.	__Phases__
-    1.	Summary information about each phase in the process
-    1.	The set is be empty for processes without phases
+    *	Summary information about each phase in the process
+    *	The set is be empty for processes without phases
 1.	__Steps__
-    1.	Details of each step / activity in the process
-    1.	The order of the steps in the data defines the order that the steps are drawn vertically on the diagram
+    *	Details of each step / activity in the process
+    *	The order of the steps in the data defines the order that the steps are drawn vertically on the diagram
 1.	__StepFlows__
-    1.	The flow (link) between each step which defines the sequence in which the activities are performed
+    *	The flow (link) between each step which defines the sequence in which the activities are performed
 1.	__StepInputs__
-    1.	Identifies the inputs that steps have
+    *	Identifies the inputs that steps have
 1.	__StepOutputs__
-    1.	Identifies the outputs that steps have
+    *	Identifies the outputs that steps have
 1.	__StepGroups__
-    1.	Summary of a grouping of steps
+    *	Summary of a grouping of steps
 1.	__StepGroupSteps__
-    1.	Identifies the steps in a step group
+    *	Identifies the steps in a step group
 
 [Table of Contents](#table-of-contents)
 
@@ -151,25 +155,25 @@ The visualisation has no outputs.
 ## Actions
 The visualisation reports the following events. These can be configured to trigger actions in MooD. Defining an action to update the visualisation input results in the highlighting of the element identified by the input.
 1.	__Process Step Click__ – a mouse click on a process step node
-    1.	Identifies the element
+    *	Identifies the element
 1.	__Process I/O Click__ – a mouse click on an input or output node
-    1.	Identifies the element
+    *	Identifies the element
 1.	__Process Click__ – a mouse click on an external process node in the input or output swim-lane
-    1.	Identifies the element 
+    *	Identifies the element 
 1.	__Phase Click__ – a mouse click on a phase label node 
-    1.	Identifies the element 
+    *	Identifies the element 
 1.	__Actor Click__ – a mouse click on an actor (swim-lane) node
-    1.	Identifies the element 
+    *	Identifies the element 
 1.	__Link Click__ – a mouse click on an flow (link) 
-    1.	Identifies the relationship 
+    *	Identifies the relationship 
 1.	__I/O Link Click__ – a mouse click on an input or output link
-    1.	Identifies the relationship 
+    *	Identifies the relationship 
 1.	__Activity Group Click__ – a mouse click on a step (activity) group node 
-    1.	Identifies the element 
+    *	Identifies the element 
 1.	__Non-navigable Node Click__ - a mouse click on any node that is defined to be not navigable, e.g. because there is no model to navigate to. This event is provided to allow such nodes to be highlighted by the custom visualisation by mapping the action to an input action. 
-    1.	Identifies the element
+    *	Identifies the element
 1.	<a id="test-navigation-event"></a>__Test Navigation__ - This event is only triggered during start up and only if the process is [configured to test node navigation](#test-navigation). If required, this event should be configured with just a Navigate action.
-    1.	Identifies the element or relationship to test for having a model
+    *	Identifies the element or relationship to test for having a model
 
 
 [Table of Contents](#table-of-contents)
@@ -306,3 +310,6 @@ The visualisation has no actions.
         *	__Name__: name of step
 
 [Table of Contents](#table-of-contents)
+
+[README](../../README.md)
+
