@@ -71,6 +71,7 @@ module.exports = {
             forOf: false,
             module: false
         },
+        hot: false,
         //libraryTarget: "var",
         library: 'vis'
     },
