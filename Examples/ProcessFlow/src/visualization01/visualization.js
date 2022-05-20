@@ -138,7 +138,7 @@ export function visualization (config) {
    */
   function setElementNavigable (isNavigable, id, element, elementTypeName) {
     if (element) {
-      console.log('Set navigable for ' + elementTypeName + ' "' + element.name() + '" to ' + JSON.stringify(isNavigable))
+      // console.log('Set navigable for ' + elementTypeName + ' "' + element.name() + '" to ' + JSON.stringify(isNavigable))
       element.setNavigable(isNavigable)
     } else {
       console.log('Could not find ' + elementTypeName + ' with "' + id + '" to set navigability to ' + JSON.stringify(isNavigable))
@@ -250,7 +250,7 @@ export function visualization (config) {
         }
       ]
       actions.forEach(function (action) {
-        console.log('Call hasAction for ' + action.typeName + '(' + testNavigationAction + ') with ' + action.ids.length + ' ids')
+        // console.log('Call hasAction for ' + action.typeName + '(' + testNavigationAction + ') with ' + action.ids.length + ' ids')
         if (action.ids.length > 0) {
           config.functions.hasAction(testNavigationAction, action.ids, action.callback)
         }

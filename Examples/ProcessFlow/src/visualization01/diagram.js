@@ -362,6 +362,8 @@ export class Diagram {
         //
         const allFlows = []
         let assignedSequence = 1000000
+        let assignedLabelledDownFlowSequence = 2000000
+        let assignedLabelledUpFlowSequence = 3000000
         phasedRowSet.rowSets().forEach(function (phase) {
           phase.rows().forEach(function (row) {
             row.steps().forEach(function (step) {
@@ -372,12 +374,6 @@ export class Diagram {
               for (const sourcePortId in outputPorts) {
                 outputPorts[sourcePortId].groups().forEach(function (group) {
                   group.flows().forEach(function (flowData) {
-                    //
-                    // Assign sequence number if not defined in source data
-                    //
-                    if (!flowData.flow.sequence()) {
-                      flowData.flow.setSequence(assignedSequence++)
-                    }
                     //
                     // Record flow group and output port data
                     //
@@ -393,6 +389,20 @@ export class Diagram {
                     // Set input port in flow target step
                     //
                     flowData.flow.target().addInputPort(flowData.targetPortId)
+                    //
+                    // Assign sequence number if not defined in source data
+                    // Draw flows without labels first, then downward flows with labels
+                    // and lastly upward flows with labels
+                    // This ordering gives the best chance of labels appearing above all flow lines
+                    //
+                    if (!flowData.flow.sequence()) {
+                      flowData.flow.setSequence(
+                        flowData.labelText ?
+                          flowData.flow.target().index() > flowData.flow.source().index() ?
+                            assignedLabelledDownFlowSequence++ :
+                            assignedLabelledUpFlowSequence-- :
+                          assignedSequence++)
+                    }
                     //
                     // Add flow to list
                     //

@@ -806,7 +806,8 @@
 			"label": "Rework", 
 			"offPageConnection": false, 
 			"offPageOutputLabel": null, 
-			"offPageInputLabel": null
+			"offPageInputLabel": null,
+			"targetPort": "top"
 		},
 		{
 			"id": "41-07B8A9CD9BC44CF1A6A9A5E277F4D4BC", 
