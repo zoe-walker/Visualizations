@@ -1,7 +1,5 @@
 import { createStretchedChord } from '../visualization'
 
-const { testEnvironment } = require('../../../jest.config')
-
 var mockErrorOccurred = jest.fn(e => e)
 var mockInputChanged = jest.fn((name, value) => {})
 var mockDataChanged = jest.fn((data) => {})
