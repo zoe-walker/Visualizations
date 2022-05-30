@@ -1,5 +1,5 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.3",
   "id": "21ebe750-7826-4160-abda-2a60a224b0cb",
   "name": "ECharts Meta Model",
   "supportedVersions": "1",
@@ -10,8 +10,10 @@
   },
   "supportedBrowsers": "Chrome, Edge, FireFox",
   "style": {
-    "Node Colour":"#DDD",
-    "Relationship Colour": "#EEF",
-    "Ignore Nodes": []
+    "JSON": {
+      "Node Colour":"#DDD",
+      "Relationship Colour": "#EEF",
+      "Ignore Nodes": []
+    }
   }
 }
