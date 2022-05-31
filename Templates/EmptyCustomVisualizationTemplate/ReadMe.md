@@ -1,9 +1,8 @@
 # How to use this template
 
-Note that Supportal has a much more detailed explanation of how to use the templates.
+Note that the repository top level [README](../../README.md) has a much more detailed explanation of how to use the templates.
 
-First you'll need to set up Visual Studio Code and Node, see here:
-https://supportportal.moodinternational.com/hc/en-us/articles/360017858659-Visualization-Developer
+First you'll need to set up Visual Studio Code and Node, see [Development Environment](../../README.md#development-environment)
 
 Next open this file: ```visualization.code-workspace```
 

@@ -4,7 +4,7 @@ Note that the repository top level [README](../../README.md) has a much more det
 
 First you'll need to set up Visual Studio Code and Node, see [Development Environment](../../README.md#development-environment)
 
-Next open this file: ```visualization.code-workspace```
+Next open this file: ```WebpackReactVisualizationTemplate.code-workspace```
 
 Remember to run: ```npm install``` before doing anything else, this will install the relevant node modules.
 
@@ -15,7 +15,7 @@ Remember to run: ```npm install``` before doing anything else, this will install
     - package.json (containing a list of commands you can use with ```npm run```) 
 - src
     - visualization01
-        - This is where you can edit your custom visualisation code
+        - This is where you can edit your custom visualization code
 - test
     - A folder where you can add your automated test scaffolding (run using ```npm run test```)
 - dist

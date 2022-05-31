@@ -37,17 +37,26 @@ The guide will show you how to create a visualization package using a Windows PC
 
 MooD provides templates for the following JavaScript chart frameworks
 * Data Driven Documents (D3)
+* Apache ECharts
 * React
 
 # Example Custom Visualizations
 
 ![D3 Lollipop](docs/images/lollipop-thumbnail.png) [D3 Ordered Lollipop](Examples/Lollipop/README.md)
 
+![D3 Meta Model](docs/images/d3-metamodel-thumbnail.png) [D3 Meta Model](Examples/D3%20Meta%20Model/README.md)
+
+![ECharts Meta Model](docs/images/echarts-metamodel-thumbnail.png) [ECharts Meta Model](Examples/ECharts%20Meta%20Model/README.md)
+
 ![Process Flow](docs/images/process-flow-thumbnail.png) [Process Flow](Examples/ProcessFlow/README.md)
 
 ![Stretched Chord](docs/images/stretched-chord-thumbnail.png) [Stretched Chord](Examples/StretchedChord/README.md)
 
 ![D3 Word Cloud](docs/images/word-cloud-thumbnail.png) [D3 Word Cloud](Examples/WordCloud/README.md)
+
+![Webpack D3 Example](docs/images/basic-scatterplot-in-d3-thumbnail.png) [Webpack D3 Example](Examples/WebpackD3Visualization/README.md)
+
+![Webpack React Example](docs/images/recharts-line-chart-thumbnail.png) [Webpack React Example](Examples/WebpackReactVisualization/README.md)
 
 # Selecting a chart
 
@@ -73,6 +82,11 @@ D3 and React are both in common usage. Both of these are further supported by ch
 * [D3 Gallery](https://www.d3-graph-gallery.com/index.html)
 * [Observable D3 Gallery](https://observablehq.com/@d3/gallery)
 * [Plotly library](https://plotly.com/javascript/)
+
+
+## ECharts
+![ECharts](docs/images/echarts-logo.png)
+* [ECharts examples](https://echarts.apache.org/examples/en/index.html)
 
 ## React Examples
 ![React](docs/images/react-logo.png)
