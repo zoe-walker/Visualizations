@@ -21,6 +21,10 @@ var createMetaModel = function(_config, css){
 
     var chartDom = document.getElementById(config.element);
     var myChart = echarts.init(chartDom, null/*, { renderer: 'canvas' }*/);
+    //
+    // Configure a "graph" type chart with "force" layout.
+    // See documentation https://echarts.apache.org/en/option.html#series-graph.layout
+    //
     var option = {
         color: [config.style["Node Colour"], config.style["Relationship Colour"], '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
         tooltip: {},

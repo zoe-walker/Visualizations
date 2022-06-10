@@ -15,8 +15,10 @@ export function visualization (config) {
   const height = parseFloat(config.height)
 
   const el = document.getElementById(config.element)
-
+  //
   // Add a basic chart to show the vis is working
+  // This example is the ECharts basic bar chart - https://echarts.apache.org/examples/en/editor.html?c=bar-simple
+  //
   var chart = echarts.init(el, null, { renderer: 'canvas', width: width, height: height });
   
   var option = {

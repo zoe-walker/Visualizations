@@ -17,7 +17,9 @@ MooD Meta Model chart using Apache ECharts framework
 *   [Data Details](#data-details)
 
 # Purpose
-The chart renders a MooD Meta Model using ECharts's force-directed layout which uses a physics based simulator for positioning visual elements.
+The chart renders a MooD Meta Model using ECharts's [graph with force-directed layout](https://echarts.apache.org/examples/en/editor.html?c=graph-force) which uses a physics based simulator for positioning visual elements.
+
+Documentation on configuring an ECharts graph can be found [here](https://echarts.apache.org/en/option.html#series-graph.layout)
 
 [Table of Contents](#table-of-contents)
 

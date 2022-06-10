@@ -61,3 +61,7 @@ Interesting files:
 - visualization.js: This is where your main code lives.
 - test-page.js: Hooks the test page in to the main visualization code.
 - data.json: This file passes test data in to your test visualization page.
+
+The template visualization.js file contains code for the [ECharts basic bar chart](https://echarts.apache.org/examples/en/editor.html?c=bar-simple). The data for the chart is hard-coded; you will need to change the code to drive the chart from data passed in the configuration object.
+
+Refer to the ECharts [Chart Configuration documentation](https://echarts.apache.org/en/option.html#title) to see the options on offer, or pick an example from the [library](https://echarts.apache.org/examples/en/index.html)
