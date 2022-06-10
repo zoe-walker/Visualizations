@@ -116,7 +116,10 @@ const config = {
   /* Deprecated */
   // a simple route used in situations when main routing method fails
   // (exceed max number of loop iterations, inaccessible)
-  fallbackRoute: function (from, to, opt) {
+  // *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+  // avoid unused variable lint error
+  fallbackRoute: function (from, to, opt) { // eslint-disable-line no-unused-vars
+  // *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
     return null // null result will trigger the fallbackRouter
 
     // left for reference:
@@ -653,7 +656,10 @@ function normalizePoint (point) {
 // PATHFINDING //
 
 // reconstructs a route by concatenating points with their parents
-function reconstructRoute (parents, points, tailPoint, from, to, grid, opt) {
+// *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
+// avoid unused variable lint error
+function reconstructRoute (parents, points, tailPoint, from, to, grid, opt) { // eslint-disable-line no-unused-vars
+  // *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
   const route = []
 
   let prevDiff = normalizePoint(to.difference(tailPoint))

@@ -878,7 +878,7 @@ describe('Diagram', () => {
       let throwCount = 0
       document.body.innerHTML =
               '<div id="visualisation01_element_guid"></div>'
-      const process = new Data.Process(config.data, config.style)
+      const process = new Data.Process(config.data)
 
       try {
         const testObject = new Diagram(process, config.style, parseFloat(config.width), parseFloat(config.height), diagramConfig)
@@ -996,7 +996,7 @@ describe('Diagram', () => {
         })
                 document.body.innerHTML =
                 '<div id="visualisation01_element_guid"></div>'
-        const process = new Data.Process(config.data, config.style)
+        const process = new Data.Process(config.data)
   
         try {
           const testObject = new Diagram(process, config.style, parseFloat(config.width), parseFloat(config.height), diagramConfig)

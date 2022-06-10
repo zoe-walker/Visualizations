@@ -227,8 +227,7 @@ export class Diagram {
 
         const swimlanes = getSwimlanes(
           process.getSwimlaneSet(),
-          dimensions,
-          style)
+          dimensions)
 
         const inputSwimlane = swimlanes[0]
         const outputSwimlane = swimlanes[numSwimlanes - 1]
@@ -397,11 +396,11 @@ export class Diagram {
                     //
                     if (!flowData.flow.sequence()) {
                       flowData.flow.setSequence(
-                        flowData.labelText ?
-                          flowData.flow.target().index() > flowData.flow.source().index() ?
-                            assignedLabelledDownFlowSequence++ :
-                            assignedLabelledUpFlowSequence-- :
-                          assignedSequence++)
+                        flowData.labelText
+                          ? flowData.flow.target().index() > flowData.flow.source().index()
+                              ? assignedLabelledDownFlowSequence++
+                              : assignedLabelledUpFlowSequence--
+                          : assignedSequence++)
                     }
                     //
                     // Add flow to list
@@ -622,7 +621,7 @@ export class Diagram {
           return actorLanes
         }
 
-        function getSwimlanes (swimlaneSet, dimensions, style) {
+        function getSwimlanes (swimlaneSet, dimensions) {
           const swimlanes = []
           const position = {
             x: dimensions.phaseLabelWidth,

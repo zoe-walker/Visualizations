@@ -378,7 +378,9 @@ export const mergeJumpover = function (sourcePoint, targetPoint, route, opt) { /
   const defaultConnector = paper.options.defaultConnector || {}
 
   // not all links are meant to be jumped over.
-  const links = allLinks.filter(function (link, idx) {
+  // *** Start of changes from original jumpover connector code (JointJS version 3.4.3) ***
+  const links = allLinks.filter(function (link, idx) { // eslint-disable-line no-unused-vars
+  // *** End of changes from original jumpover connector code (JointJS version 3.4.3) ***
     const connector = link.get('connector') || defaultConnector
 
     // avoid jumping over links with connector type listed in `ignored connectors`.

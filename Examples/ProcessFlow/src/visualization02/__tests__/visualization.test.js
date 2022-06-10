@@ -69,7 +69,7 @@ describe('Visualisation', () => {
       visualization(config)
   
       expect(mockErrorOccurred).not.toHaveBeenCalled()
-      expect(Data.Process).toHaveBeenCalledWith(config.data, config.style)
+      expect(Data.Process).toHaveBeenCalledWith(config.data)
       expect(Diagram).toHaveBeenCalledWith({value: mockDataProcess}, config.style, 1500, 600, Diagram.mock.calls[0][4])
       expect(mockDiagramHeight).toHaveBeenCalledTimes(0)
       expect(mockDiagramDraw).toHaveBeenCalledTimes(1)

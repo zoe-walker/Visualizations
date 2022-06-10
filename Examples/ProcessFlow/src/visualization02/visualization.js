@@ -25,7 +25,7 @@ export function visualization (config) {
   }
 
   try {
-    process = new Data.Process(data, style)
+    process = new Data.Process(data)
     diagram = new Diagram(process, style, width, height, diagramConfig)
     diagram.draw()
   } catch (e) {

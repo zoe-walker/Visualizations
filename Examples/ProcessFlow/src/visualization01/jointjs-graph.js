@@ -192,7 +192,7 @@ export class Graph {
       //     // Only permit linking to output ports.
       //     return magnetT && magnetT.getAttribute('port-group').substring(0, 2) === 'out';
       // },
-      restrictTranslate: function (el) {
+      restrictTranslate: function (el) { // eslint-disable-line no-unused-vars
         let area = {}
         // const data = el.model.get(propertyGraphElement)
         // if (data !== undefined && data.swimlane() !== null) {

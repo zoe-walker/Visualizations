@@ -1,7 +1,7 @@
 import { ActorSet, PhaseSet } from '../visualization01/process-data'
 
 export class Process {
-  constructor (data, style) {
+  constructor (data) {
     if (!data.process) {
       throw new Error('Process data is missing')
     }
