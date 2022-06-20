@@ -32,11 +32,11 @@ The radial tree visualization consumes multiple data sets: one for each level in
 1.  __level1Relationship__
     * Details of nodes at level 1 of the hierarchy, i.e. nodes whose parent is the root node
 1.  __level2Relationship__
-    * Details of nodes at level 2 of the hierarchy, i.e. nodes whose parent at level 1
+    * Details of nodes at level 2 of the hierarchy, i.e. nodes whose parent is at level 1
 1.  __level3Relationship__
-    * Details of nodes at level 3 of the hierarchy, i.e. nodes whose parent at level 2
+    * Details of nodes at level 3 of the hierarchy, i.e. nodes whose parent is at level 2
 1.  __level4Relationship__
-    * Details of nodes at level 4 of the hierarchy, i.e. nodes whose parent at level 3
+    * Details of nodes at level 4 of the hierarchy, i.e. nodes whose parent is at level 3
 
 [Table of Contents](#table-of-contents)
 
@@ -84,7 +84,7 @@ The visualization has no actions.
 
 # Data Details
 
-1.	__rootNode__ – one elements
+1.	__rootNode__ – one element
     * __Name__: the name of the root element.
 1.	__level1Relationship__ – one or more relationships
     * __Source__: The source (parent) node
@@ -92,9 +92,9 @@ The visualization has no actions.
     * __Target__: The target (child) node
         * __Name__: the name of the child element.
         * __Value__: the value of the child element. This is only required for leaf nodes in the tree hierarchy
-1.	__level2Relationship__ – one or more relationships. Same structure as __level1Relationship__
-1.	__level3Relationship__ – one or more relationships. Same structure as __level1Relationship__
-1.	__level4Relationship__ – one or more relationships. Same structure as __level1Relationship__
+1.	__level2Relationship__ – zero or more relationships. Same structure as __level1Relationship__
+1.	__level3Relationship__ – zero or more relationships. Same structure as __level1Relationship__
+1.	__level4Relationship__ – zero or more relationships. Same structure as __level1Relationship__
 
 [Table of Contents](#table-of-contents)
 
