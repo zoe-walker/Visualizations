@@ -2,12 +2,9 @@
 type data {
 	rootNode: node!
 	level1Relationship: [relation]!
-	level1LeafRelationship: [leafRelation]!
-	level2Relationship: [relation]!
-	level2LeafRelationship: [leafRelation]!
-	level3Relationship: [relation]!
-	level3LeafRelationship: [leafRelation]!
-	level4LeafRelationship: [leafRelation]!
+	level2Relationship: [relation]
+	level3Relationship: [relation]
+	level4Relationship: [Relation]
 }
 
 type node implements MooDElement{
@@ -15,20 +12,14 @@ type node implements MooDElement{
 	name: String!
 }
 
-type leafNode implements MooDElement{
+type targetNode implements MooDElement{
 	key: ID!
 	name: String!
-	value: Number!
+	value: Number
 }
 
 type relation implements MooDElement{
 	key: ID!
 	source: node! @UI(name:"Source")
-	target: node! @UI(name:"Target")
-}
-
-type leafRelation implements MooDElement{
-	key: ID!
-	source: node! @UI(name:"Source")
-	target: leafNode! @UI(name:"Target")
+	target: targetNode! @UI(name:"Target")
 }

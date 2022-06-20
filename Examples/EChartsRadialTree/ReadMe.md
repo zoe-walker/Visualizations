@@ -1,8 +1,8 @@
 [README](../../README.md)
 
-# ECharts Bar Chart
+# ECharts Radial Tree Chart
 
-Apache ECharts Bar with Background chart
+Apache ECharts Radial Tree chart
 
 # Table of Contents
 
@@ -16,19 +16,27 @@ Apache ECharts Bar with Background chart
 *   [Data Details](#data-details)
 
 # Purpose
-The bar chart renders the data as vertical bars. The bars are ordered along the x axis according to the order of the data. The height of each bar is determined by the y value of the data. The x and y axes are scaled automatically to fit within the container.
+The radial tree chart renders the data as a tree with each level drawn in a circle with lines drawn to parent at lower (inner) level.
 
-The custom visualization is based on the ECharts Bar with Background example. The background can be disabled via [styling](#style).
+The custom visualization is based on the ECharts Radial Tree example.
 
-[![bar with background](images/bar-chart.png "bar with background")](https://echarts.apache.org/examples/en/editor.html?c=bar-background)
+[![radial tree](images/radial-tree.png "radial tree")](https://echarts.apache.org/examples/en/editor.html?c=tree-radial)
 
 [Table of Contents](#table-of-contents)
 
 # Data Summary
 
-The bar chart visualization consumes a single data set. The details of the attributes of the data set is provided in the section Data Details section
-1.	__Rows__
-    * A list of variables to visualise
+The radial tree visualization consumes multiple data sets: one for each level in the hierarchy. The details of the attributes of the data set is provided in the section Data Details section
+1.	__rootNode__
+    * Details of the node at the root of the tree
+1.  __level1Relationship__
+    * Details of nodes at level 1 of the hierarchy, i.e. nodes whose parent is the root node
+1.  __level2Relationship__
+    * Details of nodes at level 2 of the hierarchy, i.e. nodes whose parent at level 1
+1.  __level3Relationship__
+    * Details of nodes at level 3 of the hierarchy, i.e. nodes whose parent at level 2
+1.  __level4Relationship__
+    * Details of nodes at level 4 of the hierarchy, i.e. nodes whose parent at level 3
 
 [Table of Contents](#table-of-contents)
 
@@ -44,9 +52,14 @@ The properties mirror the properties in the __options__ object used to configure
 
 *	__backgroundColor__: defines the background colour of the container for the chart. Supports setting as solid color using rgb(255,255,255), rgba(255,255,255,1), #fff. __Default rgba(255, 255, 255, 1)__
 *   __series__: styling properties for the chart elements
-    *	__showBackground__: Selects whether or not a background for the vertical bars is drawn. __Default true__
-    *	__backgroundStyle__: If __showBackground__ is true, defines the style for the background.
-        *	__color__: the colour of the background. Supports setting as solid color using rgb(255,255,255), rgba(255,255,255,1), #fff. __Default rgba(180, 180, 180, 0.2)__
+    *	__top__: Distance between tree component and the top side of the container. __Default 18%__
+    *	__bottom__: Distance between tree component and the bottom side of the container. __Default 14%__
+    *	__symbol__: Type of symbol drawn at each node. __Default emptyCircle__
+    *	__symbolSize__: Symbol size. It can be set to single numbers like 10, or use an array to represent width and height. For example, [20, 10] means symbol width is 20, and height is 10. __Default 7__
+    *	__itemStyle__: Defines the style for the chart nodes.
+        *	__color__: the colour of the node symbol. Supports setting as solid color using rgb(255,255,255), rgba(255,255,255,1), #fff. __Default rgba(180, 180, 180, 0.2)__
+    *	__label__: Describes the style of the text corresponding to each node.
+        *	__show__: Defines if the labels are to be shown (true) or not (false). __Default true__
 
 [Table of Contents](#table-of-contents)
 
@@ -71,9 +84,17 @@ The visualization has no actions.
 
 # Data Details
 
-1.	__Rows__ – zero or more elements
-    * __x__: the name of the data element. This appears as the label on the x-axis
-    * __y__: the value of the data element. This defines the height of the bar
+1.	__rootNode__ – one elements
+    * __Name__: the name of the root element.
+1.	__level1Relationship__ – one or more relationships
+    * __Source__: The source (parent) node
+        * __Name__: the name of the parent element.
+    * __Target__: The target (child) node
+        * __Name__: the name of the child element.
+        * __Value__: the value of the child element. This is only required for leaf nodes in the tree hierarchy
+1.	__level2Relationship__ – one or more relationships. Same structure as __level1Relationship__
+1.	__level3Relationship__ – one or more relationships. Same structure as __level1Relationship__
+1.	__level4Relationship__ – one or more relationships. Same structure as __level1Relationship__
 
 [Table of Contents](#table-of-contents)
 

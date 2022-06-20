@@ -133,37 +133,33 @@ export function visualization (config) {
  */
 function buildData (moodData, seriesData, flatData) {
   const nodeDictionary = {}
-  function flatNode (node, level, isLeaf) {
+  function flatNode (node, level) {
     return {
       node: node,
-      level: level,
-      isLeaf: isLeaf
+      level: level
     }
   }
 
-  function intermediateNode (link) {
-    return {
-      name: link.target.name,
-      children: []
+  function hierarchicalNode (link) {
+    const node = {name: link.target.name}
+    if (link.target.value) {
+      node.value = link.target.value
     }
+    return node
   }
 
-  function leafNode (link) {
-    return {
-      name: link.target.name,
-      value: link.target.value
-    }
-  }
-
-  function processLink (link, level, isLeaf) {
-    const seriesNode = isLeaf ? leafNode(link) : intermediateNode(link)
+  function processLink (link, level) {
+    const seriesNode = hierarchicalNode(link)
     nodeDictionary[link.target.key] = seriesNode
     const parentNode = nodeDictionary[link.source.key]
     if (!parentNode) {
       throw new Error('The parent of Node: "' + link.target.name + '" is not known')
     }
+    if (parentNode.children === undefined) {
+      parentNode.children = []
+    }
     parentNode.children.push(seriesNode)
-    flatData.push(flatNode(seriesNode, level, isLeaf))
+    flatData.push(flatNode(seriesNode, level))
   }
 
   seriesData.name = moodData.rootNode.name
@@ -173,18 +169,15 @@ function buildData (moodData, seriesData, flatData) {
   flatData.push(flatNode(seriesData, 0, false))
 
   //
-  // Process array data in data properties level<N>Relationship and level<N>LeafRelationship
+  // Process array data in data properties level<N>Relationship
   //
   let key
   const linkLevelPropertyPrefix = 'level'
-  const leafPropertySuffix = 'LeafRelationship'
-  const leafPropertyMarker = 'Leaf'
   for (key in moodData) {
     if (Object.prototype.hasOwnProperty.call(moodData, key) &&
        key.startsWith(linkLevelPropertyPrefix)) {
       const level = parseInt(key.substring(5))
-      const isLeaf = key.substring(key.length - leafPropertySuffix.length).startsWith(leafPropertyMarker)
-      moodData[key].forEach(link => processLink(link, level, isLeaf))
+      moodData[key].forEach(link => processLink(link, level))
     }
   }
 

@@ -10,21 +10,15 @@ var moodData = {
             name: seriesData.name
         },
         level1Relationship: [],
-        level1LeafRelationship: [],
         level2Relationship: [],
-        level2LeafRelationship: [],
         level3Relationship: [],
-        level3LeafRelationship: [],
-        level4Relationship: [],
-        level4LeafRelationship: []
+        level4Relationship: []
     }
 }
 
 function traverseChildren(level, parent, children, moodData, path) {
-    const intermediateProperty = 'level' + level + 'Relationship'
-    const leafProperty = 'level' + level + 'LeafRelationship'
-    // console.log(intermediateProperty)
-    // console.log(leafProperty)
+    const levelProperty = 'level' + level + 'Relationship'
+    // console.log(levelProperty)
     // if (level === 4) {
     //     console.log(JSON.stringify(moodData))
     // }
@@ -35,19 +29,16 @@ function traverseChildren(level, parent, children, moodData, path) {
         const key = path + '.' + child.name
         const node = {
             key: key,
-            name: child.name
+            name: child.name,
+            value: child.value ? child.value : null
         }
         const link = {
             source: parent,
             target: node
         }
-        if (grandChildren) {
-            moodData[intermediateProperty].push(link)
+        moodData[levelProperty].push(link)
+        if (grandChildren && grandChildren.length > 0) {
             traverseChildren(level + 1, node, grandChildren, moodData, key)
-        }
-        else {
-            node.value = child.value ? child.value : null
-            moodData[leafProperty].push(link)
         }
     })
 }
