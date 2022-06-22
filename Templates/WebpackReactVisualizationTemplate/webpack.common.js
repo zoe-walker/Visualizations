@@ -71,7 +71,8 @@ module.exports = {
             module: false
         },
         //libraryTarget: "var",
-        library: 'vis'
+        library: 'vis',
+        hashFunction: "sha256"
     },
     optimization: {
         splitChunks: {
@@ -91,13 +92,6 @@ module.exports = {
                     name: '<Chart Library Name>',
                     chunks: 'all',
                     priority: -6,
-                    enforce: true
-                },
-                "d3" : {
-                    test: /[\\/]node_modules[\\/](d3.*)[\\/]/,
-                    name: 'd3',
-                    chunks: 'all',
-                    priority: -3,
                     enforce: true
                 },
                 "other" : {
