@@ -215,10 +215,7 @@ See [Data Shape Schema definition](docs/data-shape-schema.md)
 
 ## Customisation Process
 
-Follow the guide corresponding to the framework of your chosen visualization:
-
-* [D3 Template Customisation Guide](docs/d3-template-customisation-guide.md)
-* [React Template Customisation Guide](docs/react-template-customisation-guide.md)
+[Follow the guide to customise the template for your chosen framework](docs/template-customisation-guide.md)
 
 
 [Table of Contents](#table-of-contents)
