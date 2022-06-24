@@ -5,6 +5,9 @@ An example of showing data about your Repository meta model, built using D3 forc
 ### ECharts Meta Model
 An example of showing data about your Repository meta model, built using ECharts force layout graph.
 
+### ECharts Bar Chart
+An example of vertical bar chart, built using ECharts and webpack.
+
 ### Lollipop
 An example of a Lollipop chart built using D3 and webpack.
 

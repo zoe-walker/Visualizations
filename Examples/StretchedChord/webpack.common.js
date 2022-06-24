@@ -65,7 +65,8 @@ module.exports = {
         },
         //libraryTarget: "var",
         library: 'vis',
-        sourceMapFilename: "[name]/visualization.js.map"
+        sourceMapFilename: "[name]/visualization.js.map",
+        hashFunction: "sha256"
     },
     optimization: {
         splitChunks: {

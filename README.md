@@ -48,6 +48,8 @@ MooD provides templates for the following JavaScript chart frameworks
 
 ![ECharts Meta Model](docs/images/echarts-metamodel-thumbnail.png) [ECharts Meta Model](Examples/ECharts%20Meta%20Model/README.md)
 
+![ECharts Bar Chart](docs/images/echarts-bar-chart-thumbnail.png) [ECharts Bar Chart](Examples/EChartsBarChart/README.md)
+
 ![Process Flow](docs/images/process-flow-thumbnail.png) [Process Flow](Examples/ProcessFlow/README.md)
 
 ![Stretched Chord](docs/images/stretched-chord-thumbnail.png) [Stretched Chord](Examples/StretchedChord/README.md)
@@ -213,10 +215,7 @@ See [Data Shape Schema definition](docs/data-shape-schema.md)
 
 ## Customisation Process
 
-Follow the guide corresponding to the framework of your chosen visualization:
-
-* [D3 Template Customisation Guide](docs/d3-template-customisation-guide.md)
-* [React Template Customisation Guide](docs/react-template-customisation-guide.md)
+[Follow the guide to customise the template for your chosen framework](docs/template-customisation-guide.md)
 
 
 [Table of Contents](#table-of-contents)

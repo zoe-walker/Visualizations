@@ -64,7 +64,8 @@ module.exports = {
         },
         path : outputPath,
         //libraryTarget: "var",
-        library: 'vis'
+        library: 'vis',
+        hashFunction: "sha256"
     },
     optimization: {
         splitChunks: {
