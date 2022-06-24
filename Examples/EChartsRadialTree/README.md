@@ -66,7 +66,9 @@ The properties mirror the properties in the __options__ object used to configure
 
 # Inputs
 
-The visualization has no inputs.
+The visualization has one input.
+
+* __maxDepth__: a numeric value that defines Maximum Tree Depth. Changing the value collapses or expands the tree. __Default 2__
 
 [Table of Contents](#table-of-contents)
 
