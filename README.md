@@ -50,6 +50,8 @@ MooD provides templates for the following JavaScript chart frameworks
 
 ![ECharts Bar Chart](docs/images/echarts-bar-chart-thumbnail.png) [ECharts Bar Chart](Examples/EChartsBarChart/README.md)
 
+![ECharts Radial Tree Chart](docs/images/echarts-radial-tree-thumbnail.png) [ECharts Bar Chart](Examples/EChartsRadialTree/README.md)
+
 ![Process Flow](docs/images/process-flow-thumbnail.png) [Process Flow](Examples/ProcessFlow/README.md)
 
 ![Stretched Chord](docs/images/stretched-chord-thumbnail.png) [Stretched Chord](Examples/StretchedChord/README.md)
