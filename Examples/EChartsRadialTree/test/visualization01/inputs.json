@@ -1,5 +1,6 @@
 {
-    "inputs" : {
-        "highlightNode": ""
+    "inputs":
+    {
+        "maxDepth": 2
     }
 }

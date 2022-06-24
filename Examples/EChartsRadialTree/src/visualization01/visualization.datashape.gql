@@ -4,17 +4,17 @@ type data {
 	level1Relationship: [relation]!
 	level2Relationship: [relation]
 	level3Relationship: [relation]
-	level4Relationship: [Relation]
+	level4Relationship: [relation]
 }
 
 type node implements MooDElement{
 	key: ID!
-	name: String!
+	name: String! @UI(name:"Name" default: "name")
 }
 
 type targetNode implements MooDElement{
 	key: ID!
-	name: String!
+	name: String! @UI(name:"Name" default: "name")
 	value: Number
 }
 

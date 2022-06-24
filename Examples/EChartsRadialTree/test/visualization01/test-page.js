@@ -51,7 +51,21 @@ var errorOccurred = function(error) {
 var inputChanged = function (name, value) {
     console.log('Inputs Changed: name = ' + name + ', value: ' + JSON.stringify(value))
 }
+//
+// Define button click functions to alter the inputs
+//
+function incMax() {
+    config.inputs.maxDepth = Math.min(5, config.inputs.maxDepth + 1)
+    config.functions.inputChanged('maxDepth', config.inputs.maxDepth)
+}
 
+function decMax() {
+    config.inputs.maxDepth = Math.max(1, config.inputs.maxDepth - 1)
+    config.functions.inputChanged('maxDepth', config.inputs.maxDepth)
+}
+
+document.getElementById("inc-max-depth").addEventListener('click', () => incMax())
+document.getElementById("dec-max-depth").addEventListener('click', () => decMax())
 
 var el = document.getElementById(config.element)
 el.style.height = config.height

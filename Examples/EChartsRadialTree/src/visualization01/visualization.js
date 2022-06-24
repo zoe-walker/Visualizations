@@ -44,79 +44,95 @@ echarts.use([
 export function visualization (config) {
   // const inputs = config.inputs
   // const style = config.style
-  const width = parseFloat(config.width)
-  const height = parseFloat(config.height)
-
-  const superInputChanged = config.functions.inputChanged
-  config.functions.inputChanged = inputChanged
-
   const seriesData = {}
   const flatData = []
-  buildData(config.data, seriesData, flatData)
+  const superInputChanged = config.functions.inputChanged
+  let chart
+  let option
+  try {
+    const width = parseFloat(config.width)
+    const height = parseFloat(config.height)
 
-  let treeDepth = 2
-  collapse(flatData, treeDepth)
-  expand(flatData, treeDepth)
+    config.functions.inputChanged = inputChanged
 
-  const el = document.getElementById(config.element)
-  //
-  // This based on the ECharts Radial Tree chart - https://echarts.apache.org/examples/en/editor.html?c=tree-radial
-  //
-  const chart = echarts.init(el, null, { renderer: 'canvas', width: width, height: height })
+    buildData(config.data, seriesData, flatData)
 
-  chart.hideLoading()
-  const option = {
-    tooltip: {
-      trigger: 'item',
-      triggerOn: 'mousemove'
-    },
-    series: [
-      {
-        type: 'tree',
-        data: [seriesData],
-        top: config.style.series.top,
-        bottom: config.style.series.bottom,
-        layout: 'radial',
-        symbol: config.style.series.symbol,
-        symbolSize: config.style.series.symbolSize,
-        initialTreeDepth: treeDepth,
-        animationDurationUpdate: 750,
-        emphasis: {
-          focus: 'descendant'
-        }
-      }
-    ]
-  }
-  chart.setOption(option)
-
-  setInterval(function () {
-    treeDepth = treeDepth < 4 ? treeDepth + 1 : 1
-    collapse(flatData, treeDepth)
+    let treeDepth = config.inputs.maxDepth || 2
+    console.log('Initial depth = ' + treeDepth)
     expand(flatData, treeDepth)
-    console.log('Adjust level: ' + treeDepth)
+
+    const el = document.getElementById(config.element)
+    //
+    // This based on the ECharts Radial Tree chart - https://echarts.apache.org/examples/en/editor.html?c=tree-radial
+    //
+    chart = echarts.init(el, null, { renderer: 'canvas', width: width, height: height })
+
+    chart.hideLoading()
+    option = {
+      tooltip: {
+        trigger: 'item',
+        triggerOn: 'mousemove'
+      },
+      series: [
+        {
+          type: 'tree',
+          data: [seriesData],
+          top: config.style.series.top,
+          bottom: config.style.series.bottom,
+          layout: 'radial',
+          symbol: config.style.series.symbol,
+          symbolSize: config.style.series.symbolSize,
+          initialTreeDepth: treeDepth,
+          animationDurationUpdate: 750,
+          emphasis: {
+            focus: 'descendant'
+          }
+        }
+      ]
+    }
     chart.setOption(option)
-  }, 5000)
+  } catch (e) {
+    //
+    // Write error message to the canvas
+    //
+    const el = document.getElementById(config.element)
+    let errorMessage = e.name + ': ' + e.message
+    if ('stack' in e) {
+      errorMessage += '\n\nStack:\n' + e.stack
+    }
+    if ('lineNumber' in e && 'fileName' in e) {
+      errorMessage += 'At ' + e.fileName + ':' + e.lineNumber
+    }
+
+    const errorEl = document.createElement('text')
+    errorEl.style.margin = 'auto'
+    errorEl.style.textAlign = 'center'
+    errorEl.style.display = 'block'
+    errorEl.innerText = errorMessage
+    el.appendChild(errorEl)
+    //
+    // Report error to MooD BA
+    //
+    config.functions.errorOccurred(errorMessage)
+  }
 
   /**
    * Handle change to input.
-   * minimum and maximum tree depth
+   * Maximum tree depth
    * @param {String} name name of input
    * @param {*} value number
    */
   function inputChanged (name, value) {
     superInputChanged(name, value)
+    console.log('name: ' + name + ', value: ' + value)
+
+    let newDepth
 
     if (name === 'maxDepth') {
-      // ensure depth is between 1 and 5
-      treeDepth = Math.max(Math.min(value, 5), 1)
-      collapse(flatData, treeDepth)
-      chart.setOption(option)
-    }
-
-    if (name === 'minDepth') {
-      // ensure depth is between 1 and 5
-      treeDepth = Math.max(Math.min(value, 5), 1)
-      expand(flatData, treeDepth)
+      // ensure depth is between 1 and 4
+      newDepth = Math.max(Math.min(value, 4), 1)
+      expand(flatData, newDepth)
+      collapse(flatData, newDepth)
       chart.setOption(option)
     }
 
@@ -177,7 +193,11 @@ function buildData (moodData, seriesData, flatData) {
     if (Object.prototype.hasOwnProperty.call(moodData, key) &&
        key.startsWith(linkLevelPropertyPrefix)) {
       const level = parseInt(key.substring(5))
-      moodData[key].forEach(link => processLink(link, level))
+      if (Array.isArray(moodData[key])) {
+        moodData[key].forEach(link => processLink(link, level))
+      } else {
+        throw new Error('Data for ' + key + ' is not an array')
+      }
     }
   }
 
@@ -191,3 +211,5 @@ function collapse (flatData, maxLevel) {
 function expand (flatData, maxLevel) {
   flatData.filter(node => node.level < maxLevel).forEach(function (node) { node.node.collapsed = false })
 }
+
+
