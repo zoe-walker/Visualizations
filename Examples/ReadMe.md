@@ -8,6 +8,9 @@ An example of showing data about your Repository meta model, built using ECharts
 ### ECharts Bar Chart
 An example of vertical bar chart, built using ECharts and webpack.
 
+### ECharts Radial Tree Chart
+An example of radial tree chart, built using ECharts and webpack.
+
 ### Lollipop
 An example of a Lollipop chart built using D3 and webpack.
 
