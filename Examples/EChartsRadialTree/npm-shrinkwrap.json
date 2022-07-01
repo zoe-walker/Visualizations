@@ -1,12 +1,12 @@
 {
   "name": "echarts-bar-chart-visualization",
-  "version": "0.0.19",
+  "version": "1.0.0",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
       "name": "echarts-bar-chart-visualization",
-      "version": "0.0.19",
+      "version": "1.0.0",
       "license": "MIT",
       "dependencies": {
         "core-js": "3.19.0",
