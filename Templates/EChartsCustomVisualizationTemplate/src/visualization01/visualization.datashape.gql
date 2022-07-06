@@ -2,5 +2,11 @@
 # Define your data shape here.
 
 type data {
-	test: String
+	rows: [row]
+}
+
+type row implements MooDElement{
+	key: ID!
+	x: String!
+	y: Number!
 }

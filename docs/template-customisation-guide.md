@@ -7,9 +7,9 @@
     * [webpack.common.js](#webpackcommonjs)
     * [package.json](#packagejson)
     * [src/visualization01/visualization.js](#srcvisualization01visualizationjs)
-    * [src/visualization01/no-guid.visualization.config.json.ejs](#srcvisualization01no-guidvisualizationconfigjsonejs)
     * [src/visualization01/visualization.datashape.gql](#srcvisualization01visualizationdatashapegql)
-    * [src/no-guid.package.json.ejs](#srcno-guidpackagejsonejs)
+    * [src/visualization01/visualization.config.json.ejs](#srcvisualization01visualizationconfigjsonejs)
+    * [src/package.json.ejs](#srcpackagejsonejs)
 *  [Debugging your visualization](#debugging-your-visualization)
     * [test/visualization01/data.json](#testvisualization01datajson)
     * [test/visualization01/inputs.json](#testvisualization01inputsjson)
@@ -66,7 +66,6 @@ See the suggestions for customising the __webpack.common.js__ for your chosen te
     "name": "scatter_plot",
     "description": "Example scatter plot chart",
     "version": "1.1.10",
-    "supportedVersions": "0",
     "license": "MIT",
 ```
 
@@ -74,6 +73,8 @@ See the suggestions for customising the __webpack.common.js__ for your chosen te
 
 
 ## src/visualization01/visualization.js
+
+__Note__: This file and the [datashape](#srcvisualization01visualizationdatashapegql) are interdependent and should be updated alongside each other.
 
 See the suggestions for customising the __src/visualization01/visualization.js__ for your chosen template
   * [D3 src/visualization01/visualization.js](d3-template-customisation-guide.md#srcvisualization01visualizationjs)
@@ -83,21 +84,43 @@ See the suggestions for customising the __src/visualization01/visualization.js__
 [Table of Contents](#table-of-contents)
 
 
-## src/visualization01/no-guid.visualization.config.json.ejs
+## src/visualization01/visualization.datashape.gql
 
-Embedded JavaScript Template for visualization.config.json.ejs template.
+__Note__: This file and the [visualization](#srcvisualization01visualizationjs) are interdependent and should be updated alongside each other.
 
-See below for instructions on how to generate visualization.config.json.ejs containing a GUID after customising this file.
+* Define visualization graph shape
+
+
+    For example
+```GraphQL
+type data {
+	rows: [row]
+}
+
+type row implements MooDElement{
+	key: ID!
+	x: Number!
+	y: Number!
+}
+```
+
+[Table of Contents](#table-of-contents)
+
+## src/visualization01/visualization.config.json.ejs
+
+Embedded JavaScript Template for visualization.config.json.
+
+__Note__: Ensure that you have generated GUIDs before updating this file. [See below for instructions](#generate-guids) on how to generate visualization.config.json.ejs containing a GUID.
 * Do not alter the id or version properties
 * Update visualization properties
 
     For example
 ```JSON
 {
-  "id": "<%= uuid.v4(); %>",
+  "id": "<Generated GUID>",
   "name": "Simple Scatter Plot",
   "description": "Example of a scatter plot diagram",
-  "version": "<%%= package.version %%>",
+  "version": "<%= package.version %>",
   "supportedVersions": "0.1",
   "moodVersion": "16.0.076",
   "entry": {
@@ -164,34 +187,15 @@ See below for instructions on how to generate visualization.config.json.ejs cont
 
 [Table of Contents](#table-of-contents)
 
-## src/visualization01/visualization.datashape.gql
+## src/package.json.ejs
 
-* Define visualization graph shape
+Embedded JavaScript Template for visualization package.json.
 
-
-    For example
-```GraphQL
-type data {
-	rows: [row]
-}
-
-type row implements MooDElement{
-	key: ID!
-	x: Number!
-	y: Number!
-}
-```
-
-[Table of Contents](#table-of-contents)
-
-## src/no-guid.package.json.ejs
-
-Embedded JavaScript Template for visualization package.json.ejs template.
-
-See the suggestions for customising the __src/no-guid.package.json.ejs__ for your chosen template
-  * [D3 src/no-guid.package.json.ejs](d3-template-customisation-guide.md#srcno-guidpackagejsonejs)
-  * [ECharts src/no-guid.package.json.ejs](echarts-template-customisation-guide.md#srcno-guidpackagejsonejs)
-  * [React src/no-guid.package.json.ejs](react-template-customisation-guide.md#srcno-guidpackagejsonejs)
+__Note__: Ensure that you have generated GUIDs before updating this file. [See below for instructions](#generate-guids) on how to generate package.json.ejs containing a GUID.
+See the suggestions for customising the __src/package.json.ejs__ for your chosen template
+  * [D3 src/package.json.ejs](d3-template-customisation-guide.md#srcpackagejsonejs)
+  * [ECharts src/package.json.ejs](echarts-template-customisation-guide.md#srcpackagejsonejs)
+  * [React src/package.json.ejs](react-template-customisation-guide.md#srcpackagejsonejs)
 
 [Table of Contents](#table-of-contents)
 
@@ -236,7 +240,8 @@ Populate the following JSON files with sample data matching the structure requir
 {
     "width": "800px",
     "height": "600px",
-    "element": "visualisation01_element_guid"
+    "element": "visualisation01_element_guid",
+    "animation": true
 }
 ```
 

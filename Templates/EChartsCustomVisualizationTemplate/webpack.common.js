@@ -76,6 +76,13 @@ module.exports = {
     optimization: {
         splitChunks: { //{ chunks: 'all' }
             cacheGroups: {
+                "echarts" : {
+                    test: /[\\/]node_modules[\\/](echarts.*)[\\/]/,
+                    name: 'echarts',
+                    chunks: 'all',
+                    priority: -3,
+                    enforce: true
+                },
                 "other" : {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'other',

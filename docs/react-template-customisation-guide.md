@@ -43,7 +43,7 @@
 ```
 * Chunk configuration for chosen React chart library
 
-  You will need to update the dependencies in `src/no-guid.package.json.ejs` (see below) for any chunks you add
+  You will need to update the dependencies in `src/package.json.ejs` (see below) for any chunks you add
 
   For example
 ```JavaScript
@@ -83,6 +83,8 @@
 
 # src/visualization01/visualization.js
 
+__Note__: This file and the [datashape](template-customisation-guide.md#srcvisualization01visualizationdatashapegql) are interdependent and should be updated alongside each other.
+
 * Add import statements for chosen React chart library
 
   For example
@@ -116,11 +118,11 @@ import ReactDOM from 'react-dom';
 
 [Template Customisation Guide](template-customisation-guide.md#srcvisualization01visualizationjs)
 
-# src/no-guid.package.json.ejs
+# src/package.json.ejs
 
 Embedded JavaScript Template for visualization package.json.ejs template.
 
-[See instructions](template-customisation-guide.md#generate-guids) on how to generate package.json.ejs containing a GUID after customising this file.
+[See instructions](template-customisation-guide.md#generate-guids) on how to generate package.json.ejs containing a GUID before customising this file.
 
 * Do not alter the id or version properties
 * Update visualization package properties
@@ -128,10 +130,10 @@ Embedded JavaScript Template for visualization package.json.ejs template.
     For example
 ```JSON
 {
-  "id": "<%= uuid.v4(); %>",
+  "id": "<Generated GUID>",
   "name": "Line Chart",
   "description": "Example line chart",
-  "version": "<%%= package.version %%>",
+  "version": "<%= package.version %>",
 ```
 
 * Update dependencies - e.g. chart library
@@ -149,4 +151,4 @@ Embedded JavaScript Template for visualization package.json.ejs template.
 
 [README](../README.md)
 
-[Template Customisation Guide](template-customisation-guide.md#srcno-guidpackagejsonejs)
+[Template Customisation Guide](template-customisation-guide.md#srcpackagejsonejs)

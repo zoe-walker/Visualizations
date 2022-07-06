@@ -8,7 +8,7 @@
 * visualization entry point(s)
 * Possible SplitChunks for any additional EChart chart libraries
 
-  You will need to update the dependencies in `src/no-guid.package.json.ejs` (see below) for any chunks you add
+  You will need to update the dependencies in `src/package.json.ejs` (see below) for any chunks you add
 
   For example
 ```JavaScript
@@ -43,6 +43,8 @@
 
 # src/visualization01/visualization.js
 
+__Note__: This file and the [datashape](template-customisation-guide.md#srcvisualization01visualizationdatashapegql) are interdependent and should be updated alongside each other.
+
 * Add/amend import statements for ECharts components you need
 
 ```JavaScript
@@ -52,27 +54,16 @@
 //
 // Import the echarts core module, which provides the necessary interfaces for using echarts.
 import * as echarts from 'echarts/core'
-// Import bar charts, all suffixed with Chart
+// Import the specific chart
 import { TreeChart } from 'echarts/charts'
 // Import the Canvas renderer
 // Note that introducing the CanvasRenderer or SVGRenderer is a required step
 import { CanvasRenderer } from 'echarts/renderers'
-
+// Import the required components
 import {
   TooltipComponent
 } from 'echarts/components'
-// Import the tooltip, title, rectangular coordinate system, dataset and transform components
-// all suffixed with Component
-/*
-import {
-  TitleComponent,
-  TooltipComponent,
-  GridComponent,
-  DatasetComponent,
-  TransformComponent
-} from 'echarts/components'
-*/
-// Features like Universal Transition and Label Layout
+// import any required Features like Universal Transition and Label Layout
 // import { LabelLayout, UniversalTransition } from 'echarts/features'
 
 // Register the required components
@@ -111,21 +102,21 @@ echarts.use([
 
 [Template Customisation Guide](template-customisation-guide.md#srcvisualization01visualizationjs)
 
-# src/no-guid.package.json.ejs
+# src/package.json.ejs
 
-Embedded JavaScript Template for visualization package.json.ejs template.
+Embedded JavaScript Template for visualization package.json.
 
-[See instructions](template-customisation-guide.md#generate-guids) on how to generate package.json.ejs containing a GUID after customising this file.
+[See instructions](template-customisation-guide.md#generate-guids) on how to generate package.json.ejs containing a GUID before customising this file.
 * Do not alter the id or version properties
 * Update visualization package properties
 
     For example
 ```JSON
 {
-  "id": "<%= uuid.v4(); %>",
+  "id": "<Generated GUID>",
   "name": "Bar Chart",
   "description": "Example Bar Chart",
-  "version": "<%%= package.version %%>",
+  "version": "<%= package.version %>",
 ```
 * Update dependencies - e.g. chart library
 
@@ -143,4 +134,4 @@ Embedded JavaScript Template for visualization package.json.ejs template.
 
 [README](../README.md)
 
-[Template Customisation Guide](template-customisation-guide.md#srcno-guidpackagejsonejs)
+[Template Customisation Guide](template-customisation-guide.md#srcpackagejsonejs)
