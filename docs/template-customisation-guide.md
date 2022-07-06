@@ -50,9 +50,9 @@ If you need to amend configuration only edit the source `.json.ejs` file, not th
 ## webpack.common.js
 
 See the suggestions for customising the __webpack.common.js__ for your chosen template
-  * [D3 webpack.common.js](d3-template-customisation-guide.md#webpackcommonjs)
-  * [ECharts webpack.common.js](echarts-template-customisation-guide.md#webpackcommonjs)
-  * [React webpack.common.js](react-template-customisation-guide.md#webpackcommonjs)
+  * [D3 webpack.common.js](./d3-template-customisation-guide.md#webpackcommonjs)
+  * [ECharts webpack.common.js](./echarts-template-customisation-guide.md#webpackcommonjs)
+  * [React webpack.common.js](./react-template-customisation-guide.md#webpackcommonjs)
 
 [Table of Contents](#table-of-contents)
 
@@ -77,9 +77,9 @@ See the suggestions for customising the __webpack.common.js__ for your chosen te
 __Note__: This file and the [datashape](#srcvisualization01visualizationdatashapegql) are interdependent and should be updated alongside each other.
 
 See the suggestions for customising the __src/visualization01/visualization.js__ for your chosen template
-  * [D3 src/visualization01/visualization.js](d3-template-customisation-guide.md#srcvisualization01visualizationjs)
-  * [ECharts src/visualization01/visualization.js](echarts-template-customisation-guide.md#srcvisualization01visualizationjs)
-  * [React src/visualization01/visualization.js](react-template-customisation-guide.md#srcvisualization01visualizationjs)
+  * [D3 src/visualization01/visualization.js](./d3-template-customisation-guide.md#srcvisualization01visualizationjs)
+  * [ECharts src/visualization01/visualization.js](./echarts-template-customisation-guide.md#srcvisualization01visualizationjs)
+  * [React src/visualization01/visualization.js](./react-template-customisation-guide.md#srcvisualization01visualizationjs)
 
 [Table of Contents](#table-of-contents)
 
@@ -193,9 +193,9 @@ Embedded JavaScript Template for visualization package.json.
 
 __Note__: Ensure that you have generated GUIDs before updating this file. [See below for instructions](#generate-guids) on how to generate package.json.ejs containing a GUID.
 See the suggestions for customising the __src/package.json.ejs__ for your chosen template
-  * [D3 src/package.json.ejs](d3-template-customisation-guide.md#srcpackagejsonejs)
-  * [ECharts src/package.json.ejs](echarts-template-customisation-guide.md#srcpackagejsonejs)
-  * [React src/package.json.ejs](react-template-customisation-guide.md#srcpackagejsonejs)
+  * [D3 src/package.json.ejs](./d3-template-customisation-guide.md#srcpackagejsonejs)
+  * [ECharts src/package.json.ejs](./echarts-template-customisation-guide.md#srcpackagejsonejs)
+  * [React src/package.json.ejs](./react-template-customisation-guide.md#srcpackagejsonejs)
 
 [Table of Contents](#table-of-contents)
 

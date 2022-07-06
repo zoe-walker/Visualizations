@@ -1,6 +1,6 @@
 [README](../README.md)
 
-[Template Customisation Guide](template-customisation-guide.md#webpackcommonjs)
+[Template Customisation Guide](./template-customisation-guide.md#webpackcommonjs)
 
 # webpack.common.js
 
@@ -39,11 +39,11 @@
 
 [README](../README.md)
 
-[Template Customisation Guide](template-customisation-guide.md#webpackcommonjs)
+[Template Customisation Guide](./template-customisation-guide.md#webpackcommonjs)
 
 # src/visualization01/visualization.js
 
-__Note__: This file and the [datashape](template-customisation-guide.md#srcvisualization01visualizationdatashapegql) are interdependent and should be updated alongside each other.
+__Note__: This file and the [datashape](./template-customisation-guide.md#srcvisualization01visualizationdatashapegql) are interdependent and should be updated alongside each other.
 
 * Add/amend import statements for ECharts components you need
 
@@ -100,13 +100,13 @@ echarts.use([
 
 [README](../README.md)
 
-[Template Customisation Guide](template-customisation-guide.md#srcvisualization01visualizationjs)
+[Template Customisation Guide](./template-customisation-guide.md#srcvisualization01visualizationjs)
 
 # src/package.json.ejs
 
 Embedded JavaScript Template for visualization package.json.
 
-[See instructions](template-customisation-guide.md#generate-guids) on how to generate package.json.ejs containing a GUID before customising this file.
+[See instructions](./template-customisation-guide.md#generate-guids) on how to generate package.json.ejs containing a GUID before customising this file.
 * Do not alter the id or version properties
 * Update visualization package properties
 
@@ -134,4 +134,4 @@ Embedded JavaScript Template for visualization package.json.
 
 [README](../README.md)
 
-[Template Customisation Guide](template-customisation-guide.md#srcpackagejsonejs)
+[Template Customisation Guide](./template-customisation-guide.md#srcpackagejsonejs)
