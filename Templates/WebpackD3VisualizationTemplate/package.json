@@ -1,6 +1,6 @@
 {
   "name": "mood-d3-visualization-template",
-  "description": "Template for a MooD external visualization package based on D3 framework",
+  "description": "Template for a MooD custom visualization package based on D3 framework",
   "version": "0.0.0",
   "license": "MIT",
   "dependencies": {
