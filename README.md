@@ -1,6 +1,8 @@
 # Visualizations
 Templates, examples and documentation enabling you to bring 3rd party visualizations into your MooD Repository.
 
+See the [wiki](https://github.com/CACIMooD/Visualizations/wiki) for more articles and guides.
+
 #### The easiest way to get started is to clone this repository and then modify the various examples / templates inside Visual Studio Code.
 
 # Table of Contents
