@@ -1,6 +1,7 @@
 import * as Types from './element-types'
 import * as ActivityGroup from './group-label'
 import * as Sides from './jointjs-side-types'
+import { OrientedDimensions, OrientedCoords } from './oriented'
 // import * as FlowGroup from './flowGroups'
 
 export const partitionLeft = 'left'
@@ -97,17 +98,33 @@ export class Element extends BasicElement {
     }
 
     this.type = () => element.type
-    this.size = () => element.size
-    this.position = () => element.position
+    this.size = () => element.size.dimensions()
+    this.logicalSize = () => element.size.logicalDimensions()
+    this.position = () => element.position.coords()
+    this.logicalPosition = () => element.position.logicalCoords()
     this.centre = function () {
       return {
-        x: Math.floor(element.position.x + element.size.width / 2),
-        y: Math.floor(element.position.y + element.size.height / 2)
+        x: Math.floor(element.position.x() + element.size.width() / 2),
+        y: Math.floor(element.position.y() + element.size.height() / 2)
       }
     }
+    this.logicalCentre = function () {
+      return {
+        x: Math.floor(element.position.logicalX() + element.size.logicalWidth() / 2),
+        y: Math.floor(element.position.logicalY() + element.size.logicalHeight() / 2)
+      }
+    }
+    /**
+     * Set the dimensions of the element
+     * @param {OrientedDimensions} size 
+     */
     this.setSize = function (size) {
       element.size = size
     }
+    /**
+     * Set the position (top left corner) of the element
+     * @param {OrientedCoords} position 
+     */
     this.setPosition = function (position) {
       element.position = position
     }
@@ -1179,17 +1196,19 @@ export class StepGroup extends BasicElement {
       }
     }
     /**
-     * Return label position of the free corner with the most space (lanes),
+     * Find best position for label 
+     * @param {boolean} isVerticalSwimlane indicates if swimlanes are drawn vertically or horizontally
+     * @returns label position of the free corner with the most space (lanes),
      * or undefined if there are no free corners
      */
-    this.freeCorner = function () {
+    this.freeCorner = function (isVerticalSwimlane) {
       const corners = [{
         cornerPosition: ActivityGroup.labelPositionNW,
         rowIndex: bounds.topLeft.row,
         laneIndex: bounds.topLeft.lane,
         checkStep: 1
       }, {
-        cornerPosition: ActivityGroup.labelPositionNE,
+        cornerPosition: isVerticalSwimlane ? ActivityGroup.labelPositionNE : ActivityGroup.labelPositionSW,
         rowIndex: bounds.topLeft.row,
         laneIndex: bounds.bottomRight.lane,
         checkStep: -1
@@ -1199,7 +1218,7 @@ export class StepGroup extends BasicElement {
         laneIndex: bounds.bottomRight.lane,
         checkStep: -1
       }, {
-        cornerPosition: ActivityGroup.labelPositionSW,
+        cornerPosition: isVerticalSwimlane ? ActivityGroup.labelPositionSW : ActivityGroup.labelPositionNE,
         rowIndex: bounds.bottomRight.row,
         laneIndex: bounds.topLeft.lane,
         checkStep: 1

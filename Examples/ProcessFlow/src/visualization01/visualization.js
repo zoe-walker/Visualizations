@@ -265,8 +265,8 @@ export function visualization (config) {
     const drawingReport = diagram.draw()
 
     if (typeof config.functions.updateSize === 'function') {
-      config.functions.updateSize(width, diagram.height())
-      console.log('Updated size to ' + width + ' x ' + diagram.height())
+      config.functions.updateSize(diagram.width(), diagram.height())
+      console.log('Updated size to ' + diagram.width() + ' x ' + diagram.height())
     }
 
     if (!config.animation && drawingReport) {

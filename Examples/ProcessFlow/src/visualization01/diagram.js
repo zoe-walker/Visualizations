@@ -6,6 +6,7 @@ import * as Sides from './jointjs-side-types'
 import * as ActivityGroup from './group-label'
 import * as FlowGroup from './flowGroups'
 import * as Config from './flow-config'
+import {OrientedDimensions, OrientedCoords} from './oriented' 
 
 function alignValueUp (value, gridSize) {
   return Math.floor((value + gridSize - 1) / gridSize) * gridSize
@@ -20,17 +21,6 @@ function alignValueDown (value, gridSize) {
 export class Diagram {
   constructor (process, style, width, height, visualizationData) {
     const elementId = visualizationData.config.element
-
-    const gridAlignedStyle = alignStyleToGrid(style)
-    const drawProcessHeader = style.renderProcessHeader
-    const drawWatermark = style.renderSwimlaneWatermarks
-    const phaseLabelWidth = process.getPhaseSet().noPhases() === true ? 0 : gridAlignedStyle.phaseLabelWidth
-    const numSwimlanes = process.getActorSet().numSwimlanes() + 2 // allow for swim lanes for inputs and outputs
-    const swimlaneWidth = alignValueDown((width - phaseLabelWidth - style.gridSize * 4) / // allow extra width for I/O lanes
-             numSwimlanes, style.gridSize)
-    const ioLaneWidth = swimlaneWidth + style.gridSize * 2
-    const useableWidth = phaseLabelWidth + swimlaneWidth * numSwimlanes + style.gridSize * 4
-    gridAlignedStyle.swimlaneWidth = swimlaneWidth
     //
     // Set defaults for any missing configuration
     //
@@ -42,6 +32,19 @@ export class Diagram {
       coincidentLineSpace: 3,
       targetTolerance: 1
     }
+    style.verticalSwimlanes = style.verticalSwimlanes === undefined ? true : style.verticalSwimlanes
+
+    const gridAlignedStyle = alignStyleToGrid(style)
+    const drawProcessHeader = style.renderProcessHeader
+    const drawWatermark = style.renderSwimlaneWatermarks
+    const phaseLabelWidth = process.getPhaseSet().noPhases() === true ? 0 : gridAlignedStyle.phaseLabelWidth
+    const numSwimlanes = process.getActorSet().numSwimlanes() + 2 // allow for swim lanes for inputs and outputs
+    const verticalSwimlaneWidth = alignValueDown((width - phaseLabelWidth - style.gridSize * 4) / // allow extra width for I/O lanes
+                                                 numSwimlanes, style.gridSize)
+    const swimlaneWidth = style.verticalSwimlanes ? verticalSwimlaneWidth : Math.max(verticalSwimlaneWidth, gridAlignedStyle.minimumSwimlaneHeight)
+    const ioLaneWidth = swimlaneWidth + style.gridSize * 2
+    const useableWidth = phaseLabelWidth + swimlaneWidth * numSwimlanes + style.gridSize * 4
+    gridAlignedStyle.swimlaneWidth = swimlaneWidth
     gridAlignedStyle.inputSwimlaneLabel = gridAlignedStyle.inputSwimlaneLabel || 'Inputs'
     gridAlignedStyle.outputSwimlaneLabel = gridAlignedStyle.outputSwimlaneLabel || 'Outputs'
     gridAlignedStyle.maxFlowLabelSize = gridAlignedStyle.maxFlowLabelSize || defaultMaxLabelSize
@@ -59,6 +62,7 @@ export class Diagram {
       : gridAlignedStyle.horizontalDecisionsAllowed
 
     const dimensions = {
+      verticalSwimlanes: style.verticalSwimlanes,
       width: useableWidth,
       height: height,
       gridSize: style.gridSize,
@@ -85,8 +89,25 @@ export class Diagram {
     // console.log('Height: ' + dimensions.diagramSize.height)
 
     this.height = function () {
-      return dimensions.processHeaderHeight +
-                dimensions.diagramSize.height
+      let retVal
+      if (dimensions.verticalSwimlanes) {
+        retVal = dimensions.processHeaderHeight +
+          dimensions.diagramSize.height
+      } else {
+        retVal = dimensions.processHeaderHeight +
+        dimensions.diagramSize.width
+      }
+      return retVal
+    }
+
+    this.width = function () {
+      let retVal
+      if (dimensions.verticalSwimlanes) {
+        retVal = Math.max(dimensions.diagramSize.width, width)
+      } else {
+        retVal = dimensions.diagramSize.height
+      }
+      return retVal
     }
 
     function alignStyleToGrid (style) {
@@ -102,6 +123,7 @@ export class Diagram {
       }
       alignedStyle.verticalStepSeparation = alignValueUp(style.verticalStepSeparation, 2 * style.gridSize)
       alignedStyle.verticalIOSeparation = alignValueUp(style.verticalIOSeparation, style.gridSize)
+      alignedStyle.minimumSwimlaneHeight = alignValueUp(style.minimumSwimlaneHeight, style.gridSize)
       // alignedStyle.stepStandoff = alignValueUp(style.stepStandoff, style.gridSize)
       // alignedStyle.ioStandoff = alignValueUp(style.ioStandoff, style.gridSize)
       alignedStyle.phaseLabelWidth = alignValueUp(style.phaseLabelWidth, style.gridSize)
@@ -124,10 +146,12 @@ export class Diagram {
       const diagramEl = document.createElement('div')
       diagramEl.id = htmlElements.diagramElement
       el.appendChild(diagramEl)
+      const diagramSize = new OrientedDimensions(dimensions.verticalSwimlanes)
+      diagramSize.setDimensions(dimensions.diagramSize)
 
       const graph = new Graph.Graph(
         diagramEl,
-        dimensions.diagramSize,
+        diagramSize.dimensions(),
         gridAlignedStyle.gridSize,
         gridAlignedStyle.elementSizes,
         {
@@ -169,17 +193,16 @@ export class Diagram {
 
       function layoutPhaseLabels (phaseSet, phasedRowSet, dimensions) {
         if (phaseSet.noPhases() !== true) {
-          let phasePosition = 0
+          const phasePosition = new OrientedCoords(dimensions.verticalSwimlanes)
           phasedRowSet.rowSets().forEach(function (rowSet) {
+            const phaseSize = new OrientedDimensions(dimensions.verticalSwimlanes)
+            phaseSize.setDimensions({width: dimensions.phaseLabelWidth, height: rowSet.height()})
             graph.createLabel(
               rowSet.phase(),
-              dimensions.phaseLabelWidth,
-              rowSet.height(),
-              {
-                x: 0,
-                y: phasePosition
-              })
-            phasePosition += rowSet.height()
+              phaseSize.width(),
+              phaseSize.height(),
+              phasePosition.coords())
+            phasePosition.increaseY(rowSet.height())
           })
         }
       }
@@ -231,52 +254,70 @@ export class Diagram {
 
         const inputSwimlane = swimlanes[0]
         const outputSwimlane = swimlanes[numSwimlanes - 1]
+        const swimlanePositions = swimlanes.map(function (lane) {
+          const position = new OrientedCoords(dimensions.verticalSwimlanes)
+          position.setCoords(lane.position())
+          return position.coords()
+        })
+        const swimlaneSizes = swimlanes.map(function (lane) {
+          const size = new OrientedDimensions(dimensions.verticalSwimlanes)
+          size.setDimensions(lane.size())
+          return size.dimensions()
+        })
+        const inputSwimlanePosition = swimlanePositions[0]
+        const outputSwimlanePosition = swimlanePositions[numSwimlanes - 1]
+        const inputSwimlaneSize = swimlaneSizes[0]
+        const outputSwimlaneSize = swimlaneSizes[numSwimlanes - 1]
         //
         // Layout all steps, inputs and outputs for every phase
         //
-        let phasePosition = 0
+        const phasePosition = new OrientedCoords(style.verticalSwimlanes)
         phasedRowSet.rowSets().forEach(function (phase) {
           const phaseHeight = phase.height()
+          const phaseMarkerDimensions = new OrientedDimensions(style.verticalSwimlanes)
+          phaseMarkerDimensions.setDimensions({width: dimensions.width, height: 1})
+          const phaseMarkerPosition = new OrientedCoords(style.verticalSwimlanes)
+          phaseMarkerPosition.setY(phasePosition.logicalY() + phaseHeight - 1)
+
           if (noPhases !== true) {
             //
             // Draw phase marker
             //
             graph.createPhaseMarker(
               phase,
-              dimensions.width,
-              1,
-              {
-                x: 0,
-                y: phasePosition + phaseHeight - 1
-              }
+              phaseMarkerDimensions.width(),
+              phaseMarkerDimensions.height(),
+              phaseMarkerPosition.coords()
             )
           }
           //
           // Determine position of step elements
           //
-          let rowPosition = phasePosition
+          let rowPosition = phasePosition.logicalY()
           phase.rows().forEach(function (row) {
             // console.log('Row bottomMargin: ' + row.bottomMargin(1) + ', height: ' + row.height())
             row.steps().forEach(function (step) {
-              const stepSize = step.size()
-              const stepPosition = {
-                x: Math.floor(swimlanes[step.leftLaneIndex()].position().x +
-                                    (swimlanes[step.leftLaneIndex()].size().width *
+              const stepSize = step.logicalSize()
+              const stepPosition = new OrientedCoords(style.verticalSwimlanes)
+              stepPosition.setCoords({
+                x: Math.floor(swimlanePositions[step.leftLaneIndex()].x +
+                                    (swimlaneSizes[step.leftLaneIndex()].width *
                                      (step.rightLaneIndex() - step.leftLaneIndex() + 1) - stepSize.width) / 2),
                 y: Math.floor(rowPosition + row.stepCentreVerticalOffset() - stepSize.height / 2)
-              }
+              })
               step.setPosition(stepPosition)
               //
               // Determine position of step inputs
               //
               let ioPosition = Math.floor(rowPosition + row.stepCentreVerticalOffset() - step.inputsHeight() / 2)
               step.inputs().forEach(function (infoLink) {
-                const infoSize = infoLink.information().size()
-                const infoPosition = {
-                  x: Math.floor(inputSwimlane.position().x +
-                                        (inputSwimlane.size().width - infoSize.width) / 2),
+                const infoSize = infoLink.information().logicalSize()
+                const infoPosition = new OrientedCoords(style.verticalSwimlanes)
+                infoPosition.setCoords({
+                  x: Math.floor(inputSwimlanePosition.x +
+                                        (inputSwimlaneSize.width - infoSize.width) / 2),
                   y: ioPosition
-                }
+                })
                 infoLink.information().setPosition(infoPosition)
                 infoLink.information().setLaneIndex(0)
 
@@ -287,12 +328,13 @@ export class Diagram {
               //
               ioPosition = Math.floor(rowPosition + row.stepCentreVerticalOffset() - step.outputsHeight() / 2)
               step.outputs().forEach(function (infoLink) {
-                const infoSize = infoLink.information().size()
-                const infoPosition = {
-                  x: Math.floor(outputSwimlane.position().x +
-                                        (outputSwimlane.size().width - infoSize.width) / 2),
+                const infoSize = infoLink.information().logicalSize()
+                const infoPosition = new OrientedCoords(style.verticalSwimlanes)
+                infoPosition.setCoords({
+                  x: Math.floor(outputSwimlanePosition.x +
+                                        (outputSwimlaneSize.width - infoSize.width) / 2),
                   y: ioPosition
-                }
+                })
                 infoLink.information().setPosition(infoPosition)
                 infoLink.information().setLaneIndex(numSwimlanes - 1)
 
@@ -303,7 +345,7 @@ export class Diagram {
             rowPosition += row.height()
           })
 
-          phasePosition += phaseHeight
+          phasePosition.increaseY(phaseHeight)
         })
         //
         // Having determined the size and position of all the steps,
@@ -318,7 +360,7 @@ export class Diagram {
           // Choose a free corner for the label position if one isn't specified
           //
           if (!group.labelPosition()) {
-            group.setLabelPosition(group.freeCorner() || ActivityGroup.labelPositionDefault)
+            group.setLabelPosition(group.freeCorner(style.verticalSwimlanes) || ActivityGroup.labelPositionDefault)
           }
           graph.createStepGroup(group)
         })
@@ -475,21 +517,32 @@ export class Diagram {
                   portId = flowInPortId
                   portPosition = flowInPortPosition
                 }
-                const swimlane = swimlanes[infoLink.information().laneIndex()]
                 // Define points through which the link must flow
                 // Default to point just inside RHS of Inputs swimlane
-                let xPos = swimlane.position().x + swimlane.size().width - style.ioStandoff
+                let xPos = swimlanePositions[infoLink.information().laneIndex()].x +
+                    swimlaneSizes[infoLink.information().laneIndex()].width - style.ioStandoff
                 if (infoLink.name()) {
                   // Adjust points to separate input links with labels
-                  const stepSwimlane = swimlanes[step.leftLaneIndex()]
-                  xPos = stepSwimlane.position().x - style.ioStandoff
+                  xPos = swimlanePositions[step.leftLaneIndex()].x - style.ioStandoff
                 }
+                const logicalPortPosition = new OrientedCoords(style.verticalSwimlanes)
+                const point1 = new OrientedCoords(style.verticalSwimlanes)
+                const point2 = new OrientedCoords(style.verticalSwimlanes)
+                logicalPortPosition.setCoords(portPosition)
+                point1.setCoords({
+                  x: xPos,
+                  y: infoLink.information().logicalCentre().y
+                })
+                point2.setCoords({
+                  x: xPos,
+                  y: step.logicalPosition().y + logicalPortPosition.y()
+                })
                 const vertices = [{ // force link to pass through point just to right of Inputs swimlane
-                  x: xPos,
-                  y: infoLink.information().centre().y
+                  x: point1.x(),
+                  y: point1.y()
                 }, {
-                  x: xPos,
-                  y: step.position().y + portPosition.y
+                  x: point2.x(),
+                  y: point2.y()
                 }]
                 const graphLink = graph.createIOLink(
                   infoLink,
@@ -515,9 +568,7 @@ export class Diagram {
                 //
                 // Define horizontal positions of points through which the link passes
                 //
-                const swimlane = swimlanes[infoLink.information().laneIndex()]
-                let xPos = swimlane.position().x + style.ioStandoff
-
+                let xPos = swimlanePositions[infoLink.information().laneIndex()].x + style.ioStandoff
                 //
                 // Choose output port according to type of flow
                 //
@@ -538,16 +589,28 @@ export class Diagram {
                   }
                   // Adjust first x position in order to split multiple flows and allow labels to separate
                   if (step.outputs().filter(output => output.isFlow()).length > 1) {
-                    const stepSwimlane = swimlanes[step.rightLaneIndex()]
-                    xPos = stepSwimlane.position().x + stepSwimlane.size().width + style.ioStandoff
+                    xPos = swimlanePositions[step.rightLaneIndex()].x +
+                        swimlaneSizes[step.rightLaneIndex()].width + style.ioStandoff
                   }
                 }
+                const logicalPortPosition = new OrientedCoords(style.verticalSwimlanes)
+                const point1 = new OrientedCoords(style.verticalSwimlanes)
+                const point2 = new OrientedCoords(style.verticalSwimlanes)
+                logicalPortPosition.setCoords(portPosition)
+                point1.setCoords({
+                  x: xPos,
+                  y: step.logicalPosition().y + logicalPortPosition.y()
+                })
+                point2.setCoords({
+                  x: xPos,
+                  y: infoLink.information().logicalCentre().y
+                })
                 const vertices = [{ // force link to pass through point just to left of Outputs swimlane
-                  x: xPos,
-                  y: step.position().y + portPosition.y
+                  x: point1.x(),
+                  y: point1.y()
                 }, {
-                  x: xPos,
-                  y: infoLink.information().centre().y
+                  x: point2.x(),
+                  y: point2.y()
                 }]
                 const graphLink = graph.createIOLink(
                   infoLink,
@@ -575,10 +638,10 @@ export class Diagram {
 
         function getActorLanes (actorSet, dimensions, style) {
           const actorLanes = []
-          const position = {
-            x: dimensions.phaseLabelWidth,
-            y: 0
-          }
+          const position = new OrientedCoords(style.verticalSwimlanes)
+          position.setX(dimensions.phaseLabelWidth)
+          const ioLaneDimensions = new OrientedDimensions(style.verticalSwimlanes)
+          ioLaneDimensions.setDimensions({width: dimensions.ioLaneWidth, height: dimensions.diagramSize.height})
           let index = 0
           //
           // Create lane for inputs
@@ -586,25 +649,28 @@ export class Diagram {
           actorLanes.push(graph.createActorLane(
             null,
             style.inputSwimlaneLabel,
-            dimensions.ioLaneWidth,
-            dimensions.diagramSize.height,
+            ioLaneDimensions.width(),
+            ioLaneDimensions.height(),
             index++,
-            position,
+            position.coords(),
             dimensions.swimlaneWatermarkSpacing))
-          position.x += dimensions.ioLaneWidth
+          position.increaseX(ioLaneDimensions.logicalWidth())
           //
           // Create lanes for the actors
           //
           actorSet.actors().forEach(function (actor) {
+            const swimlaneDimensions = new OrientedDimensions(style.verticalSwimlanes)
+            swimlaneDimensions.setDimensions({width: dimensions.swimlaneWidth * actor.numSwimlanes(),
+                                              height: dimensions.diagramSize.height})
             actorLanes.push(graph.createActorLane(
               actor,
               actor.name(),
-              dimensions.swimlaneWidth * actor.numSwimlanes(),
-              dimensions.diagramSize.height,
+              swimlaneDimensions.width(),
+              swimlaneDimensions.height(),
               index++,
-              position,
+              position.coords(),
               dimensions.swimlaneWatermarkSpacing))
-            position.x += dimensions.swimlaneWidth * actor.numSwimlanes()
+            position.increaseX(swimlaneDimensions.logicalWidth())
           })
           //
           // Create lane for outputs
@@ -612,10 +678,10 @@ export class Diagram {
           actorLanes.push(graph.createActorLane(
             null,
             style.outputSwimlaneLabel,
-            dimensions.ioLaneWidth,
-            dimensions.diagramSize.height,
+            ioLaneDimensions.width(),
+            ioLaneDimensions.height(),
             index++,
-            position,
+            position.coords(),
             dimensions.swimlaneWatermarkSpacing))
 
           return actorLanes
@@ -623,42 +689,45 @@ export class Diagram {
 
         function getSwimlanes (swimlaneSet, dimensions) {
           const swimlanes = []
-          const position = {
-            x: dimensions.phaseLabelWidth,
-            y: 0
-          }
+          const position = new OrientedCoords(dimensions.verticalSwimlanes)
+          position.setX(dimensions.phaseLabelWidth)
+          const ioLaneDimensions = new OrientedDimensions(dimensions.verticalSwimlanes)
+          ioLaneDimensions.setDimensions({width: dimensions.ioLaneWidth, height: dimensions.diagramSize.height})
           let index = 0
           //
           // Create swimlane for inputs
           //
           swimlanes.push(graph.createSwimlane(
             null,
-            dimensions.ioLaneWidth,
-            dimensions.diagramSize.height,
+            ioLaneDimensions.width(),
+            ioLaneDimensions.height(),
             index++,
-            position))
-          position.x += dimensions.ioLaneWidth
+            position.coords()))
+          position.increaseX(ioLaneDimensions.logicalWidth())
           //
           // Create swimlanes for the actors
           //
           swimlaneSet.swimlanes().forEach(function (swimlane) {
+            const swimlaneDimensions = new OrientedDimensions(dimensions.verticalSwimlanes)
+            swimlaneDimensions.setDimensions({width: dimensions.swimlaneWidth,
+                                              height: dimensions.diagramSize.height})
             swimlanes.push(graph.createSwimlane(
               swimlane,
-              dimensions.swimlaneWidth,
-              dimensions.diagramSize.height,
+              swimlaneDimensions.width(),
+              swimlaneDimensions.height(),
               index++,
-              position))
-            position.x += dimensions.swimlaneWidth
+              position.coords()))
+              position.increaseX(swimlaneDimensions.logicalWidth())
           })
           //
           // Create swimlane for outputs
           //
           swimlanes.push(graph.createSwimlane(
             null,
-            dimensions.ioLaneWidth,
-            dimensions.diagramSize.height,
+            ioLaneDimensions.width(),
+            ioLaneDimensions.height(),
             index++,
-            position))
+            position.coords()))
 
           return swimlanes
         }
@@ -888,11 +957,20 @@ class Row {
     function IOHeight (information, style, stepName, infoType) {
       let height = 0
       information.forEach(function (infoLink) {
-        infoLink.information().setSize(style.elementSizes[infoLink.information().type()])
-        if (infoLink.information().size() === undefined) {
+        //
+        // Width and Height of elements are not rotated when drawing horizontal swimlanes
+        // So create "oriented" dimensions that are not rotated with horizontal swimlanes
+        //
+        const infoSize = style.elementSizes[infoLink.information().type()]
+        if (infoSize === undefined) {
           throw new Error('Step "' + stepName + '" has "' + infoType + '" "' + infoLink.information().name() + '" with unrecognised element type "' + infoLink.information().type() + '"')
         }
-        height += infoLink.information().size().height
+        const rotatedSize = new OrientedDimensions(style.verticalSwimlanes)
+        rotatedSize.setDimensions(infoSize)
+        const unrotatedSize = new OrientedDimensions(style.verticalSwimlanes)
+        unrotatedSize.setDimensions(rotatedSize.dimensions())
+        infoLink.information().setSize(unrotatedSize)
+        height += infoLink.information().logicalSize().height
       })
       height += (information.length - 1) * style.verticalIOSeparation
 
@@ -1291,24 +1369,39 @@ class PhasedRowSet {
         .filter(flow => flow.isOffPageConnection() && flow.target() === step && flow.inputConnector())
         .forEach(flow => {
           const connectorStep = flow.inputConnector()
-          connectorStep.setSize(style.elementSizes[connectorStep.type()])
-          if (connectorStep.size() === undefined) {
+          const connectorSize = style.elementSizes[connectorStep.type()]
+          if (connectorSize === undefined) {
             throw new Error('Step "' + connectorStep.name() + '" has unrecognised element type "' + connectorStep.type() + '"')
           }
+          //
+          // Width and Height of elements are not rotated when drawing horizontal swimlanes
+          // So create "oriented" dimensions that are not rotated with horizontal swimlanes
+          //
+          const rotatedSize = new OrientedDimensions(style.verticalSwimlanes)
+          rotatedSize.setDimensions(connectorSize)
+          const unrotatedSize = new OrientedDimensions(style.verticalSwimlanes)
+          unrotatedSize.setDimensions(rotatedSize.dimensions())
+          connectorStep.setSize(unrotatedSize)
           currentRowSet.addStep(connectorStep)
         })
-      const stepSize = {
-        ...style.elementSizes[step.type()]
-      }
+      const stepSize = style.elementSizes[step.type()]
       if (stepSize === undefined) {
         throw new Error('Step "' + step.name() + '" has unrecognised element type "' + step.type() + '"')
       }
       //
-      // Extend width of step if owned by more than one actor / in multiple swimlanes.
+      // Width and Height of elements are not rotated when drawing horizontal swimlanes
+      // So create "oriented" dimensions that are not rotated with horizontal swimlanes
+      //
+      const rotatedSize = new OrientedDimensions(style.verticalSwimlanes)
+      rotatedSize.setDimensions(stepSize)
+      const unrotatedSize = new OrientedDimensions(style.verticalSwimlanes)
+      unrotatedSize.setDimensions(rotatedSize.dimensions())
+      //
+      // Extend logical width of step if owned by more than one actor / in multiple swimlanes.
       // N.B. multiple swimlanes have been checked to ensure that they are contiguous
       //
-      stepSize.width += (step.swimlanes().length - 1) * style.swimlaneWidth
-      step.setSize(stepSize)
+      unrotatedSize.increaseWidth((step.swimlanes().length - 1) * style.swimlaneWidth)
+      step.setSize(unrotatedSize)
       currentRowSet.addStep(step)
       //
       // Insert off page output connector steps
@@ -1317,10 +1410,19 @@ class PhasedRowSet {
         .filter(flow => flow.isOffPageConnection() && flow.source() === step)
         .forEach(flow => {
           const connectorStep = flow.outputConnector()
-          connectorStep.setSize(style.elementSizes[connectorStep.type()])
-          if (connectorStep.size() === undefined) {
+          const connectorSize = style.elementSizes[connectorStep.type()]
+          if (connectorSize === undefined) {
             throw new Error('Step "' + connectorStep.name() + '" has unrecognised element type "' + connectorStep.type() + '"')
           }
+          //
+          // Width and Height of elements are not rotated when drawing horizontal swimlanes
+          // So create "oriented" dimensions that are not rotated with horizontal swimlanes
+          //
+          const rotatedSize = new OrientedDimensions(style.verticalSwimlanes)
+          rotatedSize.setDimensions(connectorSize)
+          const unrotatedSize = new OrientedDimensions(style.verticalSwimlanes)
+          unrotatedSize.setDimensions(rotatedSize.dimensions())
+          connectorStep.setSize(unrotatedSize)
           currentRowSet.addStep(connectorStep)
         })
     })
