@@ -8,4 +8,4 @@ del src\package.json
 del src\package.json.ejs
 del src\visualization01\visualization.config.json
 del src\visualization01\visualization.config.json.ejs
-del visualizations.zip
+del visualizations*.zip

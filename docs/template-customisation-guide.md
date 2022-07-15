@@ -5,6 +5,7 @@
 *   [Install node modules for template](#install-node-modules-for-template)
 *   [Visualization Template File Customization](#visualization-template-file-customization)
     * [webpack.common.js](#webpackcommonjs)
+    * [webpack.prod.js](#webpackprodjs)
     * [package.json](#packagejson)
     * [src/visualization01/visualization.js](#srcvisualization01visualizationjs)
     * [src/visualization01/visualization.datashape.gql](#srcvisualization01visualizationdatashapegql)
@@ -53,6 +54,14 @@ See the suggestions for customising the __webpack.common.js__ for your chosen te
   * [D3 webpack.common.js](./d3-template-customisation-guide.md#webpackcommonjs)
   * [ECharts webpack.common.js](./echarts-template-customisation-guide.md#webpackcommonjs)
   * [React webpack.common.js](./react-template-customisation-guide.md#webpackcommonjs)
+
+[Table of Contents](#table-of-contents)
+
+## webpack.prod.js
+
+The name of the visualization package file generated each time you rebuild the package is controlled by the *ZipFilesPlugin* defined in this file. You can edit this if you want to give the package file a more meaningful name.
+
+__Note__: If you alter the name of the generated package file, you should update the `.gitignore` file to prevent the binary file being included in the source repository.
 
 [Table of Contents](#table-of-contents)
 
