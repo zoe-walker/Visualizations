@@ -283,6 +283,8 @@ If your visualization needs to perform operations which violate the Content-Secu
 This modification can be performed by applying a MooD XHTML Action Panel with specific JavaScript set the required 'csp' attribute on the iFrame, and by using the URLRewriter module to override the value of the Content-Security-Policy header returned by the iFrame page.
 Specific details of how to do this can be acquired by contacting IIG MooD support.
 
-When crafting an alternative Content-Security-Policy, it is important to ensure that directives are extended in a specific fashion e.g. if the visualization needs to connect to 'mydomain.com' then change connect-src to "'self' mydomain.com" rather than remove the directive. 
+When crafting an alternative Content-Security-Policy, it is important to ensure that directives are extended in a specific fashion e.g. if the visualization needs to connect to 'mydomain.com' then change connect-src to "'self' mydomain.com" rather than remove the directive.
+
+Alternatively, the Content Security Policy can be modified for __all__ Custom Visualizations. For details, read this [wiki article](https://github.com/CACIMooD/Visualizations/wiki/Content-Security-Policies)
 
 [Table of Contents](#table-of-contents)
