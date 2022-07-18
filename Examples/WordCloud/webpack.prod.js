@@ -17,7 +17,7 @@ module.exports = merge(common, {
     new CleanWebpackPlugin(),
     new ZipFilesPlugin({
       path: '..',
-      filename: 'WordCloud-' + process.env.npm_package_version.replace(/\./g, "-")
+      filename: process.env.npm_package_name + '-' + process.env.npm_package_version.replace(/\./g, "-")
   })
 ]
 

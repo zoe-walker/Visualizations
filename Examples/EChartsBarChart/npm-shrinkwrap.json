@@ -1,11 +1,11 @@
 {
-  "name": "echarts-bar-chart-visualization",
+  "name": "echarts-bar-chart",
   "version": "1.0.0",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
-      "name": "echarts-bar-chart-visualization",
+      "name": "echarts-bar-chart",
       "version": "1.0.0",
       "license": "MIT",
       "dependencies": {

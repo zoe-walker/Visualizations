@@ -59,9 +59,11 @@ See the suggestions for customising the __webpack.common.js__ for your chosen te
 
 ## webpack.prod.js
 
-The name of the visualization package file generated each time you rebuild the package is controlled by the *ZipFilesPlugin* defined in this file. You can edit this if you want to give the package file a more meaningful name.
+Editing this file is optional.
 
-__Note__: If you alter the name of the generated package file, you should update the `.gitignore` file to prevent the binary file being included in the source repository.
+The name of the visualization package file generated each time you rebuild the package is controlled by the *ZipFilesPlugin* defined in this file. The package file name is taken from the package name in the `package.json` file and the version number, you can edit this if you want to give the package file a different name.
+
+__Note__: The `.gitignore` file excludes all zip files in the top level folder to prevent the binary files being included in the source repository.
 
 [Table of Contents](#table-of-contents)
 
