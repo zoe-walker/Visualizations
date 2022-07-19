@@ -9,7 +9,7 @@
     "build": "npm version patch && webpack --config webpack.prod.js",
     "rebuild": "webpack --config webpack.prod.js",
     "check-style": "standard \"src/**/*.js\"",
-    "fix-style": "standard \"src/**/*.js\" --fix",
+    "fix-style": "standard \"src/**/*.js\" --verbose --fix",
     "test": "jest",
     "test-init": "jest --init"
   },
@@ -48,7 +48,7 @@
     "jest": "27.3.1",
     "json-loader": "0.5.7",
     "save-dev": "0.0.1-security",
-    "standard": "16.0.1",
+    "standard": "^17.0.0",
     "terser-webpack-plugin": "4.2.3",
     "webpack": "^5.54.0",
     "webpack-cli": "4.9.1",

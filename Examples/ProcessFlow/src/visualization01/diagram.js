@@ -60,13 +60,13 @@ export class Diagram {
 
     const dimensions = {
       width: useableWidth,
-      height: height,
+      height,
       gridSize: style.gridSize,
       processHeaderHeight: drawProcessHeader ? gridAlignedStyle.processHeaderHeight : 0,
-      swimlaneWidth: swimlaneWidth,
+      swimlaneWidth,
       swimlaneWatermarkSpacing: drawWatermark ? style.swimlaneWatermarkSpacing : 0,
-      ioLaneWidth: ioLaneWidth,
-      phaseLabelWidth: phaseLabelWidth,
+      ioLaneWidth,
+      phaseLabelWidth,
       stepGroupPadding: gridAlignedStyle.stepGroupPadding,
       flowLabelSize: gridAlignedStyle.maxFlowLabelSize,
       diagramSize: {
@@ -398,8 +398,8 @@ export class Diagram {
                       flowData.flow.setSequence(
                         flowData.labelText
                           ? flowData.flow.target().index() > flowData.flow.source().index()
-                              ? assignedLabelledDownFlowSequence++
-                              : assignedLabelledUpFlowSequence--
+                            ? assignedLabelledDownFlowSequence++
+                            : assignedLabelledUpFlowSequence--
                           : assignedSequence++)
                     }
                     //
@@ -500,7 +500,7 @@ export class Diagram {
                     coincidentLineSpace: style.router.coincidentLineSpace,
                     targetTolerance: style.router.targetTolerance,
                     jumpOverOnHorizontalLines: style.router.jumpOverOnHorizontalLines,
-                    vertices: vertices
+                    vertices
                   })
                 infoLink.setGraphElement(graphLink)
               })
@@ -558,7 +558,7 @@ export class Diagram {
                     coincidentLineSpace: style.router.coincidentLineSpace,
                     targetTolerance: style.router.targetTolerance,
                     jumpOverOnHorizontalLines: style.router.jumpOverOnHorizontalLines,
-                    vertices: vertices
+                    vertices
                   })
                 infoLink.setGraphElement(graphLink)
               })
@@ -1102,12 +1102,12 @@ class Row {
         outputPorts[sourcePortId].addFlow({
           flow: drawFlow,
           stepStandoff: style.stepStandoff,
-          targetPortId: targetPortId,
-          endDirection: endDirection,
-          flowVerticalDirection: flowVerticalDirection,
-          flowHorizontallDirection: flowHorizontallDirection,
-          verticalDistance: verticalDistance,
-          horizontalDistance: horizontalDistance,
+          targetPortId,
+          endDirection,
+          flowVerticalDirection,
+          flowHorizontallDirection,
+          verticalDistance,
+          horizontalDistance,
           compassDirection: compassDirection(flowVerticalDirection, flowHorizontallDirection)
         }, drawFlow.name())
       })

@@ -131,9 +131,9 @@ export class Swimlane extends BasicElement {
       navigable: actor.navigable()
     })
     const swimlane = {
-      actorLaneIndex: actorLaneIndex,
-      index: index,
-      actor: actor
+      actorLaneIndex,
+      index,
+      actor
     }
 
     this.index = () => swimlane.index
@@ -181,9 +181,9 @@ export class Actor extends BasicElement {
   constructor (actorParam, index, backgroundColour, textColour, numSwimlanes) {
     super(actorParam)
     const actor = {
-      index: index,
-      backgroundColour: backgroundColour,
-      textColour: textColour,
+      index,
+      backgroundColour,
+      textColour,
       numSwimlanes: numSwimlanes || 1
     }
 
@@ -265,7 +265,7 @@ export class Information extends Element {
   constructor (information, originalId) {
     super(information)
     const info = {
-      originalId: originalId,
+      originalId,
       isInput: this.id() === originalId ? undefined : information.isInput // isInput only applicable to copies
     }
 
@@ -353,8 +353,8 @@ export class Link extends BasicElement {
   constructor (linkData, source, target) {
     super(linkData)
     const link = {
-      source: source,
-      target: target
+      source,
+      target
     }
 
     this.source = () => link.source
@@ -403,7 +403,7 @@ export class OffPageFlow extends Flow {
   constructor (flowData, sourceStep, targetStep, originalId) {
     super(flowData, sourceStep, targetStep)
     const offPageFlow = {
-      originalId: originalId
+      originalId
     }
 
     this.originalId = () => offPageFlow.originalId
@@ -418,8 +418,8 @@ export class IOLink extends Link {
       super(ioLinkData, step, info)
     }
     const ioLink = {
-      info: info,
-      step: step,
+      info,
+      step,
       isFlow: ioLinkData.isFlow
     }
 
@@ -692,7 +692,7 @@ export class LinkSet {
         id: linkId,
         name: linkLabel || null,
         navigable: false,
-        isFlow: isFlow
+        isFlow
       }
       const infoLink = new IOLink(ioLinkData, info, step)
       step.addInput(infoLink)
@@ -752,7 +752,7 @@ export class LinkSet {
         id: linkId,
         name: linkLabel,
         navigable: false,
-        isFlow: isFlow
+        isFlow
       }
       const infoLink = new IOLink(ioLinkData, info, step)
       step.addOutput(infoLink)
@@ -791,12 +791,12 @@ export class Step extends Element {
   constructor (stepParam, index, swimlanes, phase) {
     super(stepParam)
     const step = {
-      index: index,
-      swimlanes: swimlanes,
+      index,
+      swimlanes,
       width: undefined,
       group: undefined,
       flows: [],
-      phase: phase,
+      phase,
       inputs: [],
       outputs: [],
       inputPorts: {},
@@ -917,7 +917,7 @@ export class OffPageConnector extends Step {
   constructor (stepParam, index, swimlanes, phase, group, originalId) {
     super(stepParam, index, swimlanes, phase)
     const offPageConnector = {
-      originalId: originalId
+      originalId
     }
     this.setGroup(group)
     // console.log('Connector: ' + this.name() + ', group: ' + (this.group() ? this.group().name() : 'N/A'))

@@ -21,7 +21,7 @@ export function visualization (config) {
   let process
 
   const diagramConfig = {
-    config: config
+    config
   }
 
   try {

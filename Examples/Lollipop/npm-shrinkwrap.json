@@ -27,7 +27,7 @@
                 "html-webpack-plugin": "5.5.0",
                 "jest": "27.3.1",
                 "json-loader": "0.5.7",
-                "standard": "16.0.3",
+                "standard": "^16.0.3",
                 "uuid": "8.3.2",
                 "webpack": "^5.54.0",
                 "webpack-cli": "4.9.1",
@@ -11412,6 +11412,20 @@
             "resolved": "https://registry.npmjs.org/standard/-/standard-16.0.3.tgz",
             "integrity": "sha512-70F7NH0hSkNXosXRltjSv6KpTAOkUkSfyu3ynyM5dtRUiLtR+yX9EGZ7RKwuGUqCJiX/cnkceVM6HTZ4JpaqDg==",
             "dev": true,
+            "funding": [
+                {
+                    "type": "github",
+                    "url": "https://github.com/sponsors/feross"
+                },
+                {
+                    "type": "patreon",
+                    "url": "https://www.patreon.com/feross"
+                },
+                {
+                    "type": "consulting",
+                    "url": "https://feross.org/support"
+                }
+            ],
             "dependencies": {
                 "eslint": "~7.13.0",
                 "eslint-config-standard": "16.0.2",

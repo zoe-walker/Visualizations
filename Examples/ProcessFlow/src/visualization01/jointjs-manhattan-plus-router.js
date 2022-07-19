@@ -70,10 +70,10 @@ const config = {
     const cost = this.cost()
 
     return [
-      { offsetX: step, offsetY: 0, cost: cost },
-      { offsetX: -step, offsetY: 0, cost: cost },
-      { offsetX: 0, offsetY: step, cost: cost },
-      { offsetX: 0, offsetY: -step, cost: cost }
+      { offsetX: step, offsetY: 0, cost },
+      { offsetX: -step, offsetY: 0, cost },
+      { offsetX: 0, offsetY: step, cost },
+      { offsetX: 0, offsetY: -step, cost }
     ]
   },
 
@@ -279,12 +279,12 @@ LineMap.prototype.build = function (paper, linkModel) {
           map[gridKey] = map[gridKey] || []
           map[gridKey].push({
             line: roundedLine,
-            isEndLine: isEndLine,
-            isFirstLine: isFirstLine,
-            isLastLine: isLastLine,
+            isEndLine,
+            isFirstLine,
+            isLastLine,
             source: route.source,
             target: route.target,
-            route: route,
+            route,
             rawLine: line
           })
         }

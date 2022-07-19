@@ -161,9 +161,9 @@ function defineActor (renderSwimlaneWatermarks) {
     })
   }
   return joint.dia.Element.define('MooD.Actor', {
-    attrs: attrs
+    attrs
   }, {
-    markup: markup
+    markup
   })
 }
 

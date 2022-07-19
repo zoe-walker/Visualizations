@@ -51,7 +51,7 @@ export function visualization (config) {
   //
   // This based on the ECharts Bar with Background chart - https://echarts.apache.org/examples/en/index.html#chart-type-bar
   //
-  const chart = echarts.init(el, null, { renderer: 'canvas', width: width, height: height })
+  const chart = echarts.init(el, null, { renderer: 'canvas', width, height })
 
   const option = {
     animation: config.animation,

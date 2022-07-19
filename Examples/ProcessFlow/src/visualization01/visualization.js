@@ -26,9 +26,9 @@ export function visualization (config) {
   let highlighter
 
   const diagramConfig = {
-    config: config,
+    config,
     handleClickEvent: handleClickEvents,
-    otherOffPageConnector: otherOffPageConnector
+    otherOffPageConnector
   }
 
   const superInputChanged = config.functions.inputChanged
