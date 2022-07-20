@@ -6,7 +6,7 @@ import * as Sides from './jointjs-side-types'
 import * as ActivityGroup from './group-label'
 import * as FlowGroup from './flowGroups'
 import * as Config from './flow-config'
-import {OrientedDimensions, OrientedCoords} from './oriented' 
+import { OrientedDimensions, OrientedCoords } from './oriented'
 
 function alignValueUp (value, gridSize) {
   return Math.floor((value + gridSize - 1) / gridSize) * gridSize
@@ -196,7 +196,7 @@ export class Diagram {
           const phasePosition = new OrientedCoords(dimensions.verticalSwimlanes)
           phasedRowSet.rowSets().forEach(function (rowSet) {
             const phaseSize = new OrientedDimensions(dimensions.verticalSwimlanes)
-            phaseSize.setDimensions({width: dimensions.phaseLabelWidth, height: rowSet.height()})
+            phaseSize.setDimensions({ width: dimensions.phaseLabelWidth, height: rowSet.height() })
             graph.createLabel(
               rowSet.phase(),
               phaseSize.width(),
@@ -275,7 +275,7 @@ export class Diagram {
         phasedRowSet.rowSets().forEach(function (phase) {
           const phaseHeight = phase.height()
           const phaseMarkerDimensions = new OrientedDimensions(style.verticalSwimlanes)
-          phaseMarkerDimensions.setDimensions({width: dimensions.width, height: 1})
+          phaseMarkerDimensions.setDimensions({ width: dimensions.width, height: 1 })
           const phaseMarkerPosition = new OrientedCoords(style.verticalSwimlanes)
           phaseMarkerPosition.setY(phasePosition.logicalY() + phaseHeight - 1)
 
@@ -641,7 +641,7 @@ export class Diagram {
           const position = new OrientedCoords(style.verticalSwimlanes)
           position.setX(dimensions.phaseLabelWidth)
           const ioLaneDimensions = new OrientedDimensions(style.verticalSwimlanes)
-          ioLaneDimensions.setDimensions({width: dimensions.ioLaneWidth, height: dimensions.diagramSize.height})
+          ioLaneDimensions.setDimensions({ width: dimensions.ioLaneWidth, height: dimensions.diagramSize.height })
           let index = 0
           //
           // Create lane for inputs
@@ -660,8 +660,10 @@ export class Diagram {
           //
           actorSet.actors().forEach(function (actor) {
             const swimlaneDimensions = new OrientedDimensions(style.verticalSwimlanes)
-            swimlaneDimensions.setDimensions({width: dimensions.swimlaneWidth * actor.numSwimlanes(),
-                                              height: dimensions.diagramSize.height})
+            swimlaneDimensions.setDimensions({
+              width: dimensions.swimlaneWidth * actor.numSwimlanes(),
+              height: dimensions.diagramSize.height
+            })
             actorLanes.push(graph.createActorLane(
               actor,
               actor.name(),
@@ -692,7 +694,7 @@ export class Diagram {
           const position = new OrientedCoords(dimensions.verticalSwimlanes)
           position.setX(dimensions.phaseLabelWidth)
           const ioLaneDimensions = new OrientedDimensions(dimensions.verticalSwimlanes)
-          ioLaneDimensions.setDimensions({width: dimensions.ioLaneWidth, height: dimensions.diagramSize.height})
+          ioLaneDimensions.setDimensions({ width: dimensions.ioLaneWidth, height: dimensions.diagramSize.height })
           let index = 0
           //
           // Create swimlane for inputs
@@ -709,15 +711,17 @@ export class Diagram {
           //
           swimlaneSet.swimlanes().forEach(function (swimlane) {
             const swimlaneDimensions = new OrientedDimensions(dimensions.verticalSwimlanes)
-            swimlaneDimensions.setDimensions({width: dimensions.swimlaneWidth,
-                                              height: dimensions.diagramSize.height})
+            swimlaneDimensions.setDimensions({
+              width: dimensions.swimlaneWidth,
+              height: dimensions.diagramSize.height
+            })
             swimlanes.push(graph.createSwimlane(
               swimlane,
               swimlaneDimensions.width(),
               swimlaneDimensions.height(),
               index++,
               position.coords()))
-              position.increaseX(swimlaneDimensions.logicalWidth())
+            position.increaseX(swimlaneDimensions.logicalWidth())
           })
           //
           // Create swimlane for outputs

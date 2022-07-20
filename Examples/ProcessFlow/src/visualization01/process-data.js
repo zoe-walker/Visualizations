@@ -1,8 +1,6 @@
 import * as Types from './element-types'
 import * as ActivityGroup from './group-label'
 import * as Sides from './jointjs-side-types'
-import { OrientedDimensions, OrientedCoords } from './oriented'
-// import * as FlowGroup from './flowGroups'
 
 export const partitionLeft = 'left'
 export const partitionRight = 'right'
@@ -116,14 +114,14 @@ export class Element extends BasicElement {
     }
     /**
      * Set the dimensions of the element
-     * @param {OrientedDimensions} size 
+     * @param {OrientedDimensions} size
      */
     this.setSize = function (size) {
       element.size = size
     }
     /**
      * Set the position (top left corner) of the element
-     * @param {OrientedCoords} position 
+     * @param {OrientedCoords} position
      */
     this.setPosition = function (position) {
       element.position = position
@@ -1196,7 +1194,7 @@ export class StepGroup extends BasicElement {
       }
     }
     /**
-     * Find best position for label 
+     * Find best position for label
      * @param {boolean} isVerticalSwimlane indicates if swimlanes are drawn vertically or horizontally
      * @returns label position of the free corner with the most space (lanes),
      * or undefined if there are no free corners

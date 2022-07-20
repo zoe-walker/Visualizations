@@ -10,17 +10,17 @@ export class OrientedDimensions {
 
     /**
      * Set logical width dimension
-     * @param {int} widthParam 
+     * @param {int} widthParam
      */
     this.setWidth = function (widthParam) {
-        width = widthParam
+      width = widthParam
     }
     /**
      * Set logical height dimension
-     * @param {int} heightParam 
+     * @param {int} heightParam
      */
     this.setHeight = function (heightParam) {
-        height = heightParam
+      height = heightParam
     }
     /**
      * Set logical dimensions
@@ -35,26 +35,24 @@ export class OrientedDimensions {
     this.height = () => isVerticalSwimlane ? height : width
     this.logicalHeight = () => height
     this.dimensions = function () {
-      return {
-        width: this.width(), height: this.height()}
+      return { width: this.width(), height: this.height() }
     }
     this.logicalDimensions = function () {
-      return {
-        width: this.logicalWidth(), height: this.logicalHeight()}
+      return { width: this.logicalWidth(), height: this.logicalHeight() }
     }
     /**
      * Increase logical width
-     * @param {int} widthOffset 
+     * @param {int} widthOffset
      */
     this.increaseWidth = function (widthOffset) {
-        width += widthOffset
+      width += widthOffset
     }
     /**
      * Increase logical height
-     * @param {int} HeightOffset 
+     * @param {int} HeightOffset
      */
     this.increaseHeight = function (HeightOffset) {
-        height += HeightOffset
+      height += HeightOffset
     }
   }
 }
@@ -64,24 +62,24 @@ export class OrientedDimensions {
  * For vertical swimlanes, logical x coordinate (of swimlane) is the x coordinate (horizontal axis)
  * and for horizontal swimlanes, logical x coordinate (of swimlane) is the y coordinate (vertical axis)
  */
- export class OrientedCoords {
+export class OrientedCoords {
   constructor (isVerticalSwimlane) {
     let x = 0
     let y = 0
 
     /**
      * Set logical x coordinate
-     * @param {int} xParam 
+     * @param {int} xParam
      */
     this.setX = function (xParam) {
-        x = xParam
+      x = xParam
     }
     /**
      * Set logical height dimension
-     * @param {int} yParam 
+     * @param {int} yParam
      */
     this.setY = function (yParam) {
-        y = yParam
+      y = yParam
     }
     /**
      * Set logical coordinates
@@ -96,26 +94,24 @@ export class OrientedDimensions {
     this.y = () => isVerticalSwimlane ? y : x
     this.logicalY = () => y
     this.coords = function () {
-      return {
-        x: this.x(), y: this.y()}
+      return { x: this.x(), y: this.y() }
     }
     this.logicalCoords = function () {
-      return {
-        x: this.logicalX(), y: this.logicalY()}
+      return { x: this.logicalX(), y: this.logicalY() }
     }
     /**
      * Increase logical x coordinate
-     * @param {int} xOffset 
+     * @param {int} xOffset
      */
     this.increaseX = function (xOffset) {
-        x += xOffset
+      x += xOffset
     }
     /**
      * Increase logical y coordinate
-     * @param {int} yOffset 
+     * @param {int} yOffset
      */
     this.increaseY = function (yOffset) {
-        y += yOffset
+      y += yOffset
     }
   }
 }
