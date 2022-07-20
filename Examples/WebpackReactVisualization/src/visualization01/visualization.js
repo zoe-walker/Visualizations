@@ -5,7 +5,7 @@
 
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts'
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 //
 //    Entry function declaration
 //
@@ -30,5 +30,6 @@ export function visualization (config) {
     </LineChart>
   )
   //         console.log(JSON.stringify(renderLineChart, function(key, val) { return (typeof val === 'function') ? '[function]'  : val; }, 4));
-  ReactDOM.render(renderLineChart, document.getElementById(config.element))
+  const root = createRoot(document.getElementById(config.element))
+  root.render(renderLineChart)
 }
