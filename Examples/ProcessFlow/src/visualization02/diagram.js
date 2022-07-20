@@ -34,12 +34,12 @@ export class Diagram {
 
     const dimensions = {
       width: useableWidth,
-      height: height,
+      height,
       gridSize: style.gridSize,
       processHeaderHeight: gridAlignedStyle.processHeaderHeight,
-      swimlaneWidth: swimlaneWidth,
-      ioLaneWidth: ioLaneWidth,
-      phaseLabelWidth: phaseLabelWidth
+      swimlaneWidth,
+      ioLaneWidth,
+      phaseLabelWidth
     }
     const htmlElements = {
       containerElement: elementId,

@@ -50,14 +50,14 @@ export function visualization (config) {
   let chart
   let option
   try {
-    const width = parseFloat(config.width)
-    const height = parseFloat(config.height)
+    const containerWidth = parseFloat(config.width)
+    const containerHeight = parseFloat(config.height)
 
     config.functions.inputChanged = inputChanged
 
     buildData(config.data, seriesData, flatData)
 
-    let treeDepth = config.inputs.maxDepth || 2
+    const treeDepth = config.inputs.maxDepth || 2
     console.log('Initial depth = ' + treeDepth)
     expand(flatData, treeDepth)
 
@@ -65,7 +65,7 @@ export function visualization (config) {
     //
     // This based on the ECharts Radial Tree chart - https://echarts.apache.org/examples/en/editor.html?c=tree-radial
     //
-    chart = echarts.init(el, null, { renderer: 'canvas', width: width, height: height })
+    chart = echarts.init(el, null, { renderer: 'canvas', width: containerWidth, height: containerHeight })
 
     chart.hideLoading()
     option = {
@@ -149,15 +149,15 @@ export function visualization (config) {
  */
 function buildData (moodData, seriesData, flatData) {
   const nodeDictionary = {}
-  function flatNode (node, level) {
+  function flatNode (nodeParam, levelParam) {
     return {
-      node: node,
-      level: level
+      node: nodeParam,
+      level: levelParam
     }
   }
 
   function hierarchicalNode (link) {
-    const node = {name: link.target.name}
+    const node = { name: link.target.name }
     if (link.target.value) {
       node.value = link.target.value
     }
@@ -211,5 +211,3 @@ function collapse (flatData, maxLevel) {
 function expand (flatData, maxLevel) {
   flatData.filter(node => node.level < maxLevel).forEach(function (node) { node.node.collapsed = false })
 }
-
-

@@ -17,7 +17,7 @@ module.exports = merge(common, {
     new CleanWebpackPlugin(),
     new ZipFilesPlugin({
       path: '..',
-      filename: 'visualizations'
+      filename: process.env.npm_package_ + '-' + process.env.npm_package_version.replace(/\./g, "-")
   })
 ]
 

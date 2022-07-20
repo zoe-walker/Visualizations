@@ -31,8 +31,8 @@ class CellCollection {
 class Cell {
   constructor (graphElement, isPrimary) {
     const cellData = {
-      graphElement: graphElement,
-      isPrimary: isPrimary
+      graphElement,
+      isPrimary
     }
     this.highlight = () => cellData.graphElement && cellData.graphElement.highlight(cellData.isPrimary)
     this.unhighlight = () => cellData.graphElement && cellData.graphElement.unhighlight(cellData.isPrimary)

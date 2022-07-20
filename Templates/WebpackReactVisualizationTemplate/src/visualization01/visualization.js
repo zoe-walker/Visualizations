@@ -1,23 +1,25 @@
 //
 // TODO: Add import statements for chosen React chart library
 //
-import x from '<chart library>';
-import React from 'react';
-import ReactDOM from 'react-dom';
+import x from '<chart library>'
+import React from 'react'
+import { createRoot } from 'react-dom/client'
 //
 //    Entry function declaration
 //
-export function visualization(config) {
- 
-  var data = config.data;
-  var style = config.style;
-  var width = parseFloat(config.width);
-  var height = parseFloat(config.height);
-  var animation = config.animation;
- 
-  //console.log(JSON.stringify(config));
+export function visualization (config) {
+  const data = config.data
+  const style = config.style
+  const width = parseFloat(config.width)
+  const height = parseFloat(config.height)
+  const animation = config.animation
+  const containerElementId = config.element
+
+  // console.log(JSON.stringify(config));
   //
   // TODO: Add chart code here
   //
-  }
-
+  // const chart = (<JSX.Element>)
+  const root = createRoot(document.getElementById(containerElementId))
+  root.render(chart)
+}

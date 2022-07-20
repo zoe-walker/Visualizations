@@ -212,7 +212,7 @@ export class StretchedChord {
         } while (vars.tooSmall !== vars.oldTooSmall)
 
         return {
-          totalAvailableAngle: totalAvailableAngle,
+          totalAvailableAngle,
           minimumSizeProportion: vars.minimumSizeProportion,
           minimumProportionAdjustment: vars.minimumProportionAdjustment,
           sizeUsed: vars.sizeUsed

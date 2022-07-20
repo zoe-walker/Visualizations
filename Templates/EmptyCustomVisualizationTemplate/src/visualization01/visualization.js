@@ -19,13 +19,13 @@ export function visualization (config) {
   if (!config.animation) {
     // Sometimes you need to draw differently when inside Business Architect. For example without animations.
   }
-  
-  // Add a DIV to show the vis is working
-  var testDiv = document.createElement('div');
-  testDiv.style.width = '100%';
-  testDiv.style.height = '100%';
-  testDiv.innerText = 'Place your visualization here again';
 
-  var el = document.getElementById(config.element);
-  el.appendChild(testDiv);
+  // Add a DIV to show the vis is working
+  const testDiv = document.createElement('div')
+  testDiv.style.width = '100%'
+  testDiv.style.height = '100%'
+  testDiv.innerText = 'Place your visualization here again'
+
+  const el = document.getElementById(config.element)
+  el.appendChild(testDiv)
 }

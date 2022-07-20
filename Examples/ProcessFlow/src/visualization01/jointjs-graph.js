@@ -73,7 +73,7 @@ export class GraphCell {
       return {
         name: 'addClass',
         options: {
-          className: className
+          className
         }
       }
     }
@@ -181,7 +181,7 @@ export class Graph {
       model: graph,
       width: diagramSize.width,
       height: diagramSize.height,
-      gridSize: gridSize,
+      gridSize,
       // validateConnection: function(cellViewS, magnetS, cellViewT, magnetT, end, linkView) {
       //     // Only permit linking from output ports.
       //     if (magnetS && magnetS.getAttribute('port-group').substring(0, 2) !== 'out') {
@@ -327,7 +327,7 @@ export class Graph {
       }
 
       if (element && (!otherConnector || (graphCell && !graphCell.isHighlighted()))) {
-        clickEvent({ element: element, event: evt.originalEvent.originalEvent })
+        clickEvent({ element, event: evt.originalEvent.originalEvent })
       }
       // events.handleHighlighting.call(events.handleHighlighting, [model.id]);
 
@@ -544,8 +544,8 @@ export class Graph {
         jointElement,
         {
           label: element.name(),
-          size: size,
-          font: font,
+          size,
+          font,
           ellipsis: true
         })
 
@@ -577,7 +577,7 @@ export class Graph {
         label,
         {
           label: phase.name(),
-          size: size,
+          size,
           font: sizeConfig.phase,
           ellipsis: true
         })
@@ -658,7 +658,7 @@ export class Graph {
       actorLane.resize(width, height)
       const attributes = {
         body: {
-          even: even
+          even
         }
       }
       //
@@ -671,8 +671,8 @@ export class Graph {
         const watermarkText = elementLabel(
           actorLane,
           {
-            label: label,
-            size: { width: width, height: repeatSpacing },
+            label,
+            size: { width, height: repeatSpacing },
             font: sizeConfig.swimlane,
             ellipsis: true
           })
@@ -685,7 +685,7 @@ export class Graph {
         }
         attributes.text = {
           text: watermarkText,
-          even: even
+          even
         }
         if (watermarkTextColour) {
           attributes.text.style = {
@@ -797,7 +797,7 @@ export class Graph {
     function createLink (link, routerOptions, labelOptions, lineOptions) {
       const connectorName = routerOptions.connectorName === undefined ? 'jumpover' : routerOptions.connectorName
       const jumpOverOnHorizontalLines = routerOptions.jumpOverOnHorizontalLines !== undefined ? routerOptions.jumpOverOnHorizontalLines : true
-      const connectorOptions = { size: 5, jump: 'arc', radius: 0, jumpOverOnHorizontalLines: jumpOverOnHorizontalLines }
+      const connectorOptions = { size: 5, jump: 'arc', radius: 0, jumpOverOnHorizontalLines }
       const routerName = routerOptions.routerName
       const vertices = routerOptions.vertices === undefined ? [] : routerOptions.vertices
       const id = { id: link.id() }
@@ -878,7 +878,7 @@ export class Graph {
           coincidentLineSpace: options.coincidentLineSpace,
           targetTolerance: options.targetTolerance,
           jumpOverOnHorizontalLines: options.jumpOverOnHorizontalLines,
-          vertices: vertices
+          vertices
         },
         {
           text: options.labelText,

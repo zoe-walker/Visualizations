@@ -1,4 +1,6 @@
 REM Cleans all auto-generated files.
+REM Currently named with a TXT extension to avoid issues with downloading batch files to secure environments
+REM Rename to clean.bat if you want to execute this
 
 rd /q /s dist
 rd /q /s node_modules

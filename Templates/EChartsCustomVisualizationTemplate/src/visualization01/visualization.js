@@ -8,7 +8,6 @@ import * as echarts from 'echarts'
  * @param {object} config MooD visualisation config object
  */
 export function visualization (config) {
-
   // const inputs = config.inputs
   // const style = config.style
   const width = parseFloat(config.width)
@@ -19,9 +18,9 @@ export function visualization (config) {
   // Add a basic chart to show the vis is working
   // This example is the ECharts basic bar chart - https://echarts.apache.org/examples/en/editor.html?c=bar-simple
   //
-  var chart = echarts.init(el, null, { renderer: 'canvas', width: width, height: height });
-  
-  var option = {
+  const chart = echarts.init(el, null, { renderer: 'canvas', width, height })
+
+  const option = {
     animation: config.animation,
     xAxis: {
       type: 'category',
@@ -36,7 +35,7 @@ export function visualization (config) {
         type: 'bar'
       }
     ]
-  };
+  }
 
-  chart.setOption(option);
+  chart.setOption(option)
 }
