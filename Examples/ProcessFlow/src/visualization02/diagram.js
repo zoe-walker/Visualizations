@@ -81,7 +81,13 @@ export class Diagram {
 
     this.draw = function () {
       const startTime = Date.now()
-      // layoutHeader(process, dimensions, htmlElements)
+      if (style.verticalSwimlanes) {
+        //
+        // Only draw process header for vertical swimlanes
+        // For Horizontal swimlanes, rely on separate panel to display process specific info
+        //
+        layoutHeader(process, dimensions, htmlElements)
+      }
       layoutSwimlaneLabels(process, dimensions, style, htmlElements.swimlaneHeaderElement)
 
       function layoutHeader (process, dimensions, htmlElements) {
