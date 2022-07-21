@@ -1,4 +1,4 @@
-import {OrientedDimensions, OrientedCoords} from '../visualization01/oriented' 
+import { OrientedDimensions, OrientedCoords } from '../visualization01/oriented'
 
 function alignValueUp (value, gridSize) {
   return Math.floor((value + gridSize - 1) / gridSize) * gridSize
@@ -37,8 +37,8 @@ export class Diagram {
     gridAlignedStyle.outputSwimlaneLabel = gridAlignedStyle.outputSwimlaneLabel || 'Outputs'
     const containerSize = new OrientedDimensions(style.verticalSwimlanes)
     containerSize.setDimensions({
-      width: width,
-      height: height
+      width,
+      height
     })
     const headerSize = new OrientedDimensions(style.verticalSwimlanes)
     headerSize.setDimensions({
@@ -244,9 +244,9 @@ export class Diagram {
             nameEl.style.color = actor.textColour()
           }
         }
-    }
+      }
 
-    console.log('Draw diagram complete in ' + (Date.now() - startTime) / 1000 + ' seconds')
+      console.log('Draw diagram complete in ' + (Date.now() - startTime) / 1000 + ' seconds')
     }
   }
 }

@@ -29,7 +29,7 @@ export function defineShapes (gridSize, elementSizes, renderSwimlaneWatermarks, 
   ProcessShape = defineProcess()
   DecisionShape = defineDecision()
   VerticalLabelShape = defineVerticalLabel(verticalSwimlanes)
-  PhaseExtentShape = definePhaseExtent()
+  PhaseExtentShape = definePhaseExtent(verticalSwimlanes)
   ExternalDataShape = defineExternalData()
   DatabaseShape = defineDatabase()
   DocumentShape = defineDocument()
@@ -712,19 +712,25 @@ export function defineVerticalLabel (verticalSwimlanes) {
       tagName: 'title',
       selector: 'title'
     }]
-  }    
+  }
   if (verticalSwimlanes) {
     labelDefaults.attrs.label.transform = 'rotate(-90)'
   }
   return joint.dia.Element.define('MooD.VLabel', labelDefaults, labelProtoProps)
 }
 
-export function definePhaseExtent () {
+export function definePhaseExtent (verticalSwimlanes) {
+  let path
+  if (verticalSwimlanes) {
+    path = 'L 100 0'
+  } else {
+    path = 'L 0 100'
+  }
   return joint.dia.Element.define('MooD.PhaseExtent', {
     attrs: {
       path: {
         refDResetOffset:
-                  'L 100 0'
+                  path
       }
     }
   }, {

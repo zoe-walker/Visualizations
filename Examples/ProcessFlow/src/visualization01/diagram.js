@@ -61,12 +61,12 @@ export class Diagram {
       ? true
       : gridAlignedStyle.horizontalDecisionsAllowed
 
-      const diagramSize = new OrientedDimensions(style.verticalSwimlanes)
-      diagramSize.setDimensions({
-        width: useableWidth,
-        height: 0 // Will be updated after height of diagram has been calculated
-      })
-      const dimensions = {
+    const diagramSize = new OrientedDimensions(style.verticalSwimlanes)
+    diagramSize.setDimensions({
+      width: useableWidth,
+      height: 0 // Will be updated after height of diagram has been calculated
+    })
+    const dimensions = {
       verticalSwimlanes: style.verticalSwimlanes,
       width: useableWidth,
       height,
@@ -78,7 +78,7 @@ export class Diagram {
       phaseLabelWidth,
       stepGroupPadding: gridAlignedStyle.stepGroupPadding,
       flowLabelSize: gridAlignedStyle.maxFlowLabelSize,
-      diagramSize: diagramSize
+      diagramSize
     }
     const htmlElements = {
       containerElement: elementId,

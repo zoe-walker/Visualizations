@@ -569,7 +569,7 @@ export class Graph {
     this.createLabel = function (phase, width, height, position) {
       const id = { id: phase.id() }
       const labelSize = new OrientedDimensions(verticalSwimlanes)
-      labelSize.setDimensions({width, height})
+      labelSize.setDimensions({ width, height })
       const size = {
         width: labelSize.height(),
         height: labelSize.width()
