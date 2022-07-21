@@ -669,12 +669,12 @@ export class Graph {
       //
       if (repeatSpacing > 0) {
         const actorSize = new OrientedDimensions(verticalSwimlanes)
-        actorSize.setDimensions({width, height})
+        actorSize.setDimensions({ width, height })
         const repeatCount = actorSize.height() / repeatSpacing
         const repeatRatio = 1 / repeatCount
         const textId = (actor ? actor.id() : label) + '-swimlane-text'
         const watermarkSize = new OrientedDimensions(verticalSwimlanes)
-        watermarkSize.setDimensions({width: actorSize.width(), height: repeatSpacing})
+        watermarkSize.setDimensions({ width: actorSize.width(), height: repeatSpacing })
         const watermarkText = elementLabel(
           actorLane,
           {
