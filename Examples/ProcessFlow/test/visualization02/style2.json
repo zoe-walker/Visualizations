@@ -1,5 +1,7 @@
 {"URL": "visualization02/process-flow.css",
     "style": {
+      "verticalSwimlanes": false,
+      "minimumSwimlaneHeight": 150,
       "gridSize": 10,
       "processHeaderHeight": 20,
       "phaseLabelWidth": 60,

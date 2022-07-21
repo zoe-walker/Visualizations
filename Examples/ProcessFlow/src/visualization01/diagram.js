@@ -61,7 +61,12 @@ export class Diagram {
       ? true
       : gridAlignedStyle.horizontalDecisionsAllowed
 
-    const dimensions = {
+      const diagramSize = new OrientedDimensions(style.verticalSwimlanes)
+      diagramSize.setDimensions({
+        width: useableWidth,
+        height: 0 // Will be updated after height of diagram has been calculated
+      })
+      const dimensions = {
       verticalSwimlanes: style.verticalSwimlanes,
       width: useableWidth,
       height,
@@ -73,10 +78,7 @@ export class Diagram {
       phaseLabelWidth,
       stepGroupPadding: gridAlignedStyle.stepGroupPadding,
       flowLabelSize: gridAlignedStyle.maxFlowLabelSize,
-      diagramSize: {
-        width: useableWidth,
-        height: 0 // Will be updated after height of diagram has been calculated
-      }
+      diagramSize: diagramSize
     }
     const htmlElements = {
       containerElement: elementId,
@@ -85,29 +87,16 @@ export class Diagram {
     }
     const phasedRowSet = new PhasedRowSet(process.getStepSet(), gridAlignedStyle)
 
-    dimensions.diagramSize.height = phasedRowSet.height()
-    // console.log('Height: ' + dimensions.diagramSize.height)
+    dimensions.diagramSize.setHeight(phasedRowSet.height())
+    // console.log('Height: ' + dimensions.diagramSize.height())
 
     this.height = function () {
-      let retVal
-      if (dimensions.verticalSwimlanes) {
-        retVal = dimensions.processHeaderHeight +
-          dimensions.diagramSize.height
-      } else {
-        retVal = dimensions.processHeaderHeight +
-        dimensions.diagramSize.width
-      }
-      return retVal
+      return dimensions.processHeaderHeight +
+      dimensions.diagramSize.height()
     }
 
     this.width = function () {
-      let retVal
-      if (dimensions.verticalSwimlanes) {
-        retVal = Math.max(dimensions.diagramSize.width, width)
-      } else {
-        retVal = dimensions.diagramSize.height
-      }
-      return retVal
+      return dimensions.diagramSize.width()
     }
 
     function alignStyleToGrid (style) {
@@ -146,8 +135,7 @@ export class Diagram {
       const diagramEl = document.createElement('div')
       diagramEl.id = htmlElements.diagramElement
       el.appendChild(diagramEl)
-      const diagramSize = new OrientedDimensions(dimensions.verticalSwimlanes)
-      diagramSize.setDimensions(dimensions.diagramSize)
+      const diagramSize = dimensions.diagramSize
 
       const graph = new Graph.Graph(
         diagramEl,
@@ -159,7 +147,8 @@ export class Diagram {
           handleHighlighting: visualizationData.handleHighlighting,
           otherOffPageConnector: visualizationData.otherOffPageConnector
         },
-        style.renderSwimlaneWatermarks)
+        style.renderSwimlaneWatermarks,
+        style.verticalSwimlanes)
 
       function layoutHeader (process, dimensions, containerElement, htmlElements) {
         htmlElements.processHeaderElement = htmlElements.containerElement + '_procHeader'
@@ -641,7 +630,7 @@ export class Diagram {
           const position = new OrientedCoords(style.verticalSwimlanes)
           position.setX(dimensions.phaseLabelWidth)
           const ioLaneDimensions = new OrientedDimensions(style.verticalSwimlanes)
-          ioLaneDimensions.setDimensions({ width: dimensions.ioLaneWidth, height: dimensions.diagramSize.height })
+          ioLaneDimensions.setDimensions({ width: dimensions.ioLaneWidth, height: dimensions.diagramSize.logicalHeight() })
           let index = 0
           //
           // Create lane for inputs
@@ -662,7 +651,7 @@ export class Diagram {
             const swimlaneDimensions = new OrientedDimensions(style.verticalSwimlanes)
             swimlaneDimensions.setDimensions({
               width: dimensions.swimlaneWidth * actor.numSwimlanes(),
-              height: dimensions.diagramSize.height
+              height: dimensions.diagramSize.logicalHeight()
             })
             actorLanes.push(graph.createActorLane(
               actor,
@@ -694,7 +683,7 @@ export class Diagram {
           const position = new OrientedCoords(dimensions.verticalSwimlanes)
           position.setX(dimensions.phaseLabelWidth)
           const ioLaneDimensions = new OrientedDimensions(dimensions.verticalSwimlanes)
-          ioLaneDimensions.setDimensions({ width: dimensions.ioLaneWidth, height: dimensions.diagramSize.height })
+          ioLaneDimensions.setDimensions({ width: dimensions.ioLaneWidth, height: dimensions.diagramSize.logicalHeight() })
           let index = 0
           //
           // Create swimlane for inputs
@@ -713,7 +702,7 @@ export class Diagram {
             const swimlaneDimensions = new OrientedDimensions(dimensions.verticalSwimlanes)
             swimlaneDimensions.setDimensions({
               width: dimensions.swimlaneWidth,
-              height: dimensions.diagramSize.height
+              height: dimensions.diagramSize.logicalHeight()
             })
             swimlanes.push(graph.createSwimlane(
               swimlane,

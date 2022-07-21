@@ -6,6 +6,7 @@ import * as Shapes from './jointjs-shapes'
 import * as Types from './element-types'
 import * as ActivityGroup from './group-label'
 import * as JointGroup from './jointjs-group-label'
+import { OrientedDimensions } from './oriented'
 // import * as Data from './process-data'
 
 const elementTypeActorLane = 0
@@ -165,12 +166,12 @@ export class GraphLink extends GraphCell {
 }
 
 export class Graph {
-  constructor (htmlElement, diagramSize, gridSize, elementSizes, events, renderSwimlaneWatermarks) {
+  constructor (htmlElement, diagramSize, gridSize, elementSizes, events, renderSwimlaneWatermarks, verticalSwimlanes) {
     const clickEvent = events.handleClickEvent
     const otherOffPageConnector = events.otherOffPageConnector
 
     // Define shapes dynamically allowing flow ports to be aligned to the grid
-    Shapes.defineShapes(gridSize, elementSizes, renderSwimlaneWatermarks)
+    Shapes.defineShapes(gridSize, elementSizes, renderSwimlaneWatermarks, verticalSwimlanes)
 
     let cells = []
     const drawingReport = {}
@@ -567,9 +568,11 @@ export class Graph {
 
     this.createLabel = function (phase, width, height, position) {
       const id = { id: phase.id() }
+      const labelSize = new OrientedDimensions(verticalSwimlanes)
+      labelSize.setDimensions({width, height})
       const size = {
-        width: height,
-        height: width
+        width: labelSize.height(),
+        height: labelSize.width()
       }
       const label = Shapes.createVerticalLabel(id)
       label.resize(width, height)

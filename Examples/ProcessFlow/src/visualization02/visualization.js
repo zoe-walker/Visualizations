@@ -28,6 +28,11 @@ export function visualization (config) {
     process = new Data.Process(data)
     diagram = new Diagram(process, style, width, height, diagramConfig)
     diagram.draw()
+
+    if (typeof config.functions.updateSize === 'function') {
+      config.functions.updateSize(diagram.width(), diagram.height())
+      console.log('Updated size to ' + diagram.width() + ' x ' + diagram.height())
+    }
   } catch (e) {
     //
     // Write error message to the canvas

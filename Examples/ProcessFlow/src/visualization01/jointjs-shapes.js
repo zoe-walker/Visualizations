@@ -20,7 +20,7 @@ let OffPageOutputShape
 let OffPageInputShape
 let StepGroupShape
 
-export function defineShapes (gridSize, elementSizes, renderSwimlaneWatermarks) {
+export function defineShapes (gridSize, elementSizes, renderSwimlaneWatermarks, verticalSwimlanes) {
   ActorShape = defineActor(renderSwimlaneWatermarks)
   SwimlaneShape = defineSwimlane()
   StartShape = defineStart()
@@ -28,7 +28,7 @@ export function defineShapes (gridSize, elementSizes, renderSwimlaneWatermarks) 
   SubProcessShape = defineSubProcess(gridSize, elementSizes[Types.subProcess])
   ProcessShape = defineProcess()
   DecisionShape = defineDecision()
-  VerticalLabelShape = defineVerticalLabel()
+  VerticalLabelShape = defineVerticalLabel(verticalSwimlanes)
   PhaseExtentShape = definePhaseExtent()
   ExternalDataShape = defineExternalData()
   DatabaseShape = defineDatabase()
@@ -683,8 +683,8 @@ export function defineDecision () {
   })
 }
 
-export function defineVerticalLabel () {
-  return joint.dia.Element.define('MooD.VLabel', {
+export function defineVerticalLabel (verticalSwimlanes) {
+  const labelDefaults = {
     attrs: {
       body: {
         refWidth: 1,
@@ -694,13 +694,13 @@ export function defineVerticalLabel () {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
         refX: 0.5,
-        refY: 0.5,
-        transform: 'rotate(-90)'
+        refY: 0.5
       },
       title: {
       }
     }
-  }, {
+  }
+  const labelProtoProps = {
     markup: [{
       tagName: 'rect',
       selector: 'body',
@@ -712,7 +712,11 @@ export function defineVerticalLabel () {
       tagName: 'title',
       selector: 'title'
     }]
-  })
+  }    
+  if (verticalSwimlanes) {
+    labelDefaults.attrs.label.transform = 'rotate(-90)'
+  }
+  return joint.dia.Element.define('MooD.VLabel', labelDefaults, labelProtoProps)
 }
 
 export function definePhaseExtent () {
