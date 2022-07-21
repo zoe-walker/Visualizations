@@ -668,20 +668,28 @@ export class Graph {
       // Add label as watermark
       //
       if (repeatSpacing > 0) {
-        const repeatCount = height / repeatSpacing
+        const actorSize = new OrientedDimensions(verticalSwimlanes)
+        actorSize.setDimensions({width, height})
+        const repeatCount = actorSize.height() / repeatSpacing
         const repeatRatio = 1 / repeatCount
         const textId = (actor ? actor.id() : label) + '-swimlane-text'
+        const watermarkSize = new OrientedDimensions(verticalSwimlanes)
+        watermarkSize.setDimensions({width: actorSize.width(), height: repeatSpacing})
         const watermarkText = elementLabel(
           actorLane,
           {
             label,
-            size: { width, height: repeatSpacing },
+            size: watermarkSize.dimensions(),
             font: sizeConfig.swimlane,
             ellipsis: true
           })
         attributes.pattern = {
-          id: textId,
-          height: repeatRatio
+          id: textId
+        }
+        if (verticalSwimlanes) {
+          attributes.pattern.height = repeatRatio
+        } else {
+          attributes.pattern.width = repeatRatio
         }
         attributes.watermark = {
           fill: 'url(#' + textId + ')'

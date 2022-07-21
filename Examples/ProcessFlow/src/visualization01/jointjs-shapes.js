@@ -21,7 +21,7 @@ let OffPageInputShape
 let StepGroupShape
 
 export function defineShapes (gridSize, elementSizes, renderSwimlaneWatermarks, verticalSwimlanes) {
-  ActorShape = defineActor(renderSwimlaneWatermarks)
+  ActorShape = defineActor(renderSwimlaneWatermarks, verticalSwimlanes)
   SwimlaneShape = defineSwimlane()
   StartShape = defineStart()
   ProcessStepShape = defineProcessStep(gridSize, elementSizes[Types.processStep])
@@ -108,7 +108,7 @@ export function createStepGroup (id) {
   return new StepGroupShape(id)
 }
 
-function defineActor (renderSwimlaneWatermarks) {
+function defineActor (renderSwimlaneWatermarks, verticalSwimlanes) {
   const attrs = {
     body: {
       refWidth: 1,
@@ -123,14 +123,25 @@ function defineActor (renderSwimlaneWatermarks) {
       x: 0,
       y: 0,
       width: 1,
-      height: 0.05
+      height: 1
     }
     attrs.text = {
-      refX: 0.5,
-      y: 2,
-      textVerticalAnchor: 'top',
-      textAnchor: 'middle',
       class: 'actor-watermark'
+    }
+    if (verticalSwimlanes) {
+      attrs.text = {
+        refX: 0.5,
+        y: 2,
+        textVerticalAnchor: 'top',
+        textAnchor: 'middle'
+      }
+    } else {
+      attrs.text = {
+        x: 2,
+        refY: 0.1,
+        textVerticalAnchor: 'top',
+        textAnchor: 'left'
+      }
     }
     attrs.watermark = {
       refWidth: 1,
