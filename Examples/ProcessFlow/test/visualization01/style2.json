@@ -4,7 +4,7 @@
        "minimumSwimlaneHeight": 150,
        "horizontalStepsAllowed": true,
        "horizontalDecisionsAllowed": true,
-       "renderProcessHeader": false,
+       "renderProcessHeader": true,
        "renderSwimlaneWatermarks": true,
        "gridSize": 10,
        "verticalStepSeparation": 50,

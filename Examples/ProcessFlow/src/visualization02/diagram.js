@@ -20,26 +20,24 @@ export class Diagram {
     const elementId = visualizationData.config.element
 
     style.verticalSwimlanes = style.verticalSwimlanes === undefined ? true : style.verticalSwimlanes
+    const containerSize = new OrientedDimensions(style.verticalSwimlanes)
+    containerSize.setDimensions({ width, height })
 
     const gridAlignedStyle = alignStyleToGrid(style)
     const phaseLabelWidth = process.getPhaseSet().noPhases() === true ? 0 : gridAlignedStyle.phaseLabelWidth
     const numSwimlanes = process.getActorSet().numSwimlanes() + 2 // allow for swim lanes for inputs and outputs
-    const verticalSwimlaneWidth = alignValueDown((width - phaseLabelWidth - style.gridSize * 4) / // allow extra width for I/O lanes
+    const verticalSwimlaneWidth = alignValueDown((containerSize.width() - phaseLabelWidth - style.gridSize * 4) / // allow extra width for I/O lanes
             numSwimlanes, style.gridSize)
     const swimlaneWidth = style.verticalSwimlanes ? verticalSwimlaneWidth : Math.max(verticalSwimlaneWidth, gridAlignedStyle.minimumSwimlaneHeight)
     const ioLaneWidth = swimlaneWidth + style.gridSize * 2
     const useableWidth = phaseLabelWidth + swimlaneWidth * numSwimlanes + style.gridSize * 4
     gridAlignedStyle.swimlaneWidth = swimlaneWidth
+    const drawProcessHeader = style.processHeaderHeight > 0 && style.verticalSwimlanes // only draw process heading for vertical swimlanes
     //
     // Set defaults for any missing configuration
     //
     gridAlignedStyle.inputSwimlaneLabel = gridAlignedStyle.inputSwimlaneLabel || 'Inputs'
     gridAlignedStyle.outputSwimlaneLabel = gridAlignedStyle.outputSwimlaneLabel || 'Outputs'
-    const containerSize = new OrientedDimensions(style.verticalSwimlanes)
-    containerSize.setDimensions({
-      width,
-      height
-    })
     const headerSize = new OrientedDimensions(style.verticalSwimlanes)
     headerSize.setDimensions({
       width: useableWidth,
@@ -49,7 +47,7 @@ export class Diagram {
     const dimensions = {
       verticalSwimlanes: style.verticalSwimlanes,
       gridSize: style.gridSize,
-      processHeaderHeight: gridAlignedStyle.processHeaderHeight,
+      processHeaderHeight: drawProcessHeader ? gridAlignedStyle.processHeaderHeight : 0,
       swimlaneWidth,
       ioLaneWidth,
       phaseLabelWidth,
@@ -81,11 +79,10 @@ export class Diagram {
 
     this.draw = function () {
       const startTime = Date.now()
-      if (style.verticalSwimlanes) {
-        //
-        // Only draw process header for vertical swimlanes
-        // For Horizontal swimlanes, rely on separate panel to display process specific info
-        //
+      //
+      // Only draw process header if required.
+      //
+      if (dimensions.processHeaderHeight > 0) {
         layoutHeader(process, dimensions, htmlElements)
       }
       layoutSwimlaneLabels(process, dimensions, style, htmlElements.swimlaneHeaderElement)

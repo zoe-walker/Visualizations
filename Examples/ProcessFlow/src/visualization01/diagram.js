@@ -33,13 +33,15 @@ export class Diagram {
       targetTolerance: 1
     }
     style.verticalSwimlanes = style.verticalSwimlanes === undefined ? true : style.verticalSwimlanes
+    const containerSize = new OrientedDimensions(style.verticalSwimlanes)
+    containerSize.setDimensions({ width, height })
 
     const gridAlignedStyle = alignStyleToGrid(style)
-    const drawProcessHeader = style.renderProcessHeader
+    const drawProcessHeader = style.renderProcessHeader && style.verticalSwimlanes // only draw process heading for vertical swimlanes
     const drawWatermark = style.renderSwimlaneWatermarks
     const phaseLabelWidth = process.getPhaseSet().noPhases() === true ? 0 : gridAlignedStyle.phaseLabelWidth
     const numSwimlanes = process.getActorSet().numSwimlanes() + 2 // allow for swim lanes for inputs and outputs
-    const verticalSwimlaneWidth = alignValueDown((width - phaseLabelWidth - style.gridSize * 4) / // allow extra width for I/O lanes
+    const verticalSwimlaneWidth = alignValueDown((containerSize.width() - phaseLabelWidth - style.gridSize * 4) / // allow extra width for I/O lanes
                                                  numSwimlanes, style.gridSize)
     const swimlaneWidth = style.verticalSwimlanes ? verticalSwimlaneWidth : Math.max(verticalSwimlaneWidth, gridAlignedStyle.minimumSwimlaneHeight)
     const ioLaneWidth = swimlaneWidth + style.gridSize * 2
@@ -68,8 +70,6 @@ export class Diagram {
     })
     const dimensions = {
       verticalSwimlanes: style.verticalSwimlanes,
-      width: useableWidth,
-      height,
       gridSize: style.gridSize,
       processHeaderHeight: drawProcessHeader ? gridAlignedStyle.processHeaderHeight : 0,
       swimlaneWidth,
@@ -158,7 +158,7 @@ export class Diagram {
         headerEl.classList.add('process-flow-header')
         headerEl.id = htmlElements.processHeaderElement
         headerEl.style.height = dimensions.processHeaderHeight + 'px'
-        headerEl.style.width = dimensions.width + 'px'
+        headerEl.style.width = dimensions.diagramSize.width() + 'px'
 
         const nameEl = document.createElement('span')
         nameEl.innerText = process.name()
@@ -264,7 +264,7 @@ export class Diagram {
         phasedRowSet.rowSets().forEach(function (phase) {
           const phaseHeight = phase.height()
           const phaseMarkerDimensions = new OrientedDimensions(style.verticalSwimlanes)
-          phaseMarkerDimensions.setDimensions({ width: dimensions.width, height: 1 })
+          phaseMarkerDimensions.setDimensions({ width: dimensions.diagramSize.width(), height: 1 })
           const phaseMarkerPosition = new OrientedCoords(style.verticalSwimlanes)
           phaseMarkerPosition.setY(phasePosition.logicalY() + phaseHeight - 1)
 
