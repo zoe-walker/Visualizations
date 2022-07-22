@@ -176,6 +176,28 @@ export class Graph {
     let cells = []
     const drawingReport = {}
     const graph = new joint.dia.Graph()
+    //
+    // Define directions for the router
+    // For horizontal swimlanes adjust costs to prefer vertical
+    //
+    const directionDown = { offsetX: 0, offsetY: 10, cost: 10 }
+    const directionUp = { offsetX: 0, offsetY: -10, cost: 10 }
+    const directionRight = { offsetX: 10, offsetY: 0, cost: 10 }
+    const directionLeft = { offsetX: -10, offsetY: 0, cost: 10 }
+    const directions = []
+    if (verticalSwimlanes) {
+      directions.push(directionRight)
+      directions.push(directionLeft)
+      directions.push(directionDown)
+      directions.push(directionUp)
+    } else {
+      directionDown.cost = 5
+      directionUp.cost = 5
+      directions.push(directionDown)
+      directions.push(directionUp)
+      directions.push(directionRight)
+      directions.push(directionLeft)
+    }
 
     const paper = new joint.dia.Paper({
       el: htmlElement,
@@ -824,7 +846,8 @@ export class Graph {
           perpendicular: false,
           padding: routerOptions.stepStandoff, // Math.min(routerOptions.stepStandoff, gridSize * 2 - 1), // gridSize / 2,
           coincidentLineSpace: routerOptions.coincidentLineSpace,
-          targetTolerance: routerOptions.targetTolerance
+          targetTolerance: routerOptions.targetTolerance,
+          directions
         }
         if (routerOptions.startDirections) {
           options.startDirections = routerOptions.startDirections.map(side => sides.orientedSide(side))
@@ -833,7 +856,6 @@ export class Graph {
           options.endDirections = routerOptions.endDirections.map(side => sides.orientedSide(side))
         }
         jointLink.router(routerName, options)
-        console.log('Link from: ' + link.source().name() + ' to ' + link.target().name() + ' start: ' + JSON.stringify(options.startDirections) + ', end: ' + JSON.stringify(options.endDirections))
       }
       jointLink.connector(connectorName, connectorOptions)
       if (lineOptions !== undefined && lineOptions.strokeDasharray !== undefined) {
