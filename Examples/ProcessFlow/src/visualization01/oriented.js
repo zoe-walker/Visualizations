@@ -47,7 +47,7 @@ export class OrientedDimensions {
      * @param {*} dimensions
      * @returns oriented position
      */
-     this.orientedDimensions = function (dimensions) {
+    this.orientedDimensions = function (dimensions) {
       return { width: isVerticalSwimlane ? dimensions.width : dimensions.height, height: isVerticalSwimlane ? dimensions.height : dimensions.width }
     }
     /**
