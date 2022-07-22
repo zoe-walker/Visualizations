@@ -8,7 +8,7 @@ See the [wiki](https://github.com/CACIMooD/Visualizations/wiki) for more article
 # Table of Contents
 
 *   [Introduction](#introduction)
-*   [Example Custom Visualisations](#example-custom-visualisations)
+*   [Example Custom Visualizations](#example-custom-visualizations)
 *   [Selecting a chart](#selecting-a-chart)
 *   [Development Environment](#development-environment)
     * [Installing Visual Studio Code](#installing-visual-studio-code)
