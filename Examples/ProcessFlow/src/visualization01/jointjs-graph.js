@@ -6,7 +6,7 @@ import * as Shapes from './jointjs-shapes'
 import * as Types from './element-types'
 import * as ActivityGroup from './group-label'
 import * as JointGroup from './jointjs-group-label'
-import { OrientedDimensions } from './oriented'
+import { OrientedDimensions, OrientedSides } from './oriented'
 // import * as Data from './process-data'
 
 const elementTypeActorLane = 0
@@ -813,6 +813,7 @@ export class Graph {
       const vertices = routerOptions.vertices === undefined ? [] : routerOptions.vertices
       const id = { id: link.id() }
       const jointLink = new joint.shapes.standard.Link(id)
+      const sides = new OrientedSides(verticalSwimlanes)
       jointLink.attr('wrapper/cursor', 'pointer')
       jointLink.source(linkEnd(link.source(), routerOptions.sourcePortId))
       jointLink.target(linkEnd(link.target(), routerOptions.targetPortId))
@@ -826,12 +827,13 @@ export class Graph {
           targetTolerance: routerOptions.targetTolerance
         }
         if (routerOptions.startDirections) {
-          options.startDirections = routerOptions.startDirections
+          options.startDirections = routerOptions.startDirections.map(side => sides.orientedSide(side))
         }
         if (routerOptions.endDirections) {
-          options.endDirections = routerOptions.endDirections
+          options.endDirections = routerOptions.endDirections.map(side => sides.orientedSide(side))
         }
         jointLink.router(routerName, options)
+        console.log('Link from: ' + link.source().name() + ' to ' + link.target().name() + ' start: ' + JSON.stringify(options.startDirections) + ', end: ' + JSON.stringify(options.endDirections))
       }
       jointLink.connector(connectorName, connectorOptions)
       if (lineOptions !== undefined && lineOptions.strokeDasharray !== undefined) {

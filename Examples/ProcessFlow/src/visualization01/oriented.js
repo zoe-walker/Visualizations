@@ -1,3 +1,5 @@
+import * as Sides from './jointjs-side-types'
+
 /**
  * Class to manage logical dimensions for vertical or horizontal alignment
  * For vertical swimlanes, logical width (of swimlane) is the width and for horizontal
@@ -39,6 +41,14 @@ export class OrientedDimensions {
     }
     this.logicalDimensions = function () {
       return { width: this.logicalWidth(), height: this.logicalHeight() }
+    }
+    /**
+     * Returns logical dimensions of parameter oriented according to direction of swimlanes
+     * @param {*} dimensions
+     * @returns oriented position
+     */
+     this.orientedDimensions = function (dimensions) {
+      return { width: isVerticalSwimlane ? dimensions.width : dimensions.height, height: isVerticalSwimlane ? dimensions.height : dimensions.width }
     }
     /**
      * Increase logical width
@@ -100,6 +110,14 @@ export class OrientedCoords {
       return { x: this.logicalX(), y: this.logicalY() }
     }
     /**
+     * Returns logical position of parameters oriented according to direction of swimlanes
+     * @param {*} coords
+     * @returns oriented position
+     */
+    this.orientedCoords = function (coords) {
+      return { x: isVerticalSwimlane ? coords.x : coords.y, y: isVerticalSwimlane ? coords.y : coords.x }
+    }
+    /**
      * Increase logical x coordinate
      * @param {int} xOffset
      */
@@ -112,6 +130,31 @@ export class OrientedCoords {
      */
     this.increaseY = function (yOffset) {
       y += yOffset
+    }
+  }
+}
+
+/**
+ * Class to manage logical shape side names for vertical or horizontal alignment
+ * For vertical swimlanes, sides are named naturally
+ * For horizontal swimlanes, horizontal sides (left and right) are rotated 90 degress clockwise
+ * and vertical sides (top and bottom) are rotated 90 degress anti-clockwise
+ */
+export class OrientedSides {
+  constructor (isVerticalSwimlane) {
+    const horizontalSides = {
+      [Sides.top]: Sides.left,
+      [Sides.bottom]: Sides.right,
+      [Sides.left]: Sides.top,
+      [Sides.right]: Sides.bottom
+    }
+    /**
+     * Returns the name of the correctly oriented side
+     * @param {String} side The logical (vertical swimlane orientation) side
+     * @returns The side oriented according to actual swimlane orientation
+     */
+    this.orientedSide = function (side) {
+      return isVerticalSwimlane ? side : horizontalSides[side]
     }
   }
 }

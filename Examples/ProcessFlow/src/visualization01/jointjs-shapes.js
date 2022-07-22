@@ -1,6 +1,7 @@
 import * as joint from 'jointjs'
 import * as Ports from './element-port-names'
 import * as Types from './element-types'
+import { OrientedDimensions, OrientedCoords } from './oriented'
 
 let ActorShape
 let SwimlaneShape
@@ -23,11 +24,11 @@ let StepGroupShape
 export function defineShapes (gridSize, elementSizes, renderSwimlaneWatermarks, verticalSwimlanes) {
   ActorShape = defineActor(renderSwimlaneWatermarks, verticalSwimlanes)
   SwimlaneShape = defineSwimlane()
-  StartShape = defineStart()
-  ProcessStepShape = defineProcessStep(gridSize, elementSizes[Types.processStep])
-  SubProcessShape = defineSubProcess(gridSize, elementSizes[Types.subProcess])
+  StartShape = defineStart(verticalSwimlanes)
+  ProcessStepShape = defineProcessStep(gridSize, elementSizes[Types.processStep], verticalSwimlanes)
+  SubProcessShape = defineSubProcess(gridSize, elementSizes[Types.subProcess], verticalSwimlanes)
   ProcessShape = defineProcess()
-  DecisionShape = defineDecision()
+  DecisionShape = defineDecision(verticalSwimlanes)
   VerticalLabelShape = defineVerticalLabel(verticalSwimlanes)
   PhaseExtentShape = definePhaseExtent(verticalSwimlanes)
   ExternalDataShape = defineExternalData()
@@ -293,20 +294,21 @@ const portFlowCentreRight = {
   markup: flowSharedPortMarkup
 }
 
-function defineStart () {
+function defineStart (verticalSwimlanes) {
+  const position = new OrientedCoords(verticalSwimlanes)
   return joint.dia.Element.define('MooD.Start', {
     ports: {
       groups: {
         flowInTop: {
           position: {
             name: 'absolute',
-            args: { x: '50%', y: 0 }
+            args: position.orientedCoords({ x: '50%', y: 0 })
           }
         },
         flowOutBottom: {
           position: {
             name: 'absolute',
-            args: { x: '50%', y: '100%' }
+            args: position.orientedCoords({ x: '50%', y: '100%' })
           }
         }
       },
@@ -351,94 +353,97 @@ function defineStart () {
 // Return port group definitions for process type shapes
 // Calculate vertical positions of flow in and out ports to
 // align with the grid if the shape is tall enough
-function processPortGroups (gridSize, elementSize) {
+function processPortGroups (gridSize, elementSize, verticalSwimlanes) {
+  const elementDimensions = new OrientedDimensions(verticalSwimlanes)
+  elementDimensions.setDimensions(elementSize)
+  const position = new OrientedCoords(verticalSwimlanes)
   let offsets
-  if (elementSize.height > 2 * gridSize) {
+  if (elementDimensions.height() > 2 * gridSize) {
     offsets = {
-      upperInY: elementSize.height / 2 - 2 * gridSize,
-      upperOutY: elementSize.height / 2 - gridSize,
-      lowerInY: elementSize.height / 2 + 2 * gridSize,
-      lowerOutY: elementSize.height / 2 + gridSize
+      upperInY: elementDimensions.height() / 2 - 2 * gridSize,
+      upperOutY: elementDimensions.height() / 2 - gridSize,
+      lowerInY: elementDimensions.height() / 2 + 2 * gridSize,
+      lowerOutY: elementDimensions.height() / 2 + gridSize
     }
   } else {
     offsets = {
-      upperInY: Math.floor(elementSize.height * 0.63),
-      upperOutY: Math.floor(elementSize.height * 0.38),
-      lowerInY: Math.floor(elementSize.height * 0.7),
-      lowerOutY: Math.floor(elementSize.height * 0.3)
+      upperInY: Math.floor(elementDimensions.height() * 0.63),
+      upperOutY: Math.floor(elementDimensions.height() * 0.38),
+      lowerInY: Math.floor(elementDimensions.height() * 0.7),
+      lowerOutY: Math.floor(elementDimensions.height() * 0.3)
     }
   }
   const groups = {
     inLeft: {
       position: {
         name: 'absolute',
-        args: { x: 0, y: '50%' }
+        args: position.orientedCoords({ x: 0, y: '50%' })
       }
     },
     flowInUpperLeft: {
       position: {
         name: 'absolute',
-        args: { x: 0, y: offsets.upperInY }
+        args: position.orientedCoords({ x: 0, y: offsets.upperInY })
       }
     },
     flowInLowerLeft: {
       position: {
         name: 'absolute',
-        args: { x: 0, y: offsets.lowerInY }
+        args: position.orientedCoords({ x: 0, y: offsets.lowerInY })
       }
     },
     flowInTop: {
       position: {
         name: 'absolute',
-        args: { x: '50%', y: 0 }
+        args: position.orientedCoords({ x: '50%', y: 0 })
       }
     },
     flowInUpperRight: {
       position: {
         name: 'absolute',
-        args: { x: '100%', y: offsets.upperInY }
+        args: position.orientedCoords({ x: '100%', y: offsets.upperInY })
       }
     },
     flowInLowerRight: {
       position: {
         name: 'absolute',
-        args: { x: '100%', y: offsets.lowerInY }
+        args: position.orientedCoords({ x: '100%', y: offsets.lowerInY })
       }
     },
     outRight: {
       position: {
         name: 'absolute',
-        args: { x: '100%', y: '50%' }
+        args: position.orientedCoords({ x: '100%', y: '50%' })
       }
     },
     flowOutUpperLeft: {
       position: {
         name: 'absolute',
-        args: { x: 0, y: offsets.upperOutY }
+        args: position.orientedCoords({ x: 0, y: offsets.upperOutY })
       }
     },
     flowOutLowerLeft: {
       position: {
         name: 'absolute',
-        args: { x: 0, y: offsets.lowerOutY }
+        args: position.orientedCoords({ x: 0, y: offsets.lowerOutY })
       }
     },
     flowOutBottom: {
       position: {
         name: 'absolute',
-        args: { x: '50%', y: '100%' }
+        args: position.orientedCoords({ x: '50%', y: '100%' })
       }
     },
     flowOutUpperRight: {
       position: {
         name: 'absolute',
-        args: { x: '100%', y: offsets.upperOutY }
+        args: position.orientedCoords({ x: '100%', y: offsets.upperOutY })
       }
     },
     flowOutLowerRight: {
       position: {
         name: 'absolute',
-        args: { x: '100%', y: offsets.lowerOutY }
+        args: position.orientedCoords({ x: '100%', y: offsets.lowerOutY })
       }
     }
   }
@@ -465,8 +470,8 @@ function processPortItems () {
   return items
 }
 
-export function defineSubProcess (gridSize, elementSize) {
-  const portGroups = processPortGroups(gridSize, elementSize)
+export function defineSubProcess (gridSize, elementSize, verticalSwimlanes) {
+  const portGroups = processPortGroups(gridSize, elementSize, verticalSwimlanes)
   const portItems = processPortItems()
   // Add groups for side flow ports
 
@@ -567,8 +572,8 @@ export function defineProcess () {
   })
 }
 
-export function defineProcessStep (gridSize, elementSize) {
-  const portGroups = processPortGroups(gridSize, elementSize)
+export function defineProcessStep (gridSize, elementSize, verticalSwimlanes) {
+  const portGroups = processPortGroups(gridSize, elementSize, verticalSwimlanes)
   const portItems = processPortItems()
   // Add groups for side flow ports
 
@@ -609,44 +614,45 @@ export function defineProcessStep (gridSize, elementSize) {
   })
 }
 
-export function defineDecision () {
+export function defineDecision (verticalSwimlanes) {
+  const position = new OrientedCoords(verticalSwimlanes)
   return joint.dia.Element.define('MooD.Decision', {
     ports: {
       groups: {
         inLeft: {
           position: {
             name: 'absolute',
-            args: { x: '10%', y: '40%' }
+            args: position.orientedCoords({ x: '10%', y: '40%' })
           }
         },
         flowLeft: {
           position: {
             name: 'absolute',
-            args: { x: 0, y: '50%' }
+            args: position.orientedCoords({ x: 0, y: '50%' })
           }
         },
         flowInTop: {
           position: {
             name: 'absolute',
-            args: { x: '50%', y: 0 }
+            args: position.orientedCoords({ x: '50%', y: 0 })
           }
         },
         flowRight: {
           position: {
             name: 'absolute',
-            args: { x: '100%', y: '50%' }
+            args: position.orientedCoords({ x: '100%', y: '50%' })
           }
         },
         outRight: {
           position: {
             name: 'absolute',
-            args: { x: '90%', y: '40%' }
+            args: position.orientedCoords({ x: '90%', y: '40%' })
           }
         },
         flowOutBottom: {
           position: {
             name: 'absolute',
-            args: { x: '50%', y: '100%' }
+            args: position.orientedCoords({ x: '50%', y: '100%' })
           }
         }
       },
