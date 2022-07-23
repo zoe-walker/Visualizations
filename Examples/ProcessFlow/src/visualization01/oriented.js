@@ -33,34 +33,34 @@ export class OrientedDimensions {
       this.setHeight(dimensions.height)
     }
     /**
-     * 
+     *
      * @returns Physical width dimension in chosen orientation
      */
     this.width = () => isVerticalSwimlane ? width : height
     /**
-     * 
+     *
      * @returns Logical width dimension (width as for vertical swimlanes)
      */
     this.logicalWidth = () => width
     /**
-     * 
+     *
      * @returns Physical height dimension in chosen orientation
      */
     this.height = () => isVerticalSwimlane ? height : width
     /**
-     * 
+     *
      * @returns Logical height dimension (height as for vertical swimlanes)
      */
     this.logicalHeight = () => height
     /**
-     * 
+     *
      * @returns Physical dimensions in chosen orientation
      */
     this.dimensions = function () {
       return { width: this.width(), height: this.height() }
     }
     /**
-     * 
+     *
      * @returns Logical dimensions (as for vertical swimlanes)
      */
     this.logicalDimensions = function () {
@@ -69,7 +69,7 @@ export class OrientedDimensions {
     /**
      * Returns physical dimensions of parameter oriented according to chosen direction of swimlanes
      * @param {*} dimensions Logical (vertical swimlane orientation) dimensions
-     * @returns Physical dimensions in chosen orientation 
+     * @returns Physical dimensions in chosen orientation
      */
     this.orientedDimensions = function (dimensions) {
       return { width: isVerticalSwimlane ? dimensions.width : dimensions.height, height: isVerticalSwimlane ? dimensions.height : dimensions.width }
@@ -124,34 +124,34 @@ export class OrientedCoords {
       this.setY(coords.y)
     }
     /**
-     * 
+     *
      * @returns Physical x coordinate in chosen orientation
      */
     this.x = () => isVerticalSwimlane ? x : y
     /**
-     * 
+     *
      * @returns Logical x coordinate (x as for vertical swimlanes)
      */
     this.logicalX = () => x
     /**
-     * 
+     *
      * @returns Physical y coordinate in chosen orientation
      */
     this.y = () => isVerticalSwimlane ? y : x
     /**
-     * 
+     *
      * @returns Logical y coordinate (y as for vertical swimlanes)
      */
     this.logicalY = () => y
     /**
-     * 
+     *
      * @returns Physical coordinates in chosen orientation
      */
     this.coords = function () {
       return { x: this.x(), y: this.y() }
     }
     /**
-     * 
+     *
      * @returns Logical coordinates (as for vertical swimlanes)
      */
     this.logicalCoords = function () {
