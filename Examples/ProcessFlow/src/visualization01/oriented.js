@@ -1,9 +1,9 @@
 import * as Sides from './jointjs-side-types'
 
 /**
- * Class to manage logical dimensions for vertical or horizontal alignment
- * For vertical swimlanes, logical width (of swimlane) is the width and for horizontal
- * swimlanes, logical width (of swimlane) is the height
+ * Class to manage dimensions for vertical or horizontal alignment
+ * For vertical swimlanes, physical width (of swimlane) is the logical width and for horizontal
+ * swimlanes, physical width (of swimlane) is the logical height (of swimlane)
  */
 export class OrientedDimensions {
   constructor (isVerticalSwimlane) {
@@ -32,20 +32,44 @@ export class OrientedDimensions {
       this.setWidth(dimensions.width)
       this.setHeight(dimensions.height)
     }
+    /**
+     * 
+     * @returns Physical width dimension in chosen orientation
+     */
     this.width = () => isVerticalSwimlane ? width : height
+    /**
+     * 
+     * @returns Logical width dimension (width as for vertical swimlanes)
+     */
     this.logicalWidth = () => width
+    /**
+     * 
+     * @returns Physical height dimension in chosen orientation
+     */
     this.height = () => isVerticalSwimlane ? height : width
+    /**
+     * 
+     * @returns Logical height dimension (height as for vertical swimlanes)
+     */
     this.logicalHeight = () => height
+    /**
+     * 
+     * @returns Physical dimensions in chosen orientation
+     */
     this.dimensions = function () {
       return { width: this.width(), height: this.height() }
     }
+    /**
+     * 
+     * @returns Logical dimensions (as for vertical swimlanes)
+     */
     this.logicalDimensions = function () {
       return { width: this.logicalWidth(), height: this.logicalHeight() }
     }
     /**
-     * Returns logical dimensions of parameter oriented according to direction of swimlanes
-     * @param {*} dimensions
-     * @returns oriented position
+     * Returns physical dimensions of parameter oriented according to chosen direction of swimlanes
+     * @param {*} dimensions Logical (vertical swimlane orientation) dimensions
+     * @returns Physical dimensions in chosen orientation 
      */
     this.orientedDimensions = function (dimensions) {
       return { width: isVerticalSwimlane ? dimensions.width : dimensions.height, height: isVerticalSwimlane ? dimensions.height : dimensions.width }
@@ -68,9 +92,9 @@ export class OrientedDimensions {
 }
 
 /**
- * Class to manage logical coordinates for vertical or horizontal alignment
- * For vertical swimlanes, logical x coordinate (of swimlane) is the x coordinate (horizontal axis)
- * and for horizontal swimlanes, logical x coordinate (of swimlane) is the y coordinate (vertical axis)
+ * Class to manage coordinates for vertical or horizontal alignment
+ * For vertical swimlanes, physical x coordinate (of swimlane) is the logical x coordinate (horizontal axis)
+ * and for horizontal swimlanes, physical x coordinate (of swimlane) is the logical y coordinate (vertical axis)
  */
 export class OrientedCoords {
   constructor (isVerticalSwimlane) {
@@ -99,20 +123,44 @@ export class OrientedCoords {
       this.setX(coords.x)
       this.setY(coords.y)
     }
+    /**
+     * 
+     * @returns Physical x coordinate in chosen orientation
+     */
     this.x = () => isVerticalSwimlane ? x : y
+    /**
+     * 
+     * @returns Logical x coordinate (x as for vertical swimlanes)
+     */
     this.logicalX = () => x
+    /**
+     * 
+     * @returns Physical y coordinate in chosen orientation
+     */
     this.y = () => isVerticalSwimlane ? y : x
+    /**
+     * 
+     * @returns Logical y coordinate (y as for vertical swimlanes)
+     */
     this.logicalY = () => y
+    /**
+     * 
+     * @returns Physical coordinates in chosen orientation
+     */
     this.coords = function () {
       return { x: this.x(), y: this.y() }
     }
+    /**
+     * 
+     * @returns Logical coordinates (as for vertical swimlanes)
+     */
     this.logicalCoords = function () {
       return { x: this.logicalX(), y: this.logicalY() }
     }
     /**
-     * Returns logical position of parameters oriented according to direction of swimlanes
-     * @param {*} coords
-     * @returns oriented position
+     * Returns physical coordinates of parameters oriented according to chosen direction of swimlanes
+     * @param {*} coords Logical (vertical swimlane orientation) coordinates
+     * @returns Physical coordinates in chosen orientation
      */
     this.orientedCoords = function (coords) {
       return { x: isVerticalSwimlane ? coords.x : coords.y, y: isVerticalSwimlane ? coords.y : coords.x }
@@ -135,7 +183,7 @@ export class OrientedCoords {
 }
 
 /**
- * Class to manage logical shape side names for vertical or horizontal alignment
+ * Class to manage shape side names for vertical or horizontal alignment
  * For vertical swimlanes, sides are named naturally
  * For horizontal swimlanes, horizontal sides (left and right) are rotated 90 degress clockwise
  * and vertical sides (top and bottom) are rotated 90 degress anti-clockwise
@@ -150,8 +198,8 @@ export class OrientedSides {
     }
     /**
      * Returns the name of the correctly oriented side
-     * @param {String} side The logical (vertical swimlane orientation) side
-     * @returns The side oriented according to actual swimlane orientation
+     * @param {String} side The logical (as for vertical swimlane orientation) side
+     * @returns The side oriented according to chosen swimlane orientation
      */
     this.orientedSide = function (side) {
       return isVerticalSwimlane ? side : horizontalSides[side]
