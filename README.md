@@ -167,7 +167,7 @@ For reference, there are example visualizations for the frameworks above. You ca
 
 ### MooD Active Enterprise (MAE)
 
-Active Enterprise is the MooD server component that interacts with the browser and more specifically with the visualization. MAE is an ASP.NET component. MAE interacts with the visualization via an entry function and a number of event handler functions that the visualization can optionally override. MAE creates an iFrame for the exclusive use of the visualization which isolates it from any other visualization code on the page. This means that visualizations using different versions of frameworks, e.g. D3, can happily work on the same page.
+MooD Active Enterprise is the ASP.NET web application which serves the solution, and any visualizations within it, to the browser. MAE is an ASP.NET component. MAE interacts with the visualization via an entry function and a number of event handler functions that the visualization can optionally override. MAE creates an iFrame for the exclusive use of the visualization which isolates it from any other visualization code on the page. This means that visualizations using different versions of frameworks, e.g. D3, can happily work on the same page.
 
 MooD Active Enterprise will invoke the JavaScript Visualization entry function and pass it a configuration object containing all the information the visualization should need to render and interact with the rest of Active Enterprise.
 
