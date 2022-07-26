@@ -41,6 +41,7 @@ MooD provides templates for the following JavaScript chart frameworks
 * Data Driven Documents (D3)
 * Apache ECharts
 * React
+* Empty, i.e. no framework, plain JavaScript
 
 # Example Custom Visualizations
 
@@ -150,7 +151,7 @@ If you have not already done so, download or clone this repository containing vi
 * Data Driven Documents (D3)
 * Apache ECharts
 * React
-* Empty, i.e. no framework
+* Empty, i.e. no framework, plain JavaScript
 
 Rename the VS Code workspace file in your newly created working folder to correspond with the name of the folder. You can now open the workspace in VS Code by double clicking the workspace file or opening VS Code and opening the workspace from the File menu.
 
@@ -200,7 +201,7 @@ The visualization package (zip) can contain the following files:
     supportedVersions: "0.1"
     ```
   * __Property__: dependencies 
-     * These are a list of dependencies that all visualization in this package requires or contains. It is appended to the list in each `visualization.config.json`
+     * These are a list of dependencies that all visualizations in this package have. It is appended to the list in each `visualization.config.json`
 * Visualization Folder 
   * `visualization.config.json`: a configuration file for visualization contained within this package and folder
      * See [visualization.config.json specification](docs/visualization-config-json.md) for details
@@ -282,11 +283,12 @@ Visualization JavaScript should be written according to Web security best practi
 To protect against Cross-Site-Scripting attacks within the visualization, the visualization is run in a sandboxed iFrame, to which a Content-Security-Policy has been applied, both as a Response Header with the frame page, and as a 'csp' attribute on the iFrame element.
 
 If your visualization needs to perform operations which violate the Content-Security-Policy, e.g. requires connection to external sites to send or retrieve data or resources, the Content-Security-Policy may need modification. 
-This modification can be performed by applying a MooD XHTML Action Panel with specific JavaScript set the required 'csp' attribute on the iFrame, and by using the URLRewriter module to override the value of the Content-Security-Policy header returned by the iFrame page.
+
+The Content Security Policy can be modified for __all__ Custom Visualizations. For details, read this [wiki article](https://github.com/CACIMooD/Visualizations/wiki/Content-Security-Policies)
+
+Alternatievly, this modification can be performed by applying a MooD XHTML Action Panel with specific JavaScript set the required 'csp' attribute on the iFrame, and by using the URLRewriter module to override the value of the Content-Security-Policy header returned by the iFrame page.
 Specific details of how to do this can be acquired by contacting IIG MooD support.
 
 When crafting an alternative Content-Security-Policy, it is important to ensure that directives are extended in a specific fashion e.g. if the visualization needs to connect to 'mydomain.com' then change connect-src to "'self' mydomain.com" rather than remove the directive.
-
-Alternatively, the Content Security Policy can be modified for __all__ Custom Visualizations. For details, read this [wiki article](https://github.com/CACIMooD/Visualizations/wiki/Content-Security-Policies)
 
 [Table of Contents](#table-of-contents)

@@ -59,7 +59,7 @@ MooD Business Architect implicitly recognises `MooDElement`. The `MooDElement` i
 
 Using the type `ID` when in the context of the MooDElement gives a unique identifier for the MooDElement (see the Simple Tabular row type example). 
 
-Another implicit interface is 'MooDMetaModel'. The 'MooDMetaModel' interface is for defining a point in your data where the MooD meta model will be output. This includes aliases, field and relationship information. Note that any fields defined inside the 'MooDMetaModel' interface will be ignored.
+Another implicit interface is 'MooDMetaModel'. The 'MooDMetaModel' interface is for defining a point in your data where the MooD meta model will be output. This includes types, field and relationship information. Note that any fields defined inside the 'MooDMetaModel' interface will be ignored.
 
    ```
    interface MooDMetaModel { 
@@ -127,7 +127,7 @@ directive @UI (
 
 For example
 
-The user interface directive is telling the UI through the `name` argument to display the name field as "Example Name" and not the alias name "aliasName", and through the `default` argument to set the value on first presentation as the name of the element: 
+The user interface directive is telling the UI through the `name` argument to display the name field as "Example Name" and not the field name "aliasName", and through the `default` argument to set the value on first presentation as the name of the element: 
 ```
 type example implements MooDElement { 
    aliasName: String @UI (default: "name" name: "Example Name") 
