@@ -1,7 +1,7 @@
 # Visualizations
 Templates, examples and documentation enabling you to bring 3rd party visualizations into your MooD Repository.
 
-See the [wiki](https://github.com/CACIMooD/Visualizations/wiki) for more articles and guides.
+See the [MooD Supportal](https://supportportal.moodinternational.com/hc/en-us/sections/360004957339-Custom-Visualizations) for more articles and guides.
 
 #### The easiest way to get started is to clone this repository and then modify the various examples / templates inside Visual Studio Code.
 
@@ -284,7 +284,7 @@ To protect against Cross-Site-Scripting attacks within the visualization, the vi
 
 If your visualization needs to perform operations which violate the Content-Security-Policy, e.g. requires connection to external sites to send or retrieve data or resources, the Content-Security-Policy may need modification. 
 
-The Content Security Policy can be modified for __all__ Custom Visualizations. For details, read this [wiki article](https://github.com/CACIMooD/Visualizations/wiki/Content-Security-Policies)
+The Content Security Policy can be modified for __all__ Custom Visualizations. For details, read this [Supportal article](https://supportportal.moodinternational.com/hc/en-us/articles/4402565656338-Visualization-Configuration-Content-Security-Policies)
 
 Alternatievly, this modification can be performed by applying a MooD XHTML Action Panel with specific JavaScript set the required 'csp' attribute on the iFrame, and by using the URLRewriter module to override the value of the Content-Security-Policy header returned by the iFrame page.
 Specific details of how to do this can be acquired by contacting IIG MooD support.
