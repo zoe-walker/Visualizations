@@ -80,6 +80,8 @@ __Note__: The `.gitignore` file excludes all zip files in the top level folder t
     "license": "MIT",
 ```
 
+__Note__: There is an accompanying file `package-lock.json` which is maintained by NPM and shouldn't be edited.
+
 [Table of Contents](#table-of-contents)
 
 
