@@ -39,7 +39,7 @@ The style of the visualization is controlled by CSS and a collection of properti
 
 ## CSS
 
-There is no Cascading Style Sheet (CSS) for the stretched chord custom visualiization.
+There is no Cascading Style Sheet (CSS) for the stretched chord custom visualization.
 
 [Table of Contents](#table-of-contents)
 

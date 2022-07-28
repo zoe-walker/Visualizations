@@ -32,7 +32,7 @@ The Process Flow visualisation renders a process: a set of activities (steps), w
 
 A process can be a collaboration between different organisations (actors) within an enterprise. The collaboration is represented by partitioning the activities into swim-lanes, where each swim-lane corresponds to the organisation performing the activity. The swim-lanes are drawn vertically on the diagram. A swim-lane is drawn on the left for Inputs, and a swim-lane on the right for Outputs.
 
-A process can be partitioned into phases. Each phase is a sequence of activities that achieve a goal within the overall process. Phases are demarked with a vertical label and a horizontal line after the last activity in the phase.
+A process can be partitioned into phases. Each phase is a sequence of activities that achieve a goal within the overall process. Phases are demarcated with a vertical label and a horizontal line after the last activity in the phase.
 
 A sub-set of activities within the process, that in combination achieve a goal of note, can be placed in a group. The group is visualised with a labelled rectangle that encloses the activities in the group.
 
@@ -40,7 +40,7 @@ User interaction between the visualisation and the underlying model in MooD is s
 
 The Process Flow package contains two visualisations:
 -   __Process Flow Visualisation__
-    -  This renders the process flow. It can be used standalone (using watermarks in the swim-lanes to identify the actore) or in conjunction with __Process Flow Header__
+    -  This renders the process flow. It can be used standalone (using watermarks in the swim-lanes to identify the actors) or in conjunction with __Process Flow Header__
 -   __Process Flow Header__
     -  This renders the header of the Process. The visualisation panel is designed to be setup at the top of the page immediately above the __Process Flow Visualisation__. It needs to be configured in Business Architect to be in a fixed position so that it is always visible (doesn't scroll off the page).
 
@@ -209,7 +209,7 @@ A Cascading Style Sheet (CSS) is defined containing selectors for the following 
 [Table of Contents](#table-of-contents)
 
 ### Header Properties
-The properties are a subset of those in the __Process Flow Visualisation__. They must have the same values as in the __Process Flow Visualistion__ to ensure that the header aligns with the process flow diagram:
+The properties are a subset of those in the __Process Flow Visualisation__. They must have the same values as in the __Process Flow Visualisation__ to ensure that the header aligns with the process flow diagram:
 
 *	__gridSize__: The number of pixels between grid points that shapes and lines are aligned (snap) to. __Default__: 10.
 *	__processHeaderHeight__: The vertical height, in pixels, allowed for the process header drawn above the diagram: __Default__: 20.
@@ -273,7 +273,7 @@ The visualisation has no actions.
     *   __Position of label along flow__: the distance, in pixels, away from the source step that the label is drawn. This is optional and if not defined, defaults to the style property __linkLabelStandoff__.
     *	__Draw with Off Page Connectors__: Indicates if the link from source step to target step should be drawn directly (false) or indirectly (true) using an off page output connector linked to the source step and an off page input connector linked to the target step
     *	__Off Page Output Connector Label__: Label for off page output connector. Must be defined where Draw with Off Page Connectors is true.
-    *	__Off Page Input Connector Label__: Label for off page intput connector. If not defined then the connector is not drawn. This is to allow a single connector to be drawn where there are multiple off-page connections into the same step. At least one label must be defined for a target step where Draw with Off Page Connectors is true.
+    *	__Off Page Input Connector Label__: Label for off page input connector. If not defined then the connector is not drawn. This is to allow a single connector to be drawn where there are multiple off-page connections into the same step. At least one label must be defined for a target step where Draw with Off Page Connectors is true.
     *	__Drawing sequence number__: Defines the sequence in which flows are drawn (lower number before higher number). This is optional, flows with undefined sequence are drawn after flows with defined sequence in source step then target step order. Defined sequence numbers should be between 1 and 999,999. This can be used to resolve drawing conflicts and also to improve the appearance of flow routes.
     *   __Information contained in Flow__: Details of information element(s) carried by the flow. Zero or more relationships
         *   __Information__: one element

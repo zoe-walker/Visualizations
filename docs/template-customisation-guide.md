@@ -284,7 +284,7 @@ Populate the following JSON files with sample data matching the structure requir
 # Package version numbering
 MooD requires the visualization package and each visualization within the package to have their own version number.
 When changes are made to the visualization, the version number must be updated.
-To enure that you don't forget to update the version number, the template has been configured to update the
+To ensure that you don't forget to update the version number, the template has been configured to update the
 patch number in the semantic version number (major.minor.patch) of the webpack visualization package configuration
 file `./package.json`. This version is only updated when creating the production package, not when debugging.
 To avoid updating the version number, use the `rebuild` script instead of the `build` script.
