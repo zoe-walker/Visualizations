@@ -1,6 +1,6 @@
 //
 // Generate files that require Globally Unique IDentifiers (GUIDs)
-// from Embedded JavasScript (EJS) templates
+// from Embedded JavaScript (EJS) templates
 // 
 var ejs = require('ejs');
 var uuid = require('uuid');

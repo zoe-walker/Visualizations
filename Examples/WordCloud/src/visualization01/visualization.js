@@ -71,7 +71,7 @@ export function visualization (config) {
     //
     allWords.sort()
     //
-    // Build an array of unique words and a count of the number of occurences of each word
+    // Build an array of unique words and a count of the number of occurrences of each word
     // and filter out words that don't occur often enough
     //
     // console.log(JSON.stringify(allWords))
@@ -84,7 +84,7 @@ export function visualization (config) {
       return accumulator
     }, [])
     //
-    // Calculate font size for words based on the number of occurences,
+    // Calculate font size for words based on the number of occurrences,
     // filtering out words that don't occur often enough
     //
     const wordsOfInterest = uniqueWords
@@ -99,17 +99,17 @@ export function visualization (config) {
       //
       // Get range of occurrences
       //
-      const occurenceRange = wordsOfInterest.reduce((accumulator, value) => {
+      const occurrenceRange = wordsOfInterest.reduce((accumulator, value) => {
         return { min: Math.min(accumulator.min, value.count), max: Math.max(accumulator.max, value.count) }
       }, { min: Number.POSITIVE_INFINITY, max: Number.NEGATIVE_INFINITY })
       //
       // Calculate colour palette mapping data
       //
-      const occurenceRangeSize = (occurenceRange.max - occurenceRange.min)
-      const colourMapFactor = colourPalette.length / (occurenceRangeSize + 1)
+      const occurrenceRangeSize = (occurrenceRange.max - occurrenceRange.min)
+      const colourMapFactor = colourPalette.length / (occurrenceRangeSize + 1)
 
       // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
-      // Wordcloud features that are different from one word to the other must be here
+      // WordCloud features that are different from one word to the other must be here
       const layout = d3Cloud()
         .size([width, height])
         .words(wordsOfInterest.map(function (d) { return { text: d.word, size: d.size, count: d.count } }))
@@ -120,7 +120,7 @@ export function visualization (config) {
       layout.start()
 
       // This function takes the output of 'layout' above and draw the words
-      // Wordcloud features that are THE SAME from one word to the other can be here
+      // WordCloud features that are THE SAME from one word to the other can be here
       function draw (words) {
         svg
           .append('g')
@@ -141,7 +141,7 @@ export function visualization (config) {
       // Function to choose colour
       //
       function calculateColour (value) {
-        const colourIndex = Math.round(colourMapFactor * (value - occurenceRange.min))
+        const colourIndex = Math.round(colourMapFactor * (value - occurrenceRange.min))
         return colourPalette[colourIndex]
       }
     }

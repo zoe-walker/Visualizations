@@ -185,10 +185,10 @@ function coincident (line1, line2, tolerance) {
   const isHorizontal = line1StartY === line1EndY
   // Set tolerances to guarantee inclusion of equality in the tests below
   const verticalTolerance = tolerance + (isHorizontal ? 1 : 0)
-  const horizontalalTolerance = tolerance + (isHorizontal ? 0 : 1)
+  const horizontalTolerance = tolerance + (isHorizontal ? 0 : 1)
   if (denominator === 0 && // lines are parallel
-      ((line1StartX > line2StartX - horizontalalTolerance && line1StartX < line2EndX + horizontalalTolerance) || // Line 1 start x within Line 2
-      (line2StartX > line1StartX - horizontalalTolerance && line2StartX < line1EndX + horizontalalTolerance)) && // Line 2 start x within Line 1
+      ((line1StartX > line2StartX - horizontalTolerance && line1StartX < line2EndX + horizontalTolerance) || // Line 1 start x within Line 2
+      (line2StartX > line1StartX - horizontalTolerance && line2StartX < line1EndX + horizontalTolerance)) && // Line 2 start x within Line 1
       ((line1StartY > line2StartY - verticalTolerance && line1StartY < line2EndY + verticalTolerance) || // Line 1 start y within Line 2
       (line2StartY > line1StartY - verticalTolerance && line2StartY < line1EndY + verticalTolerance)) // Line 2 start y within Line 1
   ) {
@@ -304,7 +304,7 @@ const ACTION_MERGE = 2
 /**
  * Determine the next action to take:
  *    If a line segment is not accessible, i.e. is coincident (within tolerance) with existing routed line then stop
- *    If the line intesects with an existing routed line that has the same target then merge into the existing route
+ *    If the line intersects with an existing routed line that has the same target then merge into the existing route
  *    Otherwise, continue
  * Ignore coincident flows that are heading for the same target
  * @param {joint.g.Point} startPoint Start point of line segment to test

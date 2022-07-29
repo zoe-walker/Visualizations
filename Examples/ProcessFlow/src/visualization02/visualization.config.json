@@ -2,7 +2,7 @@
   "id": "df4b4c1f-301a-4bf4-980e-0e5832df085b",
   "name": "Process Flow Header",
   "description": "Header for a Process Flow",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "supportedVersions": "2.0",
   "moodVersion": "16.0.82",
   "dynamicData": false,

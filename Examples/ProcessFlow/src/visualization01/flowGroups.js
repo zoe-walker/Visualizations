@@ -150,7 +150,7 @@ export class FlowGroupSet {
         return similarCompassDirection(a.averageDirection(), 'n') ? -1 : 1
       } else if (a.verticalScore() === 0 || b.verticalScore() === 0) {
         //
-        // Prefere the horizontal flow to a step in the same row
+        // Prefer the horizontal flow to a step in the same row
         //
         return a.verticalScore() === 0 ? -1 : 1
       } else {
