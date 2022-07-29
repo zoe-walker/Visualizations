@@ -56,7 +56,7 @@ export function visualization (config) {
           otherElement = flow.inputConnector()
         } else {
           // Multiple flows merged into a single off page input connector
-          // Find the flow into the target that has the off pagge input connector
+          // Find the flow into the target that has the off page input connector
           otherElement = flow.target().inFlows().filter(flow => flow.inputConnector())[0].inputConnector()
         }
         retVal = {
@@ -132,7 +132,7 @@ export function visualization (config) {
   /**
    * Set navigability of a process flow diagram element
    * @param {bool} isNavigable Indicates if element has a model to navigate to
-   * @param {string} id Identifer of element
+   * @param {string} id Identifier of element
    * @param {Data.*} element Element object
    * @param {string} elementTypeName Name of the type of the element
    */
@@ -147,7 +147,7 @@ export function visualization (config) {
   /**
    * Set navigability of a step
    * @param {bool} isNavigable Indicates if step has a model to navigate to
-   * @param {string} id Identifer of step
+   * @param {string} id Identifier of step
    */
   function setStepNavigable (isNavigable, id) {
     setElementNavigable(isNavigable, id, process.getStepSet().getStep(id), 'step')
@@ -155,7 +155,7 @@ export function visualization (config) {
   /**
    * Set navigability of an actor
    * @param {bool} isNavigable Indicates if actor has a model to navigate to
-   * @param {string} id Identifer of actor
+   * @param {string} id Identifier of actor
    */
   function setActorNavigable (isNavigable, id) {
     setElementNavigable(isNavigable, id, process.getActorSet().getActor(id), 'actor')
@@ -163,7 +163,7 @@ export function visualization (config) {
   /**
    * Set navigability of an Information item
    * @param {bool} isNavigable Indicates if Information has a model to navigate to
-   * @param {string} id Identifer of Information
+   * @param {string} id Identifier of Information
    */
   function setInfoNavigable (isNavigable, id) {
     setElementNavigable(isNavigable, id, process.getInformationSet().getInformation(id).original, 'information')
@@ -171,7 +171,7 @@ export function visualization (config) {
   /**
    * Set navigability of a Phase
    * @param {bool} isNavigable Indicates if Phase has a model to navigate to
-   * @param {string} id Identifer of Phase
+   * @param {string} id Identifier of Phase
    */
   function setPhaseNavigable (isNavigable, id) {
     setElementNavigable(isNavigable, id, process.getPhaseSet().getPhase(id), 'phase')
@@ -179,7 +179,7 @@ export function visualization (config) {
   /**
    * Set navigability of a Flow
    * @param {bool} isNavigable Indicates if Flow has a model to navigate to
-   * @param {string} id Identifer of Flow
+   * @param {string} id Identifier of Flow
    */
   function setFlowNavigable (isNavigable, id) {
     setElementNavigable(isNavigable, id, process.getLinkSet().getFlow(id), 'flow')
@@ -187,7 +187,7 @@ export function visualization (config) {
   /**
    * Set navigability of an I/O Link
    * @param {bool} isNavigable Indicates if link has a model to navigate to
-   * @param {string} id Identifer of link
+   * @param {string} id Identifier of link
    */
   function setLinkNavigable (isNavigable, id) {
     setElementNavigable(isNavigable, id, process.getLinkSet().getLink(id), 'link')
@@ -195,13 +195,13 @@ export function visualization (config) {
   /**
    * Set navigability of a Step Group
    * @param {bool} isNavigable Indicates if step group has a model to navigate to
-   * @param {string} id Identifer of step group
+   * @param {string} id Identifier of step group
    */
   function setGroupNavigable (isNavigable, id) {
     setElementNavigable(isNavigable, id, process.getStepGroupSet().getStepGroup(id), 'step group')
   }
   /**
-   * Determine which elements are navigable. This is desiged to be executed on a timeout after the
+   * Determine which elements are navigable. This is designed to be executed on a timeout after the
    * process flow has been fully rendered
    */
   function determineNavigability () {
@@ -325,7 +325,7 @@ export function visualization (config) {
       inputChanged('highlightNode', inputs.highlightNode)
     }
     //
-    // Determine if primary actions are avaiable for nodes
+    // Determine if primary actions are available for nodes
     //
     window.setTimeout(function () { determineNavigability() }, 500)
   } catch (e) {

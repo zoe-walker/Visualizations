@@ -125,7 +125,7 @@ export const outPortId = {
   }
 }
 
-// Flow intput port preferences for step according to type of step and direction of flow
+// Flow input port preferences for step according to type of step and direction of flow
 //
 export const preferredInPort = {
   process: {

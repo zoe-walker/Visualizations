@@ -338,7 +338,7 @@ export class Diagram {
         })
         //
         // Having determined the size and position of all the steps,
-        // calcluate the size and position of activity group rectangles
+        // calculate the size and position of activity group rectangles
         //
         process.getStepGroupSet().calculateBounds(dimensions.stepGroupPadding)
         //
@@ -794,12 +794,12 @@ class Row {
      * bottom of any step in the row above.
      * Include an adjacent lane on one side of the step to account for wide steps / narrow lanes
      * @param {Data.Step} step the step in the current row requiring minimum vertical space
-     * @param {string} adjectLaneDirection the direction (left or right) from step of the adjacent row to include
+     * @param {string} adjacentLaneDirection the direction (left or right) from step of the adjacent row to include
      * @param {int} padding the space require in pixels to allow routing of flows to the step
      */
-    function setPaddingRequired (step, adjectLaneDirection, padding) {
-      const startOffset = adjectLaneDirection === Config.flowLeft ? -1 : 0
-      const endOffset = adjectLaneDirection === Config.flowLeft ? 0 : 1
+    function setPaddingRequired (step, adjacentLaneDirection, padding) {
+      const startOffset = adjacentLaneDirection === Config.flowLeft ? -1 : 0
+      const endOffset = adjacentLaneDirection === Config.flowLeft ? 0 : 1
       for (let i = step.leftLaneIndex() + startOffset; i <= step.rightLaneIndex() + endOffset; i++) {
         const currentRequirement = requiredPadding[i] ? requiredPadding[i] : 0
         requiredPadding[i] = Math.max(Math.floor(step.size().height / 2) + padding, currentRequirement)
@@ -1051,7 +1051,7 @@ class Row {
           drawFlow = flow
         }
         let flowVerticalDirection
-        let flowHorizontallDirection
+        let flowHorizontalDirection
         const sourceStepType = source.isDecision() ? 'decision' : 'process'
         const targetStepType = target.isDecision() ? 'decision' : 'process'
         flowCount++
@@ -1076,13 +1076,13 @@ class Row {
         const sourceLaneRange = source.swimlaneRange()
         const targetLaneRange = target.swimlaneRange()
         if (sourceLaneRange.max < targetLaneRange.min) {
-          flowHorizontallDirection = Config.flowRight
+          flowHorizontalDirection = Config.flowRight
         } else if (sourceLaneRange.min > targetLaneRange.max) {
-          flowHorizontallDirection = Config.flowLeft
+          flowHorizontalDirection = Config.flowLeft
         } else {
-          flowHorizontallDirection = Config.flowHorizontalNone
+          flowHorizontalDirection = Config.flowHorizontalNone
         }
-        // console.log('step ' + source.name() + ' to ' + target.name() + ' x-dir ' + flowHorizontallDirection)
+        // console.log('step ' + source.name() + ' to ' + target.name() + ' x-dir ' + flowHorizontalDirection)
         let targetPortId
         let endDirection
         let sourcePortId
@@ -1094,8 +1094,8 @@ class Row {
           endDirection = drawFlow.targetPort()
         } else {
           // Use preferred port when port not reserved in process flow configuration data
-          targetPortId = Config.preferredInPort[targetStepType][flowVerticalDirection][flowHorizontallDirection].port
-          endDirection = Config.preferredInPort[targetStepType][flowVerticalDirection][flowHorizontallDirection].side
+          targetPortId = Config.preferredInPort[targetStepType][flowVerticalDirection][flowHorizontalDirection].port
+          endDirection = Config.preferredInPort[targetStepType][flowVerticalDirection][flowHorizontalDirection].side
         }
 
         if (drawFlow.sourcePort()) {
@@ -1105,17 +1105,17 @@ class Row {
           // console.log('Flow from step "' + step.name() + '" is tied to port "' + drawFlow.sourcePort() + '"')
         } else {
           // Use preferred port when port not reserved in process flow configuration data
-          sourcePortId = Config.preferredOutPort[sourceStepType][flowVerticalDirection][flowHorizontallDirection].port
-          startDirection = Config.preferredOutPort[sourceStepType][flowVerticalDirection][flowHorizontallDirection].side
+          sourcePortId = Config.preferredOutPort[sourceStepType][flowVerticalDirection][flowHorizontalDirection].port
+          startDirection = Config.preferredOutPort[sourceStepType][flowVerticalDirection][flowHorizontalDirection].side
           //
           // If output is from bottom port flowing to another lane and there are intervening steps in the source lane
           // switch to side
           //
-          if (startDirection === Sides.bottom) { // && flowHorizontallDirection !== Config.flowHorizontalNone) {
+          if (startDirection === Sides.bottom) { // && flowHorizontalDirection !== Config.flowHorizontalNone) {
             const interveningSteps = flow.isOffPageConnection() ? offPageFlowCount - 1 : stepSet.numInterveningSteps(source, target, Config.partition[startDirection], false)
             // console.log('step ' + source.name() + ' to ' + target.name() + ' intervening ' + interveningSteps)
             if (interveningSteps > 0) {
-              if (flowHorizontallDirection === Config.flowRight) {
+              if (flowHorizontalDirection === Config.flowRight) {
                 startDirection = Sides.right
                 sourcePortId = source.isDecision() ? Ports.flowCentreRightPort : Ports.flowOutLowerRightPort
               } else {
@@ -1136,7 +1136,7 @@ class Row {
             // (Upward flows to process step would have to cross over swimlane to reach input)
             //
             if ((Math.abs(source.rowIndex() - target.rowIndex()) > 1 &&
-                (flowHorizontallDirection !== Config.flowHorizontalNone || flowVerticalDirection === Config.flowDown)) ||
+                (flowHorizontalDirection !== Config.flowHorizontalNone || flowVerticalDirection === Config.flowDown)) ||
                 target.isDecision()) {
               const interveningStepsThisSide = flow.isOffPageConnection() ? 0 : stepSet.numInterveningSteps(source, target, Config.partition[startDirection], false)
               const interveningStepsOtherSide = flow.isOffPageConnection() ? 0 : stepSet.numInterveningSteps(source, target, Config.partition[Config.otherSide[startDirection]], false)
@@ -1177,10 +1177,10 @@ class Row {
           targetPortId,
           endDirection,
           flowVerticalDirection,
-          flowHorizontallDirection,
+          flowHorizontalDirection,
           verticalDistance,
           horizontalDistance,
-          compassDirection: compassDirection(flowVerticalDirection, flowHorizontallDirection)
+          compassDirection: compassDirection(flowVerticalDirection, flowHorizontalDirection)
         }, drawFlow.name())
       })
       //

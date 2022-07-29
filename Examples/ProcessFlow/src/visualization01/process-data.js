@@ -596,7 +596,7 @@ export class LinkSet {
           }
         }
         //
-        // Add information caried in flows as inputs and outputs
+        // Add information carried in flows as inputs and outputs
         //
         if (flow.informationCarried) {
           if (!Array.isArray(flow.informationCarried)) {
@@ -660,7 +660,7 @@ export class LinkSet {
      * @param {Information} info Input for step
      * @param {Step} step Step object
      * @param {String} stepName Name of step
-     * @param {Boolean} isInput Flag indicating if informatio
+     * @param {Boolean} isInput Flag indicating if information
      */
     function validateStepInfo (info, step, stepName, isInput) {
       const ioType = isInput ? 'input' : 'output'
@@ -1033,7 +1033,7 @@ export class StepSet {
     this.getStep = (id) => stepDictionary[id]
     this.steps = () => steps
     /**
-     * Returns the number of steps between the source and target, excluding source and target steps (unless InludeEndRow is true), that lie within parts of the diagram
+     * Returns the number of steps between the source and target, excluding source and target steps (unless IncludeEndRow is true), that lie within parts of the diagram
      * @param {Data.Step} source
      * @param {Data.Step} target
      * @param {*} partition a vertical partition (swimlanes) of the diagram: left (swimlanes to left of source), right, centre (same swimlane as source)

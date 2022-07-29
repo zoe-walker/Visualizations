@@ -74,7 +74,7 @@ There is a wealth of example charts on the web which you can use as the basis of
 
 D3 and React are both in common usage. Both of these are further supported by chart libraries, e.g. Plotly (D3) and Recharts (React). One of the first decisions you will need to make is the framework you will use for your visualization. Some guidance is available for [choosing a library](https://hackernoon.com/choosing-a-data-visualization-library-for-react-444263a41f98). This is aimed at the React framework, but a lot of the issues are applicable to other frameworks. The top criteria discussed in the article are:
 * Your first step should be to __clearly define your use cases__. It sounds obvious, but knowing what you are looking for is the most important criteria in your decision.
-* What chart types does your application require? Depending on your audience, you might require simple instead of complex charts. Often, line/area, grouped/stacked bar, and pie/donut charts suffice.
+* What chart types does your application require? Depending on your audience, you might require simple instead of complex charts. Often, line/area, grouped/stacked bar, and pie/doughnut charts suffice.
 * What kind of customization, formatting, and interactivity do you require in your design? Do you need to be able to customize tick marks? What about showing or hiding grids and axes? Will you need to custom tooltips, legends, and margins? Will you need to format and style your charts significantly? These are all important questions you should also ask.
 * After you have concretely defined your requirements, here are the top four questions you should consider:
 
@@ -286,9 +286,9 @@ If your visualization needs to perform operations which violate the Content-Secu
 
 The Content Security Policy can be modified for __all__ Custom Visualizations. For details, read this [Supportal article](https://supportportal.moodinternational.com/hc/en-us/articles/4402565656338-Visualization-Configuration-Content-Security-Policies)
 
-Alternatievly, this modification can be performed by applying a MooD XHTML Action Panel with specific JavaScript set the required 'csp' attribute on the iFrame, and by using the URLRewriter module to override the value of the Content-Security-Policy header returned by the iFrame page.
+Alternatively, this modification can be performed by applying a MooD XHTML Action Panel with specific JavaScript set the required 'csp' attribute on the iFrame, and by using the URLRewriter module to override the value of the Content-Security-Policy header returned by the iFrame page.
 Specific details of how to do this can be acquired by contacting IIG MooD support.
 
-When crafting an alternative Content-Security-Policy, it is important to ensure that directives are extended in a specific fashion e.g. if the visualization needs to connect to 'mydomain.com' then change connect-src to "'self' mydomain.com" rather than remove the directive.
+When crafting an alternative Content-Security-Policy, it is important to ensure that directives are extended in a specific fashion e.g. if the visualization needs to connect to 'my-domain.com' then change connect-src to "'self' my-domain.com" rather than remove the directive.
 
 [Table of Contents](#table-of-contents)

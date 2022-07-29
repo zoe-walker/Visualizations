@@ -4,7 +4,7 @@
     * [GraphQL Interfaces](#graphql-interfaces)
     * [GraphQL Directives](#graphql-directives)
     * [Examples](#examples)
-        * [Schema illustrating types, intefaces and directives](#schema-illustrating-types-intefaces-and-directives)
+        * [Schema illustrating types, interfaces and directives](#schema-illustrating-types-interfaces-and-directives)
         * [Simple tabular shape](#simple-tabular-shape)
         * [Bar or Column Chart (with grouping and stacking)](#bar-or-column-chart-with-grouping-and-stacking)
         * [Sankey Diagram](#sankey-diagram)
@@ -70,7 +70,7 @@ Another implicit interface is 'MooDMetaModel'. The 'MooDMetaModel' interface is 
    type data { meta: Meta }
    ```
 
-In the above example here is an extract of the JSON you will recieve:
+In the above example here is an extract of the JSON you will receive:
 
    ```
 	"meta": 
@@ -138,7 +138,7 @@ type example implements MooDElement {
 
 ## Examples
 
-### Schema illustrating types, intefaces and directives
+### Schema illustrating types, interfaces and directives
 ```
 # The following are predefined MooD type definitions for use along with the GraphQL predefined scalar definitions "ID", "Int", "Float", "String", and "Boolean" 
 scalar Date 
