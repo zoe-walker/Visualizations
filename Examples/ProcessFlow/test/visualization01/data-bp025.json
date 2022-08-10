@@ -530,7 +530,8 @@
                 "label": "No", 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
-                "offPageInputLabel": null
+                "offPageInputLabel": null,
+                "sequence": 1
             },
             {
                 "id": "41-2585B1108AB74EFDB938938E9DFBFC1A", 
@@ -620,7 +621,8 @@
                 "label": "No", 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
-                "offPageInputLabel": null
+                "offPageInputLabel": null,
+                "sequence": 2
             },
             {
                 "id": "41-E9C01FDCA33E4FC7B98DC5DB1E85F3D1", 

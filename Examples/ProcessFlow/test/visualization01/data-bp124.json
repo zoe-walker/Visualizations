@@ -395,7 +395,8 @@
                 "type": "Process Step", 
                 "navigable": true, 
                 "swimlanes": [{"id": "x", "actor": {"id": "55-22820B47A8574C4281E6254C3450C0B8", "name": "A 1"}}], 
-                "phase": {"id": "55-3F0909ABF9884ABCB2F90B1FBF1A654B", "name": "4. Embodiment (Manufacture & Installation)"}
+                "phase": {"id": "55-3F0909ABF9884ABCB2F90B1FBF1A654B", "name": "4. Embodiment (Manufacture & Installation)"},
+                "preventSharingRow": true
             },
             {
                 "id": "55-9C54171067104D3CBA6B4C476CC2935E", 

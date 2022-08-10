@@ -22,7 +22,8 @@
       "phaseLabelWidth": 60,
       "editable": false,
       "inputSwimlaneLabel": "Inputs",
-      "outputSwimlaneLabel": "Outputs"
+      "outputSwimlaneLabel": "Outputs",
+      "disableIOSwimlanes": false
     }
   },
   "Actions": {

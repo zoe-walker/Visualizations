@@ -31,7 +31,7 @@ const decisionStepTypes = [
 ]
 
 export class Process {
-  constructor (data) {
+  constructor (data, disableIOSwimlanes) {
     if (!data.process) {
       throw new Error('Process data is missing')
     }
@@ -41,14 +41,16 @@ export class Process {
     const actors = new ActorSet(data.actors)
     const swimlanes = new SwimlaneSet(actors)
     const phases = new PhaseSet(data.phases)
-    const steps = new StepSet(data.steps, actors, phases, swimlanes)
+    const steps = new StepSet(data.steps, actors, phases, swimlanes, disableIOSwimlanes)
     const stepGroups = new StepGroupSet(data.stepGroups)
     const infoSet = new InformationSet()
-    const links = new LinkSet(steps, swimlanes, infoSet)
+    const links = new LinkSet(steps, swimlanes, infoSet, disableIOSwimlanes)
     stepGroups.setSteps(data.stepGroupSteps, steps)
     links.setFlows(data.stepFlows)
-    links.setInputs(data.stepInputs)
-    links.setOutputs(data.stepOutputs)
+    if (!disableIOSwimlanes) {
+      links.setInputs(data.stepInputs)
+      links.setOutputs(data.stepOutputs)
+    }
 
     this.name = () => name
     this.version = () => version
@@ -435,8 +437,9 @@ export class LinkSet {
    * @param {StepSet} stepSet
    * @param {SwimlaneSet} swimlaneSet
    * @param {InformationSet} infoSet
+   * @param {boolean} disableIOSwimlanes 
    */
-  constructor (stepSet, swimlaneSet, infoSet) {
+  constructor (stepSet, swimlaneSet, infoSet, disableIOSwimlanes) {
     const linkDictionary = {}
     const flowDictionary = {}
     const inputDictionary = {}
@@ -529,7 +532,7 @@ export class LinkSet {
           //
           // 2. Identify swimlane (actor) to add output connector to
           //
-          const outputStep = new OffPageConnector(outputStepData, 0, sourceStep.swimlanes(), sourceStep.phase(), sourceStep.group(), flowObject.id())
+          const outputStep = new OffPageConnector(outputStepData, 0, sourceStep.swimlanes(), sourceStep.phase(), sourceStep.group(), flowObject.id(), stepSet.laneIndexOffset())
           flowObject.setOutputConnector(outputStep)
           //
           // 3. Create flows between source step and off page output connector
@@ -562,7 +565,7 @@ export class LinkSet {
               connectorLaneIndex = targetStep.centralLaneIndex()
             }
             const inputConnectorActor = [swimlaneSet.swimlanes()[connectorLaneIndex]]
-            const inputStep = new OffPageConnector(inputStepData, 0, inputConnectorActor, targetStep.phase(), targetStep.group(), flowObject.id())
+            const inputStep = new OffPageConnector(inputStepData, 0, inputConnectorActor, targetStep.phase(), targetStep.group(), flowObject.id(), stepSet.laneIndexOffset())
             flowObject.setInputConnector(inputStep)
             //
             // 5. Create flows between off page input connector and target step
@@ -583,7 +586,7 @@ export class LinkSet {
         //
         // Add information carried in flows as inputs and outputs
         //
-        if (flow.informationCarried) {
+        if (flow.informationCarried && !disableIOSwimlanes) {
           if (!Array.isArray(flow.informationCarried)) {
             // Ignore carried information when no relationship has been mapped:
             //  single element with id equal to id of flow relationship
@@ -788,7 +791,7 @@ export class LinkSet {
 }
 
 export class Step extends Element {
-  constructor (stepParam, index, swimlanes, phase) {
+  constructor (stepParam, index, swimlanes, phase, laneIndexOffset) {
     super(stepParam)
     const step = {
       index,
@@ -801,7 +804,8 @@ export class Step extends Element {
       outputs: [],
       inputPorts: {},
       outputPorts: {},
-      preventSharingRow: stepParam.preventSharingRow
+      preventSharingRow: stepParam.preventSharingRow,
+      laneIndexOffset
     }
 
     this.index = () => step.index
@@ -821,8 +825,8 @@ export class Step extends Element {
     this.inputsHeight = () => step.inputsHeight
     this.outputsHeight = () => step.outputsHeight
     this.rowIndex = () => step.rowIndex
-    this.leftLaneIndex = () => step.swimlanes[0].index() + 1
-    this.rightLaneIndex = () => step.swimlanes[step.swimlanes.length - 1].index() + 1
+    this.leftLaneIndex = () => step.swimlanes[0].index() + step.laneIndexOffset
+    this.rightLaneIndex = () => step.swimlanes[step.swimlanes.length - 1].index() + step.laneIndexOffset
     this.preventSharingRow = () => step.preventSharingRow
 
     this.width = function () {
@@ -914,8 +918,8 @@ export class Step extends Element {
 }
 
 export class OffPageConnector extends Step {
-  constructor (stepParam, index, swimlanes, phase, group, originalId) {
-    super(stepParam, index, swimlanes, phase)
+  constructor (stepParam, index, swimlanes, phase, group, originalId, laneIndexOffset) {
+    super(stepParam, index, swimlanes, phase, laneIndexOffset)
     const offPageConnector = {
       originalId
     }
@@ -927,8 +931,9 @@ export class OffPageConnector extends Step {
 }
 
 export class StepSet {
-  constructor (stepsParam, actorSet, phaseSet, swimlaneSet) {
+  constructor (stepsParam, actorSet, phaseSet, swimlaneSet, disableIOSwimlanes) {
     const stepDictionary = {}
+    const laneIndexOffset = disableIOSwimlanes ? 0 : 1
     let swimlanes
     if (!Array.isArray(stepsParam)) {
       throw new Error('Step data is not an array')
@@ -989,7 +994,7 @@ export class StepSet {
       if (step.preventSharingRow === null || step.preventSharingRow === undefined) {
         step.preventSharingRow = false // default
       }
-      return new Step(step, index, swimlanes, phase)
+      return new Step(step, index, swimlanes, phase, laneIndexOffset)
     })
     //
     // Sort swimlanes in swim-lane (index) order for all steps
@@ -1017,6 +1022,7 @@ export class StepSet {
     //
     this.getStep = (id) => stepDictionary[id]
     this.steps = () => steps
+    this.laneIndexOffset = () => laneIndexOffset
     /**
      * Returns the number of steps between the source and target, excluding source and target steps (unless IncludeEndRow is true), that lie within parts of the diagram
      * @param {Data.Step} source
