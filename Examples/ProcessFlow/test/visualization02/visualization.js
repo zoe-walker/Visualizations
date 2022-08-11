@@ -10,6 +10,7 @@ const cssTestPropertyName = 'font-size'
 const cssTestPropertyAppliedValue = '10px'
 
 const config = {}
+const otherConfig = {}
 let key
 let css
 
