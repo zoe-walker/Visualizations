@@ -4,7 +4,6 @@
        "horizontalDecisionsAllowed": true,
        "renderProcessHeader": false,
        "renderSwimlaneWatermarks": false,
-       "gridSize": 10,
        "verticalStepSeparation": 50,
        "verticalIOSeparation": 10,
        "stepStandoff": 10,
@@ -12,7 +11,6 @@
        "linkLabelStandoff": 70,
        "processHeaderHeight": 20,
        "swimlaneWatermarkSpacing": 600,
-       "phaseLabelWidth": 60,
        "stepGroupPadding": 15,
        "elementSizes": {
            "Process Step": {"width": 100, "height": 60},
@@ -31,9 +29,6 @@
            "Other": {"width": 100, "height": 40}
        },
        "editable": true,
-       "inputSwimlaneLabel": "Inputs",
-       "outputSwimlaneLabel": "Outputs",
-       "disableIOSwimlanes": false,
        "maxFlowLabelSize": {
          "width": 100,
          "height": 60

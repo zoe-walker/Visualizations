@@ -1,23 +1,8 @@
-import {visualization} from '../../src/visualization01/visualization';
+import { visualization } from '../../src/visualization01/visualization';
 import MooDConfig from './MooDConfig.json';
-// import dataConfig from './data.json';
-//import styleConfig from './style.json';
-// import dataConfig from './data2.json';
-// import dataConfig from './data-bp001.json';
-// import dataConfig from './data-bp025.json';
-import dataConfig from './data-bp025-redrawn.json';
-// import dataConfig from './data-bp027.json';
-// import dataConfig from './data-bp100.json';
-// import dataConfig from './data-bp108.json';
-// import dataConfig from './data-bp124.json';
-// import dataConfig from './data-bp135.json';
-// import dataConfig from './data-bpXYZ.json';
-// import dataConfig from './data-mro1-3 compact.json';
-// import dataConfig from './data-mro1-3.json';
-// import dataConfig from './data-mro4.json';
-// import dataConfig from './data-ftp-demand.json';
 import styleConfig from './style2.json';
 import inputsConfig from './inputs.json';
+import { commonConfig } from './common-config'
 
 const loadTestCSSurl = 'visualization01/load-test.css'
 const cssTestPropertyName = 'font-size'
@@ -33,20 +18,21 @@ for (key in MooDConfig) {
     }
 }
 
-for (key in dataConfig) {
-    if(dataConfig.hasOwnProperty(key)) {
-        config[key] = dataConfig[key]
-    }
-}
+config.data = commonConfig.data
 
 if (styleConfig.URL !== undefined) {
     css = styleConfig.URL
 }
 
-
 for (key in styleConfig) {
     if(styleConfig.hasOwnProperty(key) && key !== 'URL') {
         config[key] = styleConfig[key]
+    }
+}
+
+for (key in commonConfig.style) {
+    if(commonConfig.style.hasOwnProperty(key)) {
+        config.style[key] = commonConfig.style[key]
     }
 }
 

@@ -1,23 +1,9 @@
 import {visualization} from '../../src/visualization02/visualization';
 import MooDConfig from './MooDConfig.json';
-// import dataConfig from '../visualization01/data.json';
-//import styleConfig from '../visualization01/style.json';
-// import dataConfig from '../visualization01/data2.json';
-// import dataConfig from '../visualization01/data-bp001.json';
-// import dataConfig from '../visualization01/data-bp025.json';
-import dataConfig from '../visualization01/data-bp025-redrawn.json';
-// import dataConfig from '../visualization01/data-bp027.json';
-// import dataConfig from '../visualization01/data-bp100.json';
-// import dataConfig from '../visualization01/data-bp108.json';
-// import dataConfig from '../visualization01/data-bp124.json';
-// import dataConfig from '../visualization01/data-bp135.json';
-// import dataConfig from '../visualization01/data-bpXYZ.json';
-// import dataConfig from '../visualization01/data-mro1-3 compact.json';
-// import dataConfig from '../visualization01/data-mro1-3.json';
-// import dataConfig from '../visualization01/data-mro4.json';
-// import dataConfig from '../visualization01/data-ftp-demand.json';
+import otherMooDConfig from '../visualization01/MooDConfig.json';
 import styleConfig from './style2.json';
 import inputsConfig from './inputs.json';
+import { commonConfig } from '../visualization01/common-config'
 
 const loadTestCSSurl = 'visualization02/load-test.css'
 const cssTestPropertyName = 'font-size'
@@ -33,11 +19,13 @@ for (key in MooDConfig) {
     }
 }
 
-for (key in dataConfig) {
-    if(dataConfig.hasOwnProperty(key)) {
-        config[key] = dataConfig[key]
+for (key in otherMooDConfig) {
+    if(otherMooDConfig.hasOwnProperty(key)) {
+        otherConfig[key] = otherMooDConfig[key]
     }
 }
+
+config.data = commonConfig.data
 
 if (styleConfig.URL !== undefined) {
     css = styleConfig.URL
@@ -47,6 +35,12 @@ if (styleConfig.URL !== undefined) {
 for (key in styleConfig) {
     if(styleConfig.hasOwnProperty(key) && key !== 'URL') {
         config[key] = styleConfig[key]
+    }
+}
+
+for (key in commonConfig.style) {
+    if(commonConfig.style.hasOwnProperty(key)) {
+        config.style[key] = commonConfig.style[key]
     }
 }
 
