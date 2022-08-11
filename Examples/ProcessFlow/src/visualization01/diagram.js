@@ -542,7 +542,7 @@ export class Diagram {
                     portPosition = flowOutPortPosition
                   }
                   // Adjust first x position in order to split multiple flows and allow labels to separate
-                  if (step.outputs().filter(output => output.isFlow()).length > 0) {
+                  if (step.outputs().filter(output => output.isFlow()).length > 1) {
                     const stepSwimlane = swimlanes[step.rightLaneIndex()]
                     xPos = stepSwimlane.position().x + stepSwimlane.size().width + style.ioStandoff
                   }
