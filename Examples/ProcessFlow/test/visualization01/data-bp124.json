@@ -1417,7 +1417,7 @@
             {
                 "id": "41-9A6B9CDDB1DC45F49572D97991F06798", 
                 "target": {"id": "55-E70FD003CBCB4B15ADDC03AAA6D6CC91", "name": "23. Sufficient information to fulfil Initial Design Review criteria?"}, 
-                "source": {"id": "55-B21DA1D7B66349E7917CE99C33E691FC", "name": "Saftey Assessment Part 1", "shortName": null, "type": "External Data", "navigable": false}
+                "source": {"id": "55-B21DA1D7B66349E7917CE99C33E691FC", "name": "Safety Assessment Part 1", "shortName": null, "type": "External Data", "navigable": false}
             },
             {
                 "id": "41-65738F1CA9154EEAA54A787138D6F886", 
@@ -1694,7 +1694,7 @@
             {
                 "id": "41-B72A6A73D9A54B2683F5A89FAB60BCB4", 
                 "source": {"id": "55-FAD985D4F5EF41318B13FD036692A451", "name": "06. A 2 review information prior to Initial Gate"}, 
-                "target": {"id": "55-95F1B9FE91C2406582E93EB635E99975", "name": "Hazard log and enviromental Feature Matrix (EFM)", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "target": {"id": "55-95F1B9FE91C2406582E93EB635E99975", "name": "Hazard log and environmental Feature Matrix (EFM)", "shortName": null, "type": "Document / Form", "navigable": false}, 
                 "label": null, 
                 "flow": null
             },
@@ -1883,7 +1883,7 @@
             {
                 "id": "41-AFDB0B3BC2DA4DF5A3A9CBE7F99CDB12", 
                 "source": {"id": "55-781C1C96EB5B4ED4A08348E9D1FDC76F", "name": "30. Is design safe and acceptable?"}, 
-                "target": {"id": "55-C2B88309AFD340659AF781AFF7A7D18C", "name": "Update Platform ction tracker", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "target": {"id": "55-C2B88309AFD340659AF781AFF7A7D18C", "name": "Update Platform action tracker", "shortName": null, "type": "Document / Form", "navigable": false}, 
                 "label": null, 
                 "flow": null
             },
@@ -1988,7 +1988,7 @@
             {
                 "id": "41-1AF16D432B234BACADF5A769EAAC2191", 
                 "source": {"id": "55-F6F6D2D9FC7847FDBA49E50144C10F84", "name": "45. Issues closed"}, 
-                "target": {"id": "55-08EC51E26A8E4B41BD7CCE5C88DB21B7", "name": "Recification of issues", "shortName": null, "type": "Document / Form", "navigable": false}, 
+                "target": {"id": "55-08EC51E26A8E4B41BD7CCE5C88DB21B7", "name": "Rectification of issues", "shortName": null, "type": "Document / Form", "navigable": false}, 
                 "label": null, 
                 "flow": null
             },
@@ -2023,7 +2023,7 @@
             {
                 "id": "41-951C0E7B97794BED94D6CB35FFE2C9C3", 
                 "source": {"id": "55-023D6B67D3E64A5FBF70E307D0E44292", "name": "51. Manager advises on design change acceptance"}, 
-                "target": {"id": "55-A5A4532D8E234BE288502E584D79F99B", "name": "BP 010 Compeletion of Installation", "shortName": null, "type": "Process", "navigable": false}, 
+                "target": {"id": "55-A5A4532D8E234BE288502E584D79F99B", "name": "BP 010 Completion of Installation", "shortName": null, "type": "Process", "navigable": false}, 
                 "label": null, 
                 "flow": null
             },
