@@ -18,7 +18,7 @@
     "URL": "visualization02/process-flow.css",
     "JSON": {
       "verticalSwimlanes": true,
-      "minimumSwimlaneHeight": 150,
+      "minimumSwimlaneHeight": 170,
       "gridSize": 10,
       "processHeaderHeight": 20,
       "phaseLabelWidth": 60,

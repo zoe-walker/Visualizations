@@ -15,7 +15,7 @@
   "inputs": [
     {
       "name": "highlightNode",
-      "displayName": "Higlight Node",
+      "displayName": "Highlight Node",
       "type": "Elements"
     }
   ],
@@ -23,7 +23,7 @@
     "URL": "visualization01/process-flow.css",
     "JSON": {
       "verticalSwimlanes": true,
-      "minimumSwimlaneHeight": 150,
+      "minimumSwimlaneHeight": 170,
       "horizontalStepsAllowed": true,
       "horizontalDecisionsAllowed": true,
       "renderProcessHeader": false,

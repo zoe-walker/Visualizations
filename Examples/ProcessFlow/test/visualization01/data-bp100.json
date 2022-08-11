@@ -191,7 +191,8 @@
 			"type": "Process Step", 
 			"navigable": true, 
 			"swimlanes": [{"id": "x", "actor": {"id": "55-04EF452076BA41C1A4A76A9D5798D88C", "name": "A 3"}}], 
-			"phase": null
+			"phase": null,
+			"preventSharingRow": true
 		},
 		{
 			"id": "55-0E286650CCDF40ECB5DF575DD2D81105", 

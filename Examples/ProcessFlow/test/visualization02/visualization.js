@@ -1,5 +1,6 @@
 import {visualization} from '../../src/visualization02/visualization';
 import MooDConfig from './MooDConfig.json';
+import otherMooDConfig from '../visualization01/MooDConfig.json';
 // import dataConfig from '../visualization01/data.json';
 //import styleConfig from '../visualization01/style.json';
 // import dataConfig from '../visualization01/data2.json';
@@ -25,12 +26,19 @@ const cssTestPropertyAppliedValue = '10px'
 let elementId
 
 const config = {}
+const otherConfig = {}
 let key
 let css
 
 for (key in MooDConfig) {
     if(MooDConfig.hasOwnProperty(key)) {
         config[key] = MooDConfig[key]
+    }
+}
+
+for (key in otherMooDConfig) {
+    if(otherMooDConfig.hasOwnProperty(key)) {
+        otherConfig[key] = otherMooDConfig[key]
     }
 }
 
@@ -99,11 +107,10 @@ for (key in inputsConfig) {
         //
         config.element = 'vert_' + config.element
         //
-        // Swap dimensions for horizontal swimlane orientation
+        // Limit width of header for horizontal swimlane orientation
         //
-        const swap = config.height
-        config.height = config.width
-        config.width = swap
+        config.width = config.height
+        config.height = otherConfig.height
     }
     elementId = config.element
     var el = document.getElementById(config.element)

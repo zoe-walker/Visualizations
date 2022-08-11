@@ -1,7 +1,7 @@
 {"URL": "visualization01/process-flow.css",
     "style": {
        "verticalSwimlanes": false,
-       "minimumSwimlaneHeight": 150,
+       "minimumSwimlaneHeight": 170,
        "horizontalStepsAllowed": true,
        "horizontalDecisionsAllowed": true,
        "renderProcessHeader": true,
@@ -35,7 +35,7 @@
        "editable": true,
        "inputSwimlaneLabel": "Inputs",
        "outputSwimlaneLabel": "Outputs",
-       "disableIOSwimlanes": false,
+       "disableIOSwimlanes": true,
        "maxFlowLabelSize": {
          "width": 100,
          "height": 60

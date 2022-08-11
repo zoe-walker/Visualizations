@@ -121,12 +121,6 @@ for (key in inputsConfig) {
         // Switch element for horizontal swimlane orientation
         //
         config.element = 'vert_' + config.element
-        //
-        // Swap dimensions for horizontal swimlane orientation
-        //
-        const swap = config.height
-        config.height = config.width
-        config.width = swap
     }
     elementId = config.element
     var el = document.getElementById(config.element)

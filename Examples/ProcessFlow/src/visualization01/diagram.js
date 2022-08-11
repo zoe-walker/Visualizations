@@ -22,7 +22,6 @@ export class Diagram {
   constructor (process, style, width, height, visualizationData) {
     const elementId = visualizationData.config.element
 
-    const gridAlignedStyle = alignStyleToGrid(style)
     //
     // Set defaults for any missing configuration
     //
@@ -35,20 +34,7 @@ export class Diagram {
       targetTolerance: 1
     }
     style.verticalSwimlanes = style.verticalSwimlanes === undefined ? true : style.verticalSwimlanes
-    const containerSize = new OrientedDimensions(style.verticalSwimlanes)
-    containerSize.setDimensions({ width, height })
-
-    const drawProcessHeader = style.renderProcessHeader && style.verticalSwimlanes // only draw process heading for vertical swimlanes
-    const drawWatermark = style.renderSwimlaneWatermarks
-    const phaseLabelWidth = process.getPhaseSet().noPhases() === true ? 0 : gridAlignedStyle.phaseLabelWidth
-    const numIOSwimlanes = gridAlignedStyle.disableIOSwimlanes ? 0 : 2
-    const numSwimlanes = process.getActorSet().numSwimlanes() + numIOSwimlanes // allow for swim lanes for inputs and outputs
-    const verticalSwimlaneWidth = alignValueDown((containerSize.width() - phaseLabelWidth - numIOSwimlanes * style.gridSize * 2) / // allow extra width for I/O lanes
-                                                 numSwimlanes, style.gridSize)
-    const swimlaneWidth = style.verticalSwimlanes ? verticalSwimlaneWidth : Math.max(verticalSwimlaneWidth, gridAlignedStyle.minimumSwimlaneHeight)
-    const ioLaneWidth = gridAlignedStyle.disableIOSwimlanes ? 0 : swimlaneWidth + style.gridSize * 2
-    const useableWidth = phaseLabelWidth + swimlaneWidth * process.getActorSet().numSwimlanes() + ioLaneWidth * 2
-    gridAlignedStyle.swimlaneWidth = swimlaneWidth
+    const gridAlignedStyle = alignStyleToGrid(style)
     gridAlignedStyle.inputSwimlaneLabel = gridAlignedStyle.inputSwimlaneLabel || 'Inputs'
     gridAlignedStyle.outputSwimlaneLabel = gridAlignedStyle.outputSwimlaneLabel || 'Outputs'
     gridAlignedStyle.disableIOSwimlanes = gridAlignedStyle.disableIOSwimlanes === undefined
@@ -67,6 +53,21 @@ export class Diagram {
     gridAlignedStyle.horizontalDecisionsAllowed = gridAlignedStyle.horizontalDecisionsAllowed === undefined
       ? true
       : gridAlignedStyle.horizontalDecisionsAllowed
+
+    const containerSize = new OrientedDimensions(style.verticalSwimlanes)
+    containerSize.setDimensions({ width, height })
+
+    const drawProcessHeader = style.renderProcessHeader && style.verticalSwimlanes // only draw process heading for vertical swimlanes
+    const drawWatermark = style.renderSwimlaneWatermarks
+    const phaseLabelWidth = process.getPhaseSet().noPhases() === true ? 0 : gridAlignedStyle.phaseLabelWidth
+    const numIOSwimlanes = gridAlignedStyle.disableIOSwimlanes ? 0 : 2
+    const numSwimlanes = process.getActorSet().numSwimlanes() + numIOSwimlanes // allow for swim lanes for inputs and outputs
+    const verticalSwimlaneWidth = alignValueDown((containerSize.width() - phaseLabelWidth - numIOSwimlanes * style.gridSize * 2) / // allow extra width for I/O lanes
+                                                 numSwimlanes, style.gridSize)
+    const swimlaneWidth = style.verticalSwimlanes ? verticalSwimlaneWidth : Math.max(verticalSwimlaneWidth, gridAlignedStyle.minimumSwimlaneHeight)
+    const ioLaneWidth = gridAlignedStyle.disableIOSwimlanes ? 0 : swimlaneWidth + style.gridSize * 2
+    const useableWidth = phaseLabelWidth + swimlaneWidth * process.getActorSet().numSwimlanes() + ioLaneWidth * 2
+    gridAlignedStyle.swimlaneWidth = swimlaneWidth
 
     const diagramSize = new OrientedDimensions(style.verticalSwimlanes)
     diagramSize.setDimensions({

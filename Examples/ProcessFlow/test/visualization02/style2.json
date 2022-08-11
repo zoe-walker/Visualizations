@@ -1,13 +1,13 @@
 {"URL": "visualization02/process-flow.css",
     "style": {
       "verticalSwimlanes": false,
-      "minimumSwimlaneHeight": 150,
+      "minimumSwimlaneHeight": 170,
       "gridSize": 10,
       "processHeaderHeight": 20,
       "phaseLabelWidth": 60,
       "editable": true,
       "inputSwimlaneLabel": "Inputs",
       "outputSwimlaneLabel": "Outputs",
-      "disableIOSwimlanes": false
+      "disableIOSwimlanes": true
     }
 }
