@@ -1,5 +1,6 @@
 # 2.1.0 (11/08/2022)
   * Add configuration to style JSON object to control whether the Input and Output swim-lanes are drawn
+  * Fix drawing outputs as flows (separate from non-flow outputs)
 
 # 2.0.3 (29/07/2022)
   * Correct spellings

@@ -2,8 +2,8 @@
   "id": "f1ff54e2-125d-4c3f-a4af-ff672bf40939",
   "name": "Process Flow Visualisation",
   "description": "Visualisation of a Process Flow in swimlanes",
-  "version": "2.0.3",
-  "supportedVersions": "2.0",
+  "version": "2.1.0",
+  "supportedVersions": "2.1",
   "moodVersion": "16.0.082",
   "dynamicData": false,
   "canOverflow":  true,
@@ -15,7 +15,7 @@
   "inputs": [
     {
       "name": "highlightNode",
-      "displayName": "Higlight Node",
+      "displayName": "Highlight Node",
       "type": "Elements"
     }
   ],
