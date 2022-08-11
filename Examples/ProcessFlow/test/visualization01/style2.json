@@ -1,7 +1,5 @@
 {"URL": "visualization01/process-flow.css",
     "style": {
-       "verticalSwimlanes": false,
-       "minimumSwimlaneHeight": 170,
        "horizontalStepsAllowed": true,
        "horizontalDecisionsAllowed": true,
        "renderProcessHeader": true,
