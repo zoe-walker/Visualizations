@@ -64,7 +64,7 @@
             },
             {
                 "id": "55-7012B89F0D174041BCAAFF24C3E67062", 
-                "name": "03. GATE REVIEW: Confirm forcasted WP size in view of material state. Confirm capacity & budget availablility", 
+                "name": "03. GATE REVIEW: Confirm forecasted WP size in view of material state. Confirm capacity & budget availability", 
                 "type": "Process Step", 
                 "navigable": true, 
                 "swimlanes": [{"id": "x", "actor": {"id": "55-17DC547091234D5B84FF40722AC49D1C", "name": "A 2"}}], 
@@ -501,7 +501,7 @@
             },
             {
                 "id": "55-2E28158AB91A4229992DA4650DFD83EA", 
-                "name": "57. Review and approve the End of Programmme Report", 
+                "name": "57. Review and approve the End of Programme Report", 
                 "type": "Process Step", 
                 "navigable": true, 
                 "swimlanes": [{"id": "x", "actor": {"id": "55-17DC547091234D5B84FF40722AC49D1C", "name": "A 2"}}], 
@@ -537,7 +537,7 @@
             {
                 "id": "41-96E83CB08C6E4480A16D9CD0E8F635D2", 
                 "source": {"id": "55-72891CA94BC046C18740EA1248B1F585", "name": "02. Open support programme Risk Register and maintain"}, 
-                "target": {"id": "55-7012B89F0D174041BCAAFF24C3E67062", "name": "03. GATE REVIEW: Confirm forcasted WP size in view of material state. Confirm capacity & budget availablility"}, 
+                "target": {"id": "55-7012B89F0D174041BCAAFF24C3E67062", "name": "03. GATE REVIEW: Confirm forecasted WP size in view of material state. Confirm capacity & budget availability"}, 
                 "label": null, 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
@@ -545,7 +545,7 @@
             },
             {
                 "id": "41-2AABE96408E948D4A257B6F0663E21FD", 
-                "source": {"id": "55-7012B89F0D174041BCAAFF24C3E67062", "name": "03. GATE REVIEW: Confirm forcasted WP size in view of material state. Confirm capacity & budget availablility"}, 
+                "source": {"id": "55-7012B89F0D174041BCAAFF24C3E67062", "name": "03. GATE REVIEW: Confirm forecasted WP size in view of material state. Confirm capacity & budget availability"}, 
                 "target": {"id": "55-90C914030C8C4EE9BB6D39E776CABA45", "name": "04. Create and circulate business case for required Type B CI Package (see Note 4 below)"}, 
                 "label": null, 
                 "offPageConnection": false, 
@@ -554,7 +554,7 @@
             },
             {
                 "id": "41-80464EDC56D943F38E7017F9AC6F6F70", 
-                "source": {"id": "55-7012B89F0D174041BCAAFF24C3E67062", "name": "03. GATE REVIEW: Confirm forcasted WP size in view of material state. Confirm capacity & budget availablility"}, 
+                "source": {"id": "55-7012B89F0D174041BCAAFF24C3E67062", "name": "03. GATE REVIEW: Confirm forecasted WP size in view of material state. Confirm capacity & budget availability"}, 
                 "target": {"id": "55-4587EBF7772E47AD8F84491385CE0FB2", "name": "11.Provide initial Material Demand forecast"}, 
                 "label": null, 
                 "offPageConnection": false, 
@@ -1218,7 +1218,7 @@
             {
                 "id": "41-947215F00F1642B69F07E74B3AD282A9", 
                 "source": {"id": "55-3AF87554941F46F9AD7ACA47913D2354", "name": "56. Produce the End of Programme Report. Ensure key data and stakeholder input is assessed"}, 
-                "target": {"id": "55-2E28158AB91A4229992DA4650DFD83EA", "name": "57. Review and approve the End of Programmme Report"}, 
+                "target": {"id": "55-2E28158AB91A4229992DA4650DFD83EA", "name": "57. Review and approve the End of Programme Report"}, 
                 "label": null, 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
@@ -1226,7 +1226,7 @@
             },
             {
                 "id": "41-3E8676CF8F4E49908449BC141F70C835", 
-                "source": {"id": "55-2E28158AB91A4229992DA4650DFD83EA", "name": "57. Review and approve the End of Programmme Report"}, 
+                "source": {"id": "55-2E28158AB91A4229992DA4650DFD83EA", "name": "57. Review and approve the End of Programme Report"}, 
                 "target": {"id": "55-61232E3D88044811843678F2AD9EFCDC", "name": "58. Issue the approved End of Programme Report"}, 
                 "label": null, 
                 "offPageConnection": false, 
@@ -1267,7 +1267,7 @@
             },
             {
                 "id": "41-F7E199D26054471685365BA7686BC097", 
-                "target": {"id": "55-7012B89F0D174041BCAAFF24C3E67062", "name": "03. GATE REVIEW: Confirm forcasted WP size in view of material state. Confirm capacity & budget availablility"}, 
+                "target": {"id": "55-7012B89F0D174041BCAAFF24C3E67062", "name": "03. GATE REVIEW: Confirm forecasted WP size in view of material state. Confirm capacity & budget availability"}, 
                 "source": {"id": "55-E8D9E6B2282D4433A793B3FDA7EB0C36", "name": "Schedule budgets", "shortName": null, "type": "Document / Form", "navigable": false},
                 "label": null
             },
@@ -1341,7 +1341,7 @@
         "stepOutputs": [
             {
                 "id": "41-88F3C83B85FA4281954A3782EC3D8881", 
-                "source": {"id": "55-7012B89F0D174041BCAAFF24C3E67062", "name": "03. GATE REVIEW: Confirm forcasted WP size in view of material state. Confirm capacity & budget availablility"}, 
+                "source": {"id": "55-7012B89F0D174041BCAAFF24C3E67062", "name": "03. GATE REVIEW: Confirm forecasted WP size in view of material state. Confirm capacity & budget availability"}, 
                 "target": {"id": "55-CC117871F3BC4318BA9116D4518F3AB8", "name": "CI Package", "shortName": null, "type": "Document / Form", "navigable": false}, 
                 "label": null, 
                 "flow": false

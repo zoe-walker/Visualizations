@@ -177,7 +177,7 @@
             },
             {
                 "id": "55-EC29A613DD424215878D81F671A72DAC", 
-                "name": "11. Does task requre a new change study", 
+                "name": "11. Does task require a new change study", 
                 "type": "Decision", 
                 "navigable": true, 
                 "swimlanes": [{"id": "x", "actor": {"id": "55-F11CFCD2A19B4BBEB75A55BCA6C2698A", "name": "A 5"}}], 
@@ -233,7 +233,7 @@
             },
             {
                 "id": "55-EF3B48E8E76E4FAF884548A37291301B", 
-                "name": "18. Review the task requirements and asse structure to determine the correct level of asset link", 
+                "name": "18. Review the task requirements and asset structure to determine the correct level of asset link", 
                 "type": "Process Step", 
                 "navigable": true, 
                 "swimlanes": [{"id": "x", "actor": {"id": "55-F11CFCD2A19B4BBEB75A55BCA6C2698A", "name": "A 5"}}], 
@@ -241,7 +241,7 @@
             },
             {
                 "id": "55-8E0E8366775D4811B48C0002E0FCB024", 
-                "name": "19. Conduct Aproval Review if required (see activity table)", 
+                "name": "19. Conduct Approval Review if required (see activity table)", 
                 "type": "Process Step", 
                 "navigable": true, 
                 "swimlanes": [{"id": "x", "actor": {"id": "55-F11CFCD2A19B4BBEB75A55BCA6C2698A", "name": "A 5"}}], 
@@ -305,7 +305,7 @@
             },
             {
                 "id": "55-263F9C1A63E04636B28C0887EEE5FA03", 
-                "name": "27. Set task live / run change import process for digital platfrom", 
+                "name": "27. Set task live / run change import process for digital platform", 
                 "type": "Process Step", 
                 "navigable": true, 
                 "swimlanes": [{"id": "x", "actor": {"id": "55-F11CFCD2A19B4BBEB75A55BCA6C2698A", "name": "A 5"}}], 
@@ -329,7 +329,7 @@
             },
             {
                 "id": "55-E27479BA405641E98724B23FE2CE7E5C", 
-                "name": "30. Inform initiator that task is complet", 
+                "name": "30. Inform initiator that task is complete", 
                 "type": "Process Step", 
                 "navigable": true, 
                 "swimlanes": [{"id": "x", "actor": {"id": "55-F11CFCD2A19B4BBEB75A55BCA6C2698A", "name": "A 5"}}], 
@@ -409,7 +409,7 @@
             {
                 "id": "41-E9EA2FBC289C4B9F9CC5A9775008562C", 
                 "source": {"id": "55-AA5662466C49428CA8F52F7F6800B67A", "name": "10. Inform A 6 of change, discuss requirement and agree change action/process"}, 
-                "target": {"id": "55-EC29A613DD424215878D81F671A72DAC", "name": "11. Does task requre a new change study"}, 
+                "target": {"id": "55-EC29A613DD424215878D81F671A72DAC", "name": "11. Does task require a new change study"}, 
                 "label": null, 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
@@ -418,7 +418,7 @@
             {
                 "id": "41-E8E3CAB4B85946DF832477AD0AB9E304", 
                 "source": {"id": "55-3DFE03B4C1524F6087548A4703EB0CF4", "name": "17. Review the task requirements and asset structure to determine the correct level of asset link"}, 
-                "target": {"id": "55-8E0E8366775D4811B48C0002E0FCB024", "name": "19. Conduct Aproval Review if required (see activity table)"}, 
+                "target": {"id": "55-8E0E8366775D4811B48C0002E0FCB024", "name": "19. Conduct Approval Review if required (see activity table)"}, 
                 "label": null, 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
@@ -426,8 +426,8 @@
             },
             {
                 "id": "41-B6ACBCB1C4884306BB81F02F9967E93E", 
-                "source": {"id": "55-EF3B48E8E76E4FAF884548A37291301B", "name": "18. Review the task requirements and asse structure to determine the correct level of asset link"}, 
-                "target": {"id": "55-8E0E8366775D4811B48C0002E0FCB024", "name": "19. Conduct Aproval Review if required (see activity table)"}, 
+                "source": {"id": "55-EF3B48E8E76E4FAF884548A37291301B", "name": "18. Review the task requirements and asset structure to determine the correct level of asset link"}, 
+                "target": {"id": "55-8E0E8366775D4811B48C0002E0FCB024", "name": "19. Conduct Approval Review if required (see activity table)"}, 
                 "label": null, 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
@@ -435,7 +435,7 @@
             },
             {
                 "id": "41-1E1CD406F0924602917A284E738991C2", 
-                "source": {"id": "55-8E0E8366775D4811B48C0002E0FCB024", "name": "19. Conduct Aproval Review if required (see activity table)"}, 
+                "source": {"id": "55-8E0E8366775D4811B48C0002E0FCB024", "name": "19. Conduct Approval Review if required (see activity table)"}, 
                 "target": {"id": "55-1EE80043173B4A088553753EE6A12CAC", "name": "20. Approve change?"}, 
                 "label": null, 
                 "offPageConnection": false, 
@@ -454,7 +454,7 @@
             {
                 "id": "41-8D028ED0914C4586BD1B99296642413B", 
                 "source": {"id": "55-E0EA8DE647A74A40ACF635B2E635A058", "name": "26. A 6 to produce integration information for digital environment and provide change file to A 5"}, 
-                "target": {"id": "55-263F9C1A63E04636B28C0887EEE5FA03", "name": "27. Set task live / run change import process for digital platfrom"}, 
+                "target": {"id": "55-263F9C1A63E04636B28C0887EEE5FA03", "name": "27. Set task live / run change import process for digital platform"}, 
                 "label": null, 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
@@ -462,7 +462,7 @@
             },
             {
                 "id": "41-2812B866CE344FA6A66FE63BECCAB0FA", 
-                "source": {"id": "55-263F9C1A63E04636B28C0887EEE5FA03", "name": "27. Set task live / run change import process for digital platfrom"}, 
+                "source": {"id": "55-263F9C1A63E04636B28C0887EEE5FA03", "name": "27. Set task live / run change import process for digital platform"}, 
                 "target": {"id": "55-73240D78AC7841F780ACC0701F01BD71", "name": "29. Update tasking database, close task"}, 
                 "label": null, 
                 "offPageConnection": false, 
@@ -481,7 +481,7 @@
             {
                 "id": "41-59C90DA874A34D648A748E5A42A039D5", 
                 "source": {"id": "55-73240D78AC7841F780ACC0701F01BD71", "name": "29. Update tasking database, close task"}, 
-                "target": {"id": "55-E27479BA405641E98724B23FE2CE7E5C", "name": "30. Inform initiator that task is complet"}, 
+                "target": {"id": "55-E27479BA405641E98724B23FE2CE7E5C", "name": "30. Inform initiator that task is complete"}, 
                 "label": null, 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
@@ -489,7 +489,7 @@
             },
             {
                 "id": "41-EB99259745E84DACBFE92828C0B1B4E0", 
-                "source": {"id": "55-E27479BA405641E98724B23FE2CE7E5C", "name": "30. Inform initiator that task is complet"}, 
+                "source": {"id": "55-E27479BA405641E98724B23FE2CE7E5C", "name": "30. Inform initiator that task is complete"}, 
                 "target": {"id": "55-9D1E7CD2F50E4623A04D7C52B01F6344", "name": "31. Update Maintenance Management System as required"}, 
                 "label": null, 
                 "offPageConnection": false, 
@@ -545,7 +545,7 @@
             {
                 "id": "41-538B3C84AA694C829537A505074ABDE5", 
                 "source": {"id": "55-A08A1E4AF7CA4C788EC52069AED7BB64", "name": "15. Is amendment to asset linking required"}, 
-                "target": {"id": "55-8E0E8366775D4811B48C0002E0FCB024", "name": "19. Conduct Aproval Review if required (see activity table)"}, 
+                "target": {"id": "55-8E0E8366775D4811B48C0002E0FCB024", "name": "19. Conduct Approval Review if required (see activity table)"}, 
                 "label": "No", 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
@@ -554,7 +554,7 @@
             {
                 "id": "41-757544A572B645AE8F5AD55A0F417973", 
                 "source": {"id": "55-8FC2720E098B4C7DB4DF823679B5C6B8", "name": "16. Is it a Digital Platform?"}, 
-                "target": {"id": "55-EF3B48E8E76E4FAF884548A37291301B", "name": "18. Review the task requirements and asse structure to determine the correct level of asset link"}, 
+                "target": {"id": "55-EF3B48E8E76E4FAF884548A37291301B", "name": "18. Review the task requirements and asset structure to determine the correct level of asset link"}, 
                 "label": "No", 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
@@ -599,7 +599,7 @@
             {
                 "id": "41-C3A7D40E2D7E45ED8CD72CBE4378A412", 
                 "source": {"id": "55-9B37990C1A5E4385BA97FA6069F7E8CC", "name": "09. Is it a Digital Platform?"}, 
-                "target": {"id": "55-EC29A613DD424215878D81F671A72DAC", "name": "11. Does task requre a new change study"}, 
+                "target": {"id": "55-EC29A613DD424215878D81F671A72DAC", "name": "11. Does task require a new change study"}, 
                 "label": "No", 
                 "offPageConnection": false, 
                 "offPageOutputLabel": null, 
@@ -626,7 +626,7 @@
             },
             {
                 "id": "41-E9C01FDCA33E4FC7B98DC5DB1E85F3D1", 
-                "source": {"id": "55-EC29A613DD424215878D81F671A72DAC", "name": "11. Does task requre a new change study"}, 
+                "source": {"id": "55-EC29A613DD424215878D81F671A72DAC", "name": "11. Does task require a new change study"}, 
                 "target": {"id": "55-6D5E16167EDD4662B75F5E7E3CDA8036", "name": "12. Does task require a minor change to a study"}, 
                 "label": "No", 
                 "offPageConnection": false, 
@@ -820,7 +820,7 @@
             },
             {
                 "id": "41-58F9EA616B0349E3AE1820C179F7DC49", 
-                "source": {"id": "55-EC29A613DD424215878D81F671A72DAC", "name": "11. Does task requre a new change study"}, 
+                "source": {"id": "55-EC29A613DD424215878D81F671A72DAC", "name": "11. Does task require a new change study"}, 
                 "target": {"id": "55-F054D3652AA549158B7F16071A8E6F3E", "name": "Change Study", "shortName": null, "type": "Process", "navigable": false}, 
                 "label": "Yes", 
                 "flow": true
