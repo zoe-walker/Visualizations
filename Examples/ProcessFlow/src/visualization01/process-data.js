@@ -437,7 +437,7 @@ export class LinkSet {
    * @param {StepSet} stepSet
    * @param {SwimlaneSet} swimlaneSet
    * @param {InformationSet} infoSet
-   * @param {boolean} disableIOSwimlanes 
+   * @param {boolean} disableIOSwimlanes
    */
   constructor (stepSet, swimlaneSet, infoSet, disableIOSwimlanes) {
     const linkDictionary = {}

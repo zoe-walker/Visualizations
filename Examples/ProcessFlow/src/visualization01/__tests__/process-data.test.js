@@ -815,6 +815,7 @@ const config = {
      "swimlaneWatermarkSpacing": 600,
      "inputSwimlaneLabel": "Inputs",
      "outputSwimlaneLabel": "Outputs",
+     "disableIOSwimlanes": false,
      "phaseLabelWidth": 40,
      "stepGroupPadding": 15,
      "elementSizes": {
@@ -838,7 +839,7 @@ const config = {
 
 describe('process-data', () => {
     it('Successful create Data.Process', () => {
-      const testObject = new Data.Process(config.data)
+      const testObject = new Data.Process(config.data, config.style.disableIOSwimlanes)
   
       expect(testObject.name()).toBe('BP 150 - Managing Support Impacts in Response to Design Change')
       expect(testObject.version()).toBe('1.0')
@@ -851,7 +852,7 @@ describe('process-data', () => {
       let throwCount = 0
 
       try {
-        const testObject = new Data.Process(config.data)
+        const testObject = new Data.Process(config.data, config.style.disableIOSwimlanes)
       }
       catch (e) {
         throwCount++
