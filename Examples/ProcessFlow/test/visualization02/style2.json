@@ -5,6 +5,7 @@
       "phaseLabelWidth": 60,
       "editable": true,
       "inputSwimlaneLabel": "Inputs",
-      "outputSwimlaneLabel": "Outputs"
+      "outputSwimlaneLabel": "Outputs",
+      "disableIOSwimlanes": false
     }
 }

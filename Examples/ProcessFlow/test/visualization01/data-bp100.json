@@ -271,7 +271,8 @@
 			"type": "Process Step", 
 			"navigable": true, 
 			"swimlanes": [{"id": "x", "actor": {"id": "55-2FF0F06AFD054E1ABC21BBA52996E9FF", "name": "Design Change Owner"}}], 
-			"phase": null
+			"phase": null,
+			"preventSharingRow": true
 		},
 		{
 			"id": "55-48400D6B68434C0D8420C00ED89AD6DE", 
