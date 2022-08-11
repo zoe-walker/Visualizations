@@ -46,6 +46,7 @@ const config = {
      "swimlaneWatermarkSpacing": 600,
      "inputSwimlaneLabel": "Inputs",
      "outputSwimlaneLabel": "Outputs",
+     "disableIOSwimlanes": true,
      "phaseLabelWidth": 40,
      "stepGroupPadding": 15,
      "elementSizes": {
@@ -95,7 +96,7 @@ describe('Visualisation', () => {
       visualization(config)
   
       expect(mockErrorOccurred).not.toHaveBeenCalled()
-      expect(Data.Process).toHaveBeenCalledWith(config.data)
+      expect(Data.Process).toHaveBeenCalledWith(config.data, config.style.disableIOSwimlanes)
       expect(Diagram).toHaveBeenCalledWith({value: mockDataProcess}, config.style, 1500, 600, Diagram.mock.calls[0][4])
       expect(mockDiagramHeight).toHaveBeenCalledTimes(0)
       expect(mockDiagramDraw).toHaveBeenCalledTimes(1)

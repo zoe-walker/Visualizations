@@ -21,6 +21,8 @@ function alignValueDown (value, gridSize) {
 export class Diagram {
   constructor (process, style, width, height, visualizationData) {
     const elementId = visualizationData.config.element
+
+    const gridAlignedStyle = alignStyleToGrid(style)
     //
     // Set defaults for any missing configuration
     //
@@ -36,19 +38,22 @@ export class Diagram {
     const containerSize = new OrientedDimensions(style.verticalSwimlanes)
     containerSize.setDimensions({ width, height })
 
-    const gridAlignedStyle = alignStyleToGrid(style)
     const drawProcessHeader = style.renderProcessHeader && style.verticalSwimlanes // only draw process heading for vertical swimlanes
     const drawWatermark = style.renderSwimlaneWatermarks
     const phaseLabelWidth = process.getPhaseSet().noPhases() === true ? 0 : gridAlignedStyle.phaseLabelWidth
-    const numSwimlanes = process.getActorSet().numSwimlanes() + 2 // allow for swim lanes for inputs and outputs
-    const verticalSwimlaneWidth = alignValueDown((containerSize.width() - phaseLabelWidth - style.gridSize * 4) / // allow extra width for I/O lanes
+    const numIOSwimlanes = gridAlignedStyle.disableIOSwimlanes ? 0 : 2
+    const numSwimlanes = process.getActorSet().numSwimlanes() + numIOSwimlanes // allow for swim lanes for inputs and outputs
+    const verticalSwimlaneWidth = alignValueDown((containerSize.width() - phaseLabelWidth - numIOSwimlanes * style.gridSize * 2) / // allow extra width for I/O lanes
                                                  numSwimlanes, style.gridSize)
     const swimlaneWidth = style.verticalSwimlanes ? verticalSwimlaneWidth : Math.max(verticalSwimlaneWidth, gridAlignedStyle.minimumSwimlaneHeight)
-    const ioLaneWidth = swimlaneWidth + style.gridSize * 2
-    const useableWidth = phaseLabelWidth + swimlaneWidth * numSwimlanes + style.gridSize * 4
+    const ioLaneWidth = gridAlignedStyle.disableIOSwimlanes ? 0 : swimlaneWidth + style.gridSize * 2
+    const useableWidth = phaseLabelWidth + swimlaneWidth * process.getActorSet().numSwimlanes() + ioLaneWidth * 2
     gridAlignedStyle.swimlaneWidth = swimlaneWidth
     gridAlignedStyle.inputSwimlaneLabel = gridAlignedStyle.inputSwimlaneLabel || 'Inputs'
     gridAlignedStyle.outputSwimlaneLabel = gridAlignedStyle.outputSwimlaneLabel || 'Outputs'
+    gridAlignedStyle.disableIOSwimlanes = gridAlignedStyle.disableIOSwimlanes === undefined
+      ? false
+      : gridAlignedStyle.disableIOSwimlanes
     gridAlignedStyle.maxFlowLabelSize = gridAlignedStyle.maxFlowLabelSize || defaultMaxLabelSize
     gridAlignedStyle.maxFlowLabelSize.width = gridAlignedStyle.maxFlowLabelSize.width ||
       defaultMaxLabelSize.width
@@ -635,15 +640,17 @@ export class Diagram {
           //
           // Create lane for inputs
           //
-          actorLanes.push(graph.createActorLane(
-            null,
-            style.inputSwimlaneLabel,
-            ioLaneDimensions.width(),
-            ioLaneDimensions.height(),
-            index++,
-            position.coords(),
-            dimensions.swimlaneWatermarkSpacing))
-          position.increaseX(ioLaneDimensions.logicalWidth())
+          if (dimensions.ioLaneWidth > 0) {
+            actorLanes.push(graph.createActorLane(
+              null,
+              style.inputSwimlaneLabel,
+              ioLaneDimensions.width(),
+              ioLaneDimensions.height(),
+              index++,
+              position.coords(),
+              dimensions.swimlaneWatermarkSpacing))
+            position.increaseX(ioLaneDimensions.logicalWidth())
+          }
           //
           // Create lanes for the actors
           //
@@ -666,14 +673,16 @@ export class Diagram {
           //
           // Create lane for outputs
           //
-          actorLanes.push(graph.createActorLane(
-            null,
-            style.outputSwimlaneLabel,
-            ioLaneDimensions.width(),
-            ioLaneDimensions.height(),
-            index++,
-            position.coords(),
-            dimensions.swimlaneWatermarkSpacing))
+          if (dimensions.ioLaneWidth > 0) {
+            actorLanes.push(graph.createActorLane(
+              null,
+              style.outputSwimlaneLabel,
+              ioLaneDimensions.width(),
+              ioLaneDimensions.height(),
+              index++,
+              position.coords(),
+              dimensions.swimlaneWatermarkSpacing))
+          }
 
           return actorLanes
         }
@@ -688,13 +697,15 @@ export class Diagram {
           //
           // Create swimlane for inputs
           //
-          swimlanes.push(graph.createSwimlane(
-            null,
-            ioLaneDimensions.width(),
-            ioLaneDimensions.height(),
-            index++,
-            position.coords()))
-          position.increaseX(ioLaneDimensions.logicalWidth())
+          if (dimensions.ioLaneWidth > 0) {
+            swimlanes.push(graph.createSwimlane(
+              null,
+              ioLaneDimensions.width(),
+              ioLaneDimensions.height(),
+              index++,
+              position.coords()))
+            position.increaseX(ioLaneDimensions.logicalWidth())
+          }
           //
           // Create swimlanes for the actors
           //
@@ -715,12 +726,14 @@ export class Diagram {
           //
           // Create swimlane for outputs
           //
-          swimlanes.push(graph.createSwimlane(
-            null,
-            ioLaneDimensions.width(),
-            ioLaneDimensions.height(),
-            index++,
-            position.coords()))
+          if (dimensions.ioLaneWidth > 0) {
+            swimlanes.push(graph.createSwimlane(
+              null,
+              ioLaneDimensions.width(),
+              ioLaneDimensions.height(),
+              index++,
+              position.coords()))
+          }
 
           return swimlanes
         }

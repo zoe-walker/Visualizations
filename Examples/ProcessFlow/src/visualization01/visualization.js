@@ -259,7 +259,7 @@ export function visualization (config) {
   }
 
   try {
-    process = new Data.Process(data)
+    process = new Data.Process(data, style.disableIOSwimlanes)
     diagram = new Diagram(process, style, width, height, diagramConfig)
     highlighter = new Highlight.Highlighter(process)
     const drawingReport = diagram.draw()

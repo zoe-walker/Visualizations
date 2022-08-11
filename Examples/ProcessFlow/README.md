@@ -136,6 +136,7 @@ A Cascading Style Sheet (CSS) is defined containing selectors for the following 
 *	__editable__: indicates if the user can edit (re-position) lines and shapes on the diagram. This should be set to false as editing is not currently supported or saved.
 *	__inputSwimlaneLabel__: The text for the swim-lane label (watermark) in the Inputs swim-lane. __Defaults__ to "Inputs" if not specified.
 *	__outputSwimlaneLabel__: The text for the swim-lane label (watermark) in the Outputs swim-lane. __Defaults__ to "Outputs" if not specified.
+*   __disableIOSwimlanes__: indicates if the input and output swim-lanes should be drawn (false) or hidden (true). __Defaults__ to false if not specified.
 *	__maxFlowLabelSize__: an object defining width and height in pixels of the maximum size a flow / IO link label can be. __Defaults__ to {"width": 100, "height": 60} if not specified.
 *	__router__: defines configuration used by the flow / IO link router:
     *	__coincidentLineSpace__: the number of pixels to keep clear either side of a parallel line segment. __Defaults__ to 3 if not specified
@@ -219,6 +220,7 @@ The properties are a subset of those in the __Process Flow Visualisation__. They
 *	__editable__: indicates if the user can edit (re-position) lines and shapes on the diagram. This should be set to false as editing is not currently supported or saved.
 *	__inputSwimlaneLabel__: The text for the Inputs swim-lane header. __Defaults__ to "Inputs" if not specified.
 *	__outputSwimlaneLabel__: The text for the Outputs swim-lane header. __Defaults__ to "Outputs" if not specified.
+*   __disableIOSwimlanes__: indicates if the input and output swim-lane headers should be drawn (false) or hidden (true). __Defaults__ to false if not specified.
 
 [Table of Contents](#table-of-contents)
 
