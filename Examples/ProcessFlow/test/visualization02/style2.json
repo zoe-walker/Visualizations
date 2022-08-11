@@ -1,7 +1,5 @@
 {"URL": "visualization02/process-flow.css",
     "style": {
-      "verticalSwimlanes": false,
-      "minimumSwimlaneHeight": 170,
       "processHeaderHeight": 20,
       "editable": true
     }
