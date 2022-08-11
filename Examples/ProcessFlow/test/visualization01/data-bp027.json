@@ -116,7 +116,8 @@
                 "type": "Sub Process", 
                 "navigable": true, 
                 "swimlanes": [{"id": "x", "actor": {"id": "55-99F5D465A52D490CA0F3E02DE3230409", "name": "A 3"}}], 
-                "phase": {"id": "55-9542B89F3C1B416B8C5C3B31BCE9D798", "name": "Stage 3:  Create Work Package (Scheduled Maintenance, Defect Repair & Capability Insertion"}
+                "phase": {"id": "55-9542B89F3C1B416B8C5C3B31BCE9D798", "name": "Stage 3:  Create Work Package (Scheduled Maintenance, Defect Repair & Capability Insertion"},
+                "preventSharingRow": true
             },
             {
                 "id": "55-20EE44E85439439C9DCA4685F0131739", 
