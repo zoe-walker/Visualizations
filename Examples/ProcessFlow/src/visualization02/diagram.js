@@ -19,6 +19,7 @@ export class Diagram {
   constructor (process, style, width, height, visualizationData) {
     const elementId = visualizationData.config.element
 
+    style.minimumSwimlaneHeight = style.minimumSwimlaneHeight === undefined ? 170 : style.minimumSwimlaneHeight
     style.verticalSwimlanes = style.verticalSwimlanes === undefined ? true : style.verticalSwimlanes
     const containerSize = new OrientedDimensions(style.verticalSwimlanes)
     containerSize.setDimensions({ width, height })
@@ -44,11 +45,12 @@ export class Diagram {
 
     gridAlignedStyle.swimlaneWidth = swimlaneWidth
     const drawProcessHeader = style.processHeaderHeight > 0 && style.verticalSwimlanes // only draw process heading for vertical swimlanes
-    const headerSize = new OrientedDimensions(style.verticalSwimlanes)
-    headerSize.setDimensions({
+    const logicalHeaderSize = {
       width: useableWidth,
       height: containerSize.height()
-    })
+    }
+    const headerSize = new OrientedDimensions(style.verticalSwimlanes)
+    headerSize.setDimensions(logicalHeaderSize)
 
     const dimensions = {
       verticalSwimlanes: style.verticalSwimlanes,
@@ -57,7 +59,7 @@ export class Diagram {
       swimlaneWidth,
       ioLaneWidth,
       phaseLabelWidth,
-      headerSize
+      logicalHeaderSize
     }
     const htmlElements = {
       containerElement: elementId,
@@ -97,7 +99,7 @@ export class Diagram {
         const el = document.getElementById(htmlElements.containerElement)
         const processHeaderSize = new OrientedDimensions(style.verticalSwimlanes)
         processHeaderSize.setDimensions({
-          width: dimensions.headerSize.logicalWidth(),
+          width: dimensions.logicalHeaderSize.width,
           height: dimensions.processHeaderHeight
         })
         // Mark container element with class to enable style override in CSS file
@@ -129,7 +131,7 @@ export class Diagram {
 
       function layoutSwimlaneLabels (process, dimensions, style, containerElementName) {
         const el = document.getElementById(containerElementName)
-        const swimlaneHeaderHeight = dimensions.headerSize.logicalHeight() - dimensions.processHeaderHeight
+        const swimlaneHeaderHeight = dimensions.logicalHeaderSize.height - dimensions.processHeaderHeight
         // const inputSwimlane = swimlanes[0]
         // const outputSwimlane = swimlanes[numSwimlanes - 1]
 
