@@ -117,7 +117,7 @@ A Cascading Style Sheet (CSS) is defined containing selectors for the following 
  The properties are:
 
 *	__verticalSwimlanes__: controls the orientation of the diagram, vertical (true) or horizontal (false) swimlanes: __Default__: true
-*   __minimumSwimlaneHeight__: defines the minumum height of swimlanes when drawn horizontally: __Default__: 150
+*   __minimumSwimlaneHeight__: defines the minimum height of swimlanes when drawn horizontally: __Default__: 170
 *	__horizontalStepsAllowed__: controls whether multiple steps can be drawn on the same horizontal row if space permits. __Default__: true
 *   __horizontalDecisionsAllowed__: controls whether decision steps can be drawn on the same horizontal row as other steps if space permits. __Default__: true
 *   __renderProcessHeader__: controls whether the process header (name and version) are drawn. This should be set to false if the __Process Flow Header__ is used, or true if not. __Default__: false

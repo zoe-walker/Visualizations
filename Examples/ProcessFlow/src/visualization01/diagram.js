@@ -33,6 +33,7 @@ export class Diagram {
       coincidentLineSpace: 3,
       targetTolerance: 1
     }
+    style.minimumSwimlaneHeight = style.minimumSwimlaneHeight === undefined ? 170 : style.minimumSwimlaneHeight
     style.verticalSwimlanes = style.verticalSwimlanes === undefined ? true : style.verticalSwimlanes
     const gridAlignedStyle = alignStyleToGrid(style)
     gridAlignedStyle.inputSwimlaneLabel = gridAlignedStyle.inputSwimlaneLabel || 'Inputs'

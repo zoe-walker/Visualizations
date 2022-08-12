@@ -139,7 +139,7 @@ function defineActor (renderSwimlaneWatermarks, verticalSwimlanes) {
     } else {
       attrs.text = {
         x: 2,
-        refY: 0.1,
+        y: 10,
         textVerticalAnchor: 'top',
         textAnchor: 'left'
       }

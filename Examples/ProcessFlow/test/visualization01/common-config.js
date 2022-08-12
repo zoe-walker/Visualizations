@@ -16,7 +16,7 @@ import dataConfig from './data-bp025-redrawn.json';
 
 export const commonConfig = {
   style: {
-    verticalSwimlanes: false,
+    verticalSwimlanes: true,
     minimumSwimlaneHeight: 170,
     gridSize: 10,
     phaseLabelWidth: 60,

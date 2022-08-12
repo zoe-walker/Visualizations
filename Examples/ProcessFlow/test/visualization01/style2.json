@@ -2,8 +2,8 @@
     "style": {
        "horizontalStepsAllowed": true,
        "horizontalDecisionsAllowed": true,
-       "renderProcessHeader": true,
-       "renderSwimlaneWatermarks": true,
+       "renderProcessHeader": false,
+       "renderSwimlaneWatermarks": false,
        "verticalStepSeparation": 50,
        "verticalIOSeparation": 10,
        "stepStandoff": 10,
