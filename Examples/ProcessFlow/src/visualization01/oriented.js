@@ -67,14 +67,6 @@ export class OrientedDimensions {
       return { width: this.logicalWidth(), height: this.logicalHeight() }
     }
     /**
-     * Returns physical dimensions of parameter oriented according to chosen direction of swimlanes
-     * @param {*} dimensions Logical (vertical swimlane orientation) dimensions
-     * @returns Physical dimensions in chosen orientation
-     */
-    this.orientedDimensions = function (dimensions) {
-      return { width: isVerticalSwimlane ? dimensions.width : dimensions.height, height: isVerticalSwimlane ? dimensions.height : dimensions.width }
-    }
-    /**
      * Increase logical width
      * @param {int} widthOffset
      */

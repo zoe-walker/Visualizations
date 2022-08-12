@@ -657,20 +657,20 @@ export class Diagram {
           // Create lanes for the actors
           //
           actorSet.actors().forEach(function (actor) {
-            const swimlaneDimensions = new OrientedDimensions(style.verticalSwimlanes)
-            swimlaneDimensions.setDimensions({
+            const actorDimensions = new OrientedDimensions(style.verticalSwimlanes)
+            actorDimensions.setDimensions({
               width: dimensions.swimlaneWidth * actor.numSwimlanes(),
               height: dimensions.diagramSize.logicalHeight()
             })
             actorLanes.push(graph.createActorLane(
               actor,
               actor.name(),
-              swimlaneDimensions.width(),
-              swimlaneDimensions.height(),
+              actorDimensions.width(),
+              actorDimensions.height(),
               index++,
               position.coords(),
               dimensions.swimlaneWatermarkSpacing))
-            position.increaseX(swimlaneDimensions.logicalWidth())
+            position.increaseX(actorDimensions.logicalWidth())
           })
           //
           // Create lane for outputs
@@ -761,7 +761,6 @@ class Row {
     let height = 0
     let topPadding = 0 // Padding / margin at top of row to allow for routing flows with larger than normal step Standoff
     const requiredPadding = [] // padding required between step in swimlane and the row above
-    const dimensionsWorker = new OrientedDimensions(style.verticalSwimlanes)
 
     this.rowIndex = () => rowIndex
     this.height = () => height + topPadding
@@ -950,7 +949,7 @@ class Row {
       step.setOutputsHeight(outputsHeight)
 
       const rowHeight = Math.max(
-        dimensionsWorker.orientedDimensions(step.size()).height + style.verticalStepSeparation,
+        step.logicalSize().height + style.verticalStepSeparation,
         inputsHeight + style.verticalIOSeparation * 2,
         outputsHeight + style.verticalIOSeparation * 2)
       height = alignValueUp(Math.max(height, rowHeight), 2 * style.gridSize)

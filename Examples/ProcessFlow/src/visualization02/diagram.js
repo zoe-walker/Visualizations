@@ -132,8 +132,6 @@ export class Diagram {
       function layoutSwimlaneLabels (process, dimensions, style, containerElementName) {
         const el = document.getElementById(containerElementName)
         const swimlaneHeaderHeight = dimensions.logicalHeaderSize.height - dimensions.processHeaderHeight
-        // const inputSwimlane = swimlanes[0]
-        // const outputSwimlane = swimlanes[numSwimlanes - 1]
 
         const actorLanes = []
         const position = new OrientedCoords(style.verticalSwimlanes)
@@ -176,8 +174,8 @@ export class Diagram {
         // Create headers for the actors
         //
         process.getActorSet().actors().forEach(function (actor) {
-          const swimlaneDimensions = new OrientedDimensions(style.verticalSwimlanes)
-          swimlaneDimensions.setDimensions({
+          const actorDimensions = new OrientedDimensions(style.verticalSwimlanes)
+          actorDimensions.setDimensions({
             width: dimensions.swimlaneWidth * actor.numSwimlanes(),
             height: swimlaneHeaderHeight
           })
@@ -186,11 +184,11 @@ export class Diagram {
             actor,
             actor.name(),
             'actor',
-            swimlaneDimensions.width(),
-            swimlaneDimensions.height(),
+            actorDimensions.width(),
+            actorDimensions.height(),
             index++,
             style.verticalSwimlanes))
-          position.increaseX(dimensions.swimlaneWidth * actor.numSwimlanes())
+          position.increaseX(actorDimensions.logicalWidth())
         })
         //
         // Create header for outputs
