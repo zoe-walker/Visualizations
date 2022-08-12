@@ -931,7 +931,7 @@ export class Graph {
      */
     this.createIOLink = function (ioLink, options) {
       // Set line styling for flow or input / output
-      const lineOptions = ioLink.isFlow() === true ? {} : { strokeDasharray: '6 6' }
+      const lineOptions = ioLink.isFlow() === true ? {} : { strokeDasharray: '5 5' }
       return createLink(
         ioLink,
         {

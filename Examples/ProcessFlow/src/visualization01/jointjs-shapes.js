@@ -841,9 +841,9 @@ export function defineDocument () {
       path: {
         refDResetOffset:
                   'M 0 0 L 100 0 ' +
-                  'L 100 30 ' +
-                  'C 80 30 85 30 60 35 ' +
-                  'S 15 45 0 40 ' +
+                  'L 100 35 ' +
+                  'C 95 30 75 30 65 37 ' +
+                  'C 40 55 0 40 0 35 ' +
                   'L 0 0'
       },
       label: {
