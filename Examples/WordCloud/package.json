@@ -1,7 +1,7 @@
 {
     "name": "word_cloud",
     "description": "Word Cloud using D3",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "supportedVersions": "0",
     "license": "MIT",
     "dependencies": {
