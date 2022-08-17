@@ -1,0 +1,54 @@
+name: Check for vulnerabilities in dependencies of examples
+on:
+  schedule:
+    - cron: '0 5 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.15.1'
+
+      - name: Check EChartsBarChart
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/EChartsBarChart'
+
+      - name: Check EChartsRadialTree
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/EChartsRadialTree'
+
+      - name: Check Lollipop
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/Lollipop'
+
+      - name: Check ProcessFlow
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/ProcessFlow'
+
+      - name: Check StretchedChord
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/StretchedChord'
+
+      - name: Check WebpackD3Visualization
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/WebpackD3Visualization'
+
+      - name: Check WebpackReactVisualization
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/WebpackReactVisualization'
+
+      - name: Check WordCloud
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/WordCloud'
