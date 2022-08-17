@@ -22,14 +22,12 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        pwd
         cd ${{ inputs.working-directory }}
-        npm install
+        npm ci
 
     - name: Build
       shell: bash
       run: |
-        pwd
         cd ${{ inputs.working-directory }}
         npm run rebuild
 
