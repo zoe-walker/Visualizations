@@ -11,8 +11,43 @@ jobs:
         with:
           node-version: '16.15.1'
 
+      - name: Build EChartsBarChart
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/EChartsBarChart'
+
+      - name: Build EChartsRadialTree
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/EChartsRadialTree'
+
+      - name: Build Lollipop
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/Lollipop'
+
       - name: Build ProcessFlow
         uses: ./.github/workflows/actions/build-package
         with:
           working-directory: './Examples/ProcessFlow'
+
+      - name: Build StretchedChord
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/StretchedChord'
+
+      - name: Build WebpackD3Visualization
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/WebpackD3Visualization'
+
+      - name: Build WebpackReactVisualization
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/WebpackReactVisualization'
+
+      - name: Build WordCloud
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/WordCloud'
 
