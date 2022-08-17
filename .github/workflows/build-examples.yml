@@ -12,7 +12,7 @@ jobs:
           node-version: '16.5.1'
 
       - name: Build ProcessFlow
-        uses: .github/workflows/actions/build-package
+        uses: ./.github/workflows/actions/build-package
         with:
-          working-directory: 'Examples/ProcessFlow'
+          working-directory: './Examples/ProcessFlow'
 
