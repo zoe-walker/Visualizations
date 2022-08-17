@@ -14,6 +14,5 @@ jobs:
       - name: Build ProcessFlow
         uses: ./.github/workflows/actions/build-package
         with:
-          package-name: 'ProcessFlow'
-        working-directory: ./Examples/ProcessFlow
+          working-directory: './Examples/ProcessFlow'
 
