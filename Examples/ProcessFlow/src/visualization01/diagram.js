@@ -111,7 +111,7 @@ export class Diagram {
       // alignedStyle.ioStandoff = alignValueUp(style.ioStandoff, style.gridSize)
       alignedStyle.phaseLabelWidth = alignValueUp(style.phaseLabelWidth, style.gridSize)
 
-      return alignedStyle
+      return alignedStyle 
     }
 
     this.draw = function () {
