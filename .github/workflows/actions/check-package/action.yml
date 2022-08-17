@@ -5,6 +5,10 @@ inputs:
     description: 'Package Sub-Folder'
     required: true
     default: '.'
+  options:
+    description: 'NPM audit options'
+    required: true
+    default: ''
 runs:
   using: "composite"
   steps:
@@ -12,4 +16,4 @@ runs:
       shell: bash
       run: |
         cd ${{ inputs.working-directory }}
-        npm audit
+        npm audit ${{ inputs.options }}

@@ -2,6 +2,8 @@ name: Check for vulnerabilities in dependencies of examples
 on:
   schedule:
     - cron: '0 5 * * *'
+    - cron: '30 18 * * *'
+    - cron: '30 10 * * *'
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,42 +15,71 @@ jobs:
         with:
           node-version: '16.15.1'
 
-      - name: Check EChartsBarChart
+      - name: Check EChartsBarChart (full)
+        if: github.event.schedule == '0 5 * * *'
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/EChartsBarChart'
 
-      - name: Check EChartsRadialTree
+      - name: Check EChartsBarChart (production)
+        if: github.event.schedule != '0 5 * * *'
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/EChartsBarChart'
+          options: '--production'
+
+      - name: Check EChartsRadialTree (full)
+        if: github.event.schedule == '0 5 * * *'
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/EChartsRadialTree'
 
-      - name: Check Lollipop
+      - name: Check EChartsRadialTree (production)
+        if: github.event.schedule != '0 5 * * *'
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/EChartsRadialTree'
+          options: '--production'
+
+      - name: Check Lollipop (full)
+        if: github.event.schedule == '0 5 * * *'
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/Lollipop'
 
-      - name: Check ProcessFlow
+      - name: Check Lollipop (production)
+        if: github.event.schedule != '0 5 * * *'
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/Lollipop'
+          options: '--production'
+
+      - name: Check ProcessFlow (full)
+        if: github.event.schedule == '0 5 * * *'
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/ProcessFlow'
 
-      - name: Check StretchedChord
+      - name: Check StretchedChord (full)
+        if: github.event.schedule == '0 5 * * *'
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/StretchedChord'
 
-      - name: Check WebpackD3Visualization
+      - name: Check WebpackD3Visualization (full)
+        if: github.event.schedule == '0 5 * * *'
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/WebpackD3Visualization'
 
-      - name: Check WebpackReactVisualization
+      - name: Check WebpackReactVisualization (full)
+        if: github.event.schedule == '0 5 * * *'
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/WebpackReactVisualization'
 
-      - name: Check WordCloud
+      - name: Check WordCloud (full)
+        if: github.event.schedule == '0 5 * * *'
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/WordCloud'
