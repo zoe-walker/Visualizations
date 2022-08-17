@@ -12,7 +12,7 @@ jobs:
           node-version: '16.5.1'
 
       - name: Build ProcessFlow
-      - uses: actions/build-package
+      - uses: actions/build-and-test-package-composite-action
         with:
           working-directory: 'Examples/ProcessFlow'
 

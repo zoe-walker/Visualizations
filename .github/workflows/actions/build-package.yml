@@ -1,4 +1,4 @@
-name: Build and test package with npm
+name: Build and test package
 description: 'Build and test an npm package'
 inputs:
   working-directory:  # sub-folder containing package
