@@ -1011,6 +1011,7 @@ describe('Diagram', () => {
         expect(Graph.Graph).toHaveBeenCalledTimes(1)
         expect(mockGraphCreateActorLane).toHaveBeenCalledTimes(6)
         expect(mockGraphCreateSwimlane).toHaveBeenCalledTimes(6)
+        expect(1).toBe(0)
       })
   })
   
