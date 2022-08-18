@@ -30,9 +30,9 @@ Draw a Process Flow
 
 The Process Flow visualisation renders a process: a set of activities (steps), with their inputs and outputs, joined into a sequence (flow) by links between them. The elements (activities, inputs and outputs) are automatically positioned on the diagram and the flows (links) between the elements are routed around the elements.
 
-A process can be a collaboration between different organisations (actors) within an enterprise. The collaboration is represented by partitioning the activities into swim-lanes, where each swim-lane corresponds to the organisation performing the activity. The swim-lanes are drawn vertically on the diagram. A swim-lane is drawn on the left for Inputs, and a swim-lane on the right for Outputs.
+A process can be a collaboration between different organisations (actors) within an enterprise. The collaboration is represented by partitioning the activities into swim-lanes, where each swim-lane corresponds to the organisation performing the activity. The swim-lanes are all drawn either vertically (top to bottom) or horizontally (left to right) on the diagram. Optionally, swim-lanes for Inputs and Outputs are drawn outside the actor swim=lanes.
 
-A process can be partitioned into phases. Each phase is a sequence of activities that achieve a goal within the overall process. Phases are demarcated with a vertical label and a horizontal line after the last activity in the phase.
+A process can be partitioned into phases. Each phase is a sequence of activities that achieve a goal within the overall process. Phases are demarcated with a label and a dashed line after the last activity in the phase.
 
 A sub-set of activities within the process, that in combination achieve a goal of note, can be placed in a group. The group is visualised with a labelled rectangle that encloses the activities in the group.
 
