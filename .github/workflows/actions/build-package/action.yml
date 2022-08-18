@@ -1,0 +1,44 @@
+name: Build and test package
+description: 'Build and test an npm package'
+inputs:
+  working-directory:  # sub-folder containing package
+    description: 'Package Sub-Folder'
+    required: true
+    default: '.'
+runs:
+  using: "composite"
+  steps:
+    - name: Cache node modules
+      id: cache-npm
+      uses: actions/cache@v3
+      env:
+        cache-name: cache-node-modules
+        lock-file-name: ${{ inputs.working-directory }}/package-lock.json
+      with:
+        # npm cache files are stored in `~/.npm` on Linux/macOS
+        path: ~/.npm
+        key: npm-build-${{ env.cache-name }}-${{ inputs.working-directory }}-${{ hashFiles(env.lock-file-name) }}
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        npm ci
+
+    - name: Build
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        npm run rebuild
+
+    - name: Test
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        npm test
+
+    - name: Check coding style
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        npm run check-style

@@ -1,0 +1,57 @@
+name: Build and test example packages with npm
+on:
+  push:
+    paths:
+      - 'Examples/**'
+      - '!**/*.md'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.15.1'
+
+      - name: Build EChartsBarChart
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/EChartsBarChart'
+
+      - name: Build EChartsRadialTree
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/EChartsRadialTree'
+
+      - name: Build Lollipop
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/Lollipop'
+
+      - name: Build ProcessFlow
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/ProcessFlow'
+
+      - name: Build StretchedChord
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/StretchedChord'
+
+      - name: Build WebpackD3Visualization
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/WebpackD3Visualization'
+
+      - name: Build WebpackReactVisualization
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/WebpackReactVisualization'
+
+      - name: Build WordCloud
+        uses: ./.github/workflows/actions/build-package
+        with:
+          working-directory: './Examples/WordCloud'
+
