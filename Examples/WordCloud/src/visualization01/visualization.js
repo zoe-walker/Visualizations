@@ -11,6 +11,23 @@ import * as d3Cloud from 'd3-cloud'
  * @param {object} config MooD visualisation config object
  */
 export function visualization (config) {
+  const seedRandom = function (i) {
+    let mW = 123456789
+    let mZ = 987654321
+    const mask = 0xffffffff
+
+    mW = (123456789 + i) & mask
+    mZ = (987654321 - i) & mask
+
+    Math.random = function () {
+      // Returns number between 0 (inclusive) and 1.0 (exclusive), just like Math.random().
+      mZ = (36969 * (mZ & 65535) + (mZ >> 16)) & mask
+      mW = (18000 * (mW & 65535) + (mW >> 16)) & mask
+      let result = ((mZ << 16) + (mW & 65535)) >>> 0
+      result /= 4294967296
+      return result
+    }
+  }
   //
   // Retrieve graph configuration
   //
@@ -107,6 +124,9 @@ export function visualization (config) {
       //
       const occurrenceRangeSize = (occurrenceRange.max - occurrenceRange.min)
       const colourMapFactor = colourPalette.length / (occurrenceRangeSize + 1)
+
+      // Monkey patch Math.Random so we always get the same graph.
+      seedRandom(42)
 
       // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
       // WordCloud features that are different from one word to the other must be here

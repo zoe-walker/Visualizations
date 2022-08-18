@@ -1,7 +1,7 @@
 {
     "name": "word_cloud",
     "description": "Word Cloud using D3",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "supportedVersions": "0",
     "license": "MIT",
     "dependencies": {
@@ -40,6 +40,26 @@
         "rebuild": "webpack --config webpack.prod.js",
         "stats": "webpack --config webpack.prod.js --profile --json > stats.json",
         "check-style": "standard \"src/**/*.js\"",
-        "fix-style": "standard \"src/**/*.js\" --verbose --fix"
+        "fix-style": "standard \"src/**/*.js\" --verbose --fix",
+        "test": "jest",
+        "test-init": "jest --init"
+    },
+    "jest": {
+      "moduleFileExtensions": [
+        "js",
+        "jsx"
+      ],
+      "moduleDirectories": [
+        "node_modules"
+      ],
+      "moduleNameMapper": {
+        "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+        "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+      }
+    },
+    "standard": {
+      "ignore": [
+        "**/__tests__"
+      ]
     }
 }
