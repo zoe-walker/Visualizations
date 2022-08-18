@@ -4,6 +4,8 @@ on:
     paths:
       - 'Examples/**'
       - '!**/*.md'
+      - '!Examples/D3\ Meta\ Model\**'
+      - '!Examples/Echarts\ Meta\ Model\**'
 jobs:
   build:
     runs-on: ubuntu-latest
