@@ -1,6 +1,7 @@
 name: 'Check for production vulnerabilities'
 on:
   workflow_dispatch:
+  push:
   schedule:
     - cron: '30 8,11,15,18 * * *'
     - cron: '50 9 * * *'
@@ -62,4 +63,28 @@ jobs:
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/WordCloud'
+          options: '--production'
+
+      - name: Check EChartsCustomVisualizationTemplate (production)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Templates/EChartsCustomVisualizationTemplate'
+          options: '--production'
+
+      - name: Check EmptyCustomVisualizationTemplate (production)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Templates/EmptyCustomVisualizationTemplate'
+          options: '--production'
+
+      - name: Check WebpackD3VisualizationTemplate (production)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Templates/WebpackD3VisualizationTemplate'
+          options: '--production'
+
+      - name: Check WebpackReactVisualizationTemplate (production)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Templates/WebpackReactVisualizationTemplate'
           options: '--production'
