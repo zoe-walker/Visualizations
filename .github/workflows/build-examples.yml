@@ -1,5 +1,9 @@
 name: Build and test example packages with npm
-on: push
+on:
+  push:
+    paths:
+      - 'Examples/**'
+      - '!**/*.md'
 jobs:
   build:
     runs-on: ubuntu-latest
