@@ -2,8 +2,8 @@ name: Build simple example packages
 on:
   push:
     paths:
-      - 'Examples/D3\ Meta\ Model/**'
-      - 'Examples/Echarts\ Meta\ Model/**'
+      - 'Examples/D3 Meta Model/**'
+      - 'Examples/Echarts Meta Model/**'
       - '!**/*.md'
 jobs:
   build:
