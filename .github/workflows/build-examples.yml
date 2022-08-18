@@ -2,7 +2,14 @@ name: Build and test example packages with npm
 on:
   push:
     paths:
-      - 'Examples/**'
+      - 'Examples/EChartsBarChart/**'
+      - 'Examples/EChartsRadialTree/**'
+      - 'Examples/Lollipop/**'
+      - 'Examples/ProcessFlow/**'
+      - 'Examples/StretchedChord/**'
+      - 'Examples/WebpackD3Visualization/**'
+      - 'Examples/WebpackReactVisualization/**'
+      - 'Examples/WordCloud/**'
       - '!**/*.md'
 jobs:
   build:
