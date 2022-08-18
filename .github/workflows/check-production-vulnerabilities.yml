@@ -1,7 +1,6 @@
 name: 'Check for production vulnerabilities'
 on:
   workflow_dispatch:
-  push:
   schedule:
     - cron: '30 8,11,15,18 * * *'
     - cron: '50 9 * * *'
@@ -21,70 +20,70 @@ jobs:
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/EChartsBarChart'
-          options: '--production'
+          options: '--omit=dev'
 
       - name: Check EChartsRadialTree (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/EChartsRadialTree'
-          options: '--production'
+          options: '--omit=dev'
 
       - name: Check Lollipop (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/Lollipop'
-          options: '--production'
+          options: '--omit=dev'
 
       - name: Check ProcessFlow (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/ProcessFlow'
-          options: '--production'
+          options: '--omit=dev'
 
       - name: Check StretchedChord (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/StretchedChord'
-          options: '--production'
+          options: '--omit=dev'
 
       - name: Check WebpackD3Visualization (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/WebpackD3Visualization'
-          options: '--production'
+          options: '--omit=dev'
 
       - name: Check WebpackReactVisualization (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/WebpackReactVisualization'
-          options: '--production'
+          options: '--omit=dev'
 
       - name: Check WordCloud (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/WordCloud'
-          options: '--production'
+          options: '--omit=dev'
 
       - name: Check EChartsCustomVisualizationTemplate (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Templates/EChartsCustomVisualizationTemplate'
-          options: '--production'
+          options: '--omit=dev'
 
       - name: Check EmptyCustomVisualizationTemplate (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Templates/EmptyCustomVisualizationTemplate'
-          options: '--production'
+          options: '--omit=dev'
 
       - name: Check WebpackD3VisualizationTemplate (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Templates/WebpackD3VisualizationTemplate'
-          options: '--production'
+          options: '--omit=dev'
 
       - name: Check WebpackReactVisualizationTemplate (production)
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Templates/WebpackReactVisualizationTemplate'
-          options: '--production'
+          options: '--omit=dev'

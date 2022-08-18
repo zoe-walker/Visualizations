@@ -54,3 +54,23 @@ jobs:
         uses: ./.github/workflows/actions/check-package
         with:
           working-directory: './Examples/WordCloud'
+
+      - name: Check EChartsCustomVisualizationTemplate (full)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Templates/EChartsCustomVisualizationTemplate'
+
+      - name: Check EmptyCustomVisualizationTemplate (full)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Templates/EmptyCustomVisualizationTemplate'
+
+      - name: Check WebpackD3VisualizationTemplate (full)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Templates/WebpackD3VisualizationTemplate'
+
+      - name: Check WebpackReactVisualizationTemplate (full)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Templates/WebpackReactVisualizationTemplate'
