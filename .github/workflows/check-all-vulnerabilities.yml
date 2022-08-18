@@ -2,9 +2,9 @@ name: 'Check for vulnerabilities in all dependencies'
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 5 * * *'
+    cron: '0 5 * * *'
 jobs:
-  check:
+  check-all:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
