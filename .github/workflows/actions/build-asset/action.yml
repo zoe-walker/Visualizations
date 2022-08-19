@@ -27,18 +27,14 @@ runs:
       shell: bash
       run: |
         cd ${{ inputs.working-directory }}
-        echo "::set-output name=PACKAGE_NAME::$(
-          node -p \"try { require('./package.json').name } catch(e) {}\"
-          )"
+        echo "::set-output name=PACKAGE_NAME::$(node -p \"try { require('./package.json').name } catch(e) {}\")"
 
     - name: Get Package file name
       id: package_file_name
       shell: bash
       run: |
         cd ${{ inputs.working-directory }}
-        echo "::set-output name=PACKAGE_FILENAME::$(
-          ls ${{ steps.package_name.outputs.PACKAGE_NAME }}*.zip
-          )"
+        echo "::set-output name=PACKAGE_FILENAME::$(ls ${{ steps.package_name.outputs.PACKAGE_NAME }}*.zip)"
 
     - name: Copy Package file
       id: copy-package-file

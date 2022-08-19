@@ -27,9 +27,7 @@ runs:
       shell: bash
       run: |
         cd ${{ inputs.working-directory }}
-        echo "::set-output name=PACKAGE_FILENAME::$(
-          ls *.zip
-          )"
+        echo "::set-output name=PACKAGE_FILENAME::$(ls *.zip)"
 
     - name: Copy Package file
       id: copy-package-file
