@@ -1,0 +1,44 @@
+name: Build package and upload to release
+description: 'Build an npm package and upload to release'
+inputs:
+  working-directory:  # sub-folder containing package
+    description: 'Package Sub-Folder'
+    required: true
+    default: '.'
+  asset-directory:  # folder to upload package to
+    description: 'Asset Folder'
+    required: true
+    default: './assets'
+outputs:
+  asset-file-name:
+    description: "Name of asset file"
+    value: ${{ steps.package_file_name.outputs.PACKAGE_FILENAME }}
+runs:
+  using: "composite"
+  steps:
+    - name: Build package
+      id: build-npm-package
+      uses: ./.github/workflows/actions/build-package
+      with:
+        working-directory: ${{ inputs.working-directory }}
+      
+    - name: Read Package name
+      id: package_name
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        tmp_package_name=`node -p "try { require('./package.json').name } catch(e) {}"`
+        echo "::set-output name=PACKAGE_NAME::$(echo $tmp_package_name)"
+
+    - name: Get Package file name
+      id: package_file_name
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        echo "::set-output name=PACKAGE_FILENAME::$(ls ${{ steps.package_name.outputs.PACKAGE_NAME }}*.zip)"
+
+    - name: Copy Package file
+      id: copy-package-file
+      shell: bash
+      run: |
+        cp ${{ inputs.working-directory }}/${{ steps.package_file_name.outputs.PACKAGE_FILENAME }} ${{ inputs.asset-directory }}

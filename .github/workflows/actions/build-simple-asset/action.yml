@@ -1,0 +1,36 @@
+name: Build simple package and upload to release
+description: 'Build (zip up) a simple package and upload to release'
+inputs:
+  working-directory:  # sub-folder containing package
+    description: 'Package Sub-Folder'
+    required: true
+    default: '.'
+  asset-directory:  # folder to upload package to
+    description: 'Asset Folder'
+    required: true
+    default: './assets'
+outputs:
+  asset-file-name:
+    description: "Name of asset file"
+    value: ${{ steps.package_file_name.outputs.PACKAGE_FILENAME }}
+runs:
+  using: "composite"
+  steps:
+    - name: Build
+      id: build-simple-package
+      uses: ./.github/workflows/actions/build-simple-package
+      with:
+        working-directory: ${{ inputs.working-directory }}
+
+    - name: Get Package file name
+      id: package_file_name
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        echo "::set-output name=PACKAGE_FILENAME::$(ls *.zip)"
+
+    - name: Copy Package file
+      id: copy-package-file
+      shell: bash
+      run: |
+        cp ${{ inputs.working-directory }}/${{ steps.package_file_name.outputs.PACKAGE_FILENAME }} ${{ inputs.asset-directory }}
