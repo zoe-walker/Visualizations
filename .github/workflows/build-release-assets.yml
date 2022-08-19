@@ -1,7 +1,7 @@
 name: Build all packages for release assets
 on:
   release:
-#    types: [released]
+    types: [published]
 env:
   asset-folder: './assets'
   asset-name: example-visualizations
