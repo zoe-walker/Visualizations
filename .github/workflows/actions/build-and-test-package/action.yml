@@ -1,5 +1,5 @@
-name: Build package and upload to release
-description: 'Build an npm package'
+name: Build and test package
+description: 'Build and test an npm package'
 inputs:
   working-directory:  # sub-folder containing package
     description: 'Package Sub-Folder'
@@ -33,30 +33,15 @@ runs:
       run: |
         cd ${{ inputs.working-directory }}
         npm run rebuild
-      
-    - name: Read Package name
-      id: package_name
+
+    - name: Test
       shell: bash
       run: |
-        echo "::set-output name=PACKAGE_NAME::$(
-          node -p \"try { require('./package.json').name } catch(e) {}\"
-          )"
+        cd ${{ inputs.working-directory }}
+        npm test
 
-    - name: Get Package file name
-      id: package_file_name
+    - name: Check coding style
       shell: bash
       run: |
-        echo "::set-output name=PACKAGE_FILENAME::$(
-          ls ${{ steps.package_name.outputs.PACKAGE_NAME }}*.zip
-          )"
-
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.assets_url }}
-        asset_path: ./${{ steps.package_file_name.outputs.PACKAGE_FILENAME }}
-        asset_name: ${{ steps.package_file_name.outputs.PACKAGE_FILENAME }}
-        asset_content_type: application/zip        
+        cd ${{ inputs.working-directory }}
+        npm run check-style
