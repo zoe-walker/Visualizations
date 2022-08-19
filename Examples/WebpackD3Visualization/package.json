@@ -1,7 +1,7 @@
 {
     "name": "scatter_plot",
     "description": "Example scatter plot chart based on D3 framework",
-    "version": "1.1.21",
+    "version": "1.1.22",
     "supportedVersions": "0",
     "license": "MIT",
     "dependencies": {
@@ -43,21 +43,21 @@
         "test-init": "jest --init"
     },
     "jest": {
-      "moduleFileExtensions": [
-        "js",
-        "jsx"
-      ],
-      "moduleDirectories": [
-        "node_modules"
-      ],
-      "moduleNameMapper": {
-        "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
-        "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
-      }
+        "moduleFileExtensions": [
+            "js",
+            "jsx"
+        ],
+        "moduleDirectories": [
+            "node_modules"
+        ],
+        "moduleNameMapper": {
+            "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+            "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+        }
     },
     "standard": {
-      "ignore": [
-        "**/__tests__"
-      ]
+        "ignore": [
+            "**/__tests__"
+        ]
     }
 }
