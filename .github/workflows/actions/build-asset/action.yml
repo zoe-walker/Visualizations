@@ -1,5 +1,5 @@
 name: Build package and upload to release
-description: 'Build an npm package'
+description: 'Build an npm package and upload to release'
 inputs:
   working-directory:  # sub-folder containing package
     description: 'Package Sub-Folder'
@@ -38,6 +38,7 @@ runs:
       id: package_name
       shell: bash
       run: |
+        cd ${{ inputs.working-directory }}
         echo "::set-output name=PACKAGE_NAME::$(
           node -p \"try { require('./package.json').name } catch(e) {}\"
           )"
@@ -46,6 +47,7 @@ runs:
       id: package_file_name
       shell: bash
       run: |
+        cd ${{ inputs.working-directory }}
         echo "::set-output name=PACKAGE_FILENAME::$(
           ls ${{ steps.package_name.outputs.PACKAGE_NAME }}*.zip
           )"
