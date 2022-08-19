@@ -1,8 +1,7 @@
 {
     "name": "word_cloud",
     "description": "Word Cloud using D3",
-    "version": "0.2.4",
-    "supportedVersions": "0",
+    "version": "0.2.5",
     "license": "MIT",
     "dependencies": {
         "d3": "5.16.0",
@@ -45,21 +44,21 @@
         "test-init": "jest --init"
     },
     "jest": {
-      "moduleFileExtensions": [
-        "js",
-        "jsx"
-      ],
-      "moduleDirectories": [
-        "node_modules"
-      ],
-      "moduleNameMapper": {
-        "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
-        "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
-      }
+        "moduleFileExtensions": [
+            "js",
+            "jsx"
+        ],
+        "moduleDirectories": [
+            "node_modules"
+        ],
+        "moduleNameMapper": {
+            "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+            "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+        }
     },
     "standard": {
-      "ignore": [
-        "**/__tests__"
-      ]
+        "ignore": [
+            "**/__tests__"
+        ]
     }
 }

@@ -2,7 +2,6 @@
 	"id":     "838abd01-3a59-4825-a32f-06ce1b557b40",
 	"name":   "Meta Model Force Layout",
 	"version":"1.0.3",
-	"supportedVersions":"1",
 	"main":"/Force Layout/Force Layout.js",
 	"dependencies":{"d3":"./d3/d3.v3.min.js"}
 }

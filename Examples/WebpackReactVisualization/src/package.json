@@ -3,7 +3,6 @@
   "name": "Line Chart",
   "description": "Example line chart",
   "version": "0.0.17",
-  "supportedVersions": "",
   "dependencies": {
     "recharts": "./recharts/visualization.js",
     "react": "./react/visualization.js",

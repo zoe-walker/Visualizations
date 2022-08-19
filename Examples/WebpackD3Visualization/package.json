@@ -1,8 +1,7 @@
 {
     "name": "scatter_plot",
     "description": "Example scatter plot chart based on D3 framework",
-    "version": "1.1.22",
-    "supportedVersions": "0",
+    "version": "1.1.23",
     "license": "MIT",
     "dependencies": {
         "core-js": "3.22.0",
