@@ -9,10 +9,10 @@ runs:
   using: "composite"
   steps:
     - name: Build
-      shell: bash
-      run: |
-        cd ${{ inputs.working-directory }}
-        source build.sh
+      id: build-simple-package
+      uses: ./.github/workflows/actions/build-simple-package
+      with:
+        working-directory: ${{ inputs.working-directory }}
 
     - name: Get Package file name
       id: package_file_name
