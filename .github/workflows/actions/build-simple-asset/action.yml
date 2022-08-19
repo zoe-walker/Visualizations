@@ -1,0 +1,35 @@
+name: Build simple package and upload to release
+description: 'Build (zip up) a simple package and upload to release'
+inputs:
+  working-directory:  # sub-folder containing package
+    description: 'Package Sub-Folder'
+    required: true
+    default: '.'
+runs:
+  using: "composite"
+  steps:
+    - name: Build
+      id: build-simple-package
+      uses: ./.github/workflows/actions/build-simple-package
+      with:
+        working-directory: ${{ inputs.working-directory }}
+
+    - name: Get Package file name
+      id: package_file_name
+      shell: bash
+      run: |
+        cd ${{ inputs.working-directory }}
+        echo "::set-output name=PACKAGE_FILENAME::$(
+          ls *.zip
+          )"
+
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.assets_url }}
+        asset_path: ./${{ steps.package_file_name.outputs.PACKAGE_FILENAME }}
+        asset_name: ${{ steps.package_file_name.outputs.PACKAGE_FILENAME }}
+        asset_content_type: application/zip        

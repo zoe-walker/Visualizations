@@ -1,16 +1,7 @@
-name: Build and test example packages with npm
+name: Build all packages for release assets
 on:
-  push:
-    paths:
-      - 'Examples/EChartsBarChart/**'
-      - 'Examples/EChartsRadialTree/**'
-      - 'Examples/Lollipop/**'
-      - 'Examples/ProcessFlow/**'
-      - 'Examples/StretchedChord/**'
-      - 'Examples/WebpackD3Visualization/**'
-      - 'Examples/WebpackReactVisualization/**'
-      - 'Examples/WordCloud/**'
-      - '!**/*.md'
+  release:
+#    types: [released]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,42 +14,51 @@ jobs:
           node-version: '16.15.1'
 
       - name: Build EChartsBarChart
-        uses: ./.github/workflows/actions/build-package
+        uses: ./.github/workflows/actions/build-asset
         with:
           working-directory: './Examples/EChartsBarChart'
 
       - name: Build EChartsRadialTree
-        uses: ./.github/workflows/actions/build-package
+        uses: ./.github/workflows/actions/build-asset
         with:
           working-directory: './Examples/EChartsRadialTree'
 
       - name: Build Lollipop
-        uses: ./.github/workflows/actions/build-package
+        uses: ./.github/workflows/actions/build-asset
         with:
           working-directory: './Examples/Lollipop'
 
       - name: Build ProcessFlow
-        uses: ./.github/workflows/actions/build-package
+        uses: ./.github/workflows/actions/build-asset
         with:
           working-directory: './Examples/ProcessFlow'
 
       - name: Build StretchedChord
-        uses: ./.github/workflows/actions/build-package
+        uses: ./.github/workflows/actions/build-asset
         with:
           working-directory: './Examples/StretchedChord'
 
       - name: Build WebpackD3Visualization
-        uses: ./.github/workflows/actions/build-package
+        uses: ./.github/workflows/actions/build-asset
         with:
           working-directory: './Examples/WebpackD3Visualization'
 
       - name: Build WebpackReactVisualization
-        uses: ./.github/workflows/actions/build-package
+        uses: ./.github/workflows/actions/build-asset
         with:
           working-directory: './Examples/WebpackReactVisualization'
 
       - name: Build WordCloud
-        uses: ./.github/workflows/actions/build-package
+        uses: ./.github/workflows/actions/build-asset
         with:
           working-directory: './Examples/WordCloud'
 
+      - name: Build D3 Meta Model
+        uses: ./.github/workflows/actions/build-simple-asset
+        with:
+          working-directory: './Examples/D3\ Meta\ Model'
+
+      - name: Build ECharts Meta Model
+        uses: ./.github/workflows/actions/build-simple-asset
+        with:
+          working-directory: './Examples/ECharts\ Meta\ Model'
