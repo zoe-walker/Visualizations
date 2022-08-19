@@ -5,6 +5,14 @@ inputs:
     description: 'Package Sub-Folder'
     required: true
     default: '.'
+  asset-directory:  # folder to upload package to
+    description: 'Asset Folder'
+    required: true
+    default: './assets'
+outputs:
+  asset-file-name:
+    description: "Name of asset file"
+    value: ${{ steps.package_file_name.outputs.PACKAGE_FILENAME }}
 runs:
   using: "composite"
   steps:
@@ -32,13 +40,8 @@ runs:
           ls ${{ steps.package_name.outputs.PACKAGE_NAME }}*.zip
           )"
 
-    - name: Upload Release Asset
-      id: upload-release-asset 
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.assets_url }}
-        asset_path: ./${{ steps.package_file_name.outputs.PACKAGE_FILENAME }}
-        asset_name: ${{ steps.package_file_name.outputs.PACKAGE_FILENAME }}
-        asset_content_type: application/zip        
+    - name: Copy Package file
+      id: copy-package-file
+      shell: bash
+      run: |
+        cp ${{ inputs.working-directory }}/${{ steps.package_file_name.outputs.PACKAGE_FILENAME }} ${{ inputs.asset-directory }}
