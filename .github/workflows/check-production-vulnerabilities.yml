@@ -2,7 +2,7 @@ name: 'Check for production vulnerabilities'
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 8,11,15,18 * * *'
+    - cron: '30 8,11,15,18 * * 1,2,3,4,5'
 jobs:
   check-production:
     runs-on: ubuntu-latest
