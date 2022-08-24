@@ -131,7 +131,6 @@ A Cascading Style Sheet (CSS) is defined containing selectors for the following 
 *	__phaseLabelWidth__: The width, in pixels, of the vertical phase label on the left-hand side of the diagram. This is ignored if there are no phases in the process. The value is increased, if necessary, to be a multiple of gridSize. __Default__: 60.
 *	__stepGroupPadding__: The padding, in pixels, applied to the step group bounding box around the steps within. __Default__: 15.
 *	__elementSizes__: The height and width of the various shapes, representing different types of step, input and output, drawn on the diagram. The width is increased for steps that appear in multiple swim-lanes.
-*	__editable__: indicates if the user can edit (re-position) lines and shapes on the diagram. This should be set to false as editing is not currently supported or saved.
 *	__inputSwimlaneLabel__: The text for the swim-lane label (watermark) in the Inputs swim-lane. __Defaults__ to "Inputs" if not specified.
 *	__outputSwimlaneLabel__: The text for the swim-lane label (watermark) in the Outputs swim-lane. __Defaults__ to "Outputs" if not specified.
 *   __disableIOSwimlanes__: indicates if the input and output swim-lanes should be drawn (false) or hidden (true). __Defaults__ to false if not specified.
