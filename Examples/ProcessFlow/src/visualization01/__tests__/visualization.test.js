@@ -6,6 +6,12 @@ import { visualization } from '../visualization'
 import * as Data from '../process-data'
 import { Diagram } from '../diagram'
  
+//
+// Get package version number
+//
+const pkg = require('../visualization.config.json')
+const packageVersion = pkg.version
+
 //const { testEnvironment } = require('../../../jest.config')
 
 jest.mock('../process-data')
@@ -14,6 +20,7 @@ jest.mock('../diagram')
 var mockErrorOccurred = jest.fn(e => e)
 var mockInputChanged = jest.fn((name, value) => {})
 var mockDataChanged = jest.fn((data) => {})
+var mockUpdateState = jest.fn((state) => {})
 
 const config = {
   width: '1500px',
@@ -22,7 +29,8 @@ const config = {
   functions: {
     errorOccurred: mockErrorOccurred,
     inputChanged: mockInputChanged,
-    dataChanged: mockDataChanged
+    dataChanged: mockDataChanged,
+    updateState: mockUpdateState
   },
   data :
   {
@@ -63,14 +71,19 @@ const config = {
          "Database / Application": {"width": 100, "height": 40},
          "Data": {"width": 100, "height": 40},
          "Other": {"width": 100, "height": 40}
-     },
-     "editable": true
-    }
+     }
+  },
+  "state": {
+    "value": "{\"dummy\": {\"x\": 1}}",
+    "editable": false
+  }
 }
 
 describe('Visualisation', () => {
     const mockDiagramHeight = jest.fn().mockReturnValue(123)
     const mockDiagramDraw = jest.fn()
+    const mockProcessId = jest.fn().mockReturnValue('Process Id')
+    const mockProcessName = jest.fn().mockReturnValue('Process Name')
     const mockDataProcess = 'Data.Process object'
     beforeAll(() => {
         Diagram.mockImplementation(() => {
@@ -83,7 +96,9 @@ describe('Visualisation', () => {
     beforeAll(() => {
         Data.Process.mockImplementation(() => {
             return {
-                value: mockDataProcess
+              id: mockProcessId,
+              name: mockProcessName,
+              value: mockDataProcess
             }
         })
     })
@@ -96,8 +111,11 @@ describe('Visualisation', () => {
       visualization(config)
   
       expect(mockErrorOccurred).not.toHaveBeenCalled()
+      expect(mockProcessId).not.toHaveBeenCalled()
+      expect(mockProcessName).not.toHaveBeenCalled()
+      expect(mockUpdateState).not.toHaveBeenCalled()
       expect(Data.Process).toHaveBeenCalledWith(config.data, config.style.disableIOSwimlanes)
-      expect(Diagram).toHaveBeenCalledWith({value: mockDataProcess}, config.style, 1500, 600, Diagram.mock.calls[0][4])
+      expect(Diagram).toHaveBeenCalledWith(Data.Process.mock.results[0].value, config.style, 1500, 600, Diagram.mock.calls[0][4])
       expect(mockDiagramHeight).toHaveBeenCalledTimes(0)
       expect(mockDiagramDraw).toHaveBeenCalledTimes(1)
 
@@ -105,5 +123,33 @@ describe('Visualisation', () => {
     //   var element = document.getElementById('visualisation01_element_guid' + '_procHeader')
     //   expect(element).not.toBeNull()
     })
+
+    it('Successful create, editable state', () => {
+      document.body.innerHTML =
+              '<div id="visualisation01_element_guid"></div>'
+  
+      config.state.editable = true
+
+      visualization(config)
+  
+      expect(mockErrorOccurred).not.toHaveBeenCalled()
+      expect(mockProcessId).toHaveBeenCalled()
+      expect(mockProcessName).toHaveBeenCalled()
+      const expectedStateValue = JSON.parse(config.state.value)
+      expectedStateValue[mockProcessId.mock.results[0].value] = {
+        name: mockProcessName.mock.results[0].value,
+        packageVersion
+      }
+      expect(mockUpdateState).toHaveBeenCalledWith(JSON.stringify(expectedStateValue))
+      expect(Data.Process).toHaveBeenCalledWith(config.data, config.style.disableIOSwimlanes)
+      expect(Diagram).toHaveBeenCalledWith(Data.Process.mock.results[0].value, config.style, 1500, 600, Diagram.mock.calls[0][4])
+      expect(mockDiagramHeight).toHaveBeenCalledTimes(0)
+      expect(mockDiagramDraw).toHaveBeenCalledTimes(1)
+
+      
+    //   var element = document.getElementById('visualisation01_element_guid' + '_procHeader')
+    //   expect(element).not.toBeNull()
+    })
+
 })
   
