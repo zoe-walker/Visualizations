@@ -12,6 +12,11 @@ import * as Highlight from './highlighter'
  */
 export function visualization (config) {
   //
+  // Get package version number
+  //
+  const pkg = require('./visualization.config.json')
+  const packageVersion = pkg.version
+  //
   // Retrieve configuration
   //
   const inputs = config.inputs
@@ -260,6 +265,35 @@ export function visualization (config) {
 
   try {
     process = new Data.Process(data, style.disableIOSwimlanes)
+    //
+    // Test change of state
+    //
+    const editable = config.state.editable
+    const state = config.state.value
+    if (editable) {
+      console.log('State: ' + JSON.stringify(state))
+      let newState
+      try {
+        newState = JSON.parse(state)
+      } catch (e) {
+        const errorMessage = 'Error parsing state - ' + e.name + ': ' + e.message
+        console.error(errorMessage)
+        config.functions.errorOccurred(errorMessage)
+      }
+      // if (typeof state !== 'object' || Array.isArray(state) || state === null) {
+      //   newState = {}
+      // }
+      if (!newState[process.id()]) {
+        newState[process.id()] = {}
+      }
+      const processState = newState[process.id()]
+      processState.name = process.name()
+      processState.packageVersion = packageVersion
+      config.functions.updateState(JSON.stringify(newState))
+    }
+    //
+    // End of change of state testing
+    //
     diagram = new Diagram(process, style, width, height, diagramConfig)
     highlighter = new Highlight.Highlighter(process)
     const drawingReport = diagram.draw()

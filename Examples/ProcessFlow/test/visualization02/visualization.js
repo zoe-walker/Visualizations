@@ -64,7 +64,7 @@ for (key in inputsConfig) {
     // Define updateOutput function to log to console changes to output
     //
     var errorOccurred = function(error) {
-        console.log(error)
+        console.error(error)
     }
     //
     // Define performAction function to log to console actions triggered by visualisation

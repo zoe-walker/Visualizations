@@ -56,7 +56,7 @@ for (key in inputsConfig) {
     // Define updateOutput function to log to console changes to output
     //
     var errorOccurred = function(error) {
-        console.log(error)
+        console.error(error)
     }
     //
     // Define performAction function to log to console actions triggered by visualisation
@@ -83,12 +83,19 @@ for (key in inputsConfig) {
         }
         idArray.forEach(id => callbackFn(true, id))
     }
+    //
+    // Define updateState function
+    //
+    var updateState = function (value) {
+        console.log('updateState value: ' + JSON.stringify(value))
+    }
 
     config.functions = {
         errorOccurred: errorOccurred,
         performAction: performAction,
         inputChanged: inputChanged,
-        hasAction: hasAction
+        hasAction: hasAction,
+        updateState: updateState
     };
    var el = document.getElementById(config.element)
    el.style.height = config.height

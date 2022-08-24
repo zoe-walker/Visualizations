@@ -1087,6 +1087,7 @@ function router (vertices, opt, linkView) {
   // *** Start of changes from original manhattan router code (JointJS version 3.4.1) ***
   // avoid routing lines on top of one another
   //
+  opt.targetTolerance = Math.max(linkView.sourceBBox.width / 2, 1)
   const lineMap = (new LineMap(opt)).build(linkView.paper, linkView.model)
   // *** End of changes from original manhattan router code (JointJS version 3.4.1) ***
 

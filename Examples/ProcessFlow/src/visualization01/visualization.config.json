@@ -19,6 +19,7 @@
       "type": "Elements"
     }
   ],
+  "state" : {},
   "style": {
     "URL": "visualization01/process-flow.css",
     "JSON": {

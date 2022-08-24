@@ -6,7 +6,7 @@ import * as Shapes from './jointjs-shapes'
 import * as Types from './element-types'
 import * as ActivityGroup from './group-label'
 import * as JointGroup from './jointjs-group-label'
-// import * as Data from './process-data'
+import * as Data from './process-data'
 
 const elementTypeActorLane = 0
 const elementTypeStep = 1
@@ -192,6 +192,7 @@ export class Graph {
       //     // Only permit linking to output ports.
       //     return magnetT && magnetT.getAttribute('port-group').substring(0, 2) === 'out';
       // },
+      markAvailable: true,
       restrictTranslate: function (el) { // eslint-disable-line no-unused-vars
         let area = {}
         // const data = el.model.get(propertyGraphElement)
@@ -212,9 +213,9 @@ export class Graph {
         // }
         return area
       },
-      interactive: false // {elementMove: false, addLinkFromMagnet: false}
+      interactive: { elementMove: false, addLinkFromMagnet: false, linkMove: false, labelMove: true, arrowheadMove: true, vertexAdd: false, vertexRemove: false, useLinkTools: true }
       // function(cellView, method) {
-      //   console.log('Interaction: ' + method)
+      //   console.log('Interaction: ' + method + ', instance of joint.dia.LinkView: ' + cellView instanceof joint.dia.LinkView)
       //   return cellView instanceof joint.dia.LinkView // Only allow interaction with joint.dia.LinkView instances.
       // }
     })
@@ -375,6 +376,49 @@ export class Graph {
       //
       const graphCells = graph.getLinks()
       if (graphCells.length > 0) {
+        // //
+        // // Add link tool
+        // //
+        // graphCells.forEach(link => {
+        //   const targetAnchorTool = new joint.linkTools.TargetAnchor({
+        //     focusOpacity: 0.5,
+        //     redundancyRemoval: false,
+        //     restrictArea: false,
+        //     snapRadius: 10
+        //   })
+        //   const targetArrowheadTool = new joint.linkTools.TargetArrowhead({
+        //     focusOpacity: 0.5
+        //   })
+        //   const sourceAnchorTool = new joint.linkTools.SourceAnchor({
+        //     focusOpacity: 0.5,
+        //     redundancyRemoval: false,
+        //     restrictArea: false,
+        //     snapRadius: 10
+        //   })
+        //   const verticesTool = new joint.linkTools.Vertices({
+        //     focusOpacity: 0.5,
+        //     redundancyRemoval: false,
+        //     snapRadius: 10,
+        //     vertexAdding: false,
+        //   })
+        //   const toolsView = new joint.dia.ToolsView({
+        //     name: 'basic-tools',
+        //     tools: {targetAnchorTool, targetArrowheadTool, sourceAnchorTool, verticesTool}
+        //   })
+        //   const view = link.get(propertyGraphElement).getView()
+        // view.addTools(toolsView)
+        // linkView.addTools(toolsView);
+        // linkView.hideTools();
+
+        // paper.on('link:mouseenter', function(linkView) {
+        //     linkView.showTools();
+        // });
+
+        // paper.on('link:mouseleave', function(linkView) {
+        //     linkView.hideTools();
+        // });
+        // })
+
         const cell = graphCells[graphCells.length - 1]
         cell.toFront()
       }
@@ -801,10 +845,26 @@ export class Graph {
       const routerName = routerOptions.routerName
       const vertices = routerOptions.vertices === undefined ? [] : routerOptions.vertices
       const id = { id: link.id() }
-      const jointLink = new joint.shapes.standard.Link(id)
+      const jointLink = new joint.dia.Link(id) // shapes.standard.Link(id)
       jointLink.attr('wrapper/cursor', 'pointer')
       jointLink.source(linkEnd(link.source(), routerOptions.sourcePortId))
       jointLink.target(linkEnd(link.target(), routerOptions.targetPortId))
+      if (link instanceof Data.Flow) {
+        console.log('Link source: ' + JSON.stringify(link.sourcePort()))
+      }
+      jointLink.on('change:source', function () {
+        const source = this.get('source')
+        const originalSource = link.source()
+        if (source.id) {
+          // attached to an element not a point
+          if (source.id !== originalSource.id()) {
+            // Reset source
+            source.id = originalSource.id()
+          }
+        }
+        console.log('source of the link changed: ' + JSON.stringify(source))
+        console.log('Original source: ' + JSON.stringify(originalSource.id()))
+      })
       if (routerName !== undefined) {
         const options = {
           step: gridSize,

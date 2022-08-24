@@ -187,99 +187,152 @@ function defineSwimlane () {
 //
 // I/O Ports
 //
-const ioPortMarkup = '<circle r="1" fill-opacity="0" fill="red" />'
+const portMarkup = [{
+  tagName: 'rect',
+  selector: 'portBody'
+}]
+const portSize = 8
+const basePortAttrs = {
+  r: portSize / 2,
+  width: portSize,
+  height: portSize,
+  fillOpacity: 0.5,
+  magnet: true
+}
+const baseLeftPortAttrs = {
+  ...basePortAttrs,
+  x: 0,
+  y: -portSize / 2
+}
+const baseRightPortAttrs = {
+  ...basePortAttrs,
+  x: -portSize,
+  y: -portSize / 2
+}
+const baseTopPortAttrs = {
+  ...basePortAttrs,
+  x: -portSize / 2,
+  y: 0
+}
+const baseBottomPortAttrs = {
+  ...basePortAttrs,
+  x: -portSize / 2,
+  y: -portSize
+}
+function portAttrs (baseAttrs, colour) {
+  return {
+    portBody: {
+      ...baseAttrs,
+      fill: colour
+    }
+  }
+}
+const ioPortColour = 'red'
 const portInLeft = {
   id: Ports.ioInputPort,
   group: 'inLeft',
-  markup: ioPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseLeftPortAttrs, ioPortColour)
 }
 
 const portOutRight = {
   id: Ports.ioOutputPort,
   group: 'outRight',
-  markup: ioPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseRightPortAttrs, ioPortColour)
 }
 //
 // Process Flow input ports
 //
-const flowInPortMarkup = '<circle r="1" fill-opacity="0" fill="green" />'
+const flowInPortColour = 'green'
 const portFlowInUpperLeft = {
   id: Ports.flowInUpperLeftPort,
   group: 'flowInUpperLeft',
-  markup: flowInPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseLeftPortAttrs, flowInPortColour)
 }
 
 const portFlowInLowerLeft = {
   id: Ports.flowInLowerLeftPort,
   group: 'flowInLowerLeft',
-  markup: flowInPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseLeftPortAttrs, flowInPortColour)
 }
 
 const portFlowInTop = {
   id: Ports.flowInTopPort,
   group: 'flowInTop',
-  markup: flowInPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseTopPortAttrs, flowInPortColour)
 }
 
 const portFlowInUpperRight = {
   id: Ports.flowInUpperRightPort,
   group: 'flowInUpperRight',
-  markup: flowInPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseRightPortAttrs, flowInPortColour)
 }
 
 const portFlowInLowerRight = {
   id: Ports.flowInLowerRightPort,
   group: 'flowInLowerRight',
-  markup: flowInPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseRightPortAttrs, flowInPortColour)
 }
 //
 // Process Flow output ports
 //
-const flowOutPortMarkup = '<circle r="1" fill-opacity="0" fill="blue" />'
+const flowOutPortColour = 'blue'
 const portFlowOutUpperLeft = {
   id: Ports.flowOutUpperLeftPort,
   group: 'flowOutUpperLeft',
-  markup: flowOutPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseLeftPortAttrs, flowOutPortColour)
 }
 
 const portFlowOutLowerLeft = {
   id: Ports.flowOutLowerLeftPort,
   group: 'flowOutLowerLeft',
-  markup: flowOutPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseLeftPortAttrs, flowOutPortColour)
 }
 
 const portFlowOutBottom = {
   id: Ports.flowOutBottomPort,
   group: 'flowOutBottom',
-  markup: flowOutPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseBottomPortAttrs, flowOutPortColour)
 }
 
 const portFlowOutUpperRight = {
   id: Ports.flowOutUpperRightPort,
   group: 'flowOutUpperRight',
-  markup: flowOutPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseRightPortAttrs, flowOutPortColour)
 }
 
 const portFlowOutLowerRight = {
   id: Ports.flowOutLowerRightPort,
   group: 'flowOutLowerRight',
-  markup: flowOutPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseRightPortAttrs, flowOutPortColour)
 }
 //
 // Process Flow input/output (shared) ports
 //
-const flowSharedPortMarkup = '<circle r="1" fill-opacity="0" fill="green" />'
-
+const flowSharedPortColour = 'red'
 const portFlowCentreLeft = {
   id: Ports.flowCentreLeftPort,
   group: 'flowLeft',
-  markup: flowSharedPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseLeftPortAttrs, flowSharedPortColour)
 }
 
 const portFlowCentreRight = {
   id: Ports.flowCentreRightPort,
   group: 'flowRight',
-  markup: flowSharedPortMarkup
+  markup: portMarkup,
+  attrs: portAttrs(baseRightPortAttrs, flowSharedPortColour)
 }
 
 function defineStart () {

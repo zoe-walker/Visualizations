@@ -2,6 +2,10 @@
     "width": "1470px",
     "height": "600px",
     "element": "visualisation01_element_guid",
-    "animation": false
+    "animation": false,
+    "state": {
+        "value": "{\"dummy\": {\"x\": 1}}",
+        "editable": true
+    }
 }
 

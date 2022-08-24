@@ -35,6 +35,7 @@ export class Process {
     if (!data.process) {
       throw new Error('Process data is missing')
     }
+    const id = data.process.id
     const name = data.process.name
     const version = data.process.version
     const testNavigation = data.process.testNavigation
@@ -52,6 +53,7 @@ export class Process {
       links.setOutputs(data.stepOutputs)
     }
 
+    this.id = () => id
     this.name = () => name
     this.version = () => version
     this.testNavigation = () => testNavigation
