@@ -869,9 +869,17 @@ class Row {
       //
       // Check if swimlanes are wider than step by a sufficient amount
       // style.elementSizes[infoLink.information().type()])
-      const minDistanceRequired = 2 * (newStep.isDecision() ? 3 * style.stepStandoff : style.stepStandoff) + style.gridSize
+      const decisionFactor = style.verticalSwimlanes ? 3 : 4 // more room required around decisions in horizontal swim-lanes
+      const minDistanceRequired = 2 * (newStep.isDecision() ? decisionFactor * style.stepStandoff : style.stepStandoff) + style.gridSize
       const newStepLaneRange = newStep.swimlaneRange()
-      const newStepSpace = (style.swimlaneWidth - style.elementSizes[newStep.type()].width) / 2
+      //
+      // For horizontal swim-lanes, the step shapes are not rotated, so the space is derived
+      // from the height of the shape. Use OrientedDimensions object to resolve the difference
+      // between vertical and horizontal swim-lanes
+      //
+      const newStepSize = new OrientedDimensions(style.verticalSwimlanes)
+      newStepSize.setDimensions(style.elementSizes[newStep.type()])
+      const newStepSpace = (style.swimlaneWidth - newStepSize.width()) / 2
       //
       // See if any existing steps in the row are in the next lane to the new step
       // and there is a flow between them
@@ -880,7 +888,12 @@ class Row {
       steps.forEach(function (step) {
         if ((step.swimlaneRange().max === newStepLaneRange.min - 1 ||
               step.swimlaneRange().min === newStepLaneRange.max + 1)) {
-          const totalSpace = newStepSpace + (style.swimlaneWidth - style.elementSizes[step.type()].width) / 2
+          //
+          // As described above, use OrientedDimension object to calculate space for horizontal or vertical swim-lanes
+          //
+          const stepSize = new OrientedDimensions(style.verticalSwimlanes)
+          stepSize.setDimensions(style.elementSizes[step.type()])
+          const totalSpace = newStepSpace + (style.swimlaneWidth - stepSize.width()) / 2
           // console.log('New step: ' + newStep.name() + ', space: ' + totalSpace + ', min dist: ' + minDistanceRequired)
           if (totalSpace <= minDistanceRequired &&
             ((newStep.flows().filter(flow => flow.target() === step).length > 0 ||
