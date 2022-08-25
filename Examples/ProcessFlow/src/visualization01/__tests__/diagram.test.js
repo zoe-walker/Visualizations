@@ -837,8 +837,7 @@ const config = {
          "Database / Application": {"width": 100, "height": 40},
          "Data": {"width": 100, "height": 40},
          "Other": {"width": 100, "height": 40}
-     },
-     "editable": true
+     }
     }
 }
 
