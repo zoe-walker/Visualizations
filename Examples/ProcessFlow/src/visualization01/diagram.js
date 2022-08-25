@@ -20,6 +20,7 @@ function alignValueDown (value, gridSize) {
 export class Diagram {
   constructor (process, style, width, height, visualizationData) {
     const elementId = visualizationData.config.element
+    const isEditable = visualizationData.config.state.editable
 
     const gridAlignedStyle = alignStyleToGrid(style)
     //
@@ -140,7 +141,8 @@ export class Diagram {
           handleHighlighting: visualizationData.handleHighlighting,
           otherOffPageConnector: visualizationData.otherOffPageConnector
         },
-        style.renderSwimlaneWatermarks)
+        style.renderSwimlaneWatermarks,
+        isEditable)
 
       function layoutHeader (process, dimensions, containerElement, htmlElements) {
         htmlElements.processHeaderElement = htmlElements.containerElement + '_procHeader'

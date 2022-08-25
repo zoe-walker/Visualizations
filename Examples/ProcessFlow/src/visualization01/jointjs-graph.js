@@ -165,12 +165,12 @@ export class GraphLink extends GraphCell {
 }
 
 export class Graph {
-  constructor (htmlElement, diagramSize, gridSize, elementSizes, events, renderSwimlaneWatermarks) {
+  constructor (htmlElement, diagramSize, gridSize, elementSizes, events, renderSwimlaneWatermarks, isEditable) {
     const clickEvent = events.handleClickEvent
     const otherOffPageConnector = events.otherOffPageConnector
 
     // Define shapes dynamically allowing flow ports to be aligned to the grid
-    Shapes.defineShapes(gridSize, elementSizes, renderSwimlaneWatermarks)
+    Shapes.defineShapes(gridSize, elementSizes, renderSwimlaneWatermarks, isEditable)
 
     let cells = []
     const drawingReport = {}
@@ -192,7 +192,7 @@ export class Graph {
       //     // Only permit linking to output ports.
       //     return magnetT && magnetT.getAttribute('port-group').substring(0, 2) === 'out';
       // },
-      markAvailable: true,
+      markAvailable: isEditable,
       restrictTranslate: function (el) { // eslint-disable-line no-unused-vars
         let area = {}
         // const data = el.model.get(propertyGraphElement)
@@ -213,7 +213,9 @@ export class Graph {
         // }
         return area
       },
-      interactive: { elementMove: false, addLinkFromMagnet: false, linkMove: false, labelMove: true, arrowheadMove: true, vertexAdd: false, vertexRemove: false, useLinkTools: true }
+      interactive: isEditable
+        ? { elementMove: false, addLinkFromMagnet: false, linkMove: false, labelMove: true, arrowheadMove: true, vertexAdd: false, vertexRemove: false, useLinkTools: true }
+        : false
       // function(cellView, method) {
       //   console.log('Interaction: ' + method + ', instance of joint.dia.LinkView: ' + cellView instanceof joint.dia.LinkView)
       //   return cellView instanceof joint.dia.LinkView // Only allow interaction with joint.dia.LinkView instances.
@@ -845,7 +847,9 @@ export class Graph {
       const routerName = routerOptions.routerName
       const vertices = routerOptions.vertices === undefined ? [] : routerOptions.vertices
       const id = { id: link.id() }
-      const jointLink = new joint.dia.Link(id) // shapes.standard.Link(id)
+      const jointLink = isEditable
+        ? new joint.dia.Link(id)
+        : new joint.shapes.standard.Link(id)
       jointLink.attr('wrapper/cursor', 'pointer')
       jointLink.source(linkEnd(link.source(), routerOptions.sourcePortId))
       jointLink.target(linkEnd(link.target(), routerOptions.targetPortId))

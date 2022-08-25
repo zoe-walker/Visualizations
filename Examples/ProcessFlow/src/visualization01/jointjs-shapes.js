@@ -19,15 +19,20 @@ let OtherShape
 let OffPageOutputShape
 let OffPageInputShape
 let StepGroupShape
+//
+// Shape input and output port configuration
+// The ports are visible in editable mode and invisible in non-edit mode
+//
 
-export function defineShapes (gridSize, elementSizes, renderSwimlaneWatermarks) {
+export function defineShapes (gridSize, elementSizes, renderSwimlaneWatermarks, isEditable) {
+  const portConfig = definePorts(isEditable)
   ActorShape = defineActor(renderSwimlaneWatermarks)
   SwimlaneShape = defineSwimlane()
-  StartShape = defineStart()
-  ProcessStepShape = defineProcessStep(gridSize, elementSizes[Types.processStep])
-  SubProcessShape = defineSubProcess(gridSize, elementSizes[Types.subProcess])
+  StartShape = defineStart(portConfig)
+  ProcessStepShape = defineProcessStep(portConfig, gridSize, elementSizes[Types.processStep])
+  SubProcessShape = defineSubProcess(portConfig, gridSize, elementSizes[Types.subProcess])
   ProcessShape = defineProcess()
-  DecisionShape = defineDecision()
+  DecisionShape = defineDecision(portConfig)
   VerticalLabelShape = defineVerticalLabel()
   PhaseExtentShape = definePhaseExtent()
   ExternalDataShape = defineExternalData()
@@ -184,158 +189,170 @@ function defineSwimlane () {
   })
 }
 
-//
-// I/O Ports
-//
-const portMarkup = [{
-  tagName: 'rect',
-  selector: 'portBody'
-}]
-const portSize = 8
-const basePortAttrs = {
-  r: portSize / 2,
-  width: portSize,
-  height: portSize,
-  fillOpacity: 0.5,
-  magnet: true
-}
-const baseLeftPortAttrs = {
-  ...basePortAttrs,
-  x: 0,
-  y: -portSize / 2
-}
-const baseRightPortAttrs = {
-  ...basePortAttrs,
-  x: -portSize,
-  y: -portSize / 2
-}
-const baseTopPortAttrs = {
-  ...basePortAttrs,
-  x: -portSize / 2,
-  y: 0
-}
-const baseBottomPortAttrs = {
-  ...basePortAttrs,
-  x: -portSize / 2,
-  y: -portSize
-}
-function portAttrs (baseAttrs, colour) {
-  return {
-    portBody: {
-      ...baseAttrs,
-      fill: colour
+function definePorts (isEditable) {
+  const portSize = isEditable ? 8 : 2
+  const fillOpacity = isEditable ? 0.5 : 0
+  const magnet = isEditable
+  const returnValue = {}
+  //
+  // Base Port configuration
+  //
+  const portMarkup = [{
+    tagName: 'rect',
+    selector: 'portBody'
+  }]
+
+  const basePortAttrs = {
+    r: portSize / 2,
+    width: portSize,
+    height: portSize,
+    fillOpacity,
+    magnet
+  }
+  const baseLeftPortAttrs = {
+    ...basePortAttrs,
+    x: 0,
+    y: -portSize / 2
+  }
+  const baseRightPortAttrs = {
+    ...basePortAttrs,
+    x: -portSize,
+    y: -portSize / 2
+  }
+  const baseTopPortAttrs = {
+    ...basePortAttrs,
+    x: -portSize / 2,
+    y: 0
+  }
+  const baseBottomPortAttrs = {
+    ...basePortAttrs,
+    x: -portSize / 2,
+    y: -portSize
+  }
+
+  function portAttrs (baseAttrs, colour) {
+    return {
+      portBody: {
+        ...baseAttrs,
+        fill: colour
+      }
     }
   }
-}
-const ioPortColour = 'red'
-const portInLeft = {
-  id: Ports.ioInputPort,
-  group: 'inLeft',
-  markup: portMarkup,
-  attrs: portAttrs(baseLeftPortAttrs, ioPortColour)
+  //
+  // I/O Ports
+  //
+  const ioPortColour = 'red'
+  returnValue.portInLeft = {
+    id: Ports.ioInputPort,
+    group: 'inLeft',
+    markup: portMarkup,
+    attrs: portAttrs(baseLeftPortAttrs, ioPortColour)
+  }
+
+  returnValue.portOutRight = {
+    id: Ports.ioOutputPort,
+    group: 'outRight',
+    markup: portMarkup,
+    attrs: portAttrs(baseRightPortAttrs, ioPortColour)
+  }
+  //
+  // Process Flow input ports
+  //
+  const flowInPortColour = 'green'
+  returnValue.portFlowInUpperLeft = {
+    id: Ports.flowInUpperLeftPort,
+    group: 'flowInUpperLeft',
+    markup: portMarkup,
+    attrs: portAttrs(baseLeftPortAttrs, flowInPortColour)
+  }
+
+  returnValue.portFlowInLowerLeft = {
+    id: Ports.flowInLowerLeftPort,
+    group: 'flowInLowerLeft',
+    markup: portMarkup,
+    attrs: portAttrs(baseLeftPortAttrs, flowInPortColour)
+  }
+
+  returnValue.portFlowInTop = {
+    id: Ports.flowInTopPort,
+    group: 'flowInTop',
+    markup: portMarkup,
+    attrs: portAttrs(baseTopPortAttrs, flowInPortColour)
+  }
+
+  returnValue.portFlowInUpperRight = {
+    id: Ports.flowInUpperRightPort,
+    group: 'flowInUpperRight',
+    markup: portMarkup,
+    attrs: portAttrs(baseRightPortAttrs, flowInPortColour)
+  }
+
+  returnValue.portFlowInLowerRight = {
+    id: Ports.flowInLowerRightPort,
+    group: 'flowInLowerRight',
+    markup: portMarkup,
+    attrs: portAttrs(baseRightPortAttrs, flowInPortColour)
+  }
+  //
+  // Process Flow output ports
+  //
+  const flowOutPortColour = 'blue'
+  returnValue.portFlowOutUpperLeft = {
+    id: Ports.flowOutUpperLeftPort,
+    group: 'flowOutUpperLeft',
+    markup: portMarkup,
+    attrs: portAttrs(baseLeftPortAttrs, flowOutPortColour)
+  }
+
+  returnValue.portFlowOutLowerLeft = {
+    id: Ports.flowOutLowerLeftPort,
+    group: 'flowOutLowerLeft',
+    markup: portMarkup,
+    attrs: portAttrs(baseLeftPortAttrs, flowOutPortColour)
+  }
+
+  returnValue.portFlowOutBottom = {
+    id: Ports.flowOutBottomPort,
+    group: 'flowOutBottom',
+    markup: portMarkup,
+    attrs: portAttrs(baseBottomPortAttrs, flowOutPortColour)
+  }
+
+  returnValue.portFlowOutUpperRight = {
+    id: Ports.flowOutUpperRightPort,
+    group: 'flowOutUpperRight',
+    markup: portMarkup,
+    attrs: portAttrs(baseRightPortAttrs, flowOutPortColour)
+  }
+
+  returnValue.portFlowOutLowerRight = {
+    id: Ports.flowOutLowerRightPort,
+    group: 'flowOutLowerRight',
+    markup: portMarkup,
+    attrs: portAttrs(baseRightPortAttrs, flowOutPortColour)
+  }
+  //
+  // Process Flow input/output (shared) ports
+  //
+  const flowSharedPortColour = 'red'
+  returnValue.portFlowCentreLeft = {
+    id: Ports.flowCentreLeftPort,
+    group: 'flowLeft',
+    markup: portMarkup,
+    attrs: portAttrs(baseLeftPortAttrs, flowSharedPortColour)
+  }
+
+  returnValue.portFlowCentreRight = {
+    id: Ports.flowCentreRightPort,
+    group: 'flowRight',
+    markup: portMarkup,
+    attrs: portAttrs(baseRightPortAttrs, flowSharedPortColour)
+  }
+
+  return returnValue
 }
 
-const portOutRight = {
-  id: Ports.ioOutputPort,
-  group: 'outRight',
-  markup: portMarkup,
-  attrs: portAttrs(baseRightPortAttrs, ioPortColour)
-}
-//
-// Process Flow input ports
-//
-const flowInPortColour = 'green'
-const portFlowInUpperLeft = {
-  id: Ports.flowInUpperLeftPort,
-  group: 'flowInUpperLeft',
-  markup: portMarkup,
-  attrs: portAttrs(baseLeftPortAttrs, flowInPortColour)
-}
-
-const portFlowInLowerLeft = {
-  id: Ports.flowInLowerLeftPort,
-  group: 'flowInLowerLeft',
-  markup: portMarkup,
-  attrs: portAttrs(baseLeftPortAttrs, flowInPortColour)
-}
-
-const portFlowInTop = {
-  id: Ports.flowInTopPort,
-  group: 'flowInTop',
-  markup: portMarkup,
-  attrs: portAttrs(baseTopPortAttrs, flowInPortColour)
-}
-
-const portFlowInUpperRight = {
-  id: Ports.flowInUpperRightPort,
-  group: 'flowInUpperRight',
-  markup: portMarkup,
-  attrs: portAttrs(baseRightPortAttrs, flowInPortColour)
-}
-
-const portFlowInLowerRight = {
-  id: Ports.flowInLowerRightPort,
-  group: 'flowInLowerRight',
-  markup: portMarkup,
-  attrs: portAttrs(baseRightPortAttrs, flowInPortColour)
-}
-//
-// Process Flow output ports
-//
-const flowOutPortColour = 'blue'
-const portFlowOutUpperLeft = {
-  id: Ports.flowOutUpperLeftPort,
-  group: 'flowOutUpperLeft',
-  markup: portMarkup,
-  attrs: portAttrs(baseLeftPortAttrs, flowOutPortColour)
-}
-
-const portFlowOutLowerLeft = {
-  id: Ports.flowOutLowerLeftPort,
-  group: 'flowOutLowerLeft',
-  markup: portMarkup,
-  attrs: portAttrs(baseLeftPortAttrs, flowOutPortColour)
-}
-
-const portFlowOutBottom = {
-  id: Ports.flowOutBottomPort,
-  group: 'flowOutBottom',
-  markup: portMarkup,
-  attrs: portAttrs(baseBottomPortAttrs, flowOutPortColour)
-}
-
-const portFlowOutUpperRight = {
-  id: Ports.flowOutUpperRightPort,
-  group: 'flowOutUpperRight',
-  markup: portMarkup,
-  attrs: portAttrs(baseRightPortAttrs, flowOutPortColour)
-}
-
-const portFlowOutLowerRight = {
-  id: Ports.flowOutLowerRightPort,
-  group: 'flowOutLowerRight',
-  markup: portMarkup,
-  attrs: portAttrs(baseRightPortAttrs, flowOutPortColour)
-}
-//
-// Process Flow input/output (shared) ports
-//
-const flowSharedPortColour = 'red'
-const portFlowCentreLeft = {
-  id: Ports.flowCentreLeftPort,
-  group: 'flowLeft',
-  markup: portMarkup,
-  attrs: portAttrs(baseLeftPortAttrs, flowSharedPortColour)
-}
-
-const portFlowCentreRight = {
-  id: Ports.flowCentreRightPort,
-  group: 'flowRight',
-  markup: portMarkup,
-  attrs: portAttrs(baseRightPortAttrs, flowSharedPortColour)
-}
-
-function defineStart () {
+function defineStart (portConfig) {
   return joint.dia.Element.define('MooD.Start', {
     ports: {
       groups: {
@@ -353,8 +370,8 @@ function defineStart () {
         }
       },
       items: [
-        portFlowInTop,
-        portFlowOutBottom
+        portConfig.portFlowInTop,
+        portConfig.portFlowOutBottom
       ]
     },
     attrs: {
@@ -488,28 +505,28 @@ function processPortGroups (gridSize, elementSize) {
   return groups
 }
 
-function processPortItems () {
+function processPortItems (portConfig) {
   const items = [
-    portInLeft,
-    portFlowInUpperLeft,
-    portFlowInLowerLeft,
-    portFlowInTop,
-    portFlowInUpperRight,
-    portFlowInLowerRight,
-    portOutRight,
-    portFlowOutUpperLeft,
-    portFlowOutLowerLeft,
-    portFlowOutBottom,
-    portFlowOutUpperRight,
-    portFlowOutLowerRight
+    portConfig.portInLeft,
+    portConfig.portFlowInUpperLeft,
+    portConfig.portFlowInLowerLeft,
+    portConfig.portFlowInTop,
+    portConfig.portFlowInUpperRight,
+    portConfig.portFlowInLowerRight,
+    portConfig.portOutRight,
+    portConfig.portFlowOutUpperLeft,
+    portConfig.portFlowOutLowerLeft,
+    portConfig.portFlowOutBottom,
+    portConfig.portFlowOutUpperRight,
+    portConfig.portFlowOutLowerRight
   ]
 
   return items
 }
 
-export function defineSubProcess (gridSize, elementSize) {
+export function defineSubProcess (portConfig, gridSize, elementSize) {
   const portGroups = processPortGroups(gridSize, elementSize)
-  const portItems = processPortItems()
+  const portItems = processPortItems(portConfig)
   // Add groups for side flow ports
 
   return joint.dia.Element.define('MooD.SubProcess', {
@@ -609,9 +626,9 @@ export function defineProcess () {
   })
 }
 
-export function defineProcessStep (gridSize, elementSize) {
+export function defineProcessStep (portConfig, gridSize, elementSize) {
   const portGroups = processPortGroups(gridSize, elementSize)
-  const portItems = processPortItems()
+  const portItems = processPortItems(portConfig)
   // Add groups for side flow ports
 
   return joint.dia.Element.define('MooD.ProcessStep', {
@@ -651,7 +668,7 @@ export function defineProcessStep (gridSize, elementSize) {
   })
 }
 
-export function defineDecision () {
+export function defineDecision (portConfig) {
   return joint.dia.Element.define('MooD.Decision', {
     ports: {
       groups: {
@@ -693,12 +710,12 @@ export function defineDecision () {
         }
       },
       items: [
-        portInLeft,
-        portFlowCentreLeft,
-        portFlowInTop,
-        portFlowCentreRight,
-        portOutRight,
-        portFlowOutBottom
+        portConfig.portInLeft,
+        portConfig.portFlowCentreLeft,
+        portConfig.portFlowInTop,
+        portConfig.portFlowCentreRight,
+        portConfig.portOutRight,
+        portConfig.portFlowOutBottom
       ]
     },
     attrs: {

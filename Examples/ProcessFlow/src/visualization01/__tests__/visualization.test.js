@@ -73,9 +73,9 @@ const config = {
          "Other": {"width": 100, "height": 40}
      }
   },
-  "state": {
-    "value": "{\"dummy\": {\"x\": 1}}",
-    "editable": false
+  state: {
+    value: "{\"dummy\": {\"x\": 1}}",
+    editable: false
   }
 }
 

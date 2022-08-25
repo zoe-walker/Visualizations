@@ -245,11 +245,17 @@
   stroke-width: 3;
 }
 
-/* Highlight primary link line */
+/* Highlight primary link line (editable) */
 .process-flow .joint-cell.joint-type-link.highlight-primary .connection {
     stroke: yellow;
     stroke-width: 6;
  }
+
+/* Highlight primary link line (non-editable) */
+.process-flow .joint-cell.joint-type-standard-link.highlight-primary [joint-selector="wrapper"] {
+   stroke: yellow;
+   stroke-width: 6;
+}
 
 /* Highlight secondary link line */
 .process-flow .joint-cell.joint-type-standard-link.highlight-secondary [joint-selector="wrapper"] {
