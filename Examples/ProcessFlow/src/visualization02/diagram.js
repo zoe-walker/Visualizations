@@ -188,7 +188,7 @@ export class Diagram {
             actorDimensions.height(),
             index++,
             style.verticalSwimlanes))
-          position.increaseX(actorDimensions.logicalWidth())
+          position.increaseX(actorDimensions.acrossLaneLength())
         })
         //
         // Create header for outputs

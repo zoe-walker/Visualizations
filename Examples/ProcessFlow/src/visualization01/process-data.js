@@ -99,7 +99,8 @@ export class Element extends BasicElement {
 
     this.type = () => element.type
     this.size = () => element.size.dimensions()
-    this.logicalSize = () => element.size.logicalDimensions()
+    this.acrossLaneLength = () => element.size.acrossLaneLength()
+    this.downLaneLength = () => element.size.downLaneLength()
     this.position = () => element.position.coords()
     this.logicalPosition = () => element.position.logicalCoords()
     this.centre = function () {
@@ -110,8 +111,8 @@ export class Element extends BasicElement {
     }
     this.logicalCentre = function () {
       return {
-        x: Math.floor(element.position.logicalX() + element.size.logicalWidth() / 2),
-        y: Math.floor(element.position.logicalY() + element.size.logicalHeight() / 2)
+        x: Math.floor(element.position.logicalX() + element.size.acrossLaneLength() / 2),
+        y: Math.floor(element.position.logicalY() + element.size.downLaneLength() / 2)
       }
     }
     /**

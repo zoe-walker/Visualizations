@@ -6,9 +6,17 @@ import * as Sides from './jointjs-side-types'
  * swimlanes, physical width (of swimlane) is the logical height (of swimlane)
  */
 export class OrientedDimensions {
-  constructor (isVerticalSwimlane) {
+  /**
+   *
+   * @param {boolean} isVerticalSwimlane True if swim-lanes are vertical, false if horizontal
+   * @param {boolean} rotate True if the shape is rotated for horizontal swim-lanes, e.g. swim-lanes themselves,
+   *                         False if the shape is not rotated for horizontal swim-lanes, e.g. steps and I/O elements
+   */
+  constructor (isVerticalSwimlane, rotate = true) {
     let width = 0
     let height = 0
+    const rotateDimensions = !isVerticalSwimlane && rotate // physical dimensions are rotated
+    const flipOrientation = !isVerticalSwimlane && !rotate // dimensions relative to a vertical swim-lane orientation are rotated
 
     /**
      * Set logical width dimension
@@ -34,24 +42,24 @@ export class OrientedDimensions {
     }
     /**
      *
-     * @returns Physical width dimension in chosen orientation
+     * @returns Physical width dimension
      */
-    this.width = () => isVerticalSwimlane ? width : height
+    this.width = () => rotateDimensions ? height : width
     /**
      *
-     * @returns Logical width dimension (width as for vertical swimlanes)
+     * @returns Length in the across swim-lane dimension (width as for vertical swimlanes)
      */
-    this.logicalWidth = () => width
+    this.acrossLaneLength = () => flipOrientation ? height : width
     /**
      *
-     * @returns Physical height dimension in chosen orientation
+     * @returns Physical height dimension
      */
-    this.height = () => isVerticalSwimlane ? height : width
+    this.height = () => rotateDimensions ? width : height
     /**
      *
-     * @returns Logical height dimension (height as for vertical swimlanes)
+     * @returns Length in the down swim-lane dimension (height as for vertical swimlanes)
      */
-    this.logicalHeight = () => height
+    this.downLaneLength = () => flipOrientation ? width : height
     /**
      *
      * @returns Physical dimensions in chosen orientation
@@ -60,25 +68,15 @@ export class OrientedDimensions {
       return { width: this.width(), height: this.height() }
     }
     /**
-     *
-     * @returns Logical dimensions (as for vertical swimlanes)
-     */
-    this.logicalDimensions = function () {
-      return { width: this.logicalWidth(), height: this.logicalHeight() }
-    }
-    /**
-     * Increase logical width
+     * Increase size of rectangle in across swim-lane dimension
      * @param {int} widthOffset
      */
-    this.increaseWidth = function (widthOffset) {
-      width += widthOffset
-    }
-    /**
-     * Increase logical height
-     * @param {int} HeightOffset
-     */
-    this.increaseHeight = function (HeightOffset) {
-      height += HeightOffset
+    this.increaseAcrossLaneLength = function (widthOffset) {
+      if (isVerticalSwimlane) {
+        width += widthOffset
+      } else {
+        height += widthOffset
+      }
     }
   }
 }
