@@ -102,18 +102,15 @@ export class Element extends BasicElement {
     this.acrossLaneLength = () => element.size.acrossLaneLength()
     this.downLaneLength = () => element.size.downLaneLength()
     this.position = () => element.position.coords()
-    this.logicalPosition = () => element.position.logicalCoords()
+    this.alongLanePosition = () => element.position.alongLanePosition()
     this.centre = function () {
       return {
         x: Math.floor(element.position.x() + element.size.width() / 2),
         y: Math.floor(element.position.y() + element.size.height() / 2)
       }
     }
-    this.logicalCentre = function () {
-      return {
-        x: Math.floor(element.position.logicalX() + element.size.acrossLaneLength() / 2),
-        y: Math.floor(element.position.logicalY() + element.size.downLaneLength() / 2)
-      }
+    this.alongLaneCentre = function () {
+      return Math.floor(this.alongLanePosition() + this.downLaneLength() / 2)
     }
     /**
      * Set the dimensions of the element

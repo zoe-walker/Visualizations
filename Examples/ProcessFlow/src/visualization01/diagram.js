@@ -273,7 +273,7 @@ export class Diagram {
           const phaseMarkerDimensions = new OrientedDimensions(style.verticalSwimlanes)
           phaseMarkerDimensions.setDimensions({ width: dimensions.diagramSize.width(), height: 1 })
           const phaseMarkerPosition = new OrientedCoords(style.verticalSwimlanes)
-          phaseMarkerPosition.setY(phasePosition.logicalY() + phaseHeight - 1)
+          phaseMarkerPosition.setY(phasePosition.alongLanePosition() + phaseHeight - 1)
 
           if (noPhases !== true) {
             //
@@ -289,7 +289,7 @@ export class Diagram {
           //
           // Determine position of step elements
           //
-          let rowPosition = phasePosition.logicalY()
+          let rowPosition = phasePosition.alongLanePosition()
           phase.rows().forEach(function (row) {
             // console.log('Row bottomMargin: ' + row.bottomMargin(1) + ', height: ' + row.height())
             row.steps().forEach(function (step) {
@@ -524,11 +524,11 @@ export class Diagram {
                 logicalPortPosition.setCoords(portPosition)
                 point1.setCoords({
                   x: xPos,
-                  y: infoLink.information().logicalCentre().y
+                  y: infoLink.information().alongLaneCentre()
                 })
                 point2.setCoords({
                   x: xPos,
-                  y: step.logicalPosition().y + logicalPortPosition.y()
+                  y: step.alongLanePosition() + logicalPortPosition.y()
                 })
                 const vertices = [{ // force link to pass through point just to right of Inputs swimlane
                   x: point1.x(),
@@ -592,11 +592,11 @@ export class Diagram {
                 logicalPortPosition.setCoords(portPosition)
                 point1.setCoords({
                   x: xPos,
-                  y: step.logicalPosition().y + logicalPortPosition.y()
+                  y: step.alongLanePosition() + logicalPortPosition.y()
                 })
                 point2.setCoords({
                   x: xPos,
-                  y: infoLink.information().logicalCentre().y
+                  y: infoLink.information().alongLaneCentre()
                 })
                 const vertices = [{ // force link to pass through point just to left of Outputs swimlane
                   x: point1.x(),

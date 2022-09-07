@@ -120,9 +120,9 @@ export class OrientedCoords {
     this.x = () => isVerticalSwimlane ? x : y
     /**
      *
-     * @returns Logical x coordinate (x as for vertical swimlanes)
+     * @returns the across swim-lane dimension of position
      */
-    this.logicalX = () => x
+    this.acrossLanePosition = () => x
     /**
      *
      * @returns Physical y coordinate in chosen orientation
@@ -130,22 +130,15 @@ export class OrientedCoords {
     this.y = () => isVerticalSwimlane ? y : x
     /**
      *
-     * @returns Logical y coordinate (y as for vertical swimlanes)
+     * @returns the along swim-lane dimension of position
      */
-    this.logicalY = () => y
+    this.alongLanePosition = () => y
     /**
      *
      * @returns Physical coordinates in chosen orientation
      */
     this.coords = function () {
       return { x: this.x(), y: this.y() }
-    }
-    /**
-     *
-     * @returns Logical coordinates (as for vertical swimlanes)
-     */
-    this.logicalCoords = function () {
-      return { x: this.logicalX(), y: this.logicalY() }
     }
     /**
      * Returns physical coordinates of parameters oriented according to chosen direction of swimlanes
@@ -156,14 +149,14 @@ export class OrientedCoords {
       return { x: isVerticalSwimlane ? coords.x : coords.y, y: isVerticalSwimlane ? coords.y : coords.x }
     }
     /**
-     * Increase logical x coordinate
+     * Increase logical x (across swim-lane) coordinate
      * @param {int} xOffset
      */
     this.increaseX = function (xOffset) {
       x += xOffset
     }
     /**
-     * Increase logical y coordinate
+     * Increase logical y (along swim-lane) coordinate
      * @param {int} yOffset
      */
     this.increaseY = function (yOffset) {
