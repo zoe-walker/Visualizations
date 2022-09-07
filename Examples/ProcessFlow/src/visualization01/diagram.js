@@ -298,7 +298,7 @@ export class Diagram {
                 x: Math.floor(swimlanePositions[step.leftLaneIndex()].x +
                                     (swimlaneSizes[step.leftLaneIndex()].width *
                                      (step.rightLaneIndex() - step.leftLaneIndex() + 1) - step.acrossLaneLength()) / 2),
-                y: Math.floor(rowPosition + row.stepCentreVerticalOffset() - step.downLaneLength() / 2)
+                y: Math.floor(rowPosition + row.stepCentreVerticalOffset() - step.alongLaneLength() / 2)
               })
               step.setPosition(stepPosition)
               //
@@ -315,7 +315,7 @@ export class Diagram {
                 infoLink.information().setPosition(infoPosition)
                 infoLink.information().setLaneIndex(0)
 
-                ioPosition += infoLink.information().downLaneLength() + style.verticalIOSeparation
+                ioPosition += infoLink.information().alongLaneLength() + style.verticalIOSeparation
               })
               //
               // Determine position of step outputs
@@ -331,7 +331,7 @@ export class Diagram {
                 infoLink.information().setPosition(infoPosition)
                 infoLink.information().setLaneIndex(numSwimlanes - 1)
 
-                ioPosition += infoLink.information().downLaneLength() + style.verticalIOSeparation
+                ioPosition += infoLink.information().alongLaneLength() + style.verticalIOSeparation
               })
             })
 
@@ -634,7 +634,7 @@ export class Diagram {
           const position = new OrientedCoords(style.verticalSwimlanes)
           position.setX(dimensions.phaseLabelWidth)
           const ioLaneDimensions = new OrientedDimensions(style.verticalSwimlanes)
-          ioLaneDimensions.setDimensions({ width: dimensions.ioLaneWidth, height: dimensions.diagramSize.downLaneLength() })
+          ioLaneDimensions.setDimensions({ width: dimensions.ioLaneWidth, height: dimensions.diagramSize.alongLaneLength() })
           let index = 0
           //
           // Create lane for inputs
@@ -657,7 +657,7 @@ export class Diagram {
             const actorDimensions = new OrientedDimensions(style.verticalSwimlanes)
             actorDimensions.setDimensions({
               width: dimensions.swimlaneWidth * actor.numSwimlanes(),
-              height: dimensions.diagramSize.downLaneLength()
+              height: dimensions.diagramSize.alongLaneLength()
             })
             actorLanes.push(graph.createActorLane(
               actor,
@@ -691,7 +691,7 @@ export class Diagram {
           const position = new OrientedCoords(dimensions.verticalSwimlanes)
           position.setX(dimensions.phaseLabelWidth)
           const ioLaneDimensions = new OrientedDimensions(dimensions.verticalSwimlanes)
-          ioLaneDimensions.setDimensions({ width: dimensions.ioLaneWidth, height: dimensions.diagramSize.downLaneLength() })
+          ioLaneDimensions.setDimensions({ width: dimensions.ioLaneWidth, height: dimensions.diagramSize.alongLaneLength() })
           let index = 0
           //
           // Create swimlane for inputs
@@ -712,7 +712,7 @@ export class Diagram {
             const swimlaneDimensions = new OrientedDimensions(dimensions.verticalSwimlanes)
             swimlaneDimensions.setDimensions({
               width: dimensions.swimlaneWidth,
-              height: dimensions.diagramSize.downLaneLength()
+              height: dimensions.diagramSize.alongLaneLength()
             })
             swimlanes.push(graph.createSwimlane(
               swimlane,
@@ -959,7 +959,7 @@ class Row {
       step.setOutputsHeight(outputsHeight)
 
       const rowHeight = Math.max(
-        step.downLaneLength() + style.verticalStepSeparation,
+        step.alongLaneLength() + style.verticalStepSeparation,
         inputsHeight + style.verticalIOSeparation * 2,
         outputsHeight + style.verticalIOSeparation * 2)
       height = alignValueUp(Math.max(height, rowHeight), 2 * style.gridSize)
@@ -985,7 +985,7 @@ class Row {
         const orientedSize = new OrientedDimensions(style.verticalSwimlanes, false)
         orientedSize.setDimensions(infoSize)
         infoLink.information().setSize(orientedSize)
-        height += infoLink.information().downLaneLength()
+        height += infoLink.information().alongLaneLength()
       })
       height += (information.length - 1) * style.verticalIOSeparation
 

@@ -57,9 +57,9 @@ export class OrientedDimensions {
     this.height = () => rotateDimensions ? width : height
     /**
      *
-     * @returns Length in the down swim-lane dimension (height as for vertical swimlanes)
+     * @returns Length in the along swim-lane dimension (height as for vertical swimlanes)
      */
-    this.downLaneLength = () => flipOrientation ? width : height
+    this.alongLaneLength = () => flipOrientation ? width : height
     /**
      *
      * @returns Physical dimensions in chosen orientation

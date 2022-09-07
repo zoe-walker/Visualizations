@@ -100,7 +100,7 @@ export class Element extends BasicElement {
     this.type = () => element.type
     this.size = () => element.size.dimensions()
     this.acrossLaneLength = () => element.size.acrossLaneLength()
-    this.downLaneLength = () => element.size.downLaneLength()
+    this.alongLaneLength = () => element.size.alongLaneLength()
     this.position = () => element.position.coords()
     this.alongLanePosition = () => element.position.alongLanePosition()
     this.centre = function () {
@@ -110,7 +110,7 @@ export class Element extends BasicElement {
       }
     }
     this.alongLaneCentre = function () {
-      return Math.floor(this.alongLanePosition() + this.downLaneLength() / 2)
+      return Math.floor(this.alongLanePosition() + this.alongLaneLength() / 2)
     }
     /**
      * Set the dimensions of the element
