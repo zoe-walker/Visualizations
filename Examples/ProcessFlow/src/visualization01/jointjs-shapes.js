@@ -1,6 +1,7 @@
 import * as joint from 'jointjs'
 import * as Ports from './element-port-names'
 import * as Types from './element-types'
+import { OrientedDimensions, OrientedCoords } from './oriented'
 
 let ActorShape
 let SwimlaneShape
@@ -20,16 +21,16 @@ let OffPageOutputShape
 let OffPageInputShape
 let StepGroupShape
 
-export function defineShapes (gridSize, elementSizes, renderSwimlaneWatermarks) {
-  ActorShape = defineActor(renderSwimlaneWatermarks)
+export function defineShapes (gridSize, elementSizes, renderSwimlaneWatermarks, verticalSwimlanes) {
+  ActorShape = defineActor(renderSwimlaneWatermarks, verticalSwimlanes)
   SwimlaneShape = defineSwimlane()
-  StartShape = defineStart()
-  ProcessStepShape = defineProcessStep(gridSize, elementSizes[Types.processStep])
-  SubProcessShape = defineSubProcess(gridSize, elementSizes[Types.subProcess])
+  StartShape = defineStart(verticalSwimlanes)
+  ProcessStepShape = defineProcessStep(gridSize, elementSizes[Types.processStep], verticalSwimlanes)
+  SubProcessShape = defineSubProcess(gridSize, elementSizes[Types.subProcess], verticalSwimlanes)
   ProcessShape = defineProcess()
-  DecisionShape = defineDecision()
-  VerticalLabelShape = defineVerticalLabel()
-  PhaseExtentShape = definePhaseExtent()
+  DecisionShape = defineDecision(verticalSwimlanes)
+  VerticalLabelShape = defineVerticalLabel(verticalSwimlanes)
+  PhaseExtentShape = definePhaseExtent(verticalSwimlanes)
   ExternalDataShape = defineExternalData()
   DatabaseShape = defineDatabase()
   DocumentShape = defineDocument()
@@ -108,7 +109,7 @@ export function createStepGroup (id) {
   return new StepGroupShape(id)
 }
 
-function defineActor (renderSwimlaneWatermarks) {
+function defineActor (renderSwimlaneWatermarks, verticalSwimlanes) {
   const attrs = {
     body: {
       refWidth: 1,
@@ -123,14 +124,25 @@ function defineActor (renderSwimlaneWatermarks) {
       x: 0,
       y: 0,
       width: 1,
-      height: 0.05
+      height: 1
     }
     attrs.text = {
-      refX: 0.5,
-      y: 2,
-      textVerticalAnchor: 'top',
-      textAnchor: 'middle',
       class: 'actor-watermark'
+    }
+    if (verticalSwimlanes) {
+      attrs.text = {
+        refX: 0.5,
+        y: 2,
+        textVerticalAnchor: 'top',
+        textAnchor: 'middle'
+      }
+    } else {
+      attrs.text = {
+        x: 2,
+        y: 10,
+        textVerticalAnchor: 'top',
+        textAnchor: 'left'
+      }
     }
     attrs.watermark = {
       refWidth: 1,
@@ -282,20 +294,21 @@ const portFlowCentreRight = {
   markup: flowSharedPortMarkup
 }
 
-function defineStart () {
+function defineStart (verticalSwimlanes) {
+  const position = new OrientedCoords(verticalSwimlanes)
   return joint.dia.Element.define('MooD.Start', {
     ports: {
       groups: {
         flowInTop: {
           position: {
             name: 'absolute',
-            args: { x: '50%', y: 0 }
+            args: position.orientedCoords({ x: '50%', y: 0 })
           }
         },
         flowOutBottom: {
           position: {
             name: 'absolute',
-            args: { x: '50%', y: '100%' }
+            args: position.orientedCoords({ x: '50%', y: '100%' })
           }
         }
       },
@@ -340,94 +353,97 @@ function defineStart () {
 // Return port group definitions for process type shapes
 // Calculate vertical positions of flow in and out ports to
 // align with the grid if the shape is tall enough
-function processPortGroups (gridSize, elementSize) {
+function processPortGroups (gridSize, elementSize, verticalSwimlanes) {
+  const elementDimensions = new OrientedDimensions(verticalSwimlanes)
+  elementDimensions.setDimensions(elementSize)
+  const position = new OrientedCoords(verticalSwimlanes)
   let offsets
-  if (elementSize.height > 2 * gridSize) {
+  if (elementDimensions.height() > 2 * gridSize) {
     offsets = {
-      upperInY: elementSize.height / 2 - 2 * gridSize,
-      upperOutY: elementSize.height / 2 - gridSize,
-      lowerInY: elementSize.height / 2 + 2 * gridSize,
-      lowerOutY: elementSize.height / 2 + gridSize
+      upperInY: elementDimensions.height() / 2 - 2 * gridSize,
+      upperOutY: elementDimensions.height() / 2 - gridSize,
+      lowerInY: elementDimensions.height() / 2 + 2 * gridSize,
+      lowerOutY: elementDimensions.height() / 2 + gridSize
     }
   } else {
     offsets = {
-      upperInY: Math.floor(elementSize.height * 0.63),
-      upperOutY: Math.floor(elementSize.height * 0.38),
-      lowerInY: Math.floor(elementSize.height * 0.7),
-      lowerOutY: Math.floor(elementSize.height * 0.3)
+      upperInY: Math.floor(elementDimensions.height() * 0.63),
+      upperOutY: Math.floor(elementDimensions.height() * 0.38),
+      lowerInY: Math.floor(elementDimensions.height() * 0.7),
+      lowerOutY: Math.floor(elementDimensions.height() * 0.3)
     }
   }
   const groups = {
     inLeft: {
       position: {
         name: 'absolute',
-        args: { x: 0, y: '50%' }
+        args: position.orientedCoords({ x: 0, y: '50%' })
       }
     },
     flowInUpperLeft: {
       position: {
         name: 'absolute',
-        args: { x: 0, y: offsets.upperInY }
+        args: position.orientedCoords({ x: 0, y: offsets.upperInY })
       }
     },
     flowInLowerLeft: {
       position: {
         name: 'absolute',
-        args: { x: 0, y: offsets.lowerInY }
+        args: position.orientedCoords({ x: 0, y: offsets.lowerInY })
       }
     },
     flowInTop: {
       position: {
         name: 'absolute',
-        args: { x: '50%', y: 0 }
+        args: position.orientedCoords({ x: '50%', y: 0 })
       }
     },
     flowInUpperRight: {
       position: {
         name: 'absolute',
-        args: { x: '100%', y: offsets.upperInY }
+        args: position.orientedCoords({ x: '100%', y: offsets.upperInY })
       }
     },
     flowInLowerRight: {
       position: {
         name: 'absolute',
-        args: { x: '100%', y: offsets.lowerInY }
+        args: position.orientedCoords({ x: '100%', y: offsets.lowerInY })
       }
     },
     outRight: {
       position: {
         name: 'absolute',
-        args: { x: '100%', y: '50%' }
+        args: position.orientedCoords({ x: '100%', y: '50%' })
       }
     },
     flowOutUpperLeft: {
       position: {
         name: 'absolute',
-        args: { x: 0, y: offsets.upperOutY }
+        args: position.orientedCoords({ x: 0, y: offsets.upperOutY })
       }
     },
     flowOutLowerLeft: {
       position: {
         name: 'absolute',
-        args: { x: 0, y: offsets.lowerOutY }
+        args: position.orientedCoords({ x: 0, y: offsets.lowerOutY })
       }
     },
     flowOutBottom: {
       position: {
         name: 'absolute',
-        args: { x: '50%', y: '100%' }
+        args: position.orientedCoords({ x: '50%', y: '100%' })
       }
     },
     flowOutUpperRight: {
       position: {
         name: 'absolute',
-        args: { x: '100%', y: offsets.upperOutY }
+        args: position.orientedCoords({ x: '100%', y: offsets.upperOutY })
       }
     },
     flowOutLowerRight: {
       position: {
         name: 'absolute',
-        args: { x: '100%', y: offsets.lowerOutY }
+        args: position.orientedCoords({ x: '100%', y: offsets.lowerOutY })
       }
     }
   }
@@ -454,8 +470,8 @@ function processPortItems () {
   return items
 }
 
-export function defineSubProcess (gridSize, elementSize) {
-  const portGroups = processPortGroups(gridSize, elementSize)
+export function defineSubProcess (gridSize, elementSize, verticalSwimlanes) {
+  const portGroups = processPortGroups(gridSize, elementSize, verticalSwimlanes)
   const portItems = processPortItems()
   // Add groups for side flow ports
 
@@ -556,8 +572,8 @@ export function defineProcess () {
   })
 }
 
-export function defineProcessStep (gridSize, elementSize) {
-  const portGroups = processPortGroups(gridSize, elementSize)
+export function defineProcessStep (gridSize, elementSize, verticalSwimlanes) {
+  const portGroups = processPortGroups(gridSize, elementSize, verticalSwimlanes)
   const portItems = processPortItems()
   // Add groups for side flow ports
 
@@ -598,44 +614,45 @@ export function defineProcessStep (gridSize, elementSize) {
   })
 }
 
-export function defineDecision () {
+export function defineDecision (verticalSwimlanes) {
+  const position = new OrientedCoords(verticalSwimlanes)
   return joint.dia.Element.define('MooD.Decision', {
     ports: {
       groups: {
         inLeft: {
           position: {
             name: 'absolute',
-            args: { x: '10%', y: '40%' }
+            args: position.orientedCoords({ x: '10%', y: '40%' })
           }
         },
         flowLeft: {
           position: {
             name: 'absolute',
-            args: { x: 0, y: '50%' }
+            args: position.orientedCoords({ x: 0, y: '50%' })
           }
         },
         flowInTop: {
           position: {
             name: 'absolute',
-            args: { x: '50%', y: 0 }
+            args: position.orientedCoords({ x: '50%', y: 0 })
           }
         },
         flowRight: {
           position: {
             name: 'absolute',
-            args: { x: '100%', y: '50%' }
+            args: position.orientedCoords({ x: '100%', y: '50%' })
           }
         },
         outRight: {
           position: {
             name: 'absolute',
-            args: { x: '90%', y: '40%' }
+            args: position.orientedCoords({ x: '90%', y: '40%' })
           }
         },
         flowOutBottom: {
           position: {
             name: 'absolute',
-            args: { x: '50%', y: '100%' }
+            args: position.orientedCoords({ x: '50%', y: '100%' })
           }
         }
       },
@@ -683,8 +700,8 @@ export function defineDecision () {
   })
 }
 
-export function defineVerticalLabel () {
-  return joint.dia.Element.define('MooD.VLabel', {
+export function defineVerticalLabel (verticalSwimlanes) {
+  const labelDefaults = {
     attrs: {
       body: {
         refWidth: 1,
@@ -694,13 +711,13 @@ export function defineVerticalLabel () {
         textVerticalAnchor: 'middle',
         textAnchor: 'middle',
         refX: 0.5,
-        refY: 0.5,
-        transform: 'rotate(-90)'
+        refY: 0.5
       },
       title: {
       }
     }
-  }, {
+  }
+  const labelProtoProps = {
     markup: [{
       tagName: 'rect',
       selector: 'body',
@@ -712,15 +729,25 @@ export function defineVerticalLabel () {
       tagName: 'title',
       selector: 'title'
     }]
-  })
+  }
+  if (verticalSwimlanes) {
+    labelDefaults.attrs.label.transform = 'rotate(-90)'
+  }
+  return joint.dia.Element.define('MooD.VLabel', labelDefaults, labelProtoProps)
 }
 
-export function definePhaseExtent () {
+export function definePhaseExtent (verticalSwimlanes) {
+  let path
+  if (verticalSwimlanes) {
+    path = 'L 100 0'
+  } else {
+    path = 'L 0 100'
+  }
   return joint.dia.Element.define('MooD.PhaseExtent', {
     attrs: {
       path: {
         refDResetOffset:
-                  'L 100 0'
+                  path
       }
     }
   }, {
@@ -814,9 +841,9 @@ export function defineDocument () {
       path: {
         refDResetOffset:
                   'M 0 0 L 100 0 ' +
-                  'L 100 30 ' +
-                  'C 80 30 85 30 60 35 ' +
-                  'S 15 45 0 40 ' +
+                  'L 100 35 ' +
+                  'C 95 30 75 30 65 37 ' +
+                  'C 40 55 0 40 0 35 ' +
                   'L 0 0'
       },
       label: {

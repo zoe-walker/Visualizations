@@ -6,6 +6,7 @@ import * as Shapes from './jointjs-shapes'
 import * as Types from './element-types'
 import * as ActivityGroup from './group-label'
 import * as JointGroup from './jointjs-group-label'
+import { OrientedDimensions, OrientedSides } from './oriented'
 // import * as Data from './process-data'
 
 const elementTypeActorLane = 0
@@ -165,16 +166,38 @@ export class GraphLink extends GraphCell {
 }
 
 export class Graph {
-  constructor (htmlElement, diagramSize, gridSize, elementSizes, events, renderSwimlaneWatermarks) {
+  constructor (htmlElement, diagramSize, gridSize, elementSizes, events, renderSwimlaneWatermarks, verticalSwimlanes) {
     const clickEvent = events.handleClickEvent
     const otherOffPageConnector = events.otherOffPageConnector
 
     // Define shapes dynamically allowing flow ports to be aligned to the grid
-    Shapes.defineShapes(gridSize, elementSizes, renderSwimlaneWatermarks)
+    Shapes.defineShapes(gridSize, elementSizes, renderSwimlaneWatermarks, verticalSwimlanes)
 
     let cells = []
     const drawingReport = {}
     const graph = new joint.dia.Graph()
+    //
+    // Define directions for the router
+    // For horizontal swimlanes adjust costs to prefer vertical
+    //
+    const directionDown = { offsetX: 0, offsetY: 10, cost: 10 }
+    const directionUp = { offsetX: 0, offsetY: -10, cost: 10 }
+    const directionRight = { offsetX: 10, offsetY: 0, cost: 10 }
+    const directionLeft = { offsetX: -10, offsetY: 0, cost: 10 }
+    const directions = []
+    if (verticalSwimlanes) {
+      directions.push(directionRight)
+      directions.push(directionLeft)
+      directions.push(directionDown)
+      directions.push(directionUp)
+    } else {
+      directionDown.cost = 5
+      directionUp.cost = 5
+      directions.push(directionDown)
+      directions.push(directionUp)
+      directions.push(directionRight)
+      directions.push(directionLeft)
+    }
 
     const paper = new joint.dia.Paper({
       el: htmlElement,
@@ -567,9 +590,11 @@ export class Graph {
 
     this.createLabel = function (phase, width, height, position) {
       const id = { id: phase.id() }
+      const labelSize = new OrientedDimensions(verticalSwimlanes)
+      labelSize.setDimensions({ width, height })
       const size = {
-        width: height,
-        height: width
+        width: labelSize.height(),
+        height: labelSize.width()
       }
       const label = Shapes.createVerticalLabel(id)
       label.resize(width, height)
@@ -665,20 +690,28 @@ export class Graph {
       // Add label as watermark
       //
       if (repeatSpacing > 0) {
-        const repeatCount = height / repeatSpacing
+        const actorSize = new OrientedDimensions(verticalSwimlanes)
+        actorSize.setDimensions({ width, height })
+        const repeatCount = actorSize.height() / repeatSpacing
         const repeatRatio = 1 / repeatCount
         const textId = (actor ? actor.id() : label) + '-swimlane-text'
+        const watermarkSize = new OrientedDimensions(verticalSwimlanes)
+        watermarkSize.setDimensions({ width: actorSize.width(), height: repeatSpacing })
         const watermarkText = elementLabel(
           actorLane,
           {
             label,
-            size: { width, height: repeatSpacing },
+            size: watermarkSize.dimensions(),
             font: sizeConfig.swimlane,
             ellipsis: true
           })
         attributes.pattern = {
-          id: textId,
-          height: repeatRatio
+          id: textId
+        }
+        if (verticalSwimlanes) {
+          attributes.pattern.height = repeatRatio
+        } else {
+          attributes.pattern.width = repeatRatio
         }
         attributes.watermark = {
           fill: 'url(#' + textId + ')'
@@ -802,6 +835,7 @@ export class Graph {
       const vertices = routerOptions.vertices === undefined ? [] : routerOptions.vertices
       const id = { id: link.id() }
       const jointLink = new joint.shapes.standard.Link(id)
+      const sides = new OrientedSides(verticalSwimlanes)
       jointLink.attr('wrapper/cursor', 'pointer')
       jointLink.source(linkEnd(link.source(), routerOptions.sourcePortId))
       jointLink.target(linkEnd(link.target(), routerOptions.targetPortId))
@@ -812,13 +846,14 @@ export class Graph {
           perpendicular: false,
           padding: routerOptions.stepStandoff, // Math.min(routerOptions.stepStandoff, gridSize * 2 - 1), // gridSize / 2,
           coincidentLineSpace: routerOptions.coincidentLineSpace,
-          targetTolerance: routerOptions.targetTolerance
+          targetTolerance: routerOptions.targetTolerance,
+          directions
         }
         if (routerOptions.startDirections) {
-          options.startDirections = routerOptions.startDirections
+          options.startDirections = routerOptions.startDirections.map(side => sides.orientedSide(side))
         }
         if (routerOptions.endDirections) {
-          options.endDirections = routerOptions.endDirections
+          options.endDirections = routerOptions.endDirections.map(side => sides.orientedSide(side))
         }
         jointLink.router(routerName, options)
       }

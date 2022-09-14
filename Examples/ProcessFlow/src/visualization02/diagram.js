@@ -1,3 +1,5 @@
+import { OrientedDimensions, OrientedCoords } from '../visualization01/oriented'
+
 function alignValueUp (value, gridSize) {
   return Math.floor((value + gridSize - 1) / gridSize) * gridSize
   // return value
@@ -17,6 +19,11 @@ export class Diagram {
   constructor (process, style, width, height, visualizationData) {
     const elementId = visualizationData.config.element
 
+    style.minimumSwimlaneHeight = style.minimumSwimlaneHeight === undefined ? 170 : style.minimumSwimlaneHeight
+    style.verticalSwimlanes = style.verticalSwimlanes === undefined ? true : style.verticalSwimlanes
+    const containerSize = new OrientedDimensions(style.verticalSwimlanes)
+    containerSize.setDimensions({ width, height })
+
     const gridAlignedStyle = alignStyleToGrid(style)
     //
     // Set defaults for any missing configuration
@@ -30,21 +37,29 @@ export class Diagram {
     const phaseLabelWidth = process.getPhaseSet().noPhases() === true ? 0 : gridAlignedStyle.phaseLabelWidth
     const numIOSwimlanes = gridAlignedStyle.disableIOSwimlanes ? 0 : 2
     const numSwimlanes = process.getActorSet().numSwimlanes() + numIOSwimlanes // allow for swim lanes for inputs and outputs
-    const swimlaneWidth = alignValueDown((width - phaseLabelWidth - numIOSwimlanes * style.gridSize * 2) / // allow extra width for I/O lanes
-             numSwimlanes, style.gridSize)
+    const verticalSwimlaneWidth = alignValueDown((containerSize.width() - phaseLabelWidth - numIOSwimlanes * style.gridSize * 2) / // allow extra width for I/O lanes
+            numSwimlanes, style.gridSize)
+    const swimlaneWidth = style.verticalSwimlanes ? verticalSwimlaneWidth : Math.max(verticalSwimlaneWidth, gridAlignedStyle.minimumSwimlaneHeight)
     const ioLaneWidth = gridAlignedStyle.disableIOSwimlanes ? 0 : swimlaneWidth + style.gridSize * 2
     const useableWidth = phaseLabelWidth + swimlaneWidth * process.getActorSet().numSwimlanes() + ioLaneWidth * 2
 
     gridAlignedStyle.swimlaneWidth = swimlaneWidth
+    const drawProcessHeader = style.processHeaderHeight > 0 && style.verticalSwimlanes // only draw process heading for vertical swimlanes
+    const logicalHeaderSize = {
+      width: useableWidth,
+      height: containerSize.height()
+    }
+    const headerSize = new OrientedDimensions(style.verticalSwimlanes)
+    headerSize.setDimensions(logicalHeaderSize)
 
     const dimensions = {
-      width: useableWidth,
-      height,
+      verticalSwimlanes: style.verticalSwimlanes,
       gridSize: style.gridSize,
-      processHeaderHeight: gridAlignedStyle.processHeaderHeight,
+      processHeaderHeight: drawProcessHeader ? gridAlignedStyle.processHeaderHeight : 0,
       swimlaneWidth,
       ioLaneWidth,
-      phaseLabelWidth
+      phaseLabelWidth,
+      logicalHeaderSize
     }
     const htmlElements = {
       containerElement: elementId,
@@ -52,22 +67,41 @@ export class Diagram {
       swimlaneHeaderElement: elementId
     }
 
+    this.height = function () {
+      return headerSize.height()
+    }
+
+    this.width = function () {
+      return headerSize.width()
+    }
+
     function alignStyleToGrid (style) {
       const alignedStyle = {
         ...style
       }
       alignedStyle.phaseLabelWidth = alignValueUp(style.phaseLabelWidth, style.gridSize)
+      alignedStyle.minimumSwimlaneHeight = alignValueUp(style.minimumSwimlaneHeight, style.gridSize)
 
       return alignedStyle
     }
 
     this.draw = function () {
       const startTime = Date.now()
-      layoutHeader(process, dimensions, htmlElements)
+      //
+      // Only draw process header if required.
+      //
+      if (dimensions.processHeaderHeight > 0) {
+        layoutHeader(process, dimensions, htmlElements)
+      }
       layoutSwimlaneLabels(process, dimensions, style, htmlElements.swimlaneHeaderElement)
 
       function layoutHeader (process, dimensions, htmlElements) {
         const el = document.getElementById(htmlElements.containerElement)
+        const processHeaderSize = new OrientedDimensions(style.verticalSwimlanes)
+        processHeaderSize.setDimensions({
+          width: dimensions.logicalHeaderSize.width,
+          height: dimensions.processHeaderHeight
+        })
         // Mark container element with class to enable style override in CSS file
         el.classList.add('process-flow')
         htmlElements.processHeaderElement = htmlElements.containerElement + '_procHeader'
@@ -76,8 +110,8 @@ export class Diagram {
         el.appendChild(headerEl)
         headerEl.classList.add('process-flow-header')
         headerEl.id = htmlElements.processHeaderElement
-        headerEl.style.height = dimensions.processHeaderHeight + 'px'
-        headerEl.style.width = dimensions.width + 'px'
+        headerEl.style.height = processHeaderSize.height() + 'px'
+        headerEl.style.width = processHeaderSize.width() + 'px'
 
         const nameEl = document.createElement('span')
         nameEl.innerText = process.name()
@@ -97,15 +131,12 @@ export class Diagram {
 
       function layoutSwimlaneLabels (process, dimensions, style, containerElementName) {
         const el = document.getElementById(containerElementName)
-        const headerHeight = dimensions.height - dimensions.processHeaderHeight
-        // const inputSwimlane = swimlanes[0]
-        // const outputSwimlane = swimlanes[numSwimlanes - 1]
+        const swimlaneHeaderHeight = dimensions.logicalHeaderSize.height - dimensions.processHeaderHeight
 
         const actorLanes = []
-        const position = {
-          x: 0,
-          y: 0
-        }
+        const position = new OrientedCoords(style.verticalSwimlanes)
+        const phaseLabelDimensions = new OrientedDimensions(style.verticalSwimlanes)
+        phaseLabelDimensions.setDimensions({ width: dimensions.phaseLabelWidth, height: swimlaneHeaderHeight })
         let index = 0
         //
         // Create spacer for phase label in header
@@ -116,11 +147,14 @@ export class Diagram {
             null,
             '',
             'phase',
-            dimensions.phaseLabelWidth,
-            headerHeight,
-            -1))
-          position.x += dimensions.phaseLabelWidth
+            phaseLabelDimensions.width(),
+            phaseLabelDimensions.height(),
+            -1,
+            style.verticalSwimlanes))
+          position.increaseX(dimensions.phaseLabelWidth)
         }
+        const ioLaneDimensions = new OrientedDimensions(style.verticalSwimlanes)
+        ioLaneDimensions.setDimensions({ width: dimensions.ioLaneWidth, height: swimlaneHeaderHeight })
         //
         // Create header for inputs
         //
@@ -130,24 +164,31 @@ export class Diagram {
             null,
             style.inputSwimlaneLabel,
             'actor',
-            dimensions.ioLaneWidth,
-            headerHeight,
-            index++))
-          position.x += dimensions.ioLaneWidth
+            ioLaneDimensions.width(),
+            ioLaneDimensions.height(),
+            index++,
+            style.verticalSwimlanes))
+          position.increaseX(dimensions.ioLaneWidth)
         }
         //
         // Create headers for the actors
         //
         process.getActorSet().actors().forEach(function (actor) {
+          const actorDimensions = new OrientedDimensions(style.verticalSwimlanes)
+          actorDimensions.setDimensions({
+            width: dimensions.swimlaneWidth * actor.numSwimlanes(),
+            height: swimlaneHeaderHeight
+          })
           actorLanes.push(createHeaderElement(
             el,
             actor,
             actor.name(),
             'actor',
-            dimensions.swimlaneWidth * actor.numSwimlanes(),
-            headerHeight,
-            index++))
-          position.x += dimensions.swimlaneWidth * actor.numSwimlanes()
+            actorDimensions.width(),
+            actorDimensions.height(),
+            index++,
+            style.verticalSwimlanes))
+          position.increaseX(actorDimensions.acrossLaneLength())
         })
         //
         // Create header for outputs
@@ -158,9 +199,10 @@ export class Diagram {
             null,
             style.outputSwimlaneLabel,
             'actor',
-            dimensions.ioLaneWidth,
-            headerHeight,
-            index++))
+            ioLaneDimensions.width(),
+            ioLaneDimensions.height(),
+            index++,
+            style.verticalSwimlanes))
         }
 
         return actorLanes
@@ -175,8 +217,19 @@ export class Diagram {
        * @param {Integer}     width width of header element in pixels
        * @param {Integer}     height Height of header element in pixels
        * @param {Integer}     index zero based index of element in the header
+       * @param {Boolean}     verticalSwimlanes True if swimlanes drawn vertically or false if horizontal
        */
-      function createHeaderElement (containerElement, actor, name, className, width, height, index) {
+      function createHeaderElement (containerElement, actor, name, className, width, height, index, verticalSwimlanes) {
+        let container = containerElement
+        if (!verticalSwimlanes) {
+          //
+          // For horizontal swimlanes add an outer div element
+          // so that the header divs go down the page not across
+          //
+          const outerDiv = document.createElement('div')
+          containerElement.appendChild(outerDiv)
+          container = outerDiv
+        }
         const headerEl = document.createElement('div')
         headerEl.classList.add(className)
         if (index >= 0) {
@@ -187,7 +240,7 @@ export class Diagram {
         headerEl.style.height = height + 'px'
         headerEl.style.width = width + 'px'
         headerEl.style.display = 'inline-flex'
-        containerElement.appendChild(headerEl)
+        container.appendChild(headerEl)
 
         const nameEl = document.createElement('text')
         nameEl.innerHTML = name

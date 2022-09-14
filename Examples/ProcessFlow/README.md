@@ -30,9 +30,9 @@ Draw a Process Flow
 
 The Process Flow visualisation renders a process: a set of activities (steps), with their inputs and outputs, joined into a sequence (flow) by links between them. The elements (activities, inputs and outputs) are automatically positioned on the diagram and the flows (links) between the elements are routed around the elements.
 
-A process can be a collaboration between different organisations (actors) within an enterprise. The collaboration is represented by partitioning the activities into swim-lanes, where each swim-lane corresponds to the organisation performing the activity. The swim-lanes are drawn vertically on the diagram. A swim-lane is drawn on the left for Inputs, and a swim-lane on the right for Outputs.
+A process can be a collaboration between different organisations (actors) within an enterprise. The collaboration is represented by partitioning the activities into swim-lanes, where each swim-lane corresponds to the organisation performing the activity. The swim-lanes are all drawn either vertically (top to bottom) or horizontally (left to right) on the diagram. Optionally, swim-lanes for Inputs and Outputs are drawn outside the actor swim=lanes.
 
-A process can be partitioned into phases. Each phase is a sequence of activities that achieve a goal within the overall process. Phases are demarcated with a vertical label and a horizontal line after the last activity in the phase.
+A process can be partitioned into phases. Each phase is a sequence of activities that achieve a goal within the overall process. Phases are demarcated with a label and a dashed line after the last activity in the phase.
 
 A sub-set of activities within the process, that in combination achieve a goal of note, can be placed in a group. The group is visualised with a labelled rectangle that encloses the activities in the group.
 
@@ -116,6 +116,8 @@ A Cascading Style Sheet (CSS) is defined containing selectors for the following 
 ### Properties
  The properties are:
 
+*	__verticalSwimlanes__: controls the orientation of the diagram, vertical (true) or horizontal (false) swimlanes. __Default__: true
+*   __minimumSwimlaneHeight__: defines the minimum height of swimlanes when drawn horizontally. Set to zero (0) for no minimum, i.e. fit swim-lanes into panel height. __Default__: 170
 *	__horizontalStepsAllowed__: controls whether multiple steps can be drawn on the same horizontal row if space permits. __Default__: true
 *   __horizontalDecisionsAllowed__: controls whether decision steps can be drawn on the same horizontal row as other steps if space permits. __Default__: true
 *   __renderProcessHeader__: controls whether the process header (name and version) are drawn. This should be set to false if the __Process Flow Header__ is used, or true if not. __Default__: false
@@ -131,7 +133,6 @@ A Cascading Style Sheet (CSS) is defined containing selectors for the following 
 *	__phaseLabelWidth__: The width, in pixels, of the vertical phase label on the left-hand side of the diagram. This is ignored if there are no phases in the process. The value is increased, if necessary, to be a multiple of gridSize. __Default__: 60.
 *	__stepGroupPadding__: The padding, in pixels, applied to the step group bounding box around the steps within. __Default__: 15.
 *	__elementSizes__: The height and width of the various shapes, representing different types of step, input and output, drawn on the diagram. The width is increased for steps that appear in multiple swim-lanes.
-*	__editable__: indicates if the user can edit (re-position) lines and shapes on the diagram. This should be set to false as editing is not currently supported or saved.
 *	__inputSwimlaneLabel__: The text for the swim-lane label (watermark) in the Inputs swim-lane. __Defaults__ to "Inputs" if not specified.
 *	__outputSwimlaneLabel__: The text for the swim-lane label (watermark) in the Outputs swim-lane. __Defaults__ to "Outputs" if not specified.
 *   __disableIOSwimlanes__: indicates if the input and output swim-lanes should be drawn (false) or hidden (true). __Defaults__ to false if not specified.
@@ -215,7 +216,6 @@ The properties are a subset of those in the __Process Flow Visualisation__. They
 *	__gridSize__: The number of pixels between grid points that shapes and lines are aligned (snap) to. __Default__: 10.
 *	__processHeaderHeight__: The vertical height, in pixels, allowed for the process header drawn above the diagram: __Default__: 20.
 *	__phaseLabelWidth__: The width, in pixels, of the vertical phase label on the left-hand side of the diagram. This is ignored if there are no phases in the process. The value is increased, if necessary, to be a multiple of gridSize. __Default__: 60.
-*	__editable__: indicates if the user can edit (re-position) lines and shapes on the diagram. This should be set to false as editing is not currently supported or saved.
 *	__inputSwimlaneLabel__: The text for the Inputs swim-lane header. __Defaults__ to "Inputs" if not specified.
 *	__outputSwimlaneLabel__: The text for the Outputs swim-lane header. __Defaults__ to "Outputs" if not specified.
 *   __disableIOSwimlanes__: indicates if the input and output swim-lane headers should be drawn (false) or hidden (true). __Defaults__ to false if not specified.

@@ -1,3 +1,6 @@
+# 2.5.0 (25/08/2022)
+  * Add support for horizontal swim-lanes
+
 # 2.1.0 (11/08/2022)
   * Add configuration to style JSON object to control whether the Input and Output swim-lanes are drawn
 

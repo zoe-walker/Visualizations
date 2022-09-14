@@ -35,7 +35,6 @@ const config = {
     "gridSize": 10,
     "processHeaderHeight": 20,
     "phaseLabelWidth": 40,
-    "editable": true,
     "inputSwimlaneLabel": "Inputs",
     "outputSwimlaneLabel": "Outputs"
    }
