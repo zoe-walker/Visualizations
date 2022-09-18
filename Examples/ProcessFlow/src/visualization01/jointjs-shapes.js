@@ -223,25 +223,25 @@ function definePorts (isEditable, verticalSwimlanes) {
     fillOpacity,
     magnet
   }
-  portPositions.setCoords({x: 0, y: -portSize / 2})
+  portPositions.setCoords({ x: 0, y: -portSize / 2 })
   const baseLeftPortAttrs = {
     ...basePortAttrs,
     x: portPositions.x(),
     y: portPositions.y()
   }
-  portPositions.setCoords({x: -portSize, y: -portSize / 2})
+  portPositions.setCoords({ x: -portSize, y: -portSize / 2 })
   const baseRightPortAttrs = {
     ...basePortAttrs,
     x: portPositions.x(),
     y: portPositions.y()
   }
-  portPositions.setCoords({x: -portSize / 2, y: 0})
+  portPositions.setCoords({ x: -portSize / 2, y: 0 })
   const baseTopPortAttrs = {
     ...basePortAttrs,
     x: portPositions.x(),
     y: portPositions.y()
   }
-  portPositions.setCoords({x: -portSize / 2, y: -portSize})
+  portPositions.setCoords({ x: -portSize / 2, y: -portSize })
   const baseBottomPortAttrs = {
     ...basePortAttrs,
     x: portPositions.x(),
