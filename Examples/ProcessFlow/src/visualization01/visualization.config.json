@@ -2,8 +2,8 @@
   "id": "f1ff54e2-125d-4c3f-a4af-ff672bf40939",
   "name": "Process Flow Visualisation",
   "description": "Visualisation of a Process Flow in swimlanes",
-  "version": "2.1.0",
-  "supportedVersions": "2.1",
+  "version": "2.5.0",
+  "supportedVersions": "2.5",
   "moodVersion": "16.0.082",
   "dynamicData": false,
   "canOverflow":  true,
@@ -23,6 +23,8 @@
   "style": {
     "URL": "visualization01/process-flow.css",
     "JSON": {
+      "verticalSwimlanes": true,
+      "minimumSwimlaneHeight": 170,
       "horizontalStepsAllowed": true,
       "horizontalDecisionsAllowed": true,
       "renderProcessHeader": false,

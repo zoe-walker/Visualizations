@@ -11,3 +11,4 @@ WordCloud/visualizations.zip
 Lollipop/visualizations.zip
 .vs/
 *.bak
+.DS_Store

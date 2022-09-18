@@ -1,6 +1,5 @@
 {"URL": "visualization02/process-flow.css",
     "style": {
-      "processHeaderHeight": 20,
-      "editable": true
+      "processHeaderHeight": 20
     }
 }

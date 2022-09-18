@@ -8,6 +8,7 @@ import { commonConfig } from '../visualization01/common-config'
 const loadTestCSSurl = 'visualization02/load-test.css'
 const cssTestPropertyName = 'font-size'
 const cssTestPropertyAppliedValue = '10px'
+let elementId
 
 const config = {}
 const otherConfig = {}
@@ -72,14 +73,38 @@ for (key in inputsConfig) {
     var performAction = function(name, id, event) {
         console.log('Perform Action: name = ' + name + ', id = ' + id + ', event: ' + JSON.stringify(event))
     }
+    //
+    // Define updateSize function
+    //
+    var updateSize = function (width, height) {
+        console.log('header updateSize: size updated to ' + width + ' x ' + height)
+        var el = document.getElementById(elementId)
+        el.style.height = height + 'px'
+        el.style.width = width + 'px'
+    }
+
     config.functions = {
         errorOccurred: errorOccurred,
-        performAction: performAction
+        performAction: performAction,
+        updateSize: updateSize
     };
-   var el = document.getElementById(config.element)
-   el.style.height = config.height
-   el.style.width = config.width
-   waitForCss(visualization, config)
+    if (!config.style.verticalSwimlanes) {
+        //
+        // Switch element for horizontal swimlane orientation
+        //
+        config.element = 'vert_' + config.element
+        //
+        // Limit width of header for horizontal swimlane orientation
+        //
+        config.width = config.height
+        config.height = otherConfig.height
+    }
+    elementId = config.element
+    var el = document.getElementById(config.element)
+    el.style.height = config.height
+    el.style.width = config.width
+    // el.style.display = 'inline-block'
+    waitForCss(visualization, config)
 
 
 function addCSSFile(cssURL) {
