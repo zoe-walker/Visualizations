@@ -26,7 +26,7 @@ let StepGroupShape
 //
 
 export function defineShapes (gridSize, elementSizes, renderSwimlaneWatermarks, verticalSwimlanes, isEditable) {
-  const portConfig = definePorts(isEditable)
+  const portConfig = definePorts(isEditable, verticalSwimlanes)
   ActorShape = defineActor(renderSwimlaneWatermarks, verticalSwimlanes)
   SwimlaneShape = defineSwimlane()
   StartShape = defineStart(portConfig, verticalSwimlanes)
@@ -201,11 +201,13 @@ function defineSwimlane () {
   })
 }
 
-function definePorts (isEditable) {
+function definePorts (isEditable, verticalSwimlanes) {
   const portSize = isEditable ? 8 : 2
   const fillOpacity = isEditable ? 0.5 : 0
   const magnet = isEditable
   const returnValue = {}
+  const portPositions = new OrientedCoords(verticalSwimlanes)
+
   //
   // Base Port configuration
   //
@@ -221,25 +223,29 @@ function definePorts (isEditable) {
     fillOpacity,
     magnet
   }
+  portPositions.setCoords({x: 0, y: -portSize / 2})
   const baseLeftPortAttrs = {
     ...basePortAttrs,
-    x: 0,
-    y: -portSize / 2
+    x: portPositions.x(),
+    y: portPositions.y()
   }
+  portPositions.setCoords({x: -portSize, y: -portSize / 2})
   const baseRightPortAttrs = {
     ...basePortAttrs,
-    x: -portSize,
-    y: -portSize / 2
+    x: portPositions.x(),
+    y: portPositions.y()
   }
+  portPositions.setCoords({x: -portSize / 2, y: 0})
   const baseTopPortAttrs = {
     ...basePortAttrs,
-    x: -portSize / 2,
-    y: 0
+    x: portPositions.x(),
+    y: portPositions.y()
   }
+  portPositions.setCoords({x: -portSize / 2, y: -portSize})
   const baseBottomPortAttrs = {
     ...basePortAttrs,
-    x: -portSize / 2,
-    y: -portSize
+    x: portPositions.x(),
+    y: portPositions.y()
   }
 
   function portAttrs (baseAttrs, colour) {
