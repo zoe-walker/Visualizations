@@ -92,7 +92,7 @@ jobs:
 
       - name: Create asset container
         shell: bash
-        run: zip -r --junk-paths ${{ env.asset-name }} ${{ env.asset-folder }} 
+        run: zip -r --junk-paths ${{ env.asset-name }}.zip ${{ env.asset-folder }} 
 
       - name: Upload Release Asset
         id: upload-release-asset 
