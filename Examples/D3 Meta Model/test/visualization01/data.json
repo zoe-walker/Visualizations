@@ -1,5 +1,5 @@
-var testData = 
 {
+	"data": {
 	"meta": 
 		{
 			"aliases": [
@@ -835,5 +835,6 @@ var testData =
 				}
 			]
 		}
-};
+	}
+}
 

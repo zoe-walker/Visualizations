@@ -1,3 +1,4 @@
+import * as d3 from 'd3'
 // A good example:          http://bl.ocks.org/mbostock/1153292
 // and explained            http://www.d3noob.org/2013/03/d3js-force-directed-graph-example-basic.html
 // filtering example:       http://jsfiddle.net/zhanghuancs/cuYu8/
@@ -35,7 +36,7 @@ var seedRandom = function(i){
 
 /////////////////////////////////////////////////////////////////////////////
 // This is the entry point.
-var createForceLayout = function(_config, css){
+export function createForceLayout (_config) {
 
     config = _config
 
@@ -298,7 +299,7 @@ function CreateChart(dataset, onTick) {
                   .on("tick", onTick)
                   .start()
 
-    svg = d3.select("#mood-visualization")
+    svg = d3.select('#' + config.element)
         //.attr("style", "position: absolute; display:inline-block; overflow: auto; border: 1px solid red; width: "+chartWidth+"px; height:"+chartHeight+"px")
         .append("svg:svg")
         .attr("width", chartWidth)
