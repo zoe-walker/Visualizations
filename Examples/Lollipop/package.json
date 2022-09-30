@@ -1,11 +1,10 @@
 {
     "name": "lollipop",
     "description": "Lollipop chart using D3",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "license": "MIT",
     "dependencies": {
-        "d3": "5.16.0",
-        "d3-cloud": "1.2.5"
+        "d3": "7.6.1"
     },
     "devDependencies": {
         "@babel/core": "7.14.8",
@@ -44,21 +43,21 @@
         "test-init": "jest --init"
     },
     "jest": {
-      "moduleFileExtensions": [
-        "js",
-        "jsx"
-      ],
-      "moduleDirectories": [
-        "node_modules"
-      ],
-      "moduleNameMapper": {
-        "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
-        "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
-      }
+        "moduleFileExtensions": [
+            "js",
+            "jsx"
+        ],
+        "moduleDirectories": [
+            "node_modules"
+        ],
+        "moduleNameMapper": {
+            "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+            "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+        }
     },
     "standard": {
-      "ignore": [
-        "**/__tests__"
-      ]
+        "ignore": [
+            "**/__tests__"
+        ]
     }
 }
