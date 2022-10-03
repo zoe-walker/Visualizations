@@ -162,7 +162,7 @@ function onDataLoaded (dataset) {
 
   paths = mainGroup.append('svg:g')
     .selectAll('path')
-    .data(force.force("link").links())
+    .data(force.force('link').links())
     .enter().append('svg:path')
   // .attr("class", function (d) { return "link " + d.type; })
     .style('stroke', function (e) { return e.stroke })
@@ -281,31 +281,31 @@ function CreateChart (dataset, onTick) {
 
   force = d3.forceSimulation()
     .nodes(dataset.nodes)
-    .force("link", d3.forceLink()
-      .id(function(d) {return d.id;})
+    .force('link', d3.forceLink()
+      .id(function (d) { return d.id })
       .distance(50)
       .iterations(1)
       .strength(0.5)
       .links(dataset.edges))
-    .force("charge", d3.forceManyBody()
+    .force('charge', d3.forceManyBody()
       .strength(-150)
       .distanceMin(1)
       .distanceMax(200)
-      )
-    .force("collide", d3.forceCollide()
+    )
+    .force('collide', d3.forceCollide()
       .strength(0.7)
       .radius(50)
       .iterations(1)
     )
-    .force("center", d3.forceCenter()
+    .force('center', d3.forceCenter()
       .x(chartWidth * 0.5)
       .y(chartHeight * 0.5)
-      )
+    )
     // .force("forceX", d3.forceX())
     // .force("forceY", d3.forceY())
     .on('tick', onTick)
 
-    force.alpha(0.5).restart()
+  force.alpha(0.5).restart()
 
   svg = d3.select('#' + config.element)
   // .attr("style", "position: absolute; display:inline-block; overflow: auto; border: 1px solid red; width: "+chartWidth+"px; height:"+chartHeight+"px")
@@ -341,28 +341,28 @@ function addArrowHeads () {
     .attr('d', 'M0,-5L10,0L0,5')
 }
 
-function drag(simulation) {    
-  function dragStarted(event) {
-    if (!event.active) simulation.alphaTarget(0.01).restart();
-    event.subject.fx = event.subject.x;
-    event.subject.fy = event.subject.y;
+function drag (simulation) {
+  function dragStarted (event) {
+    if (!event.active) simulation.alphaTarget(0.01).restart()
+    event.subject.fx = event.subject.x
+    event.subject.fy = event.subject.y
     // Prevent panning when we click on a node.
     // event.sourceEvent.stopPropagation()
   }
-  
-  function dragged(event) {
-    event.subject.fx = event.x;
-    event.subject.fy = event.y;
+
+  function dragged (event) {
+    event.subject.fx = event.x
+    event.subject.fy = event.y
   }
-  
-  function dragEnded(event) {
-    if (!event.active) simulation.alphaTarget(0);
-    event.subject.fx = null;
-    event.subject.fy = null;
+
+  function dragEnded (event) {
+    if (!event.active) simulation.alphaTarget(0)
+    event.subject.fx = null
+    event.subject.fy = null
   }
-  
+
   return d3.drag()
-    .on("start", dragStarted)
-    .on("drag", dragged)
-    .on("end", dragEnded);
+    .on('start', dragStarted)
+    .on('drag', dragged)
+    .on('end', dragEnded)
 }
