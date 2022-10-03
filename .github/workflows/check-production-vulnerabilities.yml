@@ -15,6 +15,12 @@ jobs:
         with:
           node-version: '16.15.1'
 
+      - name: Check D3 Meta Model (production)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/D3\ Meta\ Model'
+          options: '--omit=dev'
+
       - name: Check EChartsBarChart (production)
         uses: ./.github/workflows/actions/check-package
         with:

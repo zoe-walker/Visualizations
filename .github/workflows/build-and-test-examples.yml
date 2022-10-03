@@ -2,6 +2,7 @@ name: Build and test example packages with npm
 on:
   push:
     paths:
+      - 'Examples/D3 Meta Model/**'
       - 'Examples/EChartsBarChart/**'
       - 'Examples/EChartsRadialTree/**'
       - 'Examples/Lollipop/**'
@@ -21,6 +22,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '16.15.1'
+
+      - name: Build D3 Meta Model
+        uses: ./.github/workflows/actions/build-and-test-package
+        with:
+          working-directory: './Examples/D3\ Meta\ Model'
 
       - name: Build EChartsBarChart
         uses: ./.github/workflows/actions/build-and-test-package

@@ -20,6 +20,13 @@ jobs:
         shell: bash
         run: mkdir ${{ env.asset-folder }}
 
+      - name: Build D3 Meta Model
+        id: build-D3MetaModel
+        uses: ./.github/workflows/actions/build-asset
+        with:
+          working-directory: './Examples/D3\ Meta\ Model'
+          asset-directory: ${{ env.asset-folder }}
+
       - name: Build EChartsBarChart
         id: build-EChartsBarChart
         uses: ./.github/workflows/actions/build-asset
@@ -74,13 +81,6 @@ jobs:
         uses: ./.github/workflows/actions/build-asset
         with:
           working-directory: './Examples/WordCloud'
-          asset-directory: ${{ env.asset-folder }}
-
-      - name: Build D3 Meta Model
-        id: build-D3MetaModel
-        uses: ./.github/workflows/actions/build-simple-asset
-        with:
-          working-directory: './Examples/D3\ Meta\ Model'
           asset-directory: ${{ env.asset-folder }}
 
       - name: Build ECharts Meta Model
