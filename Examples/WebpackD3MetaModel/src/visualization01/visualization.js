@@ -11,7 +11,7 @@ import * as d3 from 'd3'
 let chartWidth = 800
 let chartHeight = 600
 let svg, mainGroup, force, nodes, paths, markers
-const curveSetting = 'Off' // on / off
+const curveSetting = 'On' // on / off
 let config
 let radiusScale
 let relationshipRadius
@@ -24,6 +24,8 @@ const markerReferenceSize = 5
 const markerSize = markerReferenceSize
 const toRelationshipMarkerName = 'to-arrow'
 const fromRelationshipMarkerName = 'from-arrow'
+const curvatureReductionFactor = 1.5
+const markerEdgeOffsetFactor = 1 / (15 * curvatureReductionFactor)
 
 const seedRandom = function (i) {
   let mW = 123456789
@@ -172,6 +174,7 @@ function onDataLoaded (dataset) {
   mainGroup = svg.append('svg:g')
 
   paths = mainGroup.append('svg:g')
+    .attr('fill', 'none')
     .selectAll('path')
     .data(force.force('link').links())
     .enter().append('svg:path')
@@ -258,7 +261,7 @@ function onDataLoaded (dataset) {
     paths.attr('d', function (d) {
       const dx = d.target.x - d.source.x
       const dy = d.target.y - d.source.y
-      const dr = Math.sqrt(dx * dx + dy * dy)
+      const dr = Math.sqrt(dx * dx + dy * dy) * curvatureReductionFactor
 
       if (curveSetting === 'On') {
         return 'M' + d.source.x + ',' + d.source.y + 'A' + dr + ',' + dr + ' 0 0 1,' + d.target.x + ',' + d.target.y
@@ -316,8 +319,8 @@ function CreateChart (dataset, onTick) {
       .x(chartWidth * 0.5)
       .y(chartHeight * 0.5)
     )
-    // .force("forceX", d3.forceX())
-    // .force("forceY", d3.forceY())
+    .force("forceX", d3.forceX())
+    .force("forceY", d3.forceY())
     .on('tick', onTick)
 
   force.alpha(0.5).restart()
@@ -347,7 +350,7 @@ function addArrowHeads () {
     .attr('id', fromRelationshipMarkerName)
     .attr('viewBox', '0 -' + markerReferenceSize / 2 + ' ' + markerReferenceSize + ' ' + markerReferenceSize)
     .attr('refX', relationshipRadius / 2 + markerReferenceSize + circleStrokeWidth / 4 - 1)
-    .attr('refY', 0)
+    .attr('refY', -relationshipRadius * markerEdgeOffsetFactor)
     .attr('markerWidth', markerSize)
     .attr('markerHeight', markerSize)
     .attr('orient', 'auto')
@@ -360,7 +363,7 @@ function addArrowHeads () {
     .attr('id', toRelationshipMarkerName)
     .attr('viewBox', '0 -' + markerReferenceSize / 2 + ' ' + markerReferenceSize + ' ' + markerReferenceSize)
     .attr('refX', nodeRadius / 2 + markerReferenceSize + circleStrokeWidth / 4 - 1)
-    .attr('refY', 0)
+    .attr('refY', -nodeRadius * markerEdgeOffsetFactor)
     .attr('markerWidth', markerSize)
     .attr('markerHeight', markerSize)
     .attr('orient', 'auto')
