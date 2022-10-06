@@ -1,8 +1,8 @@
 [README](../../README.md)
 
-# D3 Meta Model
+# Webpack D3 Meta Model
 
-MooD Meta Model chart using D3 framework
+MooD Meta Model chart using D3 v7 framework
 
 # Table of Contents
 
