@@ -160,7 +160,7 @@ function createRadiusScale (nodes) {
   radiusScale = d3.scaleLinear()
     .domain([minRadius, maxRadius])
     .range([config.style['Min Node Size'], config.style['Max Node Size']])
-  }
+}
 
 function NodeRadius (node) { if (isNaN(node.radius)) { node.radius = 0 }; return radiusScale(node.radius) }
 function NodeColor (node) { return node.color }
@@ -179,10 +179,10 @@ function onDataLoaded (dataset) {
     .style('stroke', function (e) { return e.stroke })
     .style('stroke-width', function (e) { return e.strokeWidth })
     .style('marker-end', function (d) {
-       return typeof (markers) === 'undefined'
+      return typeof (markers) === 'undefined'
         ? null
-        : 'url(#' + (d.target.size === relSizeNode ? toRelationshipMarkerName : fromRelationshipMarkerName) + ')' 
-      }) // Works on Chrome, removes links from IE.
+        : 'url(#' + (d.target.size === relSizeNode ? toRelationshipMarkerName : fromRelationshipMarkerName) + ')'
+    }) // Works on Chrome, removes links from IE.
 
   nodes = mainGroup.append('svg:g')
     .selectAll('circle')
@@ -340,14 +340,14 @@ function addArrowHeads () {
     return // Taken from http://msdn.microsoft.com/en-us/library/ie/ms537509(v=vs.85).aspx
   }
 
-  const defs = svg.append('svg:defs') 
+  const defs = svg.append('svg:defs')
 
   defs
     .append('svg:marker')
     .attr('id', fromRelationshipMarkerName)
     .attr('viewBox', '0 -' + markerReferenceSize / 2 + ' ' + markerReferenceSize + ' ' + markerReferenceSize)
     // .attr('refX', -(markerReferenceSize / markerSize) * markerSize + relationshipRadius + circleStrokeWidth / 2 - 2) //relationshipRadius + circleStrokeWidth / 2 - markerSize )
-    .attr('refX', relationshipRadius/ 2 + markerReferenceSize + circleStrokeWidth / 4 - 1) //relationshipRadius + circleStrokeWidth / 2 - markerSize )
+    .attr('refX', relationshipRadius / 2 + markerReferenceSize + circleStrokeWidth / 4 - 1) // relationshipRadius + circleStrokeWidth / 2 - markerSize )
     .attr('refY', 0)
     .attr('markerWidth', markerSize)
     .attr('markerHeight', markerSize)
@@ -361,7 +361,7 @@ function addArrowHeads () {
     .attr('id', toRelationshipMarkerName)
     .attr('viewBox', '0 -' + markerReferenceSize / 2 + ' ' + markerReferenceSize + ' ' + markerReferenceSize)
     // .attr('refX', -(markerReferenceSize / markerSize) * markerSize + nodeRadius + circleStrokeWidth / 2 - 2) //nodeRadius + circleStrokeWidth / 2 - markerSize )
-    .attr('refX', nodeRadius / 2 + markerReferenceSize + circleStrokeWidth / 4 - 1) //nodeRadius + circleStrokeWidth / 2 - markerSize )
+    .attr('refX', nodeRadius / 2 + markerReferenceSize + circleStrokeWidth / 4 - 1) // nodeRadius + circleStrokeWidth / 2 - markerSize )
     .attr('refY', 0)
     .attr('markerWidth', markerSize)
     .attr('markerHeight', markerSize)
@@ -369,7 +369,7 @@ function addArrowHeads () {
     .append('svg:path')
     .attr('d', 'M0,-' + markerReferenceSize / 2 + 'L' + markerReferenceSize + ',0L0,' + markerReferenceSize / 2)
     .attr('fill', config.style['Edge Colour'])
-  }
+}
 
 function drag (simulation) {
   function dragStarted (event) {
