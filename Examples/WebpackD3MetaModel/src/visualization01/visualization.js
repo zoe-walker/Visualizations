@@ -319,8 +319,8 @@ function CreateChart (dataset, onTick) {
       .x(chartWidth * 0.5)
       .y(chartHeight * 0.5)
     )
-    .force("x", d3.forceX())
-    .force("y", d3.forceY())
+    .force('x', d3.forceX())
+    .force('y', d3.forceY())
     .on('tick', onTick)
 
   force.alpha(0.5).restart()
