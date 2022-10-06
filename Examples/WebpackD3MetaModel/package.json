@@ -1,0 +1,63 @@
+{
+    "name": "meta-model-force-layout",
+    "description": "Meta Model chart using D3",
+    "version": "1.1.0",
+    "license": "MIT",
+    "dependencies": {
+        "d3": "7.6.1"
+    },
+    "devDependencies": {
+        "@babel/core": "7.14.8",
+        "@babel/preset-env": "7.14.8",
+        "babel-jest": "27.3.1",
+        "babel-loader": "8.2.2",
+        "clean-webpack-plugin": "3.0.0",
+        "copy-webpack-plugin": "~11.0.0",
+        "core-js": "3.23.3",
+        "ejs": "3.1.7",
+        "file-loader": "6.2.0",
+        "fs": "~0.0.1-security",
+        "html-loader": "~4.1.0",
+        "html-webpack-plugin": "5.5.0",
+        "jest": "27.3.1",
+        "json-loader": "0.5.7",
+        "standard": "~17.0.0",
+        "uuid": "8.3.2",
+        "webpack": "~5.73.0",
+        "webpack-cli": "^4.10.0",
+        "webpack-dev-server": "~4.9.3",
+        "webpack-merge": "5.8.0",
+        "webpack-version-file-plugin": "0.4.0",
+        "zip-webpack-plugin": "4.0.1"
+    },
+    "scripts": {
+        "generate-guids": "node generate-guids/generate-guids.js",
+        "start": "webpack-dev-server  --config webpack.dev.js --open",
+        "version": "webpack --config webpack.prod.js",
+        "build": "npm version patch --no-git-tag-version",
+        "rebuild": "webpack --config webpack.prod.js",
+        "stats": "webpack --config webpack.prod.js --profile --json > stats.json",
+        "check-style": "standard \"src/**/*.js\"",
+        "fix-style": "standard \"src/**/*.js\" --verbose --fix",
+        "test": "jest",
+        "test-init": "jest --init"
+    },
+    "jest": {
+        "moduleFileExtensions": [
+            "js",
+            "jsx"
+        ],
+        "moduleDirectories": [
+            "node_modules"
+        ],
+        "moduleNameMapper": {
+            "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
+            "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+        }
+    },
+    "standard": {
+        "ignore": [
+            "**/__tests__"
+        ]
+    }
+}

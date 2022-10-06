@@ -1,0 +1,27 @@
+{
+  "id": "0957353a-a7d7-47fe-9d00-b02f352602f0",
+  "version": "1.1.0",
+  "name": "Meta Model Force Layout",
+  "supportedVersions": "1.1",
+  "moodVersion": "16.0.082",
+  "entry": {
+    "file": "visualization.js",
+    "function": "vis.createForceLayout"
+  },
+  "supportedBrowsers": "Chrome, Edge, FireFox",
+  "style": {
+    "URL":"Style.css",
+    "JSON": {
+      "Node Colour": "#FFF",
+      "Relationship Colour": "#0000FF",
+      "Node Line Colour": "#000",
+      "Edge Colour": "#000",
+      "Show Icons": true,
+      "Min Node Size": 20,
+      "Max Node Size": 40,
+      "Node Stand Off": 5,
+      "Min Link Length": 100,
+      "Ignore Nodes": []
+    }
+  }
+}
