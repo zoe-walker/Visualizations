@@ -1,6 +1,6 @@
 ## What's in this folder?
 ### D3 Meta Model
-An example of showing data about your Repository meta model, built using D3 force layout graph.
+An example of showing data about your Repository meta model, built using the force layout graph in D3 version 3.
 
 ### ECharts Meta Model
 An example of showing data about your Repository meta model, built using ECharts force layout graph.

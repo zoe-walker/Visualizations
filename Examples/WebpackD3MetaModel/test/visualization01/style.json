@@ -9,7 +9,8 @@
         "Min Node Size": 20,
         "Max Node Size": 40,
         "Node Stand Off": 5,
-        "Min Link Length": 200,
+        "Min Link Length": 100,
+        "Curved Links": true,
         "Ignore Nodes": ["Represents", "Connects To"]
     }
 }

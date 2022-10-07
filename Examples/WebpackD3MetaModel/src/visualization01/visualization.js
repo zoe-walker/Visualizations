@@ -11,21 +11,17 @@ import * as d3 from 'd3'
 let chartWidth = 800
 let chartHeight = 600
 let svg, mainGroup, force, nodes, paths, markers
-const curveSetting = 'On' // on / off
+let curvedLinks
 let config
 let radiusScale
-let relationshipRadius
-let nodeRadius
 const relSizeNode = 1
 const relSizeRelationship = 0.5
 const circleStrokeWidth = 3
 const edgeStrokeWidth = 2
 const markerReferenceSize = 5
 const markerSize = markerReferenceSize
-const toRelationshipMarkerName = 'to-arrow'
-const fromRelationshipMarkerName = 'from-arrow'
-const curvatureReductionFactor = 1.5
-const markerEdgeOffsetFactor = 1 / (15 * curvatureReductionFactor)
+const markerName = 'arrow'
+const markerOffset = markerReferenceSize - 1
 
 const seedRandom = function (i) {
   let mW = 123456789
@@ -69,6 +65,7 @@ export function createForceLayout (_config) {
 
   chartWidth = parseInt(config.width, 10)
   chartHeight = parseInt(config.height, 10)
+  curvedLinks = config.style['Curved Links'] === undefined ? true : config.style['Curved Links']
 
   createNodesFromMooDData(config.data.meta, convertedData.nodes)
   createEdgesFromMooDData(config.data.meta, convertedData.edges)
@@ -88,8 +85,6 @@ export function createForceLayout (_config) {
                                                          undefined !== convertedData.nodes.find(n => n.id === e.targetId))
 
   createRadiusScale(convertedData.nodes)
-  relationshipRadius = radiusScale(relSizeRelationship)
-  nodeRadius = radiusScale(relSizeNode)
 
   onDataLoaded(convertedData)
 }
@@ -184,7 +179,7 @@ function onDataLoaded (dataset) {
     .style('marker-end', function (d) {
       return typeof (markers) === 'undefined'
         ? null
-        : 'url(#' + (d.target.size === relSizeNode ? toRelationshipMarkerName : fromRelationshipMarkerName) + ')'
+        : 'url(#' + markerName + ')'
     }) // Works on Chrome, removes links from IE.
 
   nodes = mainGroup.append('svg:g')
@@ -261,12 +256,17 @@ function onDataLoaded (dataset) {
     paths.attr('d', function (d) {
       const dx = d.target.x - d.source.x
       const dy = d.target.y - d.source.y
-      const dr = Math.sqrt(dx * dx + dy * dy) * curvatureReductionFactor
+      const pathLength = Math.sqrt(dx * dx + dy * dy)
 
-      if (curveSetting === 'On') {
-        return 'M' + d.source.x + ',' + d.source.y + 'A' + dr + ',' + dr + ' 0 0 1,' + d.target.x + ',' + d.target.y
+      // x and y distances from center to outside edge of target circle
+      const offsetX = (dx * (radiusScale(d.target.radius) + circleStrokeWidth / 2)) / pathLength
+      const offsetY = (dy * (radiusScale(d.target.radius) + circleStrokeWidth / 2)) / pathLength
+
+      // Path from centre of source circle to edge of target circle
+      if (curvedLinks) {
+        return 'M' + d.source.x + ',' + d.source.y + 'A' + pathLength + ',' + pathLength + ' 0 0 1,' + (d.target.x - offsetX) + ',' + (d.target.y - offsetY)
       } else {
-        return 'M' + d.source.x + ',' + d.source.y + 'A0,0 0 0 1,' + d.target.x + ',' + d.target.y
+        return 'M' + d.source.x + ',' + d.source.y + 'A0,0 0 0 1,' + (d.target.x - offsetX) + ',' + (d.target.y - offsetY)
       }
     })
 
@@ -343,27 +343,12 @@ function addArrowHeads () {
     return // Taken from http://msdn.microsoft.com/en-us/library/ie/ms537509(v=vs.85).aspx
   }
 
-  const defs = svg.append('svg:defs')
-
-  defs
+  markers = svg.append('svg:defs')
     .append('svg:marker')
-    .attr('id', fromRelationshipMarkerName)
+    .attr('id', markerName)
     .attr('viewBox', '0 -' + markerReferenceSize / 2 + ' ' + markerReferenceSize + ' ' + markerReferenceSize)
-    .attr('refX', relationshipRadius / 2 + markerReferenceSize + circleStrokeWidth / 4 - 1)
-    .attr('refY', -relationshipRadius * markerEdgeOffsetFactor)
-    .attr('markerWidth', markerSize)
-    .attr('markerHeight', markerSize)
-    .attr('orient', 'auto')
-    .append('svg:path')
-    .attr('d', 'M0,-' + markerReferenceSize / 2 + 'L' + markerReferenceSize + ',0L0,' + markerReferenceSize / 2)
-    .attr('fill', config.style['Edge Colour'])
-
-  markers = defs
-    .append('svg:marker')
-    .attr('id', toRelationshipMarkerName)
-    .attr('viewBox', '0 -' + markerReferenceSize / 2 + ' ' + markerReferenceSize + ' ' + markerReferenceSize)
-    .attr('refX', nodeRadius / 2 + markerReferenceSize + circleStrokeWidth / 4 - 1)
-    .attr('refY', -nodeRadius * markerEdgeOffsetFactor)
+    .attr('refX', markerOffset)
+    .attr('refY', 0)
     .attr('markerWidth', markerSize)
     .attr('markerHeight', markerSize)
     .attr('orient', 'auto')

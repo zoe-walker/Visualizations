@@ -59,6 +59,7 @@ The properties are:
 *	__Max Node Size__: The maximum radius that D3 is permitted to use for drawing circles. This defines the radius of nodes.
 *   __Node Stand Off__: The minimum gap between nodes.
 *   __Min Link Length__: The minimum length of link lines between a node and a relationship. Note: this length is between the centres of the node and relationship circles.
+*   __Curved Links__: Select whether link lines are draw as a curve (true) or a straight line (false). Defaults to true.
 *   __Ignore Nodes__: An array of names or identifiers (GUIDs) of nodes to exclude from the rendered diagram.
 
 [Table of Contents](#table-of-contents)
