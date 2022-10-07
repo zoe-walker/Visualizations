@@ -61,6 +61,8 @@ MooD provides templates for the following JavaScript chart frameworks
 
 ![D3 Word Cloud](docs/images/word-cloud-thumbnail.png) [D3 Word Cloud](Examples/WordCloud/README.md)
 
+![Webpack D3 Meta Model](docs/images/d3-v7-metamodel-thumbnail.png) [D3 Meta Model](Examples/WebpackD3MetaModel/README.md)
+
 ![Webpack D3 Example](docs/images/basic-scatterplot-in-d3-thumbnail.png) [Webpack D3 Example](Examples/WebpackD3Visualization/README.md)
 
 ![Webpack React Example](docs/images/recharts-line-chart-thumbnail.png) [Webpack React Example](Examples/WebpackReactVisualization/README.md)

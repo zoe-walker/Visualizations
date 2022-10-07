@@ -1,8 +1,8 @@
 [README](../../README.md)
 
-# D3 Meta Model
+# Webpack D3 Meta Model
 
-MooD Meta Model chart using D3 framework
+MooD Meta Model chart using D3 v7 framework
 
 # Table of Contents
 
@@ -19,9 +19,7 @@ MooD Meta Model chart using D3 framework
 # Purpose
 The chart renders a MooD Meta Model using D3's force-directed layout which uses a physics based simulator for positioning visual elements.
 
-The version of D3 used for this chart is v3.
-
-[![D3 Meta Model](images/d3-meta-model.png "D3 Meta Model")](http://www.d3noob.org/2013/03/d3js-force-directed-graph-example-basic.html)
+[![D3 Meta Model](images/d3-meta-model.png "D3 Meta Model")](https://www.d3indepth.com/force-layout/)
 
 [Table of Contents](#table-of-contents)
 
@@ -59,6 +57,9 @@ The properties are:
 *	__Show Icons__: Not used
 *	__Min Node Size__: The minimum radius that D3 is permitted to use for drawing circles. This defines the radius of relationships.
 *	__Max Node Size__: The maximum radius that D3 is permitted to use for drawing circles. This defines the radius of nodes.
+*   __Node Stand Off__: The minimum gap between nodes.
+*   __Min Link Length__: The minimum length of link lines between a node and a relationship. Note: this length is between the centres of the node and relationship circles.
+*   __Curved Links__: Select whether link lines are draw as a curve (true) or a straight line (false). Defaults to true.
 *   __Ignore Nodes__: An array of names or identifiers (GUIDs) of nodes to exclude from the rendered diagram.
 
 [Table of Contents](#table-of-contents)
