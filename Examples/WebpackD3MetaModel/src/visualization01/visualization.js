@@ -18,10 +18,9 @@ const relSizeNode = 1
 const relSizeRelationship = 0.5
 const circleStrokeWidth = 3
 const edgeStrokeWidth = 2
-const markerReferenceSize = 5
-const markerSize = markerReferenceSize
+const markerSize = 5
 const markerName = 'arrow'
-const markerOffset = markerReferenceSize - 1
+const markerOffset = markerSize - 1
 
 const seedRandom = function (i) {
   let mW = 123456789
@@ -346,14 +345,14 @@ function addArrowHeads () {
   markers = svg.append('svg:defs')
     .append('svg:marker')
     .attr('id', markerName)
-    .attr('viewBox', '0 -' + markerReferenceSize / 2 + ' ' + markerReferenceSize + ' ' + markerReferenceSize)
+    .attr('viewBox', '0 -' + markerSize / 2 + ' ' + markerSize + ' ' + markerSize)
     .attr('refX', markerOffset)
     .attr('refY', 0)
     .attr('markerWidth', markerSize)
     .attr('markerHeight', markerSize)
     .attr('orient', 'auto')
     .append('svg:path')
-    .attr('d', 'M0,-' + markerReferenceSize / 2 + 'L' + markerReferenceSize + ',0L0,' + markerReferenceSize / 2)
+    .attr('d', 'M0,-' + markerSize / 2 + 'L' + markerSize + ',0L0,' + markerSize / 2)
     .attr('fill', config.style['Edge Colour'])
 }
 
