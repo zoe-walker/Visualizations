@@ -30,14 +30,14 @@ Please note that the documentation and code in this repository is issued under t
 * [Web security considerations](#web-security-considerations)
 
 # Introduction
-You can use your favourite graphs and charts to visualise your data in MooD Business Architect (BA). Whether you have written your own code or downloaded it from a gallery on the web, this document will guide you through the process to enable you to use the visualization in MooD BA.
+As of MooD 16.076 you can use your favourite graphs and charts to visualise your data in MooD Business Architect (BA). Whether you have written your own code or downloaded it from a gallery on the web, this document will guide you through the process to enable you to use the visualization in MooD BA.
 
 You will need to be familiar with, or willing to learn, the following
 * Developing software in JavaScript
 * Node and Node Package Manager (NPM)
 * GraphQL
 
-The guide will show you how to create a visualization package using a Windows PC since MooD BA runs on Windows. However you can install the development tools, Visual Studio Code and Node/NPM, on a Mac or Linux if you prefer.
+The guide will show you how to create a visualization package using a Windows Operating System. However you can install the development tools, Visual Studio Code and Node/NPM, on a Mac or Linux if you prefer, but Business Architect can only run on Windows OS.
 
 MooD provides templates for the following JavaScript chart frameworks
 * Data Driven Documents (D3)
