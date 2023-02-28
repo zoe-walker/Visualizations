@@ -1,5 +1,5 @@
-declare namespace Vis {
-  interface Outputs {
+declare namespace Vis.Outputs {
+  interface Root {
     ExampleOutput?: Number
   }
 }

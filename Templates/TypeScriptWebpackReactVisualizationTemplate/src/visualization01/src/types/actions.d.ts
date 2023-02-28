@@ -1,5 +1,5 @@
-declare namespace Vis {
-  interface Actions {
+declare namespace Vis.Actions {
+  interface Root {
     'Example Click': MooDAction,
   }
 }

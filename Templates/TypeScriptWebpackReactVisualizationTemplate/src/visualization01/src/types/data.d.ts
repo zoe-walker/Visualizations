@@ -1,5 +1,5 @@
-declare namespace Vis {
-  interface Data {
+declare namespace Vis.Data {
+  interface Root {
     ExampleVariable1: string,
     ExampleVariable2: boolean,
     ExampleVariable3: Array<Query>,

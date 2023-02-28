@@ -10,14 +10,14 @@ import Logger from '@helpers/logger'
 //
 //    Entry function declaration
 //
-export function visualization (config: MooDConfig<Vis.Data, Vis.Style, Vis.Actions, Vis.Inputs, Vis.Outputs>) {
+export function visualization (config: MooDConfig<Vis.Data.Root, Vis.Style.Root, Vis.Actions.Root, Vis.Inputs.Root, Vis.Outputs.Root>) {
   Logger.developmentMode = config?.style.DevelopmentMode
   Logger.Log('Development mode is enabled, logging will be enabled')
 
   /** The visualization state is stored in a string format
    * This visualization expects that string to be in a JSON format
    */
-  let state: Vis.State | null = null
+  let state: Vis.State.Root | null = null
   if (config?.state != null) {
     try {
       state = JSON.parse(config?.state?.value)

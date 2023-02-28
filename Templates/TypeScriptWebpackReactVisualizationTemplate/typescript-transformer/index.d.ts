@@ -19,7 +19,7 @@ type MooDConfig<
     animation: boolean;
 
     actions?: ConfigActions;
-    data: ConfigData | { data: null };
+    data?: ConfigData;
     style?: ConfigStyle;
     outputs?: ConfigInputs;
     inputs?: ConfigOutputs;

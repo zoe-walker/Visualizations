@@ -22,18 +22,24 @@ glob("src/**/no-guid.visualization.config.json.ejs", function (er, files) {
     );
 
     //Parse all of the required config values
-    let styleConfig = parseToNamespace(parseStyle(jsonResult?.style?.JSON));
+    let styleConfig = parseToNamespace(
+      parseStyle(jsonResult?.style?.JSON),
+      "Style"
+    );
 
     //Parse the JSON actions into TS and make the initial type statically named
-    let actionsConfig = parseToNamespace(parseActions(jsonResult?.actions));
+    let actionsConfig = parseToNamespace(
+      parseActions(jsonResult?.actions),
+      "Actions"
+    );
 
     //Parse the JSON inputs into TS and make the initial type statically named
     let ioConfig = parseIO(jsonResult?.inputs, jsonResult?.outputs);
-    let inputConfig = parseToNamespace(ioConfig[0]);
-    let outputConfig = parseToNamespace(ioConfig[1]);
+    let inputConfig = parseToNamespace(ioConfig[0], "Inputs");
+    let outputConfig = parseToNamespace(ioConfig[1], "Outputs");
 
     //Parse the JSON state into TS and make the initial type statically named
-    let stateConfig = parseToNamespace(parseState(jsonResult?.state));
+    let stateConfig = parseToNamespace(parseState(jsonResult?.state), "State");
 
     writeTypesToFiles(
       path.dirname(file),
@@ -100,22 +106,33 @@ function writeTypesToFiles(
  * Parse any TypeScript into a custom namespace for the visualization
  * @param {string[]} parsedInput The parsed TypeScript that needs to be converted to a namespace
  */
-function parseToNamespace(parsedInput) {
-  let ret = ["declare namespace Vis {"];
+function parseToNamespace(parsedInput, namespace) {
+  let ret = [`declare namespace Vis.${namespace} {`];
+  if (parsedInput == null) return ret.concat("}");
+
+  //Split any parsedInputs that arent in an array format
   parsedInput = parsedInput.map((line) => {
     let lineSplit = line.split("\n");
-    if ( lineSplit.length == 1) return lineSplit[0];
+    if (lineSplit.length == 1) return lineSplit[0];
     return lineSplit;
   });
 
+  //Rename the first interface to Root to make namespace naming scheme better
+  if (Array.isArray(parsedInput[0])) {
+    parsedInput[0][0] =
+      parsedInput[0].length > 1 ? "interface Root {" : "interface Root {}";
+  } else {
+    parsedInput[0] =
+      parsedInput.length > 1 ? "interface Root {" : "interface Root {}";
+  }
+
   //Add an indent to every line to make it inline with namespace addition
   parsedInput.map((line, index) => {
-
     //If line is an array then it's actually a JSON to TS string
     if (Array.isArray(line)) {
       ret.push(
         line
-          .map(subLine => {
+          .map((subLine) => {
             return "  " + subLine;
           })
           .join("\n") + (index == parsedInput.length - 1 ? "" : "\n")
