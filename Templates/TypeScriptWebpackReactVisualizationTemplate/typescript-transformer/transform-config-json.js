@@ -202,7 +202,7 @@ function parseIO(inputJSON, outputJSON) {
   }
 
   //Parse the JSON outputs into TS and make the initial type statically named
-  if (inputJSON != null && outputJSON.length > 0) {
+  if (outputJSON != null && outputJSON.length > 0) {
     //Outputs conversion is more complex so extracted to own function
     returnConfigs[1] = ["interface Outputs {"].concat(
       handleIOConversion(outputJSON),
