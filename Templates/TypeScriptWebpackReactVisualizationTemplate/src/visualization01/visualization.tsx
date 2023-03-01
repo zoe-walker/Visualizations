@@ -20,7 +20,7 @@ export function visualization (config: MooDConfig<Vis.Data.Root, Vis.Style.Root,
   let state: Vis.State.Root | null = null
   if (config?.state != null) {
     try {
-      state = JSON.parse(config?.state?.value)
+      state = config?.state?.value != "" ? JSON.parse(config?.state?.value) : {};
     } catch (e) {
       throw new Error(`${e}
             Custom Visualisation State is not set up correctly, please ensure that the state is a valid JSON string`)
