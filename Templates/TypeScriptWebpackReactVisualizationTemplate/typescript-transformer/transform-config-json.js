@@ -2,6 +2,7 @@ const JsonToTS = require("json-to-ts");
 const glob = require("glob");
 const path = require("path");
 const fs = require("fs");
+const indenting = "  ";
 
 /**
  * Compile all config.json.ejs into an automatically generated typescript type file
@@ -24,27 +25,36 @@ glob("src/**/no-guid.visualization.config.json.ejs", function (er, files) {
     //Parse all of the required config values
     let styleConfig = parseToNamespace(
       parseStyle(jsonResult?.style?.JSON),
-      "Style"
+      "Style",
+      true
     );
 
     //Parse the JSON actions into TS and make the initial type statically named
-    let actionsConfig = parseToNamespace(
-      parseActions(jsonResult?.actions),
-      "Actions"
+    let actionsParsed = parseActions(jsonResult?.actions);
+    let actionsConfig = parseToGlobal(
+      parseToNamespace(actionsParsed[0], "Actions", true)
+    );
+    actionsConfig = ["import { ActionType } from './action-type';", ""].concat(
+      actionsConfig
     );
 
     //Parse the JSON inputs into TS and make the initial type statically named
     let ioConfig = parseIO(jsonResult?.inputs, jsonResult?.outputs);
-    let inputConfig = parseToNamespace(ioConfig[0], "Inputs");
-    let outputConfig = parseToNamespace(ioConfig[1], "Outputs");
+    let inputConfig = parseToNamespace(ioConfig[0], "Inputs", true);
+    let outputConfig = parseToNamespace(ioConfig[1], "Outputs", true);
 
     //Parse the JSON state into TS and make the initial type statically named
-    let stateConfig = parseToNamespace(parseState(jsonResult?.state), "State");
+    let stateConfig = parseToNamespace(
+      parseState(jsonResult?.state),
+      "State",
+      true
+    );
 
     writeTypesToFiles(
       path.dirname(file),
       styleConfig,
       actionsConfig,
+      actionsParsed[1],
       inputConfig,
       outputConfig,
       stateConfig
@@ -64,6 +74,7 @@ function writeTypesToFiles(
   visDir,
   styleConfig,
   actionsConfig,
+  actionsEnum,
   inputsConfig,
   outputsConfig,
   stateConfig
@@ -87,6 +98,11 @@ function writeTypesToFiles(
   );
 
   fs.writeFileSync(
+    path.join(visDir, "src/types", "action-type.ts"),
+    actionsEnum.join("\n")
+  );
+
+  fs.writeFileSync(
     path.join(visDir, "src/types", "inputs.d.ts"),
     inputsConfig.join("\n")
   );
@@ -103,11 +119,37 @@ function writeTypesToFiles(
 }
 
 /**
- * Parse any TypeScript into a custom namespace for the visualization
+ * Parse any converted TypeScript into a global scope
  * @param {string[]} parsedInput The parsed TypeScript that needs to be converted to a namespace
  */
-function parseToNamespace(parsedInput, namespace) {
-  let ret = [`declare namespace Vis.${namespace} {`];
+function parseToGlobal(parsedInput) {
+  let ret = ["declare global {"];
+  if (parsedInput == null) return ret.concat("}");
+
+  //Split any parsedInputs that arent in an array format
+  parsedInput = parsedInput.map((line) => {
+    let lineSplit = line.split("\n");
+    if (lineSplit.length == 1) return lineSplit[0];
+    return lineSplit;
+  });
+
+  //Add an indent to every line to make it inline with global addition and remove any declares
+  ret = ret.concat(indentTS(parsedInput, true));
+
+  ret.push("}");
+  return ret;
+}
+
+/**
+ * Parse any converted TypeScript into a custom namespace for the visualization
+ * @param {string[]} parsedInput The parsed TypeScript that needs to be converted to a namespace
+ * @param {string} namespace The namespace to add to the parsed input
+ * @param {boolean} modifyRoot Controls if the root element name is changed to root
+ */
+function parseToNamespace(parsedInput, namespace, modifyRoot) {
+  let ret = [
+    `declare namespace Vis${namespace == "" ? "" : "." + namespace} {`,
+  ];
   if (parsedInput == null) return ret.concat("}");
 
   //Split any parsedInputs that arent in an array format
@@ -118,41 +160,60 @@ function parseToNamespace(parsedInput, namespace) {
   });
 
   //Rename the first interface to Root to make namespace naming scheme better
-  if (Array.isArray(parsedInput[0])) {
-    parsedInput[0][0] =
-      parsedInput[0].length > 1 ? "interface Root {" : "interface Root {}";
-  } else {
-    parsedInput[0] =
-      parsedInput.length > 1 ? "interface Root {" : "interface Root {}";
+  if (modifyRoot == true) {
+    if (Array.isArray(parsedInput[0])) {
+      parsedInput[0][0] =
+        parsedInput[0].length > 1 ? "interface Root {" : "interface Root {}";
+    } else {
+      parsedInput[0] =
+        parsedInput.length > 1 ? "interface Root {" : "interface Root {}";
+    }
   }
 
-  //Add an indent to every line to make it inline with namespace addition
-  parsedInput.map((line, index) => {
-    //If line is an array then it's actually a JSON to TS string
-    if (Array.isArray(line)) {
-      ret.push(
-        line
-          .map((subLine) => {
-            return "  " + subLine;
-          })
-          .join("\n") + (index == parsedInput.length - 1 ? "" : "\n")
-      );
-      return;
-    }
-
-    if (line == "") {
-      ret.push("");
-    } else {
-      ret.push("  " + line);
-    }
-  });
+  //Add an indent to every line to make it inline with namespace addition and remove any declares
+  ret = ret.concat(indentTS(parsedInput, true));
 
   ret.push("}");
   return ret;
 }
 
 /**
- * Parse the style out of a JSON file into a TS
+ * Adds an indent to the begining of all the lines of a parsed TypeScript
+ * @param {string[]} parsedTypeScript The parsed TypeScript that needs to be indented
+ * @param {boolean} removeDeclare Controls if any declares should be removed from the indent lines
+ * @returns
+ */
+function indentTS(parsedTypeScript, removeDeclare) {
+  return parsedTypeScript.map((line, index) => {
+    //If line is an array then it's actually a JSON to TS string
+    if (Array.isArray(line)) {
+      return (
+        line
+          .map((subLine) => {
+            return (
+              indenting +
+              (removeDeclare == true
+                ? subLine
+                : subLine.replace(/(?<=^\s*)declare /gi, ""))
+            );
+          })
+          .join("\n") + (index == parsedTypeScript.length - 1 ? "" : "\n")
+      );
+    }
+
+    if (line == "") {
+      return "";
+    } else {
+      return (
+        indenting +
+        (line == true ? line : line.replace(/(?<=^\s*)declare /gi, ""))
+      );
+    }
+  });
+}
+
+/**
+ * Parse the style out of a JSON file into TS
  * @param {JSON} styleJSON The JSON to convert into TS
  */
 function parseStyle(styleJSON) {
@@ -178,29 +239,42 @@ function parseStyle(styleJSON) {
 }
 
 /**
- * Parse the action out of a JSON file into a TS
+ * Parse the action out of a JSON file into TS
  * @param {JSON} actionsJSON The JSON to convert into TS
  */
 function parseActions(actionsJSON) {
+  let actionsEnum = [];
+  if (actionsJSON != null) {
+    actionsEnum = Object.keys(actionsJSON).map((action) => {
+      return action.replace(/[^a-zA-Z0-9]/g, "_").replace(/_(?=_+| )/g, "");
+    });
+  }
+
   let actionsConfig = [];
   if (actionsJSON != null) {
-    actionsConfig = ["interface Actions {"].concat(
-      Object.keys(actionsJSON).map((action) => {
-        return `  \'${action}\': MooDAction,`;
-      }),
-      "}"
-    );
+    actionsConfig = Object.keys(actionsJSON).map((action, index) => {
+      return `${indenting}[ActionType.${actionsEnum[index]}]: MooDAction,`;
+    });
   }
 
   //Parse a default value if actions does exist
   if (actionsJSON == null || actionsConfig.length == 0) {
-    return ["interface Actions {}"];
+    return ["interface Actions {}", "export enum ActionType {}"];
   }
-  return actionsConfig;
+
+  return [
+    ["interface Actions {"].concat(actionsConfig, "}"),
+    ["export enum ActionType {"].concat(
+      Object.keys(actionsJSON).map((action, index) => {
+        return `${indenting}${actionsEnum[index]} = "${action}",`;
+      }),
+      "}"
+    ),
+  ];
 }
 
 /**
- * Parse the inputs and outputs out of a JSON file into a TS
+ * Parse the inputs and outputs out of a JSON file into TS
  * @param {JSON} inputJSON The input JSON to convert into TS
  * @param {JSON} outputJSON  The output JSON to convert into TS
  */
@@ -233,7 +307,7 @@ function parseIO(inputJSON, outputJSON) {
 }
 
 /**
- * Parse the state out of a JSON file into a TS
+ * Parse the state out of a JSON file into TS
  * @param {JSON} stateJSON The JSON to convert into TS
  */
 function parseState(stateJSON) {
@@ -272,8 +346,9 @@ function handleIOConversion(values) {
       value.type.toLowerCase().substring(1);
 
     //MooD accepts Date but JS has it's own Date type so TypeScript Schema is slightly modified
-    return `  ${value.name}?: ${valueType.replace("Date", "MooDDate")}${
-      index == values.length - 1 ? "" : ","
-    }`;
+    return `${indenting}${value.name}?: ${valueType.replace(
+      "Date",
+      "MooDDate"
+    )}${index == values.length - 1 ? "" : ","}`;
   });
 }
