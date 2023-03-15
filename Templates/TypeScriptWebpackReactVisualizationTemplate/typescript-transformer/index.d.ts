@@ -97,7 +97,7 @@ type Any = boolean | number | string | MooDDate;
  * Used by MooD to determine that the variable being passed is a MooD Element
  */
 interface MooDElement {
-    ID?: string;
+    key: string;
 }
 
 /**
