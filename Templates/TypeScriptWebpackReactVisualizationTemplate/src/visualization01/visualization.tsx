@@ -6,6 +6,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import Logger from "@helpers/logger";
+import "./visualization.css";
 
 //
 //    Entry function declaration
