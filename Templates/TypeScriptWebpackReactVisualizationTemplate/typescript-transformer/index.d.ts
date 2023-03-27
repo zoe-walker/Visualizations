@@ -21,8 +21,8 @@ type MooDConfig<
     actions?: ConfigActions;
     data?: ConfigData;
     style?: ConfigStyle;
-    outputs?: ConfigInputs;
-    inputs?: ConfigOutputs;
+    outputs?: ConfigOutputs;
+    inputs?: ConfigInputs;
 
     state?: MooDState;
 

@@ -14,13 +14,19 @@ glob("src/**/no-guid.visualization.config.json.ejs", function (er, files) {
       file = file.replace("no-guid.", "");
 
     //Parse the config.json.ejs file into JSON
-    let jsonResult = JSON.parse(
-      fs
-        .readFileSync(path.join(__dirname, "../", file))
-        .toString()
-        //Remove any webpack version plugin functions as it breaks JSON parsing
-        .replace(/(<%= package.version %>)|(<%= uuid.v4(); %>)/gi, "0")
-    );
+    
+    let jsonResult;
+    try {
+      jsonResult = JSON.parse(
+        fs
+          .readFileSync(path.join(__dirname, "../", file))
+          .toString()
+          //Remove any webpack version plugin functions as it breaks JSON parsing
+          .replace(/(<%= package.version %>)|(<%= uuid.v4(); %>)/gi, "0")
+      );
+    } catch (e) {
+      throw new Error(`Unable to parse JSON file: ${file}, please check that it is valid JSON. \n${e}`);
+    }
 
     //Parse all of the required config values
     let styleConfig = parseToNamespace(
@@ -259,7 +265,7 @@ function parseActions(actionsJSON) {
 
   //Parse a default value if actions does exist
   if (actionsJSON == null || actionsConfig.length == 0) {
-    return ["interface Actions {}", "export enum ActionType {}"];
+    return [["interface Actions {}"], ["export enum ActionType {}"]];
   }
 
   return [
