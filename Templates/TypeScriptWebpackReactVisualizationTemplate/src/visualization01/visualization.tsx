@@ -1,8 +1,3 @@
-//
-// Recharts Line Chart example
-// See: http://recharts.org/en-US/guide/getting-started
-//
-
 import React from "react";
 import { createRoot } from "react-dom/client";
 import Logger from "@helpers/logger";
