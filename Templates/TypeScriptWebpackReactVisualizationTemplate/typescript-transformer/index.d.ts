@@ -103,7 +103,38 @@ interface MooDElement {
 /**
  * Used by MooD to determine that the variable being passed is a MooD Meta Model
  */
-interface MooDMeta {}
+interface MooDMetaModel {
+  aliases: MooDMetaModelAlias[];
+}
+
+/**
+ * Used by MooD Meta Models to store meta data
+ */
+type MooDMetaModelAlias = {
+  name: string;
+  id: string;
+  type: string;
+  fields: MooDMetaModelField[];
+  allowed_aliases: MooDMetaModelAllowedAlias[];
+}
+
+/**
+ * Used by MooD Meta Models to store the individual alias field data
+ */
+type MooDMetaModelField = {
+  name: string;
+  id: string;
+  type: string;
+  relationship_alias_id: string | null;
+}
+
+/**
+ * USed by MooD Meta Models to store the allowed aliases
+ */
+type MooDMetaModelAllowedAlias = {
+  name: string;
+  id: string;
+}
 
 /**
  * Base type to be expanded on for visualisation config
