@@ -17,8 +17,6 @@ The configuration of a visualization.
     * The version of this specific visualization, if not specified, the package.json version should be used
 * __Property__: dependencies 
     * These are a list of dependencies that this visualization requires or contains, and is added to the list from the package
-    * It is possible to include dependencies that are shipped with MooD by including just the version required in the dependecies list, as in the exmaple below. Available dependencies include Apache ECharts, JQuery and JQueryUI.
-    * __Note__ - built in MooD dependencies are subject to change in future versions of MooD
     
     ```JavaScript
     dependencies: { 
