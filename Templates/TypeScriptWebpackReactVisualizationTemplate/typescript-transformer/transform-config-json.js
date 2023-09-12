@@ -14,19 +14,13 @@ glob("src/**/no-guid.visualization.config.json.ejs", function (er, files) {
       file = file.replace("no-guid.", "");
 
     //Parse the config.json.ejs file into JSON
-    
-    let jsonResult;
-    try {
-      jsonResult = JSON.parse(
-        fs
-          .readFileSync(path.join(__dirname, "../", file))
-          .toString()
-          //Remove any webpack version plugin functions as it breaks JSON parsing
-          .replace(/(<%= package.version %>)|(<%= uuid.v4(); %>)/gi, "0")
-      );
-    } catch (e) {
-      throw new Error(`Unable to parse JSON file: ${file}, please check that it is valid JSON. \n${e}`);
-    }
+    let jsonResult = JSON.parse(
+      fs
+        .readFileSync(path.join(__dirname, "../", file))
+        .toString()
+        //Remove any webpack version plugin functions as it breaks JSON parsing
+        .replace(/(<%= package.version %>)|(<%= uuid.v4(); %>)/gi, "0")
+    );
 
     //Parse all of the required config values
     let styleConfig = parseToNamespace(
@@ -44,10 +38,15 @@ glob("src/**/no-guid.visualization.config.json.ejs", function (er, files) {
       actionsConfig
     );
 
-    //Parse the JSON inputs into TS and make the initial type statically named
+    //Parse the JSON inputs/outputs into TS and make the initial type statically named
     let ioConfig = parseIO(jsonResult?.inputs, jsonResult?.outputs);
     let inputConfig = parseToNamespace(ioConfig[0], "Inputs", true);
-    let outputConfig = parseToNamespace(ioConfig[1], "Outputs", true);
+    let outputConfig = parseToGlobal(
+      parseToNamespace(ioConfig[1], "Outputs", true)
+    );
+    outputConfig = ["import { OutputType } from './output-type';", ""].concat(
+      outputConfig
+    );
 
     //Parse the JSON state into TS and make the initial type statically named
     let stateConfig = parseToNamespace(
@@ -63,6 +62,7 @@ glob("src/**/no-guid.visualization.config.json.ejs", function (er, files) {
       actionsParsed[1],
       inputConfig,
       outputConfig,
+      ioConfig[2],
       stateConfig
     );
   });
@@ -83,6 +83,7 @@ function writeTypesToFiles(
   actionsEnum,
   inputsConfig,
   outputsConfig,
+  outputsEnum,
   stateConfig
 ) {
   //Ensure that the folder structure is set up correctly
@@ -116,6 +117,11 @@ function writeTypesToFiles(
   fs.writeFileSync(
     path.join(visDir, "src/types", "outputs.d.ts"),
     outputsConfig.join("\n")
+  );
+
+  fs.writeFileSync(
+    path.join(visDir, "src/types", "output-type.ts"),
+    outputsEnum.join("\n")
   );
 
   fs.writeFileSync(
@@ -265,7 +271,7 @@ function parseActions(actionsJSON) {
 
   //Parse a default value if actions does exist
   if (actionsJSON == null || actionsConfig.length == 0) {
-    return [["interface Actions {}"], ["export enum ActionType {}"]];
+    return ["interface Actions {}", "export enum ActionType {}"];
   }
 
   return [
@@ -285,7 +291,7 @@ function parseActions(actionsJSON) {
  * @param {JSON} outputJSON  The output JSON to convert into TS
  */
 function parseIO(inputJSON, outputJSON) {
-  let returnConfigs = [[], []];
+  let returnConfigs = [[], [], []];
 
   //Parse the JSON inputs into TS and make the initial type statically named
   if (inputJSON != null && inputJSON.length > 0) {
@@ -300,13 +306,40 @@ function parseIO(inputJSON, outputJSON) {
 
   //Parse the JSON outputs into TS and make the initial type statically named
   if (outputJSON != null && outputJSON.length > 0) {
+    let outputEnum = [];
+
+    if (outputEnum != null) {
+      outputEnum = Object.values(outputJSON).map((output) => {
+        return output.name
+          .replace(/[^a-zA-Z0-9]/g, "_")
+          .replace(/_(?=_+| )/g, "");
+      });
+    }
+
     //Outputs conversion is more complex so extracted to own function
     returnConfigs[1] = ["interface Outputs {"].concat(
-      handleIOConversion(outputJSON),
+      handleIOConversion(
+        Object.values(outputJSON).map((output, index) => {
+          return {
+            name: "[OutputType." + outputEnum[index] + "]",
+            displayName: output.displayName,
+            type: output.type,
+            default: output.default,
+          };
+        })
+      ),
+      "}"
+    );
+
+    returnConfigs[2] = ["export enum OutputType {"].concat(
+      Object.keys(outputJSON).map((output, index) => {
+        return `${indenting}${outputEnum[index]} = "${outputJSON[index].name}",`;
+      }),
       "}"
     );
   } else {
     returnConfigs[1] = ["interface Outputs {}"];
+    returnConfigs[2] = ["export enum OutputType {}"];
   }
 
   return returnConfigs;
