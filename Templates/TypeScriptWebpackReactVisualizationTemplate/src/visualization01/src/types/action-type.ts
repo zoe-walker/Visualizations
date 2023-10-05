@@ -1,3 +1,3 @@
 export enum ActionType {
-  Example_Click = "Example Click",
+  Example_Click = "Example_Click",
 }

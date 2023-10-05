@@ -31,22 +31,33 @@ glob("src/**/no-guid.visualization.config.json.ejs", function (er, files) {
 
     //Parse the JSON actions into TS and make the initial type statically named
     let actionsParsed = parseActions(jsonResult?.actions);
-    let actionsConfig = parseToGlobal(
-      parseToNamespace(actionsParsed[0], "Actions", true)
+    let actionsConfig = parseToGlobalEnum(
+      actionsParsed[0],
+      "Actions",
+      "ActionType",
+      "'./action-type'"
     );
-    actionsConfig = ["import { ActionType } from './action-type';", ""].concat(
-      actionsConfig
-    );
+    let actionTypes = actionsParsed[1];
 
-    //Parse the JSON inputs/outputs into TS and make the initial type statically named
-    let ioConfig = parseIO(jsonResult?.inputs, jsonResult?.outputs);
-    let inputConfig = parseToNamespace(ioConfig[0], "Inputs", true);
-    let outputConfig = parseToGlobal(
-      parseToNamespace(ioConfig[1], "Outputs", true)
+    //Parse the JSON inputs into TS and make the initial type statically named
+    let inputParsedConfig = parseIO(jsonResult?.inputs, "Input");
+    let inputConfig = parseToGlobalEnum(
+      inputParsedConfig[0],
+      "Inputs",
+      "InputType",
+      "'./input-type'"
     );
-    outputConfig = ["import { OutputType } from './output-type';", ""].concat(
-      outputConfig
+    let inputTypes = inputParsedConfig[1];
+
+    //Parse the JSON outputs into TS and make the initial type statically named
+    let outputParsedConfig = parseIO(jsonResult?.outputs, "Output");
+    let outputConfig = parseToGlobalEnum(
+      outputParsedConfig[0],
+      "Outputs",
+      "OutputType",
+      "'./output-type'"
     );
+    let outputTypes = outputParsedConfig[1];
 
     //Parse the JSON state into TS and make the initial type statically named
     let stateConfig = parseToNamespace(
@@ -59,10 +70,11 @@ glob("src/**/no-guid.visualization.config.json.ejs", function (er, files) {
       path.dirname(file),
       styleConfig,
       actionsConfig,
-      actionsParsed[1],
+      actionTypes,
       inputConfig,
+      inputTypes,
       outputConfig,
-      ioConfig[2],
+      outputTypes,
       stateConfig
     );
   });
@@ -82,6 +94,7 @@ function writeTypesToFiles(
   actionsConfig,
   actionsEnum,
   inputsConfig,
+  inputsEnum,
   outputsConfig,
   outputsEnum,
   stateConfig
@@ -112,6 +125,11 @@ function writeTypesToFiles(
   fs.writeFileSync(
     path.join(visDir, "src/types", "inputs.d.ts"),
     inputsConfig.join("\n")
+  );
+
+  fs.writeFileSync(
+    path.join(visDir, "src/types", "input-type.ts"),
+    inputsEnum.join("\n")
   );
 
   fs.writeFileSync(
@@ -190,6 +208,43 @@ function parseToNamespace(parsedInput, namespace, modifyRoot) {
 }
 
 /**
+ * Parse a config to a global enum with enum type import
+ * @param {sting[]} enumValue - The parsed config to parse
+ * @param {string} namespace - The namespace for the enum
+ * @param {string} enumImport - The name of the enum to import from the type file
+ * @param {string} enumImportFile - The relative import from the config file to the enum file
+ */
+function parseToGlobalEnum(enumValue, namespace, enumImport, enumImportFile) {
+  //Add a string indexer option to the enum
+  if (enumValue.length > 0 && enumValue[0].indexOf("interface") != -1) {
+    enumValue.splice(1, 0, `${indenting}[key: string]: any,`);
+  }
+
+  let globalEnum = parseToGlobal(parseToNamespace(enumValue, namespace, true));
+  globalEnum = [`import { ${enumImport} } from ${enumImportFile};`, ""].concat(
+    globalEnum
+  );
+  return globalEnum;
+}
+
+/**
+ * Parse an object into a key = value enum and return each line in a string array
+ * @param {String} enumName - The name to give the enum
+ * @param {Object} object - The Object containing all the key/name pairs
+ * @param {Function} accessor - (Optional) Callback to return the strng value of the enum value
+ */
+function parseToEnumExport(enumName, object, accessor) {
+  return [`export enum ${enumName} {`].concat(
+    Object.keys(object).map((output, index) => {
+      return `${indenting}${object[index]} = "${
+        accessor == null ? object[index] : accessor(object[index])
+      }",`;
+    }),
+    "}"
+  );
+}
+
+/**
  * Adds an indent to the begining of all the lines of a parsed TypeScript
  * @param {string[]} parsedTypeScript The parsed TypeScript that needs to be indented
  * @param {boolean} removeDeclare Controls if any declares should be removed from the indent lines
@@ -256,14 +311,12 @@ function parseStyle(styleJSON) {
  */
 function parseActions(actionsJSON) {
   let actionsEnum = [];
+  let actionsConfig = [];
   if (actionsJSON != null) {
     actionsEnum = Object.keys(actionsJSON).map((action) => {
       return action.replace(/[^a-zA-Z0-9]/g, "_").replace(/_(?=_+| )/g, "");
     });
-  }
 
-  let actionsConfig = [];
-  if (actionsJSON != null) {
     actionsConfig = Object.keys(actionsJSON).map((action, index) => {
       return `${indenting}[ActionType.${actionsEnum[index]}]: MooDAction,`;
     });
@@ -276,73 +329,47 @@ function parseActions(actionsJSON) {
 
   return [
     ["interface Actions {"].concat(actionsConfig, "}"),
-    ["export enum ActionType {"].concat(
-      Object.keys(actionsJSON).map((action, index) => {
-        return `${indenting}${actionsEnum[index]} = "${action}",`;
-      }),
-      "}"
-    ),
+    parseToEnumExport("ActionType", actionsEnum),
   ];
 }
 
 /**
  * Parse the inputs and outputs out of a JSON file into TS
- * @param {JSON} inputJSON The input JSON to convert into TS
- * @param {JSON} outputJSON  The output JSON to convert into TS
+ * @param {JSON} json - The JSON to convert into TS
  */
-function parseIO(inputJSON, outputJSON) {
-  let returnConfigs = [[], [], []];
-
-  //Parse the JSON inputs into TS and make the initial type statically named
-  if (inputJSON != null && inputJSON.length > 0) {
-    //Inputs conversion is more complex so extracted to own function
-    returnConfigs[0] = ["interface Inputs {"].concat(
-      handleIOConversion(inputJSON),
-      "}"
-    );
-  } else {
-    returnConfigs[0] = ["interface Inputs {}"];
-  }
+function parseIO(json, interfaceName) {
+  let ret = [[], []];
 
   //Parse the JSON outputs into TS and make the initial type statically named
-  if (outputJSON != null && outputJSON.length > 0) {
-    let outputEnum = [];
-
-    if (outputEnum != null) {
-      outputEnum = Object.values(outputJSON).map((output) => {
-        return output.name
-          .replace(/[^a-zA-Z0-9]/g, "_")
-          .replace(/_(?=_+| )/g, "");
-      });
-    }
+  if (json != null && json.length > 0) {
+    let valueEnum = Object.values(json).map((output) => {
+      return output.name
+        .replace(/[^a-zA-Z0-9]/g, "_")
+        .replace(/_(?=_+| )/g, "");
+    });
 
     //Outputs conversion is more complex so extracted to own function
-    returnConfigs[1] = ["interface Outputs {"].concat(
+    ret[0] = [`interface ${interfaceName} {`].concat(
       handleIOConversion(
-        Object.values(outputJSON).map((output, index) => {
+        Object.values(json).map((value, index) => {
           return {
-            name: "[OutputType." + outputEnum[index] + "]",
-            displayName: output.displayName,
-            type: output.type,
-            default: output.default,
+            name: `[${interfaceName}Type.${valueEnum[index]}]`,
+            displayName: value.displayName,
+            type: value.type,
+            default: value.default,
           };
         })
       ),
       "}"
     );
 
-    returnConfigs[2] = ["export enum OutputType {"].concat(
-      Object.keys(outputJSON).map((output, index) => {
-        return `${indenting}${outputEnum[index]} = "${outputJSON[index].name}",`;
-      }),
-      "}"
-    );
+    ret[1] = parseToEnumExport(`${interfaceName}Type`, valueEnum);
   } else {
-    returnConfigs[1] = ["interface Outputs {}"];
-    returnConfigs[2] = ["export enum OutputType {}"];
+    ret[0] = [`interface ${interfaceName} {}`];
+    ret[1] = [`export enum ${interfaceName}Type {}`];
   }
 
-  return returnConfigs;
+  return ret;
 }
 
 /**
