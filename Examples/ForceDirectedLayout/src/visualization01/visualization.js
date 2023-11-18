@@ -25,6 +25,7 @@ export function createForceLayout (config) {
   //
   const superInputChanged = config.functions.inputChanged
   config.functions.inputChanged = inputChanged
+  // input: Show node labels
   const showNodeLabelsNone = 1
   const showNodeLabelsAll = 2
   const showNodeLabelsNear = 3
@@ -37,7 +38,19 @@ export function createForceLayout (config) {
     true: showLabelTextClass,
     false: hideLabelTextClass
   }
+  // input: Force between nodes
+  let linkedStrength = -config.inputs.nodeForce || -40
+  // input: Strength of Gravity
+  let linkedRepositionStrength = (config.inputs.gravityStrength || 5) / 100
+  // input: Elastic strength of links
+  let linkStrength = (config.inputs.linkStrength || 50) / 100
+  // input: Length of links
+  let linkDistance = config.inputs.linkLength || 30
+
   let title
+  let simulation
+  let nodes
+  let links
   //
   // Node styling
   //
@@ -55,9 +68,7 @@ export function createForceLayout (config) {
   //
   // Forces
   //
-  const linkedStrength = style['Linked Node Force Strength']
-  const unlinkedStrength = style['Unlinked Node Force Strength']
-  const linkedRepositionStrength = style['Linked Node Cluster Repositioning Strength']
+  const unlinkedStrength = -style['Unlinked Node Force Strength']
   const unlinkedRepositionStrength = style['Unlinked Node Cluster Repositioning Strength']
   const unlinkedNodeClusterXPos = style['Unlinked Node Cluster x']
   //
@@ -67,11 +78,12 @@ export function createForceLayout (config) {
   const markerName = 'arrow'
   const markerOffset = useMarker ? markerSize - 0 : 0
   //
-  // Link Distance configuration
+  // Pan and Zoom settings
   //
-  const linkDistance = style['Link Distance'] || 30
-  const busyNodeLinkThreshold = style['Busy Node Link Threshold'] === undefined ? 6 : style['Busy Node Link Threshold']
-  const busyNodeLinkDistanceMultiplier = style['Busy Node Link Distance Multiplier'] === undefined ? 3 : style['Busy Node Link Distance Multiplier']
+  const disablePanandZoom = style['Disable Pan and Zoom'] || false
+  const zoomMinScale = style['Zoom Minimum'] || 0.5
+  const zoomMaxScale = style['Zoom Maximum'] || 5
+  const panExtentFactor = style['Pan Extent'] || 1.0
 
   const curvedLinks = style['Curved Links'] === undefined ? false : style['Curved Links']
 
@@ -100,33 +112,50 @@ export function createForceLayout (config) {
     // The force simulation mutates links and nodes, so create a copy
     // so that re-evaluating this cell produces the same result.
     //
-    const links = data.links
+    links = data.links
       .filter(link => nodeMap[link.source.id] && nodeMap[link.target.id])
       .map(link => createLink(
         nodeMap[link.source.id],
         nodeMap[link.target.id],
         Math.sqrt(link.value),
         linkColour(link)))
-    const nodes = data.nodes.map(d => nodeMap[d.id])
+    nodes = data.nodes.map(d => nodeMap[d.id])
     // Add indicator for node is linked
     links.forEach(link => {
       link.source.linkCount++
       link.target.linkCount++
     })
     //
+    // Pan and Zoom handling
+    //
+    const zoom = d3.zoom()
+      .on('zoom', handleZoom)
+      .scaleExtent([zoomMinScale, zoomMaxScale])
+      .translateExtent([[-panExtentFactor * width, -panExtentFactor * height], [(1.0 + panExtentFactor) * width, (1.0 + panExtentFactor) * height]])
+
+    function handleZoom (e) {
+      d3.selectAll('svg g')
+        .attr('transform', e.transform)
+    }
+
+    function initZoom () {
+      d3.select('svg')
+        .call(zoom)
+    }
+    //
     // Adjust length of links between busy nodes
     //
-    links.forEach(link => {
-      if (link.source.linkCount > busyNodeLinkThreshold && link.target.linkCount > busyNodeLinkThreshold) {
-        link.distance = busyNodeLinkDistanceMultiplier * link.distance
-      }
-    })
+    // links.forEach(link => {
+    //   if (link.source.linkCount > busyNodeLinkThreshold && link.target.linkCount > busyNodeLinkThreshold) {
+    //     link.distance = busyNodeLinkDistanceMultiplier * link.distance
+    //   }
+    // })
     // console.log('Nodes: ' + JSON.stringify(nodes))
     // console.log('Links: ' + JSON.stringify(links))
     // console.log('Style: ' + JSON.stringify(style))
 
     // Create a simulation with several forces.
-    const simulation = d3.forceSimulation(nodes)
+    simulation = d3.forceSimulation(nodes)
       // .force('center', d3.forceCenter(width / 2, height / 2))
       .force('charge', d3.forceManyBody().strength(d => nodeCharge(d)))
       .force('collision', d3.forceCollide().radius(function (d) { return d.radius }))
@@ -134,6 +163,8 @@ export function createForceLayout (config) {
       .force('y', d3.forceY().y(height / 2).strength(d => nodeRepositionStrength(d)))
       .force('link', d3.forceLink(links).id(d => d.id).distance(d => d.distance))
       .on('tick', ticked)
+    // simulation.force('link').strength(d => linkStrength / Math.min(d.source.linkCount, d.target.linkCount) )
+    simulation.force('link').strength(linkStrength)
 
     const el = d3.select('#' + config.element)
     // Create the SVG container.
@@ -192,6 +223,11 @@ export function createForceLayout (config) {
       .on('drag', dragged)
       .on('end', dragended))
 
+    // Initialise Zoom
+    if (!disablePanandZoom) {
+      initZoom()
+    }
+
     // Determine colour for link
     function linkColour (link) {
       return link.linkColour || link.source.linkColour || link.target.linkColour || defaultLinkColour
@@ -234,29 +270,12 @@ export function createForceLayout (config) {
         target,
         strokeWidth,
         colour,
-        distance: linkDistance + source.radius + target.radius
+        distance: linkLength(source, target)
       }
     }
     // Determine radius of circle
     function circleRadius (size) {
       return size ? Math.min(Math.max(size, minRadius), maxRadius) : minRadius
-    }
-    //
-    // Repositioning strength of node depending on whether the node is linked
-    //
-    // The strength determines how much to increment the node’s x-velocity: (x - node.x) × strength.
-    // For example, a value of 0.1 indicates that the node should move a tenth of the way from its current x-position
-    // to the target x-position with each application.
-    // Higher values moves nodes more quickly to the target position, often at the expense of other forces or constraints.
-    // A value outside the range [0,1] is not recommended.
-    // See https://github.com/d3/d3-force#positioning
-    //
-    // Linked nodes have a zero strength so rely on other forces alone
-    //
-    function nodeRepositionStrength (node) {
-      return node.linkCount
-        ? linkedRepositionStrength || (linkedRepositionStrength === 0 ? 0 : 0.1)
-        : unlinkedRepositionStrength || (unlinkedRepositionStrength === 0 ? 0 : 0.1)
     }
 
     // Force centre X coordinate for node depending on whether the node is linked
@@ -265,15 +284,9 @@ export function createForceLayout (config) {
       return node.linkCount ? style.width / 2 : unlinkedNodeClusterXPos || (unlinkedNodeClusterXPos === 0 ? 0 : 100)
     }
 
-    // The charge for all nodes depending on whether the node is linked
-    function nodeCharge (node) {
-      return node.linkCount
-        ? linkedStrength || (linkedStrength === 0 ? 0 : -40)
-        : unlinkedStrength || (unlinkedStrength === 0 ? 0 : 1)
-    }
-
     // Set the position attributes of links and nodes each time the simulation ticks.
     function ticked () {
+      // console.log('Tick, alpha: ' + simulation.alpha())
       link.attr('d', function (d) {
         const dx = d.target.x - d.source.x
         const dy = d.target.y - d.source.y
@@ -446,17 +459,51 @@ export function createForceLayout (config) {
    */
   function inputChanged (name, value) {
     try {
+      let restart = false
       if (superInputChanged !== inputChanged) {
         superInputChanged(name, value)
       }
       console.log('Input Changed - name: ' + name + ', value: ' + value)
 
       if (name === 'showLabels') {
-        showAllNodeLabels = showLabels(value)
-        showNodeLabelsCode = value
+        const code = value
+        showAllNodeLabels = showLabels(code)
+        showNodeLabelsCode = code
         title
           .classed(labelVisibilityClass[!showAllNodeLabels], false)
           .classed(labelVisibilityClass[showAllNodeLabels], true)
+      }
+
+      if (name === 'nodeForce') {
+        linkedStrength = -value
+        simulation.force('charge').strength(d => nodeCharge(d))
+        restart = true
+      }
+
+      if (name === 'gravityStrength') {
+        linkedRepositionStrength = value / 100
+        simulation.force('x').strength(d => nodeRepositionStrength(d))
+        simulation.force('y').strength(d => nodeRepositionStrength(d))
+        restart = true
+      }
+
+      if (name === 'linkStrength') {
+        linkStrength = value / 100
+        simulation.force('link').strength(linkStrength)
+        restart = true
+      }
+
+      if (name === 'linkLength') {
+        linkDistance = value
+        links.forEach(link => {
+          link.distance = linkLength(link.source, link.target)
+        })
+        simulation.force('link').distance(d => d.distance)
+        restart = true
+      }
+
+      if (restart) {
+        simulation.alpha(0.3).velocityDecay(0.3).restart()
       }
     } catch (e) {
       const errorMessage = e.name + ': ' + e.message
@@ -477,5 +524,33 @@ export function createForceLayout (config) {
    */
   function showLabels (inputValue) {
     return inputValue === showNodeLabelsAll
+  }
+
+  function linkLength (source, target) {
+    const retVal = linkDistance + source.radius + target.radius
+    return retVal
+  }
+  //
+  // Repositioning strength of node depending on whether the node is linked
+  //
+  // The strength determines how much to increment the node’s x-velocity: (x - node.x) × strength.
+  // For example, a value of 0.1 indicates that the node should move a tenth of the way from its current x-position
+  // to the target x-position with each application.
+  // Higher values moves nodes more quickly to the target position, often at the expense of other forces or constraints.
+  // A value outside the range [0,1] is not recommended.
+  // See https://github.com/d3/d3-force#positioning
+  //
+  // Linked nodes have a zero strength so rely on other forces alone
+  //
+  function nodeRepositionStrength (node) {
+    return node.linkCount
+      ? linkedRepositionStrength || (linkedRepositionStrength === 0 ? 0 : 0.1)
+      : unlinkedRepositionStrength || (unlinkedRepositionStrength === 0 ? 0 : 0.1)
+  }
+  // The charge for all nodes depending on whether the node is linked
+  function nodeCharge (node) {
+    return node.linkCount
+      ? Math.sqrt(node.linkCount) * (linkedStrength || (linkedStrength === 0 ? 0 : -40))
+      : unlinkedStrength || (unlinkedStrength === 0 ? 0 : 1)
   }
 }

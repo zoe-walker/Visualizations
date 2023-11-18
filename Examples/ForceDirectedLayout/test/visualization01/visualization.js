@@ -1,9 +1,9 @@
 import { createForceLayout } from '../../src/visualization01/visualization';
 import MooDConfig from './MooDConfig.json';
 // import dataConfig from './data.json';
-// import dataConfig from './data2.json';
+import dataConfig from './data2.json';
 // import dataConfig from './data3.json';
-import dataConfig from './data4.json';
+// import dataConfig from './data4.json';
 import styleConfig from './style.json';
 import inputsConfig from './inputs.json';
 
@@ -65,7 +65,9 @@ for (key in inputsConfig) {
     var inputChanged = function (name, value) {
         console.log('Inputs Changed: name = ' + name + ', value: ' + JSON.stringify(value))
     }
-
+    //
+    // Show Label control
+    //
     var buttonEl = document.getElementById("toggle-show-labels")
     buttonEl.addEventListener('click', () => toggleShowLabel())
     buttonEl.children.item(0).innerText = config.inputs.showLabels.toString()
@@ -80,7 +82,43 @@ for (key in inputsConfig) {
         config.functions.inputChanged('showLabels', config.inputs.showLabels)
         buttonEl.children.item(0).innerText = config.inputs.showLabels.toString()
     }
-
+    //
+    // Node Force control
+    //
+    var nodeForceSliderEl = document.getElementById("node-force-slider")
+    // Update the current slider value (each time you drag the slider handle)
+    nodeForceSliderEl.oninput = function() {
+        config.inputs.nodeForce = parseInt(this.value)
+        config.functions.inputChanged('nodeForce', config.inputs.nodeForce)
+    }
+    //
+    // Gravity control
+    //
+    var gravitySliderEl = document.getElementById("gravity-slider")
+    // Update the current slider value (each time you drag the slider handle)
+    gravitySliderEl.oninput = function() {
+        config.inputs.gravityStrength = parseInt(this.value)
+        config.functions.inputChanged('gravityStrength', config.inputs.gravityStrength)
+    }
+    //
+    // Link Strength control
+    //
+    var linkStrengthSliderEl = document.getElementById("link-strength-slider")
+    // Update the current slider value (each time you drag the slider handle)
+    linkStrengthSliderEl.oninput = function() {
+        config.inputs.linkStrength = parseInt(this.value)
+        config.functions.inputChanged('linkStrength', config.inputs.linkStrength)
+    }
+    //
+    // Link Length control
+    //
+    var linkLengthSliderEl = document.getElementById("link-length-slider")
+    // Update the current slider value (each time you drag the slider handle)
+    linkLengthSliderEl.oninput = function() {
+        config.inputs.linkLength = parseInt(this.value)
+        config.functions.inputChanged('linkLength', config.inputs.linkLength)
+    }
+  
     config.functions = {
         errorOccurred: errorOccurred,
         performAction: performAction,
