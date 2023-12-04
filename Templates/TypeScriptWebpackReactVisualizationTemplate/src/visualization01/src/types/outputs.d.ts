@@ -1,10 +1,15 @@
-import { OutputType } from './output-type';
+export enum OutputsEnum {
+  ExampleOutput = "ExampleOutput",
+}
+
+type OutputsTypes = {
+  [OutputsEnum.ExampleOutput]?: Number
+}
 
 declare global {
-  namespace Vis.Outputs {
-    interface Root {
-      [key: string]: any,
-      [OutputType.ExampleOutput]?: Number
+  namespace Vis {
+    type Outputs = {
+      [key in OutputsEnum]: OutputsTypes[key];
     }
   }
 }

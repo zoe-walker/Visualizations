@@ -1,10 +1,15 @@
-import { InputType } from './input-type';
+export enum InputsEnum {
+  ExampleInput = "ExampleInput",
+}
+
+type InputsTypes = {
+  [InputsEnum.ExampleInput]?: Number
+}
 
 declare global {
-  namespace Vis.Inputs {
-    interface Root {
-      [key: string]: any,
-      [InputType.ExampleInput]?: Number
+  namespace Vis {
+    type Inputs = {
+      [key in InputsEnum]: InputsTypes[key];
     }
   }
 }

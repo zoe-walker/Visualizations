@@ -2,6 +2,7 @@ const glob = require("glob");
 const path = require("path");
 const fs = require("fs");
 const readline = require("readline");
+const indenting = "  ";
 
 /**
  * Compile all GraphQL datashapes into an automatically generated typescript type file
@@ -13,7 +14,9 @@ glob("src/**/*.datashape.gql", function (er, files) {
       input: fs.createReadStream(file),
     });
 
-    let outputFile = [];
+    let outputFileLines = [];
+    let initialDataConversion = [];
+    let initialDataParsed = false;
 
     reader
       .on("line", function (line) {
@@ -24,9 +27,14 @@ glob("src/**/*.datashape.gql", function (er, files) {
           .filter((word) => word != "")
           .join(" ");
 
+        if (!initialDataParsed && (line == "}" || line == "")) {
+          initialDataParsed = true;
+          return initialDataConversion.push(line);
+        }
+
         //Don't need to handle any useless lines so add them directly
         if (line == "}" || line == "") {
-          return outputFile.push(line);
+          return outputFileLines.push(line);
         } else {
           //Do a quick parse on the line to check that it is in a good format
           let lineBraceParsed = line
@@ -44,46 +52,67 @@ glob("src/**/*.datashape.gql", function (er, files) {
             }
 
             if (lineBraceParsed[0] == "}") {
-              if (lineBraceParsed.length == 1) {
-              }
+              if (lineBraceParsed.length == 1) return;
               line = lineBraceParsed.substring(1);
             }
           }
         }
 
+        //If Data has not been converted yet we need to store that separately
+        if (!initialDataParsed && line.substring(0, 4) == "type") {
+          console.log("");
+          if (line.includes("{")) {
+            return initialDataConversion.push("interface Data {");
+          }
+
+          return initialDataConversion.push("interface Data");
+        }
+
         //Conversion for types is a little more complicated so extracted to own function
         if (line.substring(0, 4) == "type")
-          return outputFile.push(handleTypeConversion(line));
+          return outputFileLines.push(handleTypeConversion(line));
 
         //Conversion for unions is a little more complicated so extracted to own function
         if (line.substring(0, 5) == "union")
-          return outputFile.push(handleUnionConversion(line));
+          return outputFileLines.push(handleUnionConversion(line));
 
         //Scalars are just GraphQL custom data types so just convert them to it, they don't come with = type so add it
         if (line.substring(0, 6) == "scalar") {
           let scalarLine = line.split(" ");
-          return outputFile.push(`Type Vis${scalarLine[1]} = any`);
+          return outputFileLines.push(`Type Vis${scalarLine[1]} = any`);
         }
 
         //Conversion for data types is a little more complicated so extracted to own function
-        return outputFile.push(handleDataTypeConversion(line));
+        if (!initialDataParsed)
+          return initialDataConversion.push(
+            handleDataTypeConversion(line, initialDataParsed)
+          );
+
+        return outputFileLines.push(
+          handleDataTypeConversion(line, initialDataParsed)
+        );
       })
       .on("close", function () {
+        let outputFile = [];
         //Format output file to be on one line if it is empty
         if (
-          !outputFile.some((line) => {
-            return (
-              line != ("interface Root {" || "}") && /[a-z0-9]/gi.test(line)
-            );
+          !initialDataConversion.some((line) => {
+            return line != ("type Data {" || "}") && /[a-z0-9]/gi.test(line);
           })
         ) {
-          outputFile = ["interface Root {}"];
+          initialDataConversion = ["type Data = {}"];
         }
 
         //Parse the output file into a custom namespace for the visualization
-        outputFile = ["declare namespace Vis.Data {"].concat(
-          outputFile.map((line) => {
-            return "  " + line;
+        outputFile = ["declare namespace Vis {"].concat(
+          initialDataConversion.map((line) => {
+            return indenting + line;
+          }),
+          "}",
+          "",
+          "declare namespace Vis.Data {",
+          outputFileLines.map((line) => {
+            return indenting + line;
           }),
           "}"
         );
@@ -116,10 +145,6 @@ function handleTypeConversion(line) {
 
   //Convert type to interface
   lineSplit[0] = "interface";
-
-  //If type is data entry then rename it to root
-  if (lineSplit[1].toLowerCase() == "data")
-    lineSplit[1] = "Root";
 
   //Conversion of types that implement interfaces need to be modified to extend interfaces for TypeScript
   let implementsIndex = lineSplit.indexOf("implements");
@@ -180,12 +205,29 @@ function handleDataTypeConversion(line) {
     .split("|")
     .map((data) => {
       //Ensure types conform to lowercase base types, but not Any because that is a custom type
-      let dataType = data;
-      if (/String|Boolean|Number/gi.test(dataType))
-        dataType = dataType.charAt(0).toLowerCase() + dataType.substring(1);
+      let dataType = data.replace(/ /gi, "");
+      let dataTypeLower = dataType.toLowerCase();
 
-      //MooD Date and JS Date share same type name so convert it if found
-      return dataType.replace(/ /gi, "").replace(/Date/gi, "MooDDate");
+      switch (dataTypeLower) {
+        case "string":
+          return dataTypeLower;
+        case "boolean":
+          return "boolean";
+        case "int":
+        case "float":
+        case "number":
+          return "number";
+        case "date":
+          return "MooDDate";
+        case "any":
+        case "id":
+        case "colour":
+        case "shape":
+        case "image":
+          return dataType;
+        default:
+          return "Vis.Data." + dataType;
+      }
     })
     .join("|");
 

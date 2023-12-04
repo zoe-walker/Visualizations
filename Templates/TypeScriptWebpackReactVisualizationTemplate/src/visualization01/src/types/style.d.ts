@@ -1,5 +1,5 @@
-declare namespace Vis.Style {
-  interface Root {
+declare namespace Vis {
+  interface Style {
     DevelopmentMode: boolean;
   }
 }

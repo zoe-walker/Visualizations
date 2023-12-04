@@ -1,5 +1,5 @@
-declare namespace Vis.State {
-  interface Root {
+declare namespace Vis {
+  interface State {
     ExampleState: boolean;
   }
 }

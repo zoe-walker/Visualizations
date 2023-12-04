@@ -1,13 +1,15 @@
+declare namespace Vis {
+  //If this file is failing because of global variables you need to
+  // run generate-types at least once and ensure there are the generic type files
+}
+
 /**
  * The data that is supplied to the visualisation through the config variable
+ *
+ * This file uses Global Namespaces to allow easier type referencing inside the
+ *  the visualization files so types may not look accurate inside this file
  */
-type MooDConfig<
-  ConfigData,
-  ConfigStyle,
-  ConfigActions,
-  ConfigInputs,
-  ConfigOutputs
-> = {
+type MooDConfig = {
   version: string;
   element: string;
 
@@ -18,11 +20,11 @@ type MooDConfig<
 
   animation: boolean;
 
-  actions?: ConfigActions;
-  data?: ConfigData;
-  style?: ConfigStyle;
-  outputs?: ConfigOutputs;
-  inputs?: ConfigInputs;
+  actions?: Vis.Actions;
+  data?: Vis.Data;
+  style?: Vis.Style;
+  outputs?: Vis.Outputs;
+  inputs?: Vis.Inputs;
 
   state?: MooDState;
 
@@ -107,7 +109,7 @@ interface MooDActionBase {
   method: string;
   title: string;
   name?: string;
-  iconImage: string;
+  iconImage?: string;
 }
 
 /**
@@ -135,10 +137,20 @@ interface MoodOutputChangedAction extends MooDActionBase {}
 type MooDFunctions = {
   errorOccurred: (error: Error) => void;
   dataChanged: (data: object) => void;
-  inputChanged: (name: string, value: any) => void;
-  updateOutput: (name: string, value: any) => void;
+  inputChanged: <TInputKey extends keyof Vis.Inputs>(
+    name: TInputKey,
+    value: Vis.Inputs[TInputKey] | undefined
+  ) => void;
+  updateOutput: <TOutputKey extends keyof Vis.Outputs>(
+    name: TOutputKey,
+    value: Vis.Outputs[TOutputKey] | undefined
+  ) => void;
   updateSize: (width: number, height: number) => void;
   updateState: (state: string) => void;
-  performAction: (name: string, id: string, event: object) => void;
-  hasAction: (name: string, id: string | string[], callback: Function) => void;
+  performAction: (name: keyof Vis.Actions, id: string, event: object) => void;
+  hasAction: (
+    name: keyof Vis.Actions,
+    id: string | string[],
+    callback: Function
+  ) => void;
 };
