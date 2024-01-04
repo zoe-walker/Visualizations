@@ -7,6 +7,7 @@ const {exec} = require("child_process");
 glob("src/**/tsconfig.json", function (er, files) {
   files.forEach(function (file) {
     console.log(`npx tsc --project ${file} --noEmit --skipLibCheck`)
-    exec(`npx tsc --project ${file} --noEmit --skipLibCheck`);
+    const tscheck = exec(`npx tsc --project ${file} --noEmit --skipLibCheck`);
+    tscheck.stdout.pipe(process.stdout);
   });
 });

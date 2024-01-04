@@ -1,24 +1,18 @@
 import React, { useMemo } from "react";
-import { InputType } from "./types/input-type";
-import { OutputType } from "./types/output-type";
+import { InputsEnum } from "./types/inputs";
+import { OutputsEnum } from "./types/outputs";
 
 type Props = {
-  config: MooDConfig<
-    Vis.Data.Root,
-    Vis.Style.Root,
-    Vis.Actions.Root,
-    Vis.Inputs.Root,
-    Vis.Outputs.Root
-  >;
+  config: MooDConfig;
 };
 
 export const App: React.FC<Props> = ({ config }) => {
   useMemo(() => {
     const inputChangedSuper = config.functions.inputChanged;
-    config.functions.inputChanged = (name: string, value: any) => {
+    config.functions.inputChanged = (name: InputsEnum, value: any) => {
       inputChangedSuper(name, value);
-      if (name == InputType.ExampleInput) {
-        config.functions.updateOutput(OutputType.ExampleOutput, value);
+      if (name == InputsEnum.ExampleInput) {
+        config.functions.updateOutput(OutputsEnum.ExampleOutput, value);
       }
     };
   }, []);
