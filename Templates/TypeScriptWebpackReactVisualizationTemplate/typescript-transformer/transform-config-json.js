@@ -312,7 +312,14 @@ function parseActions(actionsJSON) {
 
   //Parse a default value if actions does exist
   if (actionsJSON == null || actionsConfig.length == 0) {
-    return ["interface ActionsTypes {}", "export enum ActionsEnum {}"];
+    return [
+      [
+        "interface ActionsTypes {",
+        `${indenting}[key: string | number | symbol]: never;`,
+        "}",
+      ],
+      ["export enum ActionsEnum {}"],
+    ];
   }
 
   return [
@@ -353,8 +360,12 @@ function parseIO(json, interfaceName) {
 
     ret[1] = parseToEnumExport(`${interfaceName}Enum`, valueEnum);
   } else {
-    ret[0] = [`type ${interfaceName}Types = {}`];
-    ret[1] = [`export enum ${interfaceName}Type {}`];
+    ret[0] = [
+      `interface ${interfaceName}Types {`,
+      `${indenting}[key: string | number | symbol]: never;`,
+      "}",
+    ];
+    ret[1] = [`export enum ${interfaceName}Enum {}`];
   }
 
   return ret;
