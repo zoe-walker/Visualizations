@@ -34,6 +34,18 @@ export function visualization(config: MooDConfig) {
   const height = parseFloat(config.height);
   const animation = config.animation;
 
+  //This is only useful during web testing, MooD should populate these
+  config.functions = config.functions ?? {
+    errorOccurred: undefined,
+    inputChanged: undefined,
+    dataChanged: undefined,
+    updateOutput: undefined,
+    updateSize: undefined,
+    updateState: undefined,
+    performAction: undefined,
+    hasAction: undefined,
+  };
+
   //This allows us to update what is inside the inputs whenever they changes
   const inputChangedSuper = config.functions.inputChanged;
   config.functions.inputChanged = <TInputKey extends InputsEnum>(

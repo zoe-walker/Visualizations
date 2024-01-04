@@ -55,10 +55,10 @@ Next run this command: ```npm run generate-types```
 
 Which will produce these 6 files under each visualization
 
-- src\types\actions.d.ts
+- src\types\actions.ts
 - src\types\data.d.ts
-- src\types\inputs.d.ts
-- src\types\outputs.d.ts
+- src\types\inputs.ts
+- src\types\outputs.ts
 - src\types\state.d.ts
 - src\types\style.d.ts
 

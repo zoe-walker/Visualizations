@@ -122,17 +122,17 @@ function writeTypesToFiles(
   );
 
   fs.writeFileSync(
-    path.join(visDir, "src/types", "actions.d.ts"),
+    path.join(visDir, "src/types", "actions.ts"),
     actionsConfig.join("\n")
   );
 
   fs.writeFileSync(
-    path.join(visDir, "src/types", "inputs.d.ts"),
+    path.join(visDir, "src/types", "inputs.ts"),
     inputsConfig.join("\n")
   );
 
   fs.writeFileSync(
-    path.join(visDir, "src/types", "outputs.d.ts"),
+    path.join(visDir, "src/types", "outputs.ts"),
     outputsConfig.join("\n")
   );
 
@@ -323,7 +323,7 @@ function parseActions(actionsJSON) {
   }
 
   return [
-    ["interface ActionsTypes {"].concat(actionsConfig, "}"),
+    ["export interface ActionsTypes {"].concat(actionsConfig, "}"),
     parseToEnumExport("ActionsEnum", actionsEnum),
   ];
 }
@@ -344,7 +344,7 @@ function parseIO(json, interfaceName) {
     });
 
     //Outputs conversion is more complex so extracted to own function
-    ret[0] = [`type ${interfaceName}Types = {`].concat(
+    ret[0] = [`export interface ${interfaceName}Types {`].concat(
       handleIOConversion(
         Object.values(json).map((value, index) => {
           return {
@@ -361,7 +361,7 @@ function parseIO(json, interfaceName) {
     ret[1] = parseToEnumExport(`${interfaceName}Enum`, valueEnum);
   } else {
     ret[0] = [
-      `interface ${interfaceName}Types {`,
+      `export interface ${interfaceName}Types {`,
       `${indenting}[key: string | number | symbol]: never;`,
       "}",
     ];

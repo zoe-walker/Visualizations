@@ -2,7 +2,7 @@ export enum OutputsEnum {
   ExampleOutput = "ExampleOutput",
 }
 
-type OutputsTypes = {
+export interface OutputsTypes {
   [OutputsEnum.ExampleOutput]?: Number
 }
 

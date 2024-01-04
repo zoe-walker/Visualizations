@@ -2,7 +2,7 @@ export enum ActionsEnum {
   Example_Click = "Example_Click",
 }
 
-interface ActionsTypes {
+export interface ActionsTypes {
   [ActionsEnum.Example_Click]: MooDAction,
 }
 
