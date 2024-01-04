@@ -1,6 +1,8 @@
 declare namespace Vis {
   //If this file is failing because of global variables you need to
   // run generate-types at least once and ensure there are the generic type files
+  //The global variable may still say they are erorring, if this is the case
+  // open the vistualization.tsx of your project and it should resolve the issues
 }
 
 /**
