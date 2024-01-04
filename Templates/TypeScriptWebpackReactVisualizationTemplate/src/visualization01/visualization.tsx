@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import Logger from "@helpers/logger";
 import "./visualization.css";
 import { ActionsEnum } from "src/types/actions";
-import { InputsEnum } from "src/types/inputs";
+import { InputsEnum, InputsTypes } from "src/types/inputs";
 import { OutputsEnum } from "src/types/outputs";
 import { App } from "src/app";
 
@@ -36,7 +36,10 @@ export function visualization(config: MooDConfig) {
 
   //This allows us to update what is inside the inputs whenever they changes
   const inputChangedSuper = config.functions.inputChanged;
-  config.functions.inputChanged = (name: InputsEnum, value: any | never) => {
+  config.functions.inputChanged = <TInputKey extends InputsEnum>(
+    name: TInputKey,
+    value: InputsTypes[TInputKey]
+  ) => {
     inputChangedSuper(name, value);
     config.inputs[name] = value;
   };
