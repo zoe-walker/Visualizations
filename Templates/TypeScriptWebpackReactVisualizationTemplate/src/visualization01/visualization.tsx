@@ -36,7 +36,7 @@ export function visualization(config: MooDConfig) {
 
   //This allows us to update what is inside the inputs whenever they changes
   const inputChangedSuper = config.functions.inputChanged;
-  config.functions.inputChanged = (name: InputsEnum, value: any) => {
+  config.functions.inputChanged = (name: InputsEnum, value: any | never) => {
     inputChangedSuper(name, value);
     config.inputs[name] = value;
   };

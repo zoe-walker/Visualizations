@@ -9,7 +9,7 @@ type Props = {
 export const App: React.FC<Props> = ({ config }) => {
   useMemo(() => {
     const inputChangedSuper = config.functions.inputChanged;
-    config.functions.inputChanged = (name: InputsEnum, value: any) => {
+    config.functions.inputChanged = (name: InputsEnum, value: any | never) => {
       inputChangedSuper(name, value);
       if (name == InputsEnum.ExampleInput) {
         config.functions.updateOutput(OutputsEnum.ExampleOutput, value);
