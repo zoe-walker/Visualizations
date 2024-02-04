@@ -1,2 +1,5 @@
-{"inputs" : {}
+{
+  "inputs": {
+    "Example Input": "This is an Example Input Value"
+  }
 }

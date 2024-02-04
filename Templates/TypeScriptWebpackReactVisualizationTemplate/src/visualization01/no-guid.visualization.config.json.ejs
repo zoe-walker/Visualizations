@@ -5,27 +5,34 @@
     "version": "<%%= package.version %%>",
     "supportedVersions": "0",
     "moodVersion": "16.0.85",
-    "webpackEntry": "visualization.tsx",
+    "webpackEntry": "visualization.ts",
     "entry": {
         "file": "visualization.js",
         "function": "vis.visualization"
     },
     "supportedBrowsers": "Chrome, Edge, Firefox",
+    "dynamicData": true,
     "inputs": [
         {
-            "name": "ExampleInput",
-            "displayName": "ExampleInput",
+            "name": "Example Input",
+            "displayName": "Example Input",
             "type": "Number",
             "default": 0
         }
     ],
     "outputs": [
         {
-            "name": "ExampleOutput",
-            "displayName": "ExampleOutput",
-            "type": "Number",
-            "default": 0
-        }
+            "name": "Example Output",
+            "displayName": "Example Output",
+            "type": "String",
+            "default": ""
+        },
+        {
+          "name": "Example Output 2",
+          "displayName": "Example Output 2",
+          "type": "Number",
+          "default": 0
+      }
     ],
     "style": {
         "JSON": {

@@ -15,6 +15,8 @@ Remember to run: ```npm install``` before doing anything else, this will install
     - package.json (containing a list of commands you can use with ```npm run```) 
 - helpers
     - Files that are already set up to be passed to each visualization
+      - Context stores React context files that can be useful anywhere
+      - Hooks stores Reacts hooks files that allow reading/writing data to/from MooD
 - typescript-transformer
     - Files that are used in the process of transforming the configuration files into TypeScript
 - src
@@ -81,6 +83,6 @@ You can run: ```npm run start```
 
 This will open your browser showing test-page.html. You can now start modifying the visualization code.
 Interesting files:
-- visualization.tsx: This is where your main code lives.
+- app.tsx: This is where your main code lives.
 - test-page.js: Hooks the test page in to the main visualization code.
 - data.json: This file passes test data in to your test visualization page.

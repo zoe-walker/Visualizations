@@ -1,0 +1,72 @@
+import { ConfigContext } from "@helpers/context/configContext";
+import { useContext, useEffect, useState } from "react";
+
+export const updateDataEventKey = "mood-update-data";
+export type updateDataEvent = CustomEvent<null>;
+
+/**
+ * Because we are creating a new custom event for useData we need to update TS's
+ *  accepted event types to allow us to execute/listen-to the new event
+ */
+declare global {
+  interface WindowEventMap {
+    [updateDataEventKey]: updateDataEvent;
+  }
+}
+
+/**
+ * Hook into the custom visualization's config and listen to any data updates
+ * @param accessor - The top level key to get from Vis.Data
+ */
+export function useData<TDataType>(
+  accessor: (data: Vis.Data) => TDataType
+): [value: TDataType];
+
+/**
+ * Hook into the custom visualization's config and listen to any data updates
+ * @param accessor - A method to return the data from Vis.Data
+ */
+export function useData<TDataType extends keyof Vis.Data>(
+  accessor: TDataType
+): [value: Vis.Data[TDataType]];
+
+/**
+ * Hook into the custom visualization's config and listen to any data updates
+ * @param accessor - A top level key or method to return the data from Vis.Data
+ */
+export function useData<
+  TAccessorType extends
+    | ((data: Vis.Data) => TDataType | undefined)
+    | keyof Vis.Data,
+  TDataType
+>(
+  accessor: TAccessorType
+): [
+  value: TAccessorType extends keyof Vis.Data
+    ? Vis.Data[TAccessorType]
+    : TDataType
+] {
+  const config = useContext(ConfigContext);
+  const [value, setValue] = useState<any>(
+    typeof accessor == "function"
+      ? accessor(config.data)
+      : config.data[accessor as keyof Vis.Data]
+  );
+
+  useEffect(() => {
+    const updateSetValue = () => {
+      const newValue =
+        typeof accessor == "function"
+          ? accessor(config.data)
+          : config.data[accessor as keyof Vis.Data];
+
+      if (newValue != value) setValue(newValue);
+    };
+    document.addEventListener(updateDataEventKey, updateSetValue);
+    return () => {
+      document.removeEventListener(updateDataEventKey, updateSetValue);
+    };
+  }, [config, value]);
+
+  return [value];
+}

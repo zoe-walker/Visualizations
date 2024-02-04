@@ -1,9 +1,11 @@
 export enum OutputsEnum {
-  ExampleOutput = "ExampleOutput",
+  Example_Output = "Example Output",
+  Example_Output_2 = "Example Output 2",
 }
 
 export interface OutputsTypes {
-  [OutputsEnum.ExampleOutput]?: Number
+  [OutputsEnum.Example_Output]?: String,
+  [OutputsEnum.Example_Output_2]?: Number
 }
 
 declare global {

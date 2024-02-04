@@ -219,7 +219,7 @@ function parseToNamespace(parsedInput, namespace, namespaceIsType) {
  * Parse an object into a key = value enum and return each line in a string array
  * @param {String} enumName - The name to give the enum
  * @param {Object} object - The Object containing all the key/name pairs
- * @param {Function} accessor - (Optional) Callback to return the strng value of the enum value
+ * @param {Function} accessor - (Optional) Callback to return the string value of the enum value
  */
 function parseToEnumExport(enumName, object, accessor) {
   return [`export enum ${enumName} {`].concat(
@@ -300,9 +300,16 @@ function parseStyle(styleJSON) {
 function parseActions(actionsJSON) {
   let actionsEnum = [];
   let actionsConfig = [];
+  let parsedActionsEnumToOriginal = new Map();
   if (actionsJSON != null) {
     actionsEnum = Object.keys(actionsJSON).map((action) => {
-      return action.replace(/[^a-zA-Z0-9]/g, "_").replace(/_(?=_+| )/g, "");
+      const actionParsed = action
+        .replace(/[^a-zA-Z0-9]/g, "_")
+        .replace(/_(?=_+| )/g, "");
+
+      parsedActionsEnumToOriginal.set(actionParsed, action);
+
+      return actionParsed;
     });
 
     actionsConfig = Object.keys(actionsJSON).map((action, index) => {
@@ -324,7 +331,9 @@ function parseActions(actionsJSON) {
 
   return [
     ["export interface ActionsTypes {"].concat(actionsConfig, "}"),
-    parseToEnumExport("ActionsEnum", actionsEnum),
+    parseToEnumExport("ActionsEnum", actionsEnum, (actionParsed) =>
+      parsedActionsEnumToOriginal.get(actionParsed)
+    ),
   ];
 }
 
@@ -334,13 +343,18 @@ function parseActions(actionsJSON) {
  */
 function parseIO(json, interfaceName) {
   let ret = [[], []];
+  let parsedIOToOriginal = new Map();
 
   //Parse the JSON outputs into TS and make the initial type statically named
   if (json != null && json.length > 0) {
     let valueEnum = Object.values(json).map((output) => {
-      return output.name
+      const ioValue = output.name
         .replace(/[^a-zA-Z0-9]/g, "_")
         .replace(/_(?=_+| )/g, "");
+
+      parsedIOToOriginal.set(ioValue, output.name);
+
+      return ioValue;
     });
 
     //Outputs conversion is more complex so extracted to own function
@@ -358,7 +372,9 @@ function parseIO(json, interfaceName) {
       "}"
     );
 
-    ret[1] = parseToEnumExport(`${interfaceName}Enum`, valueEnum);
+    ret[1] = parseToEnumExport(`${interfaceName}Enum`, valueEnum, (ioParsed) =>
+      parsedIOToOriginal.get(ioParsed)
+    );
   } else {
     ret[0] = [
       `export interface ${interfaceName}Types {`,

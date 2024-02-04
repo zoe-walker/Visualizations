@@ -2,7 +2,7 @@ declare namespace Vis {
   //If this file is failing because of global variables you need to
   // run generate-types at least once and ensure there are the generic type files
   //The global variable may still say they are erorring, if this is the case
-  // open the vistualization.tsx of your project and it should resolve the issues
+  // open the vistualization.ts of your project and it should resolve the issues
 }
 
 /**
@@ -51,32 +51,6 @@ type MooDConfig = {
 };
 
 /**
- * Base type to be expanded on for visualisation config
- *
- * The data, conforming to the data shape defined by the visualization, for the visualization to render
- */
-// type MooDData = {};
-
-/**
- * Base type to be expanded on for visualisation config
- *
- * This type should conform to the structure of the style.JSON property defined in the visualization.config.json file, or be null if no style is defined
- */
-// type MooDStyle = {};
-
-/**
- * Base type to be expanded on for visualisation config
- *
- * The MooD config inputs/output variable
- */
-// type MooDIO = {
-//     name: string,
-//     displayName: string,
-//     type: Any,
-//     default: Any
-// };
-
-/**
  * The MooD config state variable
  *
  * @member value - a JSON formatted string
@@ -110,7 +84,7 @@ type MooDAction = {
 interface MooDActionBase {
   method: string;
   title: string;
-  name?: string;
+  name: string;
   iconImage?: string;
 }
 
@@ -138,18 +112,25 @@ interface MoodOutputChangedAction extends MooDActionBase {}
  */
 type MooDFunctions = {
   errorOccurred: (error: Error) => void;
-  dataChanged: (data: object) => void;
+
+  dataChanged: (data: Vis.Data) => void;
+
   inputChanged: <TInputKey extends keyof Vis.Inputs>(
     name: TInputKey,
     value: Vis.Inputs[TInputKey] | undefined
   ) => void;
+
   updateOutput: <TOutputKey extends keyof Vis.Outputs>(
     name: TOutputKey,
     value: Vis.Outputs[TOutputKey] | undefined
   ) => void;
+
   updateSize: (width: number, height: number) => void;
+
   updateState: (state: string) => void;
+
   performAction: (name: keyof Vis.Actions, id: string, event: object) => void;
+
   hasAction: (
     name: keyof Vis.Actions,
     id: string | string[],

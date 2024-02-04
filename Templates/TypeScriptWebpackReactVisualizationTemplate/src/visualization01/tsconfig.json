@@ -22,10 +22,10 @@
     }
   },
   "include": [
-    "../../helpers/*",
+    "../../helpers/**/*",
     "../../globals/*",
     "../../typescript-transformer/types/*",
     "./**/*"
-  ],
+, "../../helpers/context/configContext.ts", "../../helpers/hooks/useInput.tsx"  ],
   "exclude": ["./*.json", "**/*.json"]
 }

@@ -1,5 +1,5 @@
 export enum ActionsEnum {
-  Example_Click = "Example_Click",
+  Example_Click = "Example Click",
 }
 
 export interface ActionsTypes {

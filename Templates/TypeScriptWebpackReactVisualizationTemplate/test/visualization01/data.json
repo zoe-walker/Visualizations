@@ -1,3 +1,13 @@
 {
-    "data": {}
+  "data": {
+    "ExampleVariable1": "Example Variable 1 Test String",
+    "ExampleVariable2": null,
+    "ExampleVariable3": [
+      {
+        "key": "55-91664EB36575478582F69D9B76B8578E",
+        "name": "Example Variable 3 Test Element",
+        "Value": "Example Variable Test Value"
+      }
+    ]
+  }
 }

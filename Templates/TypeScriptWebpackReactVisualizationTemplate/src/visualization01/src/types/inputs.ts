@@ -1,9 +1,9 @@
 export enum InputsEnum {
-  ExampleInput = "ExampleInput",
+  Example_Input = "Example Input",
 }
 
 export interface InputsTypes {
-  [InputsEnum.ExampleInput]?: Number
+  [InputsEnum.Example_Input]?: Number
 }
 
 declare global {

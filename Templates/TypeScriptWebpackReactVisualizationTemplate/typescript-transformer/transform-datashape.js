@@ -182,6 +182,12 @@ function handleDataTypeConversion(line) {
   let lineSplit = line.split(":");
   if (lineSplit.length != 2) return line;
 
+  if (
+    lineSplit[0].replace(/[^a-zA-Z0-9]/g, "_").replace(/_(?=_+| )/g, "") !=
+    lineSplit[0]
+  )
+    throw `Unable to parse datashape data ${lineSplit[0]} invalid name, contains bad characters`;
+
   //Ensure : comes after the variable name and with no spaces inbetween
   let variableSplit = lineSplit[0]
     .split(/[ \t]/gi)
