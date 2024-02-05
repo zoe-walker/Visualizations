@@ -1,6 +1,8 @@
 import { updateDataEventKey } from "./hooks/useData";
 import { updateInputEventKey } from "./hooks/useInput";
 import { updateOutputEventKey } from "./hooks/useOutput";
+import { updateSizeEventKey } from "./hooks/useSize";
+import { updateVisualizationStateEventKey } from "./hooks/useVisualizationState";
 import Logger from "./logger";
 
 /**
@@ -11,13 +13,69 @@ import Logger from "./logger";
 export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
   //This allows us to listen to any errors that MooD tells us about
   const errorOccurredSuper = config.functions.errorOccurred;
-  config.functions.errorOccurred = (error: Error) => {
+  config.functions.errorOccurred = (error: String) => {
     errorOccurredSuper?.(error);
     if (Logger.developmentMode) {
       Logger.Error(error);
     } else {
       console.error(error);
     }
+  };
+
+  /**
+   * The visualization state is stored in a string format
+   * This visualization expects that string to be in a JSON format
+   */
+  if (config?.state != null) {
+    try {
+      config.state.visualizationParsed =
+        config?.state?.value != ""
+          ? JSON.parse(config?.state?.value)
+          : undefined;
+    } catch (e) {
+      const errorMessage =
+        e +
+        "Custom Visualisation State is not set up correctly," +
+        "please ensure that the state is a valid JSON string";
+      config.functions.errorOccurred(errorMessage);
+      throw errorMessage;
+    }
+  }
+
+  //This allows us to update the state of the Custom Visualization
+  const updateStateSuper = config.functions.updateState;
+  config.functions.updateState = (state: string) => {
+    if (!config.state.editable) {
+      config.functions.errorOccurred(
+        "Custom Visualization tried to edit un-editable state, " +
+          "please allow the visualization to update state"
+      );
+      return;
+    }
+
+    Logger.Log(`Updated Custom Visualization State with: ${state}`);
+
+    updateStateSuper?.(state);
+
+    config.state.value = state;
+    config.state.visualizationParsed = JSON.parse(state);
+    //Send an event to any useVisualizationState hook listeners
+    document.dispatchEvent(new CustomEvent(updateVisualizationStateEventKey));
+  };
+
+  //This allows us to update the size of the Custom Visualization
+  const updateSizeSuper = config.functions.updateSize;
+  config.functions.updateSize = (width: number, height: number) => {
+    Logger.Log(
+      `Updated Custom Visualization Size with Width: ${width}, Height: ${height}`
+    );
+
+    updateSizeSuper?.(width, height);
+
+    config.width = width + "px";
+    config.height = height + "px";
+    //Send an event to any useSize hook listeners
+    document.dispatchEvent(new CustomEvent(updateSizeEventKey));
   };
 
   //This allows us to update what is inside the inputs whenever they change

@@ -4,9 +4,35 @@
  * @returns - The config
  */
 export const setupDevelopmentConfig = (config: MooDConfig): MooDConfig => {
+  // This is only useful during web testing, MooD should populate these
   if (config.functions != null) return config;
 
-  //This is only useful during web testing, MooD should populate these
+  // Setup the default config to have generic values
+  config.version = config.version ?? "0.0.0";
+  config.animation = config.animation ?? false;
+  config.element = config.element ?? "";
+  config.elementIconURL = config.elementIconURL ?? "";
+  config.elementURL = config.elementURL ?? "";
+  config.height = config.height ?? "800px";
+  config.width = config.width ?? "800px";
+  config.iconURL = config.iconURL ?? "";
+  config.id = config.id ?? "";
+  config.masterId = config.masterId ?? "";
+  config.overflowX = config.overflowX ?? true;
+  config.overflowY = config.overflowY ?? true;
+
+  config.functionNames = config.functionNames ?? [
+    "errorOccurred",
+    "navigate",
+    "dataChanged",
+    "inputChanged",
+    "updateOutput",
+    "updateSize",
+    "updateState",
+    "hasAction",
+    "performAction",
+  ];
+
   config.functions = config.functions ?? {
     errorOccurred: () => null,
     inputChanged: () => null,
@@ -15,11 +41,34 @@ export const setupDevelopmentConfig = (config: MooDConfig): MooDConfig => {
     updateSize: () => null,
     updateState: () => null,
     performAction: () => null,
-    hasAction: () => null,
+    hasAction: (
+      name: keyof Vis.Actions,
+      id: string | string[],
+      callback: (result: boolean, id: string) => void
+    ) =>
+      Array.isArray(id)
+        ? id.map((id) => callback(true, id))
+        : callback(true, id),
   };
 
-  config.inputs = config.inputs ?? ({} as any);
-  config.outputs = config.outputs ?? ({} as any);
+  config.style = config.style ?? ({} as Vis.Style);
+  config.inputs = config.inputs ?? ({} as Vis.Inputs);
+  config.outputs = config.outputs ?? ({} as Vis.Outputs);
+
+  // Sometimes it's easier to pass state as an object rather than stringifying it in development
+  //  so we need to parse it to a string to make sure it continues to work like normal
+  if (config.state != null) {
+    if (typeof config.state.value != "string")
+      config.state.value = JSON.stringify(config.state.value);
+  } else {
+    config.state = config.state ?? {
+      available: [],
+      id: "",
+      editable: false,
+      scope: "",
+      value: "",
+    };
+  }
 
   return config;
 };

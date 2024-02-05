@@ -43,7 +43,7 @@ type MooDConfig = {
     "inputChanged",
     "updateOutput",
     "updateSize",
-    "pdateState",
+    "updateState",
     "hasAction",
     "performAction"
   ];
@@ -54,6 +54,8 @@ type MooDConfig = {
  * The MooD config state variable
  *
  * @member value - a JSON formatted string
+ * @member visualizationParsed - A parsed version of value that
+ *  will only exist if the custom visualization has set it up
  */
 type MooDState = {
   available: string[];
@@ -63,6 +65,12 @@ type MooDState = {
   scope: string;
 
   value: string;
+
+  /**
+   * This field will only exist if the custom visualization has parsed the
+   *  state value atleast once using the hook useVisualizationState
+   */
+  visualizationParsed?: Vis.State;
 };
 
 /**
@@ -111,7 +119,7 @@ interface MoodOutputChangedAction extends MooDActionBase {}
  * The Visualization is expected to override (assign) new functions to those that it wants to react to, all functions have an implementation which should not raise exceptions.
  */
 type MooDFunctions = {
-  errorOccurred: (error: Error) => void;
+  errorOccurred: (error: String) => void;
 
   dataChanged: (data: Vis.Data) => void;
 
@@ -134,6 +142,6 @@ type MooDFunctions = {
   hasAction: (
     name: keyof Vis.Actions,
     id: string | string[],
-    callback: Function
+    callback: (result: boolean, id: string) => void
   ) => void;
 };
