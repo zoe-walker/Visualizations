@@ -5,6 +5,7 @@ import { App, AppProps } from "src/app";
 import { ConfigContext } from "@helpers/context/configContext";
 import {
   getVisualizationConfig,
+  getVisualizationState,
   setVisualizationConfig,
 } from "@helpers/config";
 import { ActionsEnum } from "src/types/actions";
@@ -26,7 +27,7 @@ export function visualization(config: MooDConfig) {
   const width = parseFloat(config.width);
   const height = parseFloat(config.height);
   const animation = config.animation;
-  const state = config?.state?.visualizationParsed;
+  const state = getVisualizationState(true);
 
   Logger.Log("This is an example of a development log");
 

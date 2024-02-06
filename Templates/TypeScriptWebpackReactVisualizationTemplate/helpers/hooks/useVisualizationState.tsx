@@ -1,3 +1,4 @@
+import { getVisualizationState } from "@helpers/config";
 import { ConfigContext } from "@helpers/context/configContext";
 import { useContext, useEffect, useState } from "react";
 
@@ -18,19 +19,19 @@ declare global {
  * Hook that allows getting/updating the state of a Custom Visualization
  * @returns - The JSON Parsed state and a method that can update the state
  */
-export function useVisualizationState(): [
-  state: Vis.State | undefined,
-  setState: (state: Vis.State) => void,
+export function useVisualizationState<
+  TStateOverride extends Vis.State = Vis.State
+>(): [
+  state: TStateOverride | undefined,
+  setState: (updateStateCallback: (state: TStateOverride) => void) => void,
   rawState: string | undefined
 ] {
   const config = useContext(ConfigContext);
-  const [state, setState] = useState<Vis.State>(
-    config?.state?.visualizationParsed
-  );
+  const [state, setState] = useState<Vis.State>(getVisualizationState());
 
   useEffect(() => {
     const updateSetState = (event: updateVisualizationStateEvent) => {
-      setState(config.state.visualizationParsed);
+      setState(getVisualizationState());
     };
     document.addEventListener(updateVisualizationStateEventKey, updateSetState);
     return () => {
@@ -42,9 +43,13 @@ export function useVisualizationState(): [
   }, [config]);
 
   return [
-    state,
-    (state: Vis.State) => {
-      config.functions.updateState(JSON.stringify(state, null, 2));
+    state as TStateOverride,
+    (updateStateCallback: (state: TStateOverride) => void) => {
+      const newState = getVisualizationState(true) as TStateOverride;
+
+      updateStateCallback(newState);
+
+      config.functions.updateState(JSON.stringify(newState, null, 2));
     },
     config?.state?.value,
   ];

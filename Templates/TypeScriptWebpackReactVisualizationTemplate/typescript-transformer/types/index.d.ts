@@ -54,8 +54,6 @@ type MooDConfig = {
  * The MooD config state variable
  *
  * @member value - a JSON formatted string
- * @member visualizationParsed - A parsed version of value that
- *  will only exist if the custom visualization has set it up
  */
 type MooDState = {
   available: string[];
@@ -65,12 +63,6 @@ type MooDState = {
   scope: string;
 
   value: string;
-
-  /**
-   * This field will only exist if the custom visualization has parsed the
-   *  state value atleast once using the hook useVisualizationState
-   */
-  visualizationParsed?: Vis.State;
 };
 
 /**

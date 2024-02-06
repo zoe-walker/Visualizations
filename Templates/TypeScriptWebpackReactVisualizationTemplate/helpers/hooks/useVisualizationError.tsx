@@ -1,3 +1,4 @@
+import { getVisualizationConfig } from "@helpers/config";
 import { ConfigContext } from "@helpers/context/configContext";
 import { useContext, useEffect, useState } from "react";
 
@@ -23,13 +24,12 @@ export function useVisualizationError(message: string): void;
 export function useVisualizationError<TMessage extends string | never>(
   message?: TMessage
 ): TMessage extends never ? (message: string) => void : void {
-  const config = useContext(ConfigContext);
-
   if (message != null) {
-    config.functions.errorOccurred(message);
+    getVisualizationConfig().functions.errorOccurred(message);
     return;
   }
 
+  const config = useContext(ConfigContext);
   const [errorFunction, setErrorFunction] = useState(
     () => (message: string) => config.functions.errorOccurred(message)
   );

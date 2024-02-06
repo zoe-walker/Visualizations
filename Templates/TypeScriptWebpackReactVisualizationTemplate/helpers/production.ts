@@ -1,3 +1,4 @@
+import { setVisualizationState } from "./config";
 import { updateDataEventKey } from "./hooks/useData";
 import { updateInputEventKey } from "./hooks/useInput";
 import { updateOutputEventKey } from "./hooks/useOutput";
@@ -28,10 +29,11 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
    */
   if (config?.state != null) {
     try {
-      config.state.visualizationParsed =
+      setVisualizationState(
         config?.state?.value != ""
           ? JSON.parse(config?.state?.value)
-          : undefined;
+          : undefined
+      );
     } catch (e) {
       const errorMessage =
         e +
@@ -58,7 +60,7 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
     updateStateSuper?.(state);
 
     config.state.value = state;
-    config.state.visualizationParsed = JSON.parse(state);
+    setVisualizationState(JSON.parse(state));
     //Send an event to any useVisualizationState hook listeners
     document.dispatchEvent(new CustomEvent(updateVisualizationStateEventKey));
   };

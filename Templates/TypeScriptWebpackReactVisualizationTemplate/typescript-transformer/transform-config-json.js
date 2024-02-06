@@ -279,17 +279,34 @@ function parseStyle(styleJSON) {
     if (styleConfig.length > 0) {
       //Format the style onto one line if it is empty
       if (styleConfig[0] == "interface RootObject {\n}") {
-        return ["interface Style {}"];
+        return [
+          "interface Style {",
+          indenting + "[key: string | number | symbol]: any | undefined;",
+          "}",
+        ];
       } else {
-        styleConfig[0] = styleConfig[0].replace("RootObject", "Style");
+        styleConfig[0] = styleConfig[0].replace(
+          "RootObject {",
+          "Style { \n" +
+            indenting +
+            "[key: string | number | symbol]: any | undefined;"
+        );
       }
       return styleConfig;
     } else {
-      return ["interface Style {}"];
+      return [
+        "interface Style {",
+        indenting + "[key: string | number | symbol]: any | undefined;",
+        "}",
+      ];
     }
   } catch {
     //Catch any errors with the styling not existing or being incorrectly formatted
-    return ["interface Style {}"];
+    return [
+      "interface Style {",
+      indenting + "[key: string | number | symbol]: any | undefined;",
+      "}",
+    ];
   }
 }
 
@@ -392,7 +409,12 @@ function parseIO(json, interfaceName) {
  * @param {JSON} stateJSON The JSON to convert into TS
  */
 function parseState(stateJSON) {
-  if (stateJSON == null) return ["interface State {}"];
+  if (stateJSON == null)
+    return [
+      "interface State {",
+      indenting + "[key: string | number | symbol]: any | undefined;",
+      "}",
+    ];
 
   try {
     //Try to parse the json state into TS if available
@@ -400,17 +422,34 @@ function parseState(stateJSON) {
     if (stateConfig.length > 0) {
       //Format the state onto one line if it is empty
       if (stateConfig[0] == "interface RootObject {\n}") {
-        return ["interface State {}"];
+        return [
+          "interface State {",
+          indenting + "[key: string | number | symbol]: any | undefined;",
+          "}",
+        ];
       } else {
-        stateConfig[0] = stateConfig[0].replace("RootObject", "State");
+        stateConfig[0] = stateConfig[0].replace(
+          "RootObject {",
+          "State { \n" +
+            indenting +
+            "[key: string | number | symbol]: any | undefined;"
+        );
       }
       return stateConfig;
     } else {
-      return ["interface State {}"];
+      return [
+        "interface State {",
+        indenting + "[key: string | number | symbol]: any | undefined;",
+        "}",
+      ];
     }
   } catch {
     //Catch any errors with the styling not existing or being incorrectly formatted
-    return ["interface State {}"];
+    return [
+      "interface State {",
+      indenting + "[key: string | number | symbol]: any | undefined;",
+      "}",
+    ];
   }
 }
 

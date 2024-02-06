@@ -46,6 +46,10 @@ export function useSize(): [
     (
       width: number = parseFloat(config.width),
       height: number = parseFloat(config.height)
-    ) => config.functions.updateSize(width, height),
+    ) =>
+      config.functions.updateSize(
+        isNaN(width) ? size.width : width,
+        isNaN(height) ? size.height : height
+      ),
   ];
 }

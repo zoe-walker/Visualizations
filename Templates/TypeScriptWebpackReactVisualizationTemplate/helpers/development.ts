@@ -57,16 +57,16 @@ export const setupDevelopmentConfig = (config: MooDConfig): MooDConfig => {
 
   // Sometimes it's easier to pass state as an object rather than stringifying it in development
   //  so we need to parse it to a string to make sure it continues to work like normal
-  if (config.state != null) {
+  if (config.state?.editable != null) {
     if (typeof config.state.value != "string")
       config.state.value = JSON.stringify(config.state.value);
   } else {
-    config.state = config.state ?? {
-      available: [],
-      id: "",
-      editable: false,
-      scope: "",
-      value: "",
+    config.state = {
+      available: config?.state?.available ?? [],
+      id: config?.state?.id ?? "",
+      editable: config?.state?.editable ?? true,
+      scope: config?.state?.scope ?? "",
+      value: config?.state?.value ?? "",
     };
   }
 
