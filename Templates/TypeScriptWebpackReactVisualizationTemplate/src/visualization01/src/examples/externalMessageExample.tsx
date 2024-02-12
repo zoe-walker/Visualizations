@@ -51,10 +51,10 @@ export const ExternalMessageExample = () => {
             //   }
             //
             //   // This is an example function that returns the same data back
-            //   if (message.type == "MessageToExternal") {
+            //   if (message.action === "MessageToExternal") {
             //     event.source.postMessage(
             //       JSON.stringify({
-            //         type: "MessageToExternal",
+            //         action: "MessageToExternal",
             //         data: message.data,
             //       }),
             //       "*"
@@ -79,10 +79,10 @@ export const ExternalMessageExample = () => {
               "    // This is an example function that returns the same data back\n"
             }
           </span>
-          <span>{'    if (message.type == "MessageToExternal") {\n'}</span>
+          <span>{'    if (message.action == "MessageToExternal") {\n'}</span>
           <span>{"        event.source.postMessage(\n"}</span>
           <span>{"            JSON.stringify({\n"}</span>
-          <span>{'                type: "MessageToExternal",\n'}</span>
+          <span>{'                action: "MessageToExternal",\n'}</span>
           <span>{"                data: message.data,\n"}</span>
           <span>{"            }),\n"}</span>
           <span>{'            "*"\n'}</span>
