@@ -4,7 +4,7 @@ import { InputsEnum } from "src/types/inputs";
 
 export const InputExample = () => {
   // Listen to the input "Example Input"
-  const [exampleInput] = useInput(InputsEnum.Example_Input);
+  const exampleInput = useInput(InputsEnum.Example_Input);
 
   return (
     <>

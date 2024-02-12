@@ -20,7 +20,7 @@ declare global {
  */
 export function useData<TDataType>(
   accessor: (data: Vis.Data) => TDataType
-): [value: TDataType];
+): undefined | TDataType;
 
 /**
  * Hook into the custom visualization's config and listen to any data updates
@@ -28,7 +28,7 @@ export function useData<TDataType>(
  */
 export function useData<TDataType extends keyof Vis.Data>(
   accessor: TDataType
-): [value: Vis.Data[TDataType]];
+): undefined | Vis.Data[TDataType];
 
 /**
  * Hook into the custom visualization's config and listen to any data updates
@@ -41,11 +41,9 @@ export function useData<
   TDataType
 >(
   accessor: TAccessorType
-): [
-  value: TAccessorType extends keyof Vis.Data
-    ? Vis.Data[TAccessorType]
-    : TDataType
-] {
+): undefined | TAccessorType extends keyof Vis.Data
+  ? Vis.Data[TAccessorType]
+  : TDataType {
   const config = useContext(ConfigContext);
   const [value, setValue] = useState<any>(
     typeof accessor == "function"
@@ -68,5 +66,5 @@ export function useData<
     };
   }, [config, value]);
 
-  return [value];
+  return value;
 }

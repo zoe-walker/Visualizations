@@ -23,7 +23,7 @@ declare global {
  */
 export function useInput<TInput extends keyof Vis.Inputs>(
   input: TInput
-): [value?: Vis.Inputs[TInput]] {
+): Vis.Inputs[TInput] | undefined {
   const config = useContext(ConfigContext);
   const [value, setValue] = useState<Vis.Inputs[TInput]>(
     config.inputs?.[input]
@@ -40,5 +40,5 @@ export function useInput<TInput extends keyof Vis.Inputs>(
     };
   }, [config]);
 
-  return [value];
+  return value;
 }
