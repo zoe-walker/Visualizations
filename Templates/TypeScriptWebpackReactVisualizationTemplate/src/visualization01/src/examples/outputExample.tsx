@@ -21,7 +21,7 @@ export const OutputExample = () => {
     <>
       <div>
         <div>
-          This is an example output:
+          This is an example output 1:
           <div>Local Output: {localOutput?.toString() ?? "undefined"}</div>
           <div>Exposed Output: {exampleOutput?.toString() ?? "undefined"}</div>
         </div>
@@ -37,7 +37,7 @@ export const OutputExample = () => {
             setExampleOutput(localOutput);
           }}
         >
-          Update Exposed Output Id
+          Update Exposed Output 1
         </button>
       </div>
       <br />

@@ -12,6 +12,10 @@ export const SizeExample = () => {
   return (
     <>
       <div>
+        <div>Current Size:</div>
+        <div>Width: {size.width}</div>
+        <div>Height: {size.height}</div>
+        <br />
         <div>Update the size of the custom visualization:</div>
         Width: <input ref={widthRef} type="number" />
         <div />
