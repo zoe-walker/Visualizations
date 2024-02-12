@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type InUseMessages =
   | ""
@@ -17,14 +17,14 @@ type InUseMessages =
 /**
  * Hooks window.postMessage and window.message listening
  *  to conform to MooDBA expected data to not cause errors
- * @param type - The message to listen to
+ * @param action - The message to listen to
  * @param targetOrigin - The target origin of the postMessage
  */
 export function useExternalMessage<
   TExpectedDataType,
-  TMessageType extends string
+  TMessageAction extends string
 >(
-  type: TMessageType extends InUseMessages ? never : TMessageType,
+  action: TMessageAction extends InUseMessages ? never : TMessageAction,
   targetOrigin: string = "*"
 ): [
   /**
@@ -41,22 +41,22 @@ export function useExternalMessage<
    * Add a raw callback to the listeners of this external message
    * @param callback - The callback to listen to
    */
-  rawOn: (callback: (type: TMessageType, data: any) => void) => void,
+  rawOn: (callback: (action: TMessageAction, data: any) => void) => void,
   /**
    * Remove a raw callback from this external message
    * @param callback - The callback to remove
    */
-  rawOff: (callback: (type: TMessageType, data: any) => void) => void
+  rawOff: (callback: (action: TMessageAction, data: any) => void) => void
 ] {
   const [data, setData] = useState<TExpectedDataType>();
   const [callbacks, setCallbacks] = useState<
-    Set<(type: string, data: any) => void>
+    Set<(action: string, data: any) => void>
   >(new Set());
 
   useEffect(() => {
     const messageListener = (ev: MessageEvent<string>) => {
       let parsedMessage: {
-        type: string;
+        action: string;
         data: any;
       };
 
@@ -66,11 +66,11 @@ export function useExternalMessage<
         return;
       }
 
-      if (parsedMessage.type != type) return;
+      if (parsedMessage.action != action) return;
 
       setData(parsedMessage.data);
       // Execute any callback listeners with the received data
-      callbacks.forEach((callback) => callback(type, parsedMessage.data));
+      callbacks.forEach((callback) => callback(action, parsedMessage.data));
     };
 
     window.addEventListener("message", messageListener);
@@ -78,24 +78,24 @@ export function useExternalMessage<
     return () => {
       window.removeEventListener("message", messageListener);
     };
-  }, [callbacks, setData, type]);
+  }, [callbacks, setData, action]);
 
-  function on(callback: (type: TMessageType, data: any) => void) {
+  function on(callback: (action: TMessageAction, data: any) => void) {
     const newCallbacks = new Set(callbacks);
-    newCallbacks.add(callback as (type: string, data: any) => void);
+    newCallbacks.add(callback as (action: string, data: any) => void);
     setCallbacks(newCallbacks);
   }
 
-  function off(callback: (type: TMessageType, data: any) => void) {
+  function off(callback: (action: TMessageAction, data: any) => void) {
     const newCallbacks = new Set(callbacks);
-    newCallbacks.delete(callback as (type: string, data: any) => void);
+    newCallbacks.delete(callback as (action: string, data: any) => void);
     setCallbacks(newCallbacks);
   }
 
   function post(message?: any) {
     window?.parent?.postMessage(
       JSON.stringify({
-        type,
+        action,
         data: message,
       }),
       targetOrigin
