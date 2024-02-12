@@ -14,12 +14,12 @@ type InUseMessages =
   | "updateState"
   | "postLoggerMessage";
 
-  /**
-   * Hooks window.postMessage and window.message listening
-   *  to conform to MooDBA expected data to not cause errors
-   * @param type - The message to listen to
-   * @param targetOrigin - The target origin of the postMessage
-   */
+/**
+ * Hooks window.postMessage and window.message listening
+ *  to conform to MooDBA expected data to not cause errors
+ * @param type - The message to listen to
+ * @param targetOrigin - The target origin of the postMessage
+ */
 export function useExternalMessage<
   TExpectedDataType,
   TMessageType extends string
@@ -30,13 +30,13 @@ export function useExternalMessage<
   /**
    * The last data returned from the external message
    */
-  data: TExpectedDataType,
+  data: TExpectedDataType | undefined,
   /**
    * Post a message externally to any listeners in a format
    *  that does not cause MooDBA to error
    * @param message - The data to post externally
    */
-  post: (message: any) => void,
+  post: (message?: any) => void,
   /**
    * Add a raw callback to the listeners of this external message
    * @param callback - The callback to listen to
@@ -82,17 +82,17 @@ export function useExternalMessage<
 
   function on(callback: (type: TMessageType, data: any) => void) {
     const newCallbacks = new Set(callbacks);
-    newCallbacks.add(callback);
+    newCallbacks.add(callback as (type: string, data: any) => void);
     setCallbacks(newCallbacks);
   }
 
   function off(callback: (type: TMessageType, data: any) => void) {
     const newCallbacks = new Set(callbacks);
-    newCallbacks.delete(callback);
+    newCallbacks.delete(callback as (type: string, data: any) => void);
     setCallbacks(newCallbacks);
   }
 
-  function post(message: any) {
+  function post(message?: any) {
     window?.parent?.postMessage(
       JSON.stringify({
         type,
