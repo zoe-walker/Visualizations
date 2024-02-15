@@ -22,7 +22,7 @@ declare global {
 export function useVisualizationState<
   TStateOverride extends Vis.State = Vis.State
 >(): [
-  state: TStateOverride | undefined,
+  state: Readonly<TStateOverride> | undefined,
   setState: (updateStateCallback: (state: TStateOverride) => void) => void,
   rawState: string | undefined
 ] {

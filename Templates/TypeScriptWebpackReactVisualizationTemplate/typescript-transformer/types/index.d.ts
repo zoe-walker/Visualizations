@@ -51,6 +51,17 @@ type MooDConfig = {
 };
 
 /**
+ * All valid types inside a JSON value
+ */
+type JSONValue =
+  | string
+  | number
+  | boolean
+  | { [x: string]: JSONValue }
+  | Array<JSONValue>
+  | {}; //This is due to template poor handling of JsonToTS conversion;
+
+/**
  * The MooD config state variable
  *
  * @member value - a JSON formatted string

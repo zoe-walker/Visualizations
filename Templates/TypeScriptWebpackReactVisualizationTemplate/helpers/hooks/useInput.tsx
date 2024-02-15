@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { ConfigContext } from "@helpers/context/configContext";
+import { getVisualizationInputs } from "@helpers/config";
 
 export const updateInputEventKey = "mood-update-input";
 export type updateInputEvent = CustomEvent<{
@@ -23,16 +24,16 @@ declare global {
  */
 export function useInput<TInput extends keyof Vis.Inputs>(
   input: TInput
-): Vis.Inputs[TInput] | undefined {
+): Readonly<Vis.Inputs[TInput]> | undefined {
   const config = useContext(ConfigContext);
   const [value, setValue] = useState<Vis.Inputs[TInput]>(
-    config.inputs?.[input]
+    getVisualizationInputs()?.[input]
   );
 
   useEffect(() => {
     const updateSetValue = (event: updateInputEvent) => {
       if (event.detail.key != input) return;
-      setValue(config.inputs[event.detail.key] as any);
+      setValue(getVisualizationInputs()?.[event.detail.key] as any);
     };
     document.addEventListener(updateInputEventKey, updateSetValue);
     return () => {

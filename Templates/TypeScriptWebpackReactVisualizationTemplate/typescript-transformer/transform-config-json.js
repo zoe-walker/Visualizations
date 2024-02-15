@@ -281,7 +281,7 @@ function parseStyle(styleJSON) {
       if (styleConfig[0] == "interface RootObject {\n}") {
         return [
           "interface Style {",
-          indenting + "[key: string | number | symbol]: any | undefined;",
+          indenting + "[key: string | number | symbol]: JSONValue | undefined;",
           "}",
         ];
       } else {
@@ -289,14 +289,14 @@ function parseStyle(styleJSON) {
           "RootObject {",
           "Style { \n" +
             indenting +
-            "[key: string | number | symbol]: any | undefined;"
+            "[key: string | number | symbol]: JSONValue | undefined;"
         );
       }
       return styleConfig;
     } else {
       return [
         "interface Style {",
-        indenting + "[key: string | number | symbol]: any | undefined;",
+        indenting + "[key: string | number | symbol]: JSONValue | undefined;",
         "}",
       ];
     }
@@ -304,7 +304,7 @@ function parseStyle(styleJSON) {
     //Catch any errors with the styling not existing or being incorrectly formatted
     return [
       "interface Style {",
-      indenting + "[key: string | number | symbol]: any | undefined;",
+      indenting + "[key: string | number | symbol]: JSONValue | undefined;",
       "}",
     ];
   }
@@ -412,7 +412,7 @@ function parseState(stateJSON) {
   if (stateJSON == null)
     return [
       "interface State {",
-      indenting + "[key: string | number | symbol]: any | undefined;",
+      indenting + "[key: string | number | symbol]: JSONValue | undefined;",
       "}",
     ];
 
@@ -424,7 +424,7 @@ function parseState(stateJSON) {
       if (stateConfig[0] == "interface RootObject {\n}") {
         return [
           "interface State {",
-          indenting + "[key: string | number | symbol]: any | undefined;",
+          indenting + "[key: string | number | symbol]: JSONValue | undefined;",
           "}",
         ];
       } else {
@@ -432,14 +432,14 @@ function parseState(stateJSON) {
           "RootObject {",
           "State { \n" +
             indenting +
-            "[key: string | number | symbol]: any | undefined;"
+            "[key: string | number | symbol]: JSONValue | undefined;"
         );
       }
       return stateConfig;
     } else {
       return [
         "interface State {",
-        indenting + "[key: string | number | symbol]: any | undefined;",
+        indenting + "[key: string | number | symbol]: JSONValue | undefined;",
         "}",
       ];
     }
@@ -447,7 +447,7 @@ function parseState(stateJSON) {
     //Catch any errors with the styling not existing or being incorrectly formatted
     return [
       "interface State {",
-      indenting + "[key: string | number | symbol]: any | undefined;",
+      indenting + "[key: string | number | symbol]: JSONValue | undefined;",
       "}",
     ];
   }

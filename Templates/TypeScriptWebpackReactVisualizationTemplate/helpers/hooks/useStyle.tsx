@@ -21,7 +21,7 @@ declare global {
  * @returns - An object containing the style and a method that can update it
  */
 export function useStyle<TStyleOverride extends Vis.Style = Vis.Style>(): [
-  readonlyStyle: TStyleOverride,
+  readonlyStyle: Readonly<TStyleOverride>,
   updateStyle: (updateStyleCallback: (style: TStyleOverride) => void) => void
 ] {
   const config = useContext(ConfigContext);

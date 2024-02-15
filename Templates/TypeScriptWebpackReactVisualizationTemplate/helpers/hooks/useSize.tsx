@@ -1,3 +1,4 @@
+import { getVisualizationSize } from "@helpers/config";
 import { ConfigContext } from "@helpers/context/configContext";
 import { useContext, useEffect, useState } from "react";
 
@@ -19,21 +20,15 @@ declare global {
  * @returns - An object containing the width/height and a method that can update those
  */
 export function useSize(): [
-  size: { width: number; height: number },
+  size: Readonly<{ width: number; height: number }>,
   setSize: (width: number, height: number) => void
 ] {
   const config = useContext(ConfigContext);
-  const [size, setSize] = useState({
-    width: parseFloat(config.width),
-    height: parseFloat(config.height),
-  });
+  const [size, setSize] = useState(getVisualizationSize());
 
   useEffect(() => {
     const updateSetSize = (event: updateSizeEvent) => {
-      setSize({
-        width: parseFloat(config.width),
-        height: parseFloat(config.height),
-      });
+      setSize(getVisualizationSize());
     };
     document.addEventListener(updateSizeEventKey, updateSetSize);
     return () => {

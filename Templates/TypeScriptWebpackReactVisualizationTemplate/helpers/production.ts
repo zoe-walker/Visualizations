@@ -1,4 +1,13 @@
-import { setVisualizationState } from "./config";
+import {
+  setVisualizationData,
+  setVisualizationState,
+  updateFrozenVisualizationData,
+  updateFrozenVisualizationInputs,
+  updateFrozenVisualizationOutputs,
+  updateFrozenVisualizationSize,
+  updateFrozenVisualizationState,
+  updateFrozenVisualizationStyle,
+} from "./config";
 import { updateDataEventKey } from "./hooks/useData";
 import { updateInputEventKey } from "./hooks/useInput";
 import { updateOutputEventKey } from "./hooks/useOutput";
@@ -44,6 +53,13 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
     }
   }
 
+  // Setup all default frozen objects
+  updateFrozenVisualizationData();
+  updateFrozenVisualizationInputs();
+  updateFrozenVisualizationOutputs();
+  updateFrozenVisualizationSize();
+  updateFrozenVisualizationStyle();
+
   //This allows us to update the state of the Custom Visualization
   const updateStateSuper = config.functions.updateState;
   config.functions.updateState = (state: string) => {
@@ -76,6 +92,8 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
 
     config.width = width + "px";
     config.height = height + "px";
+    updateFrozenVisualizationSize();
+
     //Send an event to any useSize hook listeners
     document.dispatchEvent(new CustomEvent(updateSizeEventKey));
   };
@@ -91,6 +109,8 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
     inputChangedSuper?.(name, value);
 
     config.inputs[name] = value;
+    updateFrozenVisualizationInputs();
+
     //Send an event to any useInput hook listeners
     document.dispatchEvent(
       new CustomEvent(updateInputEventKey, { detail: { key: name } })
@@ -108,6 +128,8 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
     updateOutputSuper?.(name, value);
 
     config.outputs[name] = value;
+    updateFrozenVisualizationOutputs();
+
     //Send an event to any useOutput hook listeners
     document.dispatchEvent(
       new CustomEvent(updateOutputEventKey, { detail: { key: name } })
@@ -116,11 +138,11 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
 
   const dataChangedSuper = config.functions.dataChanged;
   config.functions.dataChanged = (data) => {
-    Logger.Log("Data has been changed, updateing custom visualization");
+    Logger.Log("Data has been changed, updating custom visualization");
 
     dataChangedSuper?.(data);
+    setVisualizationData(data);
 
-    config.data = data;
     //Send an event to any useData hook listeners
     document.dispatchEvent(new CustomEvent(updateDataEventKey));
   };

@@ -31,7 +31,6 @@ export function visualization(config: MooDConfig) {
 
   Logger.Log("This is an example of a development log");
 
-
   //Create the React root element with the element provided by MooD BA
   const root = createRoot(document.getElementById(config.element));
 
@@ -40,7 +39,7 @@ export function visualization(config: MooDConfig) {
   root.render(
     React.createElement(
       ConfigContext.Provider,
-      { value: getVisualizationConfig(true) },
+      { value: getVisualizationConfig() },
       React.createElement<AppProps>(App, {})
     )
   );

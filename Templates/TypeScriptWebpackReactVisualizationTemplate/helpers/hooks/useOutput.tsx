@@ -1,3 +1,4 @@
+import { getVisualizationOutputs } from "@helpers/config";
 import { ConfigContext } from "@helpers/context/configContext";
 import { useContext, useEffect, useState } from "react";
 
@@ -20,17 +21,17 @@ export function useOutput<TOutput extends keyof Vis.Outputs>(
   output: TOutput
 ): [
   setOutput: (value: Vis.Outputs[TOutput]) => void,
-  value?: Vis.Outputs[TOutput]
+  value?: Readonly<Vis.Outputs[TOutput]>
 ] {
   const config = useContext(ConfigContext);
   const [value, setValue] = useState<Vis.Outputs[TOutput]>(
-    config.outputs?.[output]
+    getVisualizationOutputs()?.[output]
   );
 
   useEffect(() => {
     const updateSetValue = (event: updateOutputEvent) => {
       if (event.detail.key != output) return;
-      setValue(config.outputs[event.detail.key] as any);
+      setValue(getVisualizationOutputs()?.[event.detail.key] as any);
     };
     document.addEventListener(updateOutputEventKey, updateSetValue);
     return () => {
