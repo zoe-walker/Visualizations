@@ -28,7 +28,8 @@ export const getVisualizationConfig = () => visualizationConfig;
  * Set up the config and stores it to a variable not exposed
  */
 export const setVisualizationConfig = (config: MooDConfig) => {
-  visualizationConfig = setupProductionConfig(setupDevelopmentConfig(config));
+  visualizationConfig = config;
+  setupProductionConfig(setupDevelopmentConfig(config));
 };
 
 /**
