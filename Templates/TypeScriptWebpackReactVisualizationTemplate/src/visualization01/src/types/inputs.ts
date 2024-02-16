@@ -3,7 +3,7 @@ export enum InputsEnum {
 }
 
 export interface InputsTypes {
-  [InputsEnum.Example_Input]?: Number
+  [InputsEnum.Example_Input]?: number
 }
 
 declare global {

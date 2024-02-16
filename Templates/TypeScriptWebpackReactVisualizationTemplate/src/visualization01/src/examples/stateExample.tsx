@@ -17,14 +17,14 @@ export const StateExample = () => {
         typeSafeButNotInConfig: boolean;
       }
     >();
-  const visualizationStateKeyRef = useRef<HTMLInputElement>();
-  const visualizationStateValueRef = useRef<HTMLInputElement>();
+  const visualizationStateKeyRef = useRef<HTMLInputElement>(null);
+  const visualizationStateValueRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
       <div>
         <div>Update the state of the custom visualization:</div>
-        State is editable: {config.state.editable}
+        State is editable: {config.state?.editable}
         <div />
         {rawVisualizationState}
         <div />
@@ -68,9 +68,9 @@ export const StateExample = () => {
           type="button"
           onClick={() => {
             updateVisualizationState((state) => {
-              if (visualizationStateKeyRef.current.value == null) return;
+              if (visualizationStateKeyRef.current?.value == null) return;
               state[visualizationStateKeyRef.current.value] =
-                visualizationStateValueRef.current.value;
+                visualizationStateValueRef.current?.value;
             });
           }}
         >

@@ -1,6 +1,7 @@
 import { getVisualizationState } from "@helpers/config";
 import { ConfigContext } from "@helpers/context/configContext";
 import { useContext, useEffect, useState } from "react";
+import { DeepPartial, DeepReadonly } from "utility-types";
 
 export const updateVisualizationStateEventKey = "mood-update-state";
 export type updateVisualizationStateEvent = CustomEvent<null>;
@@ -22,12 +23,14 @@ declare global {
 export function useVisualizationState<
   TStateOverride extends Vis.State = Vis.State
 >(): [
-  state: Readonly<TStateOverride> | undefined,
-  setState: (updateStateCallback: (state: TStateOverride) => void) => void,
+  state: DeepReadonly<DeepPartial<TStateOverride>>,
+  setState: (
+    updateStateCallback: (state: DeepPartial<TStateOverride>) => void
+  ) => void,
   rawState: string | undefined
 ] {
   const config = useContext(ConfigContext);
-  const [state, setState] = useState<Vis.State>(getVisualizationState());
+  const [state, setState] = useState(getVisualizationState());
 
   useEffect(() => {
     const updateSetState = (event: updateVisualizationStateEvent) => {
@@ -43,14 +46,14 @@ export function useVisualizationState<
   }, [config]);
 
   return [
-    state as TStateOverride,
-    (updateStateCallback: (state: TStateOverride) => void) => {
-      const newState = getVisualizationState(true) as TStateOverride;
+    (state ?? {}) as DeepReadonly<DeepPartial<TStateOverride>>,
+    (updateStateCallback: (state: DeepPartial<TStateOverride>) => void) => {
+      const newState = getVisualizationState(true) ?? {};
 
-      updateStateCallback(newState);
+      updateStateCallback(newState as DeepPartial<TStateOverride>);
 
       config.functions.updateState(JSON.stringify(newState, null, 2));
     },
-    config?.state?.value,
+    config.state?.value,
   ];
 }

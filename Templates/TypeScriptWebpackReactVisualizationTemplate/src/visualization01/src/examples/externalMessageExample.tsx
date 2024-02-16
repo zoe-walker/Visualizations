@@ -7,7 +7,7 @@ export const ExternalMessageExample = () => {
     string,
     "MessageToExternal"
   >("MessageToExternal");
-  const messageRef = useRef<HTMLInputElement>();
+  const messageRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
@@ -19,7 +19,7 @@ export const ExternalMessageExample = () => {
         <button
           type="button"
           onClick={() => {
-            postMessageToExternal(messageRef.current.value);
+            postMessageToExternal(messageRef.current?.value);
           }}
         >
           Post a "MessageToExternal" message to the parent page of the the

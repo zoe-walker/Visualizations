@@ -2,6 +2,7 @@ import { getVisualizationStyle, setVisualizationStyle } from "@helpers/config";
 import { ConfigContext } from "@helpers/context/configContext";
 import Logger from "@helpers/logger";
 import { useContext, useEffect, useState } from "react";
+import { DeepPartial, DeepReadonly } from "utility-types";
 
 export const updateVisualizationStyleEventKey = "mood-update-style";
 export type updateVisualizationStyleEvent = CustomEvent<null>;
@@ -21,8 +22,10 @@ declare global {
  * @returns - An object containing the style and a method that can update it
  */
 export function useStyle<TStyleOverride extends Vis.Style = Vis.Style>(): [
-  readonlyStyle: Readonly<TStyleOverride>,
-  updateStyle: (updateStyleCallback: (style: TStyleOverride) => void) => void
+  readonlyStyle: DeepReadonly<DeepPartial<TStyleOverride>>,
+  updateStyle: (
+    updateStyleCallback: (style: DeepPartial<TStyleOverride>) => void
+  ) => void
 ] {
   const config = useContext(ConfigContext);
   const [style, setStyle] = useState(getVisualizationStyle());
@@ -41,14 +44,12 @@ export function useStyle<TStyleOverride extends Vis.Style = Vis.Style>(): [
   }, [config]);
 
   return [
-    style as TStyleOverride,
-    (updateStyleCallback: (style: TStyleOverride) => void) => {
+    (style ?? {}) as DeepReadonly<DeepPartial<TStyleOverride>>,
+    (updateStyleCallback: (style: DeepPartial<TStyleOverride>) => void) => {
       // Get a mutable version of the style and invoke the callback with that
-      const newStyle: TStyleOverride = getVisualizationStyle(
-        true
-      ) as TStyleOverride;
+      const newStyle = getVisualizationStyle(true) ?? {};
 
-      updateStyleCallback(newStyle);
+      updateStyleCallback(newStyle as DeepPartial<TStyleOverride>);
 
       //Update the config style to be the changed style
       setVisualizationStyle(newStyle);

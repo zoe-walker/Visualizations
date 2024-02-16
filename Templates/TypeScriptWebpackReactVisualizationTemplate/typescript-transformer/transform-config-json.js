@@ -460,10 +460,19 @@ function parseState(stateJSON) {
 function handleIOConversion(values) {
   //Loop through every input value and convert it
   return values.map((value, index) => {
-    //TypeScript types in Schema specifically require a Capital at the start so convert all types to TypeScript Scehma types
+    //Custom TypeScript types produced from Schema specifically use a Capital at the start
     let valueType =
       value.type.charAt(0).toUpperCase() +
       value.type.toLowerCase().substring(1);
+
+    // Any built in JS types that we accept do not need to be capitalised
+    if (
+      valueType === "String" ||
+      valueType === "Number" ||
+      valueType === "Boolean"
+    ) {
+      valueType = valueType.toLowerCase();
+    }
 
     //MooD accepts Date but JS has it's own Date type so TypeScript Schema is slightly modified
     return `${indenting}${value.name}?: ${valueType.replace(

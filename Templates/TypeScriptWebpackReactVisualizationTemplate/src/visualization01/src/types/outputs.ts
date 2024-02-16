@@ -4,8 +4,8 @@ export enum OutputsEnum {
 }
 
 export interface OutputsTypes {
-  [OutputsEnum.Example_Output]?: String,
-  [OutputsEnum.Example_Output_2]?: Number
+  [OutputsEnum.Example_Output]?: string,
+  [OutputsEnum.Example_Output_2]?: number
 }
 
 declare global {

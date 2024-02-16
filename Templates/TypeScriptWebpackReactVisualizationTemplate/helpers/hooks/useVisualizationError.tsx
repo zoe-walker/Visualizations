@@ -21,16 +21,16 @@ export function useVisualizationError(message: string): void;
  *  and let's MooD handle how it is displayed
  * @returns - A method that will send an error to the Custom Visualization
  */
-export function useVisualizationError<TMessage extends string | never>(
+export function useVisualizationError<TMessage extends string>(
   message?: TMessage
-): TMessage extends never ? (message: string) => void : void {
+): any {
   if (message != null) {
     getVisualizationConfig().functions.errorOccurred(message);
     return;
   }
 
   const config = useContext(ConfigContext);
-  const [errorFunction, setErrorFunction] = useState(
+  const [errorFunction, setErrorFunction] = useState<(message: string) => void>(
     () => (message: string) => config.functions.errorOccurred(message)
   );
 
@@ -40,7 +40,5 @@ export function useVisualizationError<TMessage extends string | never>(
     );
   }, [config]);
 
-  return errorFunction as TMessage extends never
-    ? (message: string) => void
-    : void;
+  return errorFunction;
 }

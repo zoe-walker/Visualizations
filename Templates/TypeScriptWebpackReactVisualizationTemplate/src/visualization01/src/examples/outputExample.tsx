@@ -9,13 +9,13 @@ export const OutputExample = () => {
   const [setExampleOutput, exampleOutput] = useOutput(
     OutputsEnum.Example_Output
   );
-  const [localOutput, setLocalOutput] = useState<string>(null);
+  const [localOutput, setLocalOutput] = useState<string>();
 
   // Allow updating the "Example Output 2" of this custom visualization
   const [setExampleOutput2, exampleOutput2] = useOutput(
     OutputsEnum.Example_Output_2
   );
-  const exampleOutput2Ref = useRef<HTMLInputElement>();
+  const exampleOutput2Ref = useRef<HTMLInputElement>(null);
 
   return (
     <>
@@ -52,7 +52,9 @@ export const OutputExample = () => {
         <button
           type="button"
           onClick={() => {
-            setExampleOutput2(parseFloat(exampleOutput2Ref?.current?.value));
+            setExampleOutput2(
+              parseFloat(exampleOutput2Ref.current?.value ?? "")
+            );
           }}
         >
           Update Exposed Output 2

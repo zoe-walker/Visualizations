@@ -6,8 +6,8 @@ export const SizeExample = () => {
   //  Updating the size of a custom visualization requires overflow to be enabled
   //  in MooD BA for the visualization, this may be an experimental feature
   const [size, setSize] = useSize();
-  const widthRef = useRef<HTMLInputElement>();
-  const heightRef = useRef<HTMLInputElement>();
+  const widthRef = useRef<HTMLInputElement>(null);
+  const heightRef = useRef<HTMLInputElement>(null);
 
   return (
     <>
@@ -25,8 +25,12 @@ export const SizeExample = () => {
           type="button"
           onClick={() => {
             setSize(
-              parseFloat(widthRef.current.value),
-              parseFloat(heightRef.current.value)
+              widthRef.current == null
+                ? undefined
+                : parseFloat(widthRef.current?.value),
+              heightRef.current == null
+                ? undefined
+                : parseFloat(heightRef.current?.value)
             );
           }}
         >

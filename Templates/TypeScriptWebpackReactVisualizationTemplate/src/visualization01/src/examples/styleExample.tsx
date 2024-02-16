@@ -10,8 +10,10 @@ export const StyleExample = () => {
       typeSafeButNotInConfig: boolean;
     }
   >();
-  const visualizationStyleKeyRef = useRef<HTMLInputElement>();
-  const visualizationStyleValueRef = useRef<HTMLInputElement>();
+  const visualizationStyleKeyRef = useRef<HTMLInputElement>(null);
+  const visualizationStyleValueRef = useRef<HTMLInputElement>(null);
+
+  let b: boolean = true;
 
   return (
     <>
@@ -64,9 +66,9 @@ export const StyleExample = () => {
           type="button"
           onClick={() => {
             updateStyle((style) => {
-              if (visualizationStyleKeyRef.current.value == null) return;
+              if (visualizationStyleKeyRef?.current?.value == null) return;
               style[visualizationStyleKeyRef.current.value] =
-                visualizationStyleValueRef.current.value;
+                visualizationStyleValueRef.current!.value;
             });
           }}
         >

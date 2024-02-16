@@ -1,3 +1,4 @@
+import { getVisualizationConfig } from "@helpers/config";
 import { Context, createContext } from "react";
 
 /**
@@ -5,4 +6,8 @@ import { Context, createContext } from "react";
  *  but keeping it is more inline with React and can allow easier changing
  *  to a new system in the future if a different system is used
  */
-export const ConfigContext: Context<MooDConfig> = createContext(null)
+export const ConfigContext: Context<MooDConfig> = createContext<MooDConfig>(
+  // We know that this context is always provided to the Visualization
+  //  so we can tell TS to ignore the error
+  undefined!
+);

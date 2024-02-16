@@ -41,5 +41,5 @@ export function useInput<TInput extends keyof Vis.Inputs>(
     };
   }, [config]);
 
-  return value;
+  return value as Readonly<Vis.Inputs[TInput]>;
 }

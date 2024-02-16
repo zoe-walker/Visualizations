@@ -1,6 +1,7 @@
 import { getVisualizationData } from "@helpers/config";
 import { ConfigContext } from "@helpers/context/configContext";
 import { useContext, useEffect, useState } from "react";
+import { DeepReadonly } from "utility-types";
 
 export const updateDataEventKey = "mood-update-data";
 export type updateDataEvent = CustomEvent<null>;
@@ -22,7 +23,7 @@ declare global {
 export function useData<TDataType>(
   accessor: (data: Vis.Data) => TDataType
 ): [
-  data: undefined | Readonly<TDataType>,
+  data: undefined | DeepReadonly<TDataType>,
   getMutableClone: () => undefined | TDataType
 ];
 
@@ -33,7 +34,7 @@ export function useData<TDataType>(
 export function useData<TDataType extends keyof Vis.Data>(
   accessor: TDataType
 ): [
-  data: undefined | Readonly<Vis.Data[TDataType]>,
+  data: undefined | DeepReadonly<Vis.Data[TDataType]>,
   getMutableClone: () => undefined | Vis.Data[TDataType]
 ];
 
@@ -43,24 +44,15 @@ export function useData<TDataType extends keyof Vis.Data>(
  */
 export function useData<
   TAccessorType extends
-    | ((data: Vis.Data) => TDataType | undefined)
-    | keyof Vis.Data,
+    | keyof Vis.Data
+    | ((data?: DeepReadonly<Vis.Data>) => TDataType | undefined),
   TDataType
->(
-  accessor: TAccessorType
-): [
-  data: undefined | TAccessorType extends keyof Vis.Data
-    ? Readonly<Vis.Data[TAccessorType]>
-    : Readonly<TDataType>,
-  getMutableClone: () => undefined | TAccessorType extends keyof Vis.Data
-    ? Vis.Data[TAccessorType]
-    : TDataType
-] {
+>(accessor: TAccessorType): [data: any, getMutableClone: () => any] {
   const config = useContext(ConfigContext);
   const [value, setValue] = useState<any>(
     typeof accessor == "function"
       ? accessor(getVisualizationData())
-      : getVisualizationData()[accessor as keyof Vis.Data]
+      : getVisualizationData()![accessor as keyof Vis.Data]
   );
 
   useEffect(() => {
@@ -68,7 +60,7 @@ export function useData<
       const newValue =
         typeof accessor == "function"
           ? accessor(getVisualizationData())
-          : getVisualizationData()[accessor as keyof Vis.Data];
+          : getVisualizationData()?.[accessor as keyof Vis.Data];
 
       if (newValue != value) setValue(newValue);
     };
@@ -84,10 +76,8 @@ export function useData<
       return structuredClone(
         typeof accessor == "function"
           ? accessor(getVisualizationData(true))
-          : getVisualizationData(true)[accessor as keyof Vis.Data]
-      ) as TAccessorType extends keyof Vis.Data
-        ? Vis.Data[TAccessorType]
-        : TDataType;
+          : getVisualizationData(true)?.[accessor as keyof Vis.Data]
+      );
     },
   ];
 }

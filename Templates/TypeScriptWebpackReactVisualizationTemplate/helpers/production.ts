@@ -63,6 +63,11 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
   //This allows us to update the state of the Custom Visualization
   const updateStateSuper = config.functions.updateState;
   config.functions.updateState = (state: string) => {
+    if (config.state == null)
+      return config.functions.errorOccurred(
+        "Trying to update Visualization's state before it has been set up"
+      );
+
     if (!config.state.editable) {
       config.functions.errorOccurred(
         "Custom Visualization tried to edit un-editable state, " +
@@ -108,6 +113,11 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
 
     inputChangedSuper?.(name, value);
 
+    if (config.inputs == null)
+      return config.functions.errorOccurred(
+        "Trying to update Visualization's input before it has been set up"
+      );
+
     config.inputs[name] = value;
     updateFrozenVisualizationInputs();
 
@@ -126,6 +136,11 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
     Logger.Log(`Updating output: ${name} with value: `, JSON.stringify(value));
 
     updateOutputSuper?.(name, value);
+
+    if (config.outputs == null)
+      return config.functions.errorOccurred(
+        "Trying to update Visualization's output before it has been set up"
+      );
 
     config.outputs[name] = value;
     updateFrozenVisualizationOutputs();

@@ -21,14 +21,16 @@ declare global {
  */
 export function useSize(): [
   size: Readonly<{ width: number; height: number }>,
-  setSize: (width: number, height: number) => void
+  setSize: (width?: number, height?: number) => void
 ] {
   const config = useContext(ConfigContext);
-  const [size, setSize] = useState(getVisualizationSize());
+  const [size, setSize] = useState(
+    getVisualizationSize() ?? { width: 0, height: 0 }
+  );
 
   useEffect(() => {
     const updateSetSize = (event: updateSizeEvent) => {
-      setSize(getVisualizationSize());
+      setSize(getVisualizationSize()!);
     };
     document.addEventListener(updateSizeEventKey, updateSetSize);
     return () => {
@@ -38,13 +40,10 @@ export function useSize(): [
 
   return [
     size,
-    (
-      width: number = parseFloat(config.width),
-      height: number = parseFloat(config.height)
-    ) =>
+    (width?: number, height?: number) =>
       config.functions.updateSize(
-        isNaN(width) ? size.width : width,
-        isNaN(height) ? size.height : height
+        isNaN(width ?? NaN) ? size.width : width!,
+        isNaN(height ?? NaN) ? size.height : height!
       ),
   ];
 }
