@@ -21,11 +21,11 @@ export function useOutput<TOutput extends keyof Vis.Outputs>(
   output: TOutput
 ): [
   setOutput: (value: Vis.Outputs[TOutput]) => void,
-  value?: Readonly<Vis.Outputs[TOutput]>
+  value?: Readonly<Vis.Outputs[TOutput]> | undefined
 ] {
   const config = useContext(ConfigContext);
-  const [value, setValue] = useState<Vis.Outputs[TOutput]>(
-    getVisualizationOutputs()?.[output]
+  const [value, setValue] = useState<Vis.Outputs[TOutput] | undefined>(
+    getVisualizationOutputs()?.[output] as Vis.Outputs[TOutput] | undefined
   );
 
   useEffect(() => {
@@ -43,6 +43,6 @@ export function useOutput<TOutput extends keyof Vis.Outputs>(
     (value: Vis.Outputs[TOutput]) => {
       config.functions.updateOutput(output, value);
     },
-    value,
+    value as Readonly<Vis.Outputs[TOutput]> | undefined,
   ];
 }

@@ -27,7 +27,7 @@ export function useInput<TInput extends keyof Vis.Inputs>(
 ): Readonly<Vis.Inputs[TInput]> | undefined {
   const config = useContext(ConfigContext);
   const [value, setValue] = useState<Vis.Inputs[TInput]>(
-    getVisualizationInputs()?.[input]
+    getVisualizationInputs()?.[input] as Vis.Inputs[TInput] | undefined
   );
 
   useEffect(() => {
@@ -41,5 +41,5 @@ export function useInput<TInput extends keyof Vis.Inputs>(
     };
   }, [config]);
 
-  return value as Readonly<Vis.Inputs[TInput]>;
+  return value as Readonly<Vis.Inputs[TInput]> | undefined;
 }
