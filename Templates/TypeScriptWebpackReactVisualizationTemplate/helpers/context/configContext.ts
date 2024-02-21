@@ -1,4 +1,5 @@
 import { getVisualizationConfig } from "@helpers/config";
+import { MooDConfig } from "@moodtypes/index";
 import { Context, createContext } from "react";
 
 /**

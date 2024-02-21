@@ -20,8 +20,8 @@ declare global {
 export function useOutput<TOutput extends keyof Vis.Outputs>(
   output: TOutput
 ): [
-  setOutput: (value: Vis.Outputs[TOutput]) => void,
-  value?: Readonly<Vis.Outputs[TOutput]> | undefined
+  setOutput: (value: MooDOutputRawType<Vis.Outputs, TOutput>) => void,
+  value?: Readonly<MooDOutputRawType<Vis.Outputs, TOutput>> | undefined
 ] {
   const config = useContext(ConfigContext);
   const [value, setValue] = useState<Vis.Outputs[TOutput] | undefined>(
@@ -40,9 +40,9 @@ export function useOutput<TOutput extends keyof Vis.Outputs>(
   }, [config]);
 
   return [
-    (value: Vis.Outputs[TOutput]) => {
+    (value: MooDOutputRawType<Vis.Outputs, TOutput>) => {
       config.functions.updateOutput(output, value);
     },
-    value as Readonly<Vis.Outputs[TOutput]> | undefined,
+    value as Readonly<MooDOutputRawType<Vis.Outputs, TOutput>> | undefined,
   ];
 }

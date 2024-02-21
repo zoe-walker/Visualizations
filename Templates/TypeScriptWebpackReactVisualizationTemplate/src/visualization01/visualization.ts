@@ -10,6 +10,7 @@ import {
 } from "@helpers/config";
 import "./visualization.css";
 import { ErrorBoundary } from "react-error-boundary";
+import { MooDConfig } from "@moodtypes/index";
 
 //
 //    Entry function declaration

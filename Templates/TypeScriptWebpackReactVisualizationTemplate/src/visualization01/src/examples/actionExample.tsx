@@ -78,8 +78,8 @@ export const ActionExample = () => {
         <button
           type="button"
           onClick={() => {
-            hasExampleClick(exampleVariable3?.key ?? "").then((result) => {
-              if (result) {
+            hasExampleClick(exampleVariable3?.key ?? "").then((res) => {
+              if (res.result) {
                 alert(`${ActionsEnum.Example_Click} has been set up`);
               } else {
                 alert(`${ActionsEnum.Example_Click} has not been set up yet`);

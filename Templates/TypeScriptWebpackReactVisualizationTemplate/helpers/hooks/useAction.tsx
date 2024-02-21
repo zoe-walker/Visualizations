@@ -1,5 +1,6 @@
 import { ConfigContext } from "@helpers/context/configContext";
 import Logger from "@helpers/logger";
+import { MooDConfig } from "@moodtypes/index";
 import { useContext, useEffect, useState } from "react";
 
 /**

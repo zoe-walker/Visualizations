@@ -1,7 +1,8 @@
 import { getVisualizationState } from "@helpers/config";
 import { ConfigContext } from "@helpers/context/configContext";
+import { ReadonlyOptional } from "@moodtypes/index";
 import { useContext, useEffect, useState } from "react";
-import { DeepPartial, DeepReadonly } from "utility-types";
+import { DeepPartial } from "utility-types";
 
 export const updateVisualizationStateEventKey = "mood-update-state";
 export type updateVisualizationStateEvent = CustomEvent<null>;
@@ -23,7 +24,7 @@ declare global {
 export function useVisualizationState<
   TStateOverride extends Vis.State = Vis.State
 >(): [
-  state: DeepReadonly<DeepPartial<TStateOverride>>,
+  state: ReadonlyOptional<TStateOverride>,
   setState: (
     updateStateCallback: (state: DeepPartial<TStateOverride>) => void
   ) => void,
@@ -46,7 +47,7 @@ export function useVisualizationState<
   }, [config]);
 
   return [
-    (state ?? {}) as DeepReadonly<DeepPartial<TStateOverride>>,
+    (state ?? {}) as ReadonlyOptional<TStateOverride>,
     (updateStateCallback: (state: DeepPartial<TStateOverride>) => void) => {
       const newState = getVisualizationState(true) ?? {};
 

@@ -1,3 +1,4 @@
+import { MooDConfig } from "@moodtypes/index";
 import {
   setVisualizationData,
   setVisualizationState,
@@ -131,7 +132,7 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
   const updateOutputSuper = config.functions.updateOutput;
   config.functions.updateOutput = <TOutputKey extends keyof Vis.Outputs>(
     name: TOutputKey,
-    value: Vis.Outputs[TOutputKey]
+    value: MooDOutputRawType<Vis.Outputs, TOutputKey>
   ) => {
     Logger.Log(`Updating output: ${name} with value: `, JSON.stringify(value));
 
@@ -142,7 +143,7 @@ export const setupProductionConfig = (config: MooDConfig): MooDConfig => {
         "Trying to update Visualization's output before it has been set up"
       );
 
-    config.outputs[name] = value;
+    config.outputs[name] = value as any;
     updateFrozenVisualizationOutputs();
 
     //Send an event to any useOutput hook listeners

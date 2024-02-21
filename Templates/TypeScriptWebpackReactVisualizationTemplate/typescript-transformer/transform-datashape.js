@@ -216,7 +216,7 @@ function handleDataTypeConversion(line) {
 
       switch (dataTypeLower) {
         case "string":
-          return dataTypeLower;
+          return "string";
         case "boolean":
           return "boolean";
         case "int":
@@ -225,12 +225,14 @@ function handleDataTypeConversion(line) {
           return "number";
         case "date":
           return "MooDDate";
-        case "any":
         case "id":
-        case "colour":
+          return "ID";
         case "shape":
         case "image":
-          return dataType;
+        case "color":
+        case "colour":
+        case "any":
+          return dataType[0].toUpperCase() + dataType.substring(1);
         default:
           return "Vis.Data." + dataType;
       }

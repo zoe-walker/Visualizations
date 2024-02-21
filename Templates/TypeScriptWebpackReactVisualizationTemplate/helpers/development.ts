@@ -1,3 +1,5 @@
+import { MooDConfig } from "@moodtypes/index";
+
 /**
  * Ensure that any development undefined variables have default usable values
  * @param config - The config to set up

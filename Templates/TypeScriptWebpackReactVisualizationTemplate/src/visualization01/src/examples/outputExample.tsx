@@ -21,7 +21,8 @@ export const OutputExample = () => {
     <>
       <div>
         <div>
-          This is an example output 1:
+          This is an example output 1 which is a Color/Shape and those are
+          supplied as CSV strings:
           <div>Local Output: {localOutput?.toString() ?? "undefined"}</div>
           <div>Exposed Output: {exampleOutput?.toString() ?? "undefined"}</div>
         </div>

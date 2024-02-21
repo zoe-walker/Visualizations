@@ -1,7 +1,8 @@
 import { getVisualizationData } from "@helpers/config";
 import { ConfigContext } from "@helpers/context/configContext";
+import { ReadonlyOptional } from "@moodtypes/index";
 import { useContext, useEffect, useState } from "react";
-import { DeepReadonly } from "utility-types";
+import { DeepPartial } from "utility-types";
 
 export const updateDataEventKey = "mood-update-data";
 export type updateDataEvent = CustomEvent<null>;
@@ -21,10 +22,10 @@ declare global {
  * @param accessor - The top level key to get from Vis.Data
  */
 export function useData<TDataType>(
-  accessor: (data: Vis.Data) => TDataType
+  accessor: (data: ReadonlyOptional<Vis.Data>) => TDataType
 ): [
-  data: undefined | DeepReadonly<TDataType>,
-  getMutableClone: () => undefined | TDataType
+  data: undefined | ReadonlyOptional<TDataType>,
+  getMutableClone: () => undefined | DeepPartial<TDataType>
 ];
 
 /**
@@ -34,8 +35,8 @@ export function useData<TDataType>(
 export function useData<TDataType extends keyof Vis.Data>(
   accessor: TDataType
 ): [
-  data: undefined | DeepReadonly<Vis.Data[TDataType]>,
-  getMutableClone: () => undefined | Vis.Data[TDataType]
+  data: undefined | ReadonlyOptional<Vis.Data[TDataType]>,
+  getMutableClone: () => undefined | DeepPartial<Vis.Data[TDataType]>
 ];
 
 /**
@@ -45,7 +46,7 @@ export function useData<TDataType extends keyof Vis.Data>(
 export function useData<
   TAccessorType extends
     | keyof Vis.Data
-    | ((data?: DeepReadonly<Vis.Data>) => TDataType | undefined),
+    | ((data?: ReadonlyOptional<Vis.Data>) => TDataType | undefined),
   TDataType
 >(accessor: TAccessorType): [data: any, getMutableClone: () => any] {
   const config = useContext(ConfigContext);

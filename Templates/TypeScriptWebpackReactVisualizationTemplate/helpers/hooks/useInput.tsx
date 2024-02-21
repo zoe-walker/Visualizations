@@ -2,6 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { ConfigContext } from "@helpers/context/configContext";
 import { getVisualizationInputs } from "@helpers/config";
 
+// The following import may fail if a user has not
+//  built the custom visualization at least once so we ignore it
+//@ts-ignore
+import visualizationConfig from "@core/visualization.config.json";
+
 export const updateInputEventKey = "mood-update-input";
 export type updateInputEvent = CustomEvent<{
   key: keyof Vis.Inputs;
@@ -24,10 +29,12 @@ declare global {
  */
 export function useInput<TInput extends keyof Vis.Inputs>(
   input: TInput
-): Readonly<Vis.Inputs[TInput]> | undefined {
+): Vis.Inputs[TInput] extends SinglePickList | MultiPickList | Elements
+  ? Readonly<string[]>
+  : Readonly<Partial<Vis.Inputs[TInput]>> {
   const config = useContext(ConfigContext);
   const [value, setValue] = useState<Vis.Inputs[TInput]>(
-    getVisualizationInputs()?.[input] as Vis.Inputs[TInput] | undefined
+    getVisualizationInputs()?.[input] as Vis.Inputs[TInput]
   );
 
   useEffect(() => {
@@ -41,5 +48,28 @@ export function useInput<TInput extends keyof Vis.Inputs>(
     };
   }, [config]);
 
-  return value as Readonly<Vis.Inputs[TInput]> | undefined;
+  const inputConfigType =
+    visualizationConfig.inputs
+      //When config doesn't exist this produces an error
+      //@ts-ignore
+      .find((inputConfig) => inputConfig.name == input)
+      ?.type.toLowerCase() ?? "";
+
+  // If the input type is one of a potential array then we convert it to always be an array
+  if (
+    inputConfigType === "colour" ||
+    inputConfigType === "color" ||
+    inputConfigType === "shape" ||
+    inputConfigType === "elements"
+  ) {
+    // elements can be provided as an array by default so we don't need to convert it
+    if (Array.isArray(typeof value)) return value as any;
+    return Object.freeze(
+      ((value as string) ?? "")
+        .split(",")
+        .filter((val: string) => val != "") as any
+    );
+  }
+
+  return value as any;
 }

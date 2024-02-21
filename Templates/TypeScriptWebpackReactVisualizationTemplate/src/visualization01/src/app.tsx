@@ -10,6 +10,7 @@ import { ActionExample } from "./examples/actionExample";
 import { StyleExample } from "./examples/styleExample";
 import { BaseExample } from "./examples/baseExample";
 import { ExternalMessageExample } from "./examples/externalMessageExample";
+import { JSONExample } from "./examples/jsonExample";
 
 export type AppProps = {};
 
@@ -55,8 +56,12 @@ export const App: React.FC<AppProps> = () => {
         <ActionExample />
       </BaseExample>
 
-      <BaseExample title="External Message Example">
+      <BaseExample title="External Message Example:">
         <ExternalMessageExample />
+      </BaseExample>
+
+      <BaseExample title="JSON Example (Read-Only):">
+        <JSONExample />
       </BaseExample>
     </div>
   );

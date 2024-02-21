@@ -4,6 +4,7 @@ import { updateVisualizationStyleEventKey } from "./hooks/useStyle";
 import Logger from "./logger";
 import { setupProductionConfig } from "./production";
 import { useVisualizationError } from "./hooks/useVisualizationError";
+import { MooDConfig, ReadonlyOptional } from "@moodtypes/index";
 
 /**
  * Recursively deep freeze an object with circular references
@@ -51,13 +52,13 @@ let frozenVisualizationData: DeepReadonly<Vis.Data> | undefined;
 export const getVisualizationData = <TBoolean extends Falsey | true>(
   mutable?: TBoolean
 ): TBoolean extends Falsey
-  ? DeepReadonly<Vis.Data> | undefined
-  : Vis.Data | undefined => {
+  ? ReadonlyOptional<Vis.Data> | undefined
+  : DeepPartial<Vis.Data> | undefined => {
   if (!mutable) {
     if (frozenVisualizationData == null) updateFrozenVisualizationData();
     return frozenVisualizationData as Vis.Data;
   } else {
-    return getVisualizationConfig().data;
+    return getVisualizationConfig().data as any;
   }
 };
 
@@ -82,7 +83,7 @@ export const updateFrozenVisualizationData = () => {
 /**
  * Store the immutable version of the custom visualization's style
  */
-let frozenVisualizationStyle: DeepReadonly<DeepPartial<Vis.Style>> | undefined;
+let frozenVisualizationStyle: ReadonlyOptional<Vis.Style> | undefined;
 
 /**
  * Return the MooD config's style variable
@@ -91,7 +92,7 @@ let frozenVisualizationStyle: DeepReadonly<DeepPartial<Vis.Style>> | undefined;
 export const getVisualizationStyle = <TBoolean extends false | true>(
   mutable?: TBoolean
 ): TBoolean extends false
-  ? DeepReadonly<DeepPartial<Vis.Style>> | undefined
+  ? ReadonlyOptional<Vis.Style> | undefined
   : DeepPartial<Vis.Style> | undefined => {
   if (!mutable) {
     if (frozenVisualizationStyle == null) updateFrozenVisualizationStyle();
@@ -136,7 +137,7 @@ let visualizationState: DeepPartial<Vis.State> | undefined;
 /**
  * Store the immutable version of the custom visualization's state
  */
-let frozenVisualizationState: DeepReadonly<DeepPartial<Vis.State>> | undefined;
+let frozenVisualizationState: ReadonlyOptional<Vis.State> | undefined;
 
 /**
  * Return the MooD config's state variable
@@ -145,7 +146,7 @@ let frozenVisualizationState: DeepReadonly<DeepPartial<Vis.State>> | undefined;
 export const getVisualizationState = <TBoolean extends false | true>(
   mutable?: TBoolean
 ): TBoolean extends false
-  ? DeepReadonly<DeepPartial<Vis.State>> | undefined
+  ? ReadonlyOptional<Vis.State> | undefined
   : DeepPartial<Vis.State> | undefined => {
   if (!mutable) {
     if (frozenVisualizationState == null) updateFrozenVisualizationState();
@@ -171,7 +172,7 @@ export const setVisualizationState = (state: Vis.State) => {
 export const updateFrozenVisualizationState = () => {
   const stateClone = structuredClone(visualizationState);
   deepFreeze(stateClone);
-  frozenVisualizationState = stateClone as DeepReadonly<DeepPartial<Vis.State>>;
+  frozenVisualizationState = stateClone as ReadonlyOptional<Vis.State>;
 };
 
 /**

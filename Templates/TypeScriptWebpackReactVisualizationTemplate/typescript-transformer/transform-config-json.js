@@ -465,19 +465,37 @@ function handleIOConversion(values) {
       value.type.charAt(0).toUpperCase() +
       value.type.toLowerCase().substring(1);
 
-    // Any built in JS types that we accept do not need to be capitalised
-    if (
-      valueType === "String" ||
-      valueType === "Number" ||
-      valueType === "Boolean"
-    ) {
-      valueType = valueType.toLowerCase();
+    switch (valueType.toLowerCase()) {
+      case "string":
+        valueType = "string";
+        break;
+      case "boolean":
+        valueType = "boolean";
+        break;
+      case "int":
+      case "float":
+      case "number":
+        valueType = "number";
+        break;
+      case "date":
+        valueType = "MooDDate";
+        break;
+      case "elements":
+        valueType = "Elements";
+        break;
+      case "image":
+        valueType = "Image";
+        break;
+      case "shape":
+      case "color":
+      case "colour":
+        valueType = "SinglePickList | MultiPickList";
+        break;
     }
 
     //MooD accepts Date but JS has it's own Date type so TypeScript Schema is slightly modified
-    return `${indenting}${value.name}?: ${valueType.replace(
-      "Date",
-      "MooDDate"
-    )}${index == values.length - 1 ? "" : ","}`;
+    return `${indenting}${value.name}: ${valueType}${
+      index == values.length - 1 ? "" : ","
+    }`;
   });
 }

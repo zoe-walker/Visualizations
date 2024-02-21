@@ -3,6 +3,7 @@ import Logger from "@helpers/logger";
 import { useContext, useEffect, useState } from "react";
 import { useHasAction } from "./useHasAction";
 import { useVisualizationError } from "./useVisualizationError";
+import { MooDConfig } from "@moodtypes/index";
 /**
  * Generates an async method that will execute performAction with the correct values
  *  and return if the action exists and has been set up in MooD BA
@@ -24,7 +25,7 @@ const setupStrictActionMethod = (
     new Promise<void>((res, rej) => {
       hasAction(elementId)
         .then((result) => {
-          if (result) {
+          if (result.result) {
             Logger.Log(
               `Performed Action: ${action} with ID: ${elementId}, event: x: ${event.pageX}, y: ${event.pageY}`
             );

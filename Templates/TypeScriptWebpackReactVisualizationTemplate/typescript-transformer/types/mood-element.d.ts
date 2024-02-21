@@ -13,12 +13,33 @@ type ID = string;
 /**
  * Used by MooD to pass colours to/from the visuialisation
  */
-type Colour = string;
+type Color = (string & { __brand: "Color" }) | Colour;
+
+/**
+ * Used by MooD to pass colours to/from the visuialisation
+ */
+type Colour = string & { __brand: "Colour" };
 
 /**
  * Used by MooD to pass shapes to/from the visuialisation
  */
-type Shape = string;
+type Shape = string & { __brand: "Shape" };
+
+/**
+ * Used by MooD to pass single Color/Shape as input/output
+ *
+ *  This type is passed as #223344
+ */
+type SinglePickList = Color | Shape;
+
+/**
+ * Used by MooD to pass multiple Color/Shape as inputs/outputs
+ *
+ *  This type is passed a optional CSV:
+ *
+ *  #223344,#667788
+ */
+type MultiPickList = Color | Shape;
 
 /**
  * Used by MooD to pass images to/from the visuialisation
@@ -38,7 +59,7 @@ type MooDDate = string;
  * Values for the "elements" type may be a single element unique id string,
  * a comma separated list of unique ids or an array of unique ids representing the element instances
  */
-type Elements = string | string[];
+type Elements = (string | string[]) & { __brand: "Elements" };
 
 /**
  * Used by MooD to allow any type of variable to be passed in/out

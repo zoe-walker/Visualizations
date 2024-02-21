@@ -4,15 +4,16 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    
+
     "module": "ES2015",
     "target": "ES2017",
     "jsx": "react",
     "allowJs": true,
-    
+
     "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
     "noEmit": true,
-    
+
     "moduleResolution": "node",
     "types": ["jest"],
 
@@ -22,14 +23,17 @@
     "baseUrl": ".",
     "paths": {
       "@helpers/*": ["../../helpers/*"],
-      "@moodtypes/*": ["../../typescript-transformer/types/*"]
+      "@moodtypes/*": ["../../typescript-transformer/types/*"],
+      "@core/*": ["./*"]
     }
   },
   "include": [
     "../../helpers/**/*",
     "../../globals/*",
     "../../typescript-transformer/types/*",
-    "./**/*"
-, "../../helpers/context/configContext.ts", "../../helpers/hooks/useInput.tsx"  ],
+    "./**/*",
+    "../../helpers/context/configContext.ts",
+    "../../helpers/hooks/useInput.tsx"
+  ],
   "exclude": ["./*.json", "**/*.json"]
 }
