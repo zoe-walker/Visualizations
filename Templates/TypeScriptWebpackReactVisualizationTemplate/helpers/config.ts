@@ -1,4 +1,4 @@
-import { DeepPartial, DeepReadonly, Falsey } from "utility-types";
+import { DeepPartial, DeepReadonly } from "utility-types";
 import { setupDevelopmentConfig } from "./development";
 import { updateVisualizationStyleEventKey } from "./hooks/useStyle";
 import Logger from "./logger";
@@ -49,16 +49,16 @@ let frozenVisualizationData: DeepReadonly<Vis.Data> | undefined;
  * Return the MooD config's data variable
  * @param mutable - Determines if the returned style is the original mutable or a frozen copy
  */
-export const getVisualizationData = <TBoolean extends Falsey | true>(
+export const getVisualizationData = <TBoolean extends false | true>(
   mutable?: TBoolean
-): TBoolean extends Falsey
+): TBoolean extends false
   ? ReadonlyOptional<Vis.Data> | undefined
   : DeepPartial<Vis.Data> | undefined => {
   if (!mutable) {
     if (frozenVisualizationData == null) updateFrozenVisualizationData();
     return frozenVisualizationData as Vis.Data;
   } else {
-    return getVisualizationConfig().data as any;
+    return getVisualizationConfig().data;
   }
 };
 
