@@ -25,13 +25,13 @@ export function useOutput<TOutput extends keyof Vis.Outputs>(
 ] {
   const config = useContext(ConfigContext);
   const [value, setValue] = useState<Vis.Outputs[TOutput] | undefined>(
-    getVisualizationOutputs()?.[output] as Vis.Outputs[TOutput] | undefined
+    getVisualizationOutputs()?.[output]
   );
 
   useEffect(() => {
     const updateSetValue = (event: updateOutputEvent) => {
       if (event.detail.key != output) return;
-      setValue(getVisualizationOutputs()?.[event.detail.key] as any);
+      setValue(getVisualizationOutputs()?.[event.detail.key]);
     };
     document.addEventListener(updateOutputEventKey, updateSetValue);
     return () => {

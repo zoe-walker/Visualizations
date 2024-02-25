@@ -14,9 +14,14 @@ export default class Logger {
    */
   public static Log(message?: any, ...optionalParams: any[]): void {
     if (Logger.developmentMode) {
-      console.log(message, optionalParams);
+      optionalParams.length == 0
+        ? console.log(message)
+        : console.log(message, optionalParams);
 
-      Logger.postToExternalListeners("log", Array.from([message, ...optionalParams]));
+      Logger.postToExternalListeners(
+        "log",
+        Array.from([message, ...optionalParams])
+      );
     }
   }
 
@@ -27,9 +32,14 @@ export default class Logger {
    */
   public static Warn(message?: any, ...optionalParams: any[]): void {
     if (Logger.developmentMode) {
-      console.warn(message, optionalParams);
+      optionalParams.length == 0
+        ? console.warn(message)
+        : console.warn(message, optionalParams);
 
-      Logger.postToExternalListeners("warn", Array.from([message, ...optionalParams]));
+      Logger.postToExternalListeners(
+        "warn",
+        Array.from([message, ...optionalParams])
+      );
     }
   }
 
@@ -40,9 +50,14 @@ export default class Logger {
    */
   public static Error(message?: any, ...optionalParams: any[]): void {
     if (Logger.developmentMode) {
-      console.error(message, optionalParams);
+      optionalParams.length == 0
+        ? console.error(message)
+        : console.error(message, optionalParams);
 
-      Logger.postToExternalListeners("error", Array.from([message, ...optionalParams]));
+      Logger.postToExternalListeners(
+        "error",
+        Array.from([message, ...optionalParams])
+      );
     }
   }
 

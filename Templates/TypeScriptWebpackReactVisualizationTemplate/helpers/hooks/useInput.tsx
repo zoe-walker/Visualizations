@@ -34,7 +34,7 @@ export function useInput<TInput extends keyof Vis.Inputs>(
   : Readonly<Partial<Vis.Inputs[TInput]>> {
   const config = useContext(ConfigContext);
   const [value, setValue] = useState<Vis.Inputs[TInput]>(
-    getVisualizationInputs()?.[input] as Vis.Inputs[TInput]
+    getVisualizationInputs()?.[input]
   );
 
   useEffect(() => {
@@ -49,11 +49,16 @@ export function useInput<TInput extends keyof Vis.Inputs>(
   }, [config]);
 
   const inputConfigType =
-    visualizationConfig.inputs
-      //When config doesn't exist this produces an error
-      //@ts-ignore
-      .find((inputConfig) => inputConfig.name == input)
-      ?.type.toLowerCase() ?? "";
+    visualizationConfig.inputs.length == 0
+      ? ""
+      : (
+          visualizationConfig.inputs as {
+            name: keyof Vis.Inputs;
+            type: string;
+          }[]
+        )
+          .find((inputConfig) => inputConfig.name == input)
+          ?.type.toLowerCase() ?? "";
 
   // If the input type is one of a potential array then we convert it to always be an array
   if (

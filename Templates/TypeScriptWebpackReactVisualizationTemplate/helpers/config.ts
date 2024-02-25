@@ -5,6 +5,9 @@ import Logger from "./logger";
 import { setupProductionConfig } from "./production";
 import { useVisualizationError } from "./hooks/useVisualizationError";
 import { MooDConfig, ReadonlyOptional } from "@moodtypes/index";
+import { InputsEnum } from "@core/src/types/inputs";
+import { _DeepReadonlyObject } from "utility-types/dist/mapped-types";
+import { OutputsEnum } from "@core/src/types/outputs";
 
 /**
  * Recursively deep freeze an object with circular references
@@ -183,9 +186,13 @@ let frozenVisualizationInputs: DeepReadonly<Vis.Inputs> | undefined;
 /**
  * Return the MooD config's inputs variable
  */
-export const getVisualizationInputs = () => {
+export const getVisualizationInputs = (): DeepReadonly<Vis.Inputs> extends
+  | _DeepReadonlyObject<unknown>
+  | undefined
+  ? { [key in InputsEnum]: any }
+  : DeepReadonly<Vis.Inputs> | undefined => {
   if (frozenVisualizationInputs == null) updateFrozenVisualizationData();
-  return frozenVisualizationInputs;
+  return frozenVisualizationInputs as DeepReadonly<Vis.Inputs>;
 };
 
 /**
@@ -200,14 +207,18 @@ export const updateFrozenVisualizationInputs = () => {
 /**
  * Store the immutable version of the custom visualization's outputs
  */
-let frozenVisualizationOutputs: DeepReadonly<Vis.Outputs>;
+let frozenVisualizationOutputs: DeepReadonly<Vis.Outputs> | undefined;
 
 /**
  * Return the MooD config's outputs variable
  */
-export const getVisualizationOutputs = () => {
+export const getVisualizationOutputs = (): DeepReadonly<Vis.Outputs> extends
+  | _DeepReadonlyObject<unknown>
+  | undefined
+  ? { [key in OutputsEnum]: any }
+  : DeepReadonly<Vis.Outputs> | undefined => {
   if (frozenVisualizationOutputs == null) updateFrozenVisualizationData();
-  return frozenVisualizationOutputs;
+  return frozenVisualizationOutputs as DeepReadonly<Vis.Outputs>;
 };
 
 /**
