@@ -1,0 +1,58 @@
+{
+    "id": "<%= uuid.v4(); %>",
+    "name": "mood-typescript-react-visualization-template",
+    "description": "Template for a MooD external visualization package based on React framework using TypeScript",
+    "version": "<%%= package.version %%>",
+    "supportedVersions": "0",
+    "moodVersion": "16.0.85",
+    "webpackEntry": "visualization.ts",
+    "entry": {
+        "file": "visualization.js",
+        "function": "vis.visualization"
+    },
+    "supportedBrowsers": "Chrome, Edge, Firefox",
+    "dynamicData": true,
+    "canOverflow": true,
+    "inputs": [
+        {
+          "name": "Example Input",
+          "displayName": "Example Input",
+          "type": "Color",
+          "default": ""
+        },
+        {
+          "name": "Example Input 2",
+          "displayName": "Example Input 2",
+          "type": "String",
+          "default": "0"
+        }
+    ],
+    "outputs": [
+        {
+          "name": "Example Output",
+          "displayName": "Example Output",
+          "type": "Color",
+          "default": ""
+        },
+        {
+          "name": "Example Output 2",
+          "displayName": "Example Output 2",
+          "type": "Number",
+          "default": 0
+      }
+    ],
+    "style": {
+        "JSON": {
+            "DevelopmentMode": false
+        }
+    },
+    "actions": {
+        "Example Click": {
+            "description": "A source shape representing an element has been clicked.",
+            "title": "Source"
+        }
+    },
+    "state": {
+        "ExampleState": true
+    }
+}
