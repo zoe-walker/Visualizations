@@ -14,6 +14,7 @@ import { OutputsEnum } from "@core/src/types/outputs";
  * @param obj - The object to deep freeze
  */
 export const deepFreeze = (obj: any) => {
+  if (obj == null) return undefined;
   Object.freeze(obj);
   Object.values(obj)
     .filter((prop) => !Object.isFrozen(prop))
@@ -78,7 +79,7 @@ export const setVisualizationData = (data: Vis.Data) => {
  * Clone and deep freeze the visualization data into frozenVisualizationData
  */
 export const updateFrozenVisualizationData = () => {
-  const dataClone = structuredClone(visualizationConfig?.data);
+  const dataClone = structuredClone(getVisualizationConfig().data);
   deepFreeze(dataClone);
   frozenVisualizationData = dataClone as DeepReadonly<Vis.Data>;
 };

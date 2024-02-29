@@ -45,7 +45,7 @@ export function visualization(config: MooDConfig) {
           React.createElement(
             "p",
             {},
-            "An unrecoverable error has occured with the custom visualization..."
+            "An unrecoverable error has occurred with the custom visualization..."
           ),
           React.createElement(
             "p",
@@ -61,7 +61,7 @@ export function visualization(config: MooDConfig) {
             config.functions.errorOccurred(info.componentStack);
           } else {
             config.functions.errorOccurred(
-              "An unrecoverable error has occured with the custom visualization" +
+              "An unrecoverable error has occurred with the custom visualization" +
                 ", please enable development mode for more information"
             );
           }

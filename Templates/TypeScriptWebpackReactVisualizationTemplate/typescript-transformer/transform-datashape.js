@@ -20,7 +20,7 @@ glob("src/**/*.datashape.gql", function (er, files) {
 
     reader
       .on("line", function (line) {
-        //remove all spaces from the begining of the line and remove multiple spaces inbetween the line before continuing
+        //remove all spaces from the beginning of the line and remove multiple spaces inbetween the line before continuing
         line = line
           .substring(/(?=[a-z])/gi.exec(line)?.index ?? 0)
           .split(" ")

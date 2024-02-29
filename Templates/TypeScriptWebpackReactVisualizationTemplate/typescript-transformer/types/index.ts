@@ -7,7 +7,7 @@ export declare type ReadonlyOptional<T> = DeepReadonly<DeepPartial<T>>;
 
 //If this file is failing because of global variables you need to
 // run generate-types at least once and ensure there are the generic type files
-//The global variable may still say they are erorring, if this is the case
+//The global variable may still say they are erroring, if this is the case
 // open the vistualization.ts of your project and it should resolve the issues
 
 /**

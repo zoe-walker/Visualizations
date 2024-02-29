@@ -40,7 +40,7 @@ Remember to run: ```npm install``` before doing anything else, this will install
 Look in the following files for visualization names / descriptions. I'm going to assume you want a single Custom Visualization inside this package.
 
 - src\package.json.no-guid.ejs
-- src\visualization01\package.json.no-guid.ejs
+- src\visualization01\no-guid.visualization.config.json.ejs
 
 > The purpose of these files is to automatically generate a unique ID for the package/visualization.
 
@@ -49,7 +49,7 @@ Now run this command: ```npm run generate-guids```
 Which will produce these 2 files:
 
 - src\package.json.ejs
-- src\visualization01\package.json.ejs
+- src\visualization01\visualization.config.json.ejs
 
 > The purpose of these files is to automatically increment the version number every time you build
 

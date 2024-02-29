@@ -11,17 +11,17 @@ interface MooDElement {
 type ID = string;
 
 /**
- * Used by MooD to pass colours to/from the visuialisation
+ * Used by MooD to pass colours to/from the visualisation
  */
 type Color = (string & { __brand: "Color" }) | Colour;
 
 /**
- * Used by MooD to pass colours to/from the visuialisation
+ * Used by MooD to pass colours to/from the visualisation
  */
 type Colour = string & { __brand: "Colour" };
 
 /**
- * Used by MooD to pass shapes to/from the visuialisation
+ * Used by MooD to pass shapes to/from the visualisation
  */
 type Shape = string & { __brand: "Shape" };
 
@@ -42,19 +42,19 @@ type SinglePickList = Color | Shape;
 type MultiPickList = Color | Shape;
 
 /**
- * Used by MooD to pass images to/from the visuialisation
+ * Used by MooD to pass images to/from the visualisation
  */
 type Image = string;
 
 /**
- * Used by MooD to pass dates to/from the visuialisation
+ * Used by MooD to pass dates to/from the visualisation
  *
  * Note MooD BA delivers Date scalar type values as a string that conforms to ISO8601, e.g. '2020-06-01T12:01:02-01:00'.
  */
 type MooDDate = string;
 
 /**
- * Used by MooD to pass dates to/from the visuialisation
+ * Used by MooD to pass dates to/from the visualisation
  *
  * Values for the "elements" type may be a single element unique id string,
  * a comma separated list of unique ids or an array of unique ids representing the element instances

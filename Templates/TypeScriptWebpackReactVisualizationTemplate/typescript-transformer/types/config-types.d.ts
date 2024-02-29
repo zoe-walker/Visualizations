@@ -1,11 +1,11 @@
 //If this file is failing because of global variables you need to
 // run generate-types at least once and ensure there are the generic type files
-//The global variable may still say they are erorring, if this is the case
+//The global variable may still say they are erroring, if this is the case
 // open the vistualization.ts of your project and it should resolve the issues
 
 /**
  * This file contains all of the global types used within MooDConfig but inside
- *  a .d.ts file as we don't need to worry use any TS utility-types on these
+ *  a .d.ts file as we don't need to use any TS utility-types on these which requires .ts
  */
 
 /**

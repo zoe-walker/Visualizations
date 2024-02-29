@@ -23,7 +23,7 @@ export const InputExample = () => {
             )) ?? "undefined"}
         ]
         <br />
-        Length: {exampleInput.length ?? "undefinied"}
+        Length: {exampleInput.length ?? "undefined"}
       </div>
       <br />
       <div>
