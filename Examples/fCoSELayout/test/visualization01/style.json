@@ -1,0 +1,15 @@
+{
+    "URL": "visualization01/visualization.css",
+    "style": {
+        "ignoreUnknownNodes": false,
+        "nodeLabelSize": 12,
+        "nodeLabelPos": "center",
+        "nodeLabelMarginX": 0,
+        "nodeLabelMarginY": 0,
+        "parentLabelSize": 20,
+        "parentLabelPos": "bottom",
+        "parentLabelMarginX": 0,
+        "parentLabelMarginY": 5
+    },
+    "editable": false
+}

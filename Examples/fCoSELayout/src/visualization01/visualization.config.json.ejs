@@ -1,0 +1,48 @@
+{
+  "id": "64eeddb7-7a2b-4150-898a-be1d1301c89c",
+  "name": "fast Compound Sprung Embedded layout",
+  "description": "Example of a MooD custom visualization of a graph using fast Compound Sprung Embedded (fCoSE) layout",
+  "version": "<%= package.version %>",
+  "supportedVersions": "0.0",
+  "moodVersion": "16.0.85",
+  "entry": {
+    "file": "visualization.js",
+    "function": "vis.visualization"
+  },
+  "supportedBrowsers": "Chrome, Edge, Firefox",
+  "inputs": [
+  ],
+  "outputs": [
+    {
+      "name": "hoverNode",
+      "displayName": "Node",
+      "type": "elements"
+    },
+    {
+      "name": "hoverLink",
+      "displayName": "Link",
+      "type": "elements"
+    }
+  ],
+  "actions": {
+    "Node Click": {
+      "description": "A node representing an element has been clicked.",
+      "title": "Node"
+    },
+    "Link Click": {
+      "description": "A link representing a relationship has been clicked.",
+      "title": "Link"
+    }
+  },
+  "style": {
+    "ignoreUnknownNodes": false,
+    "nodeLabelSize": 12,
+    "nodeLabelPos": "center",
+    "nodeLabelMarginX": 0,
+    "nodeLabelMarginY": 0,
+    "parentLabelSize": 14,
+    "parentLabelPos": "bottom",
+    "parentLabelMarginX": 0,
+    "parentLabelMarginY": 5
+  }
+}
