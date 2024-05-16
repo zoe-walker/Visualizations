@@ -147,6 +147,11 @@ The visualization has one event. This can be configured to trigger actions in Mo
         * __Name__: The name of the source node
     * __Target__: The target node of the edge
         * __Name__: The name of the target node
+1. __Paths__ - Zero or more relationships; the list of edges (links) to Paths
+    * __Path__: The Path element
+        * __Name__: The name of the Path element
+    * __Edge__: The edge relationship
+        * __Name__: The name of the edge relationship
 
 [Table of Contents](#table-of-contents)
 
