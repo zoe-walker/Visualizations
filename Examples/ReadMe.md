@@ -34,7 +34,7 @@ An example of a Stretched Chord diagram built using D3 and webpack.
 
 ## V Network Graph
 
-A graph visualisation featuring automated layout and a path overlay, built using the Vue framework. 
+A graph visualisation featuring automated layout and a path overlay, built using the Vue framework.
 
 ## WebpackD3MetaModel
 
