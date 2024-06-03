@@ -59,13 +59,32 @@ The properties are:
 
 * __ignoreUnknownNodes__: Indicates if links in the links dataset involving source ot target nodes not in the nodes dataset should be ignored (true) or reported as an error (false). __Default true__
 * __nodeLabelSize__: The size of the font for node labels. __Default 12__
+* __nodeLabelFamily__: A font family or a comma separated list of font names to use for node labels. __Default Sans-Serif__
+* __nodeLabelWeight__: The weight of the font for node labels: normal, bold, bolder, lighter. __Default normal__
+* __nodeLabelStyle__: The style of the font for node labels: normal, italic, oblique. __Default normal__
 * __nodeLabelPos__: The vertical positioning of node labels: top, center or bottom. __Default center__
 * __nodeLabelMarginX__: The horizontal offset to apply to the positioning of node labels, negative or positive. __Default 0__
 * __nodeLabelMarginY__: The vertical offset to apply to the positioning of parent node labels, negative or positive. __Default 0__
+* __nodeOpacity__: The opacity of the node fill colour, between 0 and 1. __Default 0.5__
+* __nodeHighlightOpacity__: The opacity of the node fill colour when the cursor is hovering over it, between 0 and 1. __Default 1.0__
+* __nodeHighlightColour__: The node fill colour when the cursor is hovering over it. If undefined the colour is unchanged when the cursor is over it. __Default null__
 * __parentLabelSize__: The size of the font for parent node labels. __Default 12__
+* __parentLabelFamily__: A font family or a comma separated list of font names to use for parent node labels. __Default Sans-Serif__
+* __parentLabelWeight__: The weight of the font for parent node labels: normal, bold, bolder, lighter. __Default normal__
+* __parentLabelStyle__: The style of the font for parent node labels: normal, italic, oblique. __Default normal__
 * __parentLabelPos__: The vertical positioning of parent node labels: top, center or bottom. __Default center__
 * __parentLabelMarginX__: The horizontal offset to apply to the positioning of parent node labels, negative or positive. __Default 0__
 * __parentLabelMarginY__: The vertical offset to apply to the positioning of parent node labels, negative or positive. __Default 5__
+* __parentOpacity__: The opacity of the parent node fill colour, between 0 and 1. __Default 0.5__
+* __parentHighlightOpacity__: The opacity of the parent node fill colour when the cursor is hovering over it, between 0 and 1. __Default 1.0__
+* __parentHighlightColour__: The parent node fill colour when the cursor is hovering over it. If null the colour is unchanged when the cursor is over it. __Default null__
+* __edgeOpacity__: The opacity of the edge line, between 0 and 1. __Default 0.5__
+* __edgeHighlightOpacity__: The opacity of the edge line when the cursor is hovering over it, between 0 and 1. __Default 1.0__
+* __edgeHighlightColour__: The colour of the edge line when the cursor is hovering over it. If null the colour is unchanged when the cursor is over it. __Default null__
+* __edgeCurveStyle__: The curving method used to separate two or more edges between two nodes; may be _haystack_ (default, very fast, bundled straight edges for which loops and compounds are unsupported), _straight_ (straight edges with all arrows supported), _straight-triangle_ (straight triangle edges), _bezier_ (bundled curved edges), _unbundled-bezier_ (curved edges for use with manual control points), _segments_ (a series of straight lines), _round-segments_ (a series of straight lines with rounded corners), _taxi_ (right-angled lines, hierarchically bundled), _round-taxi_ (right-angled lines, hierarchically bundled, with rounded corners). Note that haystack edges work best with ellipse, rectangle, or similar nodes. Smaller node shapes, like triangle, will not be as aesthetically pleasing. Also note that edge endpoint arrows are unsupported for haystack edges. __Default unbundled-bezier__
+* __edgeArrowShape__: The shape of the edge’s target arrow; may be one of: triangle, triangle-tee, circle-triangle, triangle-cross, triangle-backcurve, vee, tee, square, circle, diamond, chevron, none. __Default triangle__
+* __idealEdgeLength__: The ideal length of an edge. The length is altered by the node repulsion forces and the elasticity of the edges. __Default 150__
+* __edgeElasticity__: A divisor to compute edge forces, range 0 < elasticity < 1. A smaller number will generally lead to longer edges and more separated nodes. __Default 0.99__
 
 [Table of Contents](#table-of-contents)
 
@@ -102,6 +121,7 @@ The visualization has one event. This can be configured to trigger actions in Mo
     * __Colour of node__: The colour to draw the shape representing the node
     * __Shape of node__: The shape to draw for the node. See [Shapes](#shapes) for valid values.
     * __Size of Shape__: Size specifying both the height and width of the shape
+    * __Drawing Order__: The drawing order determines which nodes appear on top of others. A node with a higher value will be drawn on top of a node with a lower value. __Default 1__
 1. __Links__ - Zero or more relationships; the list of links between nodes
     * __Source__: The source node of the link
         * __Name__: The name of the source node
