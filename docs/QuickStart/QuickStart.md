@@ -31,14 +31,18 @@
     "dependencies": {}
     }
     ```
+
 1. In Code/visualization.config.json add a new generated GUID (different to package.json), change the name, and add new dependencies:
+
      ```json
       "dependencies":{
         "style": "Code/node_modules/tabulator-tables/dist/css/tabulator.min.css",
         "tabulator": "Code/node_modules/tabulator-tables/dist/js/tabulator.js"
       },
       ```
+
 1. In Code/Code.js edit the code within the definition of createVisualization to add a tabulator table to a div:
+
     ```js
     var createVisualization = function(config, css){
         var elem = document.getElementById(config.element);
@@ -66,7 +70,9 @@
 
         elem.appendChild(testDiv);
     }
+
 1. Change the testData in test-data.js to values which reflect the columns added in the table (This is only for testing purposes.  Later we will re-route the data to not use testData.):
+
     ```js
     var testData = [
         {id:1, name:"Sophie Redd", gender:"F", class1:7, class2:5, class3:9},
@@ -74,13 +80,19 @@
         {id:3, name:"Christine Lobowski", gender:"F", class1:5, class2:3, class3:9},
         {id:4, name:"Brendon Philips", gender:"M", class1:9, class2:7, class3:8},
         {id:5, name:"Margret Marmajuke", gender:"F", class1:5, class2:4, class3:9},
+    ```
+
 1. Test that the table appears correct in test-page.htm - add the same dependencies to \<head> as were added in visualization.config.json
+
     ```html
     <link rel="stylesheet" type="text/css" href=Code/node_modules/tabulator-tables/dist/css/tabulator.min.css>
     <script type="text/javascript", src="Code/node_modules/tabulator-tables/dist/js/tabulator.js"></script>
+    ```
+
 1. Right Click test-page.htm in the Explorer, then Open with Live Server.
-![](TestPage.png)
+![Test Page](TestPage.png)
 1. Once the test page works, change the data shape in visualization.datashape.gql to reflect the row data
+
     ```gql
     type data { 
         rows: [row!]! 
@@ -94,20 +106,25 @@
         class2: Number
         class3: Number
     }
+    ```
+
 1. In Code.js, change the data variable from testData to config.data.rows
-    ```js 
+
+    ```js
     data: config.data.rows,
+    ```
+
 1. Change visualization.png to a suitable icon for the visualization (I used the Tabulator logo shown below)
-    
-    ![](visualization.png)
+
+    ![Tabulator Logo](visualization.png)
 1. Convert build.txt into a batch file which can be run to create the visualization:
     - Open build.txt in Notepad and Save As "build.bat"
     - Double-click build.bat in the File Explorer to run it and create visualisations.zip
 1. In MooD BA, drag the .zip file from File Explorer into the Gallery tab to add the custom visualization
 
-    ![](Importing.png) ![](Imported.png)
+    ![Dragging .zip file into Gallery](Importing.png) ![Imported Visualization](Imported.png)
 1. Drag the visualization onto a model and click "Configure Information Shown..." in its Settings
 1. From here you can use existing fields/data in your repository to link to each field in the table
 
-    ![](ConfigureInfo.png)
+    ![Configuring Information](ConfigureInfo.png)
 1. When making changes to the custom vis, increment the version number in visualization.config.json (`"version": "1.0.1"`) before running the .bat file again and dragging the new .zip into MooD.
