@@ -2,7 +2,7 @@
 
 Templates, examples and documentation enabling you to bring 3rd party visualizations into your MooD Repository.
 
-See the [MooD Supportal](https://supportportal.moodinternational.com/hc/en-us/sections/360004957339-Custom-Visualizations) for more articles and guides. Follow our [Quick Start Guide](docs/QuickStart/QuickStart.md) for a fast and simple way to get started. 
+See the [MooD Supportal](https://supportportal.moodinternational.com/hc/en-us/sections/360004957339-Custom-Visualizations) for more articles and guides. Follow our [Quick Start Guide](docs/QuickStart/QuickStart.md) for a fast and simple way to get started.
 
 __Note:__ __The easiest way to get started is to clone this repository and then modify the various examples / templates inside Visual Studio Code__
 
