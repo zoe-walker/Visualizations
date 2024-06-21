@@ -1,7 +1,9 @@
 # Quick Start Guide to Custom Visualization using Tabulator
 
 ## Initial Setup
-#### Ensure you have done each of the following before you begin:
+
+**Ensure you have done each of the following before you begin:**
+
 - Install [Visual Studio Code](https://code.visualstudio.com/)
 - Install [Node JS](https://nodejs.org/en)
 - Git clone/download the [repo](https://github.com/CACIMooD/Visualizations)
@@ -16,9 +18,9 @@
     - Open a Terminal in the Code/ folder and run this line: ```npm install tabulator-tables --save```
     - Tabulator files should now be found in Code/node_modules/tabulator-tables (if not, move the node_modules folder into Code/)
     - The additional dependency automatically added to package.json can be removed as it is not needed.
-    
+
     Here is an example of what your package.json should now look like:
-    
+
     ```json
     {
     "id": "c83959a2-d04f-41a2-b6e4-1f784eccc1e4",
@@ -28,13 +30,15 @@
     "main": "/Code/Code.js",
     "dependencies": {}
     }
-5. In Code/visualization.config.json add a new generated GUID (different to package.json), change the name, and add new dependencies:
+    ```
+1. In Code/visualization.config.json add a new generated GUID (different to package.json), change the name, and add new dependencies:
      ```json
       "dependencies":{
         "style": "Code/node_modules/tabulator-tables/dist/css/tabulator.min.css",
         "tabulator": "Code/node_modules/tabulator-tables/dist/js/tabulator.js"
       },
-6. In Code/Code.js edit the code within the definition of createVisualization to add a tabulator table to a div:
+      ```
+1. In Code/Code.js edit the code within the definition of createVisualization to add a tabulator table to a div:
     ```js
     var createVisualization = function(config, css){
         var elem = document.getElementById(config.element);
