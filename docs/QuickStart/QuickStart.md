@@ -57,7 +57,9 @@
 
         var table = new Tabulator(testDiv, {
             height:250, // set height of table to enable virtual DOM
+
             data: testData,
+
             layout:"fitColumns", //fit columns to width of table (optional)
 
             columns:[ //Define Table Columns
@@ -85,6 +87,7 @@
         {id:2, name:"Mary May", gender:"F", class1:8, class2:6, class3:9},
         {id:3, name:"Christine Lobowski", gender:"F", class1:5, class2:3, class3:9},
         {id:4, name:"Brendon Philips", gender:"M", class1:9, class2:7, class3:8},
+
         {id:5, name:"Margret Marmajuke", gender:"F", class1:5, class2:4, class3:9}
     ]
     ```
@@ -134,4 +137,5 @@
 1. From here you can use existing fields/data in your repository to link to each field in the table
 
     ![Configuring Information](ConfigureInfo.png)
+
 1. When making changes to the custom vis, increment the version number in visualization.config.json (`"version": "1.0.1"`) before running the .bat file again and dragging the new .zip into MooD.
