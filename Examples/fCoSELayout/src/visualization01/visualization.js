@@ -85,12 +85,15 @@ export function visualization (config) {
     const gravityCompound = style.gravityCompound || 1.0
     const samplingType = style.samplingType !== undefined ? style.samplingType : true
     const nodeDimensionsIncludeLabels = style.nodeDimensionsIncludeLabels !== undefined ? style.nodeDimensionsIncludeLabels : true
+    const layerGap = style.layerGap !== undefined ? style.layerGap : 150
     // console.log(JSON.stringify(styleSheet))
 
     const parentMap = {}
+    const childMap = {}
     if (Array.isArray(data.parents)) {
       data.parents.forEach(mapping => {
         parentMap[mapping.child.id] = mapping.parent.id
+        childMap[mapping.parent.id] = mapping.child.id
       })
     }
 
@@ -146,7 +149,7 @@ export function visualization (config) {
       }))
     // console.log(JSON.stringify(edges))
 
-    const constraints = getConstraints()
+    const constraints = getConstraints(data.nodes, layerGap, childMap)
 
     const highlightEdges = (node) => {
       node.connectedEdges().forEach(edge => {
@@ -168,27 +171,6 @@ export function visualization (config) {
     const cy = cytoscape({
       container: el,
       ready: function () {
-        // const layoutUtilities = this.layoutUtilities({
-        //   desiredAspectRatio: this.width() / this.height()
-        // })
-
-        // this.nodes().forEach(function (node) {
-        //   const size = node.attr().size || 30 //|| Math.random() * 40 + 30
-        //   node.css('width', size)
-        //   node.css('height', size)
-        // })
-
-        // var defaultOptions = {
-
-        // const keys = []
-        // for (let key in this.edges()[0]) {
-        //   keys.push({"key": key, "type": typeof(this.edges()[0][key])})
-        // }
-        // console.log("Keys: " + JSON.stringify(keys.sort((a, b) => a.key < b.key ? 1 : -1))) //.filter(a => a.type !== "function")))
-        // console.log(JSON.stringify(this.edges()[0].attr()))
-        // console.log("Connections: " + this.nodes()[0].connectedEdges().length)
-        // console.log("Size: " + JSON.stringify(this.nodes()[0].size()))
-
         const layoutOptions = {
           name: 'fcose',
           step: 'all',
@@ -205,14 +187,12 @@ export function visualization (config) {
           gravityCompound,
           // nestingFactor: 1.0,
           samplingType,
-          nodeDimensionsIncludeLabels
+          nodeDimensionsIncludeLabels,
+          fixedNodeConstraint: constraints.fixedNodeConstraint,
+          alignmentConstraint: constraints.alignmentConstraint,
+          relativePlacementConstraint: constraints.relativePlacementConstraint
         }
         const initialLayout = this.layout(layoutOptions)
-        // initialLayout.pon('layoutstart').then(function( event ){
-        //   // constraints.fixedNodeConstraint = JSON.parse(JSON.stringify(sample_constraints.fixedNodeConstraint));
-        //   // clearConstraintListTable();
-        //   // fillConstraintListTableFromConstraints();
-        // });
         initialLayout.run()
       },
       layout: { name: 'preset' },
@@ -221,9 +201,6 @@ export function visualization (config) {
         nodes,
         edges
       },
-      fixedNodeConstraint: constraints.fixedNodeConstraint,
-      alignmentConstraint: constraints.alignmentConstraint,
-      relativePlacementConstraint: constraints.relativePlacementConstraint,
       // pixelRatio: 1.0
       wheelSensitivity: zoomSensitivity
     })
@@ -284,8 +261,8 @@ export function visualization (config) {
     config.functions.errorOccurred(errorMessage)
   }
 
-  function getConstraints () {
-    const noConstraints = {
+  function getConstraints (nodes, layerGap, childMap) {
+    const constraints = {
       fixedNodeConstraint: [],
       alignmentConstraint: {
         horizontal: [],
@@ -293,7 +270,36 @@ export function visualization (config) {
       },
       relativePlacementConstraint: []
     }
+    const orderedNodes = nodes
+      .filter(node => (node.hGrouping || node.hGrouping === 0) && !childMap[node.id])
+      .sort((a, b) => a.hGrouping - b.hGrouping)
 
+    let groupId
+    let previousNodeId
+    let currentGroup
+    const hConstraint = constraints.alignmentConstraint.horizontal
+    orderedNodes.forEach((node) => {
+      if (node.hGrouping !== groupId) {
+        groupId = node.hGrouping
+        currentGroup = []
+        // start a new horizontal group
+        hConstraint.push(currentGroup)
+        // create vertical relative alignment constraint with previous layer
+        if (previousNodeId) {
+          const relConstraint = {
+            top: previousNodeId,
+            bottom: node.id,
+            gap: layerGap
+          }
+          constraints.relativePlacementConstraint.push(relConstraint)
+        }
+      }
+      currentGroup.push(node.id)
+      previousNodeId = node.id
+    })
+    if (orderedNodes.length > 0) {
+      console.log('Constraints: ' + JSON.stringify(constraints))
+    }
     // const sample4Constraints = {
     //   fixedNodeConstraint: [
     //     {
@@ -343,7 +349,7 @@ export function visualization (config) {
     //   ]
     // }
 
-    return noConstraints // sample4Constraints
+    return constraints // sample4Constraints
   }
 
   function getStylesheet (style) {
