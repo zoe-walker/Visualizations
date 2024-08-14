@@ -27,7 +27,7 @@ The chart renders a set of linked nodes using D3's force-directed layout which u
 * [Icons on Nodes](https://dash14.github.io/v-network-graph/examples/appearance.html#custom-node)
 * [Specify colour for nodes, lines and paths](https://dash14.github.io/v-network-graph/examples/paths.html#coloring)
 * [Add a map layer underneath graph](https://dash14.github.io/v-network-graph/examples/layers.html#map)
-* [Animate path lines](https://dash14.github.io/v-network-graph/examples/paths.html#animation) 
+* [Animate path lines](https://dash14.github.io/v-network-graph/examples/paths.html#animation)
 
 ### Example Paths and Trails
 
