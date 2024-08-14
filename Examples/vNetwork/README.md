@@ -22,6 +22,13 @@ The chart renders a set of linked nodes using D3's force-directed layout which u
 
 [![V Network Graph](images/v-network-example.png "V Network Graph")](https://dash14.github.io/v-network-graph/examples/paths.html)
 
+### Proposed Enhancements
+
+* [Icons on Nodes](https://dash14.github.io/v-network-graph/examples/appearance.html#custom-node)
+* [Specify colour for nodes, lines and paths](https://dash14.github.io/v-network-graph/examples/paths.html#coloring)
+* [Add a map layer underneath graph](https://dash14.github.io/v-network-graph/examples/layers.html#map)
+* [Animate path lines](https://dash14.github.io/v-network-graph/examples/paths.html#animation) 
+
 ### Example Paths and Trails
 
 A Trail is a route through part of the graph involving a distinct set of edges. The trail can include loops and hence a node can be visited more than once. The entire trail can be a loop. If the trail with a loop has both a source node and a sink node they must flow in and out of the loop via the same node
@@ -76,7 +83,7 @@ See definition of path and trail here in [graph theory](https://en.wikipedia.org
 
 ## Data Summary
 
-The Meta Model visualization consumes two data sets: nodes and links. The details of the attributes of the data set is provided in the section Data Details section
+The Meta Model visualization consumes three data sets: nodes, edges and paths. The details of the attributes of the data set is provided in the section Data Details section
 
 1. __Nodes__
     * The list of nodes
