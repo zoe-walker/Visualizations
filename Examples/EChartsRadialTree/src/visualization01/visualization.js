@@ -54,16 +54,45 @@ export function visualization (config) {
   try {
     const containerWidth = parseFloat(config.width)
     const containerHeight = parseFloat(config.height)
+    const showTooltip = style.series.showTooltip !== undefined
+      ? style.series.showTooltip
+      : false
     const showLabel = style.series.label
       ? (style.series.label.show !== undefined
           ? style.series.label.show
           : true)
       : true
+    const labelFontSize = style.series.label
+      ? (style.series.label.fontSize !== undefined
+          ? style.series.label.fontSize
+          : 12)
+      : 12
+    const labelRotation = style.series.label
+      ? (style.series.label.rotate !== undefined
+          ? style.series.label.rotate
+          : 0)
+      : 0
+    const showLeafLabel = style.series.leafLabel
+      ? (style.series.leafLabel.show !== undefined
+          ? style.series.leafLabel.show
+          : true)
+      : true
+    const leafLabelFontSize = style.series.leafLabel
+      ? (style.series.leafLabel.fontSize !== undefined
+          ? style.series.leafLabel.fontSize
+          : 12)
+      : 12
     const emphasisFocus = style.series.emphasis
       ? (style.series.emphasis.focus !== undefined
           ? style.series.emphasis.focus
           : 'descendant')
       : 'descendant'
+    const layout = ['orthogonal', 'radial'].includes(style.series.layout)
+      ? style.series.layout
+      : 'radial'
+    const orientation = ['LR', 'RL', 'TB', 'BT'].includes(style.series.orient)
+      ? style.series.orient
+      : 'LR'
 
     config.functions.inputChanged = inputChanged
 
@@ -81,34 +110,81 @@ export function visualization (config) {
 
     chart.hideLoading()
     option = {
-      // tooltip: {
-      //   trigger: 'item',
-      //   triggerOn: 'mousemove'
-      // },
       series: [
         {
           type: 'tree',
           data: [seriesData],
           top: config.style.series.top,
           bottom: config.style.series.bottom,
-          layout: 'radial',
+          layout,
+          orient: orientation,
           symbol: config.style.series.symbol,
           symbolSize: config.style.series.symbolSize,
           initialTreeDepth: treeDepth,
+          expandAndCollapse: true,
           animationDurationUpdate: 750,
           label: {
-            show: showLabel
+            show: showLabel,
+            fontSize: labelFontSize,
+            rotate: labelRotation
           },
           emphasis: {
-            focus: emphasisFocus
+            focus: emphasisFocus,
+            label: {
+              show: true
+            }
+          },
+          leaves: {
+            label: {
+              show: showLeafLabel,
+              fontSize: leafLabelFontSize
+            },
+            emphasis: {
+              label: {
+                show: true
+              }
+            }
           }
         }
       ]
     }
+    if (showTooltip) {
+      option.tooltip = {
+        trigger: 'item',
+        triggerOn: 'mousemove',
+        formatter: '{b} {c}'
+      }
+    }
     chart.setOption(option)
     chart.on('mouseover', function (params) {
+      // const labelOn = {
+      //   series: [
+      //     {
+      //       expandAndCollapse: true,
+      //       label: {
+      //         show: true
+      //       }
+      //     }
+      //   ]
+      // }
+      // option.series[0].label.show = true
+      // chart.setOption(labelOn)
       config.functions.updateOutput('hoverNode', params.data.key)
     })
+    // chart.on('mouseout', function (params) {
+    //   const resetLabel = {
+    //     series: [
+    //       {
+    //         expandAndCollapse: false,
+    //         label: {
+    //           show: showLabel
+    //         }
+    //       }
+    //     ]
+    //   }
+    //   // option.series[0].label.show = showLabel
+    //   // chart.setOption(resetLabel)
+    // })
   } catch (e) {
     //
     // Write error message to the canvas
@@ -151,6 +227,7 @@ export function visualization (config) {
       newDepth = Math.max(Math.min(value, 4), 1)
       expand(flatData, newDepth)
       collapse(flatData, newDepth)
+      option.series[0].initialTreeDepth = newDepth
       chart.setOption(option)
     }
 
