@@ -12,7 +12,26 @@ const validStepTypes = [
   Types.decision,
   Types.decisionLarge,
   Types.subProcess,
-  Types.end
+  Types.end,
+  Types.BPMNStartEvent,
+  Types.BPMNStartEventMessage,
+  Types.BPMNStartEventTimer,
+  Types.BPMNStartEventError,
+  Types.BPMNIntermediateEvent,
+  Types.BPMNIntermediateEventMessage,
+  Types.BPMNIntermediateEventTimer,
+  Types.BPMNIntermediateEventError,
+  Types.BPMNEndEvent,
+  Types.BPMNEndEventMessage,
+  Types.BPMNEndEventTimer,
+  Types.BPMNEndEventError,
+  Types.BPMNExclusiveGateway,
+  Types.BPMNParallelGateway,
+  Types.BPMNInclusiveGateway,
+  Types.BPMNDataObject,
+  Types.BPMNDataObjectInput,
+  Types.BPMNDataObjectOutput,
+  Types.BPMNDataStorage
 ]
 
 const validInfoTypes = [
@@ -26,7 +45,10 @@ const validInfoTypes = [
 
 const decisionStepTypes = [
   Types.decision,
-  Types.decisionLarge
+  Types.decisionLarge,
+  Types.BPMNExclusiveGateway,
+  Types.BPMNParallelGateway,
+  Types.BPMNInclusiveGateway
 ]
 
 export class Process {
@@ -369,12 +391,14 @@ export class Link extends BasicElement {
     super(linkData)
     const link = {
       source,
-      target
+      target,
+      type: linkData.type
     }
 
     this.source = () => link.source
     this.target = () => link.target
     this.otherEnd = (end) => link.source === end ? link.target : (link.target === end ? link.source : undefined)
+    this.type = () => link.type
   }
 }
 
@@ -427,6 +451,7 @@ export class OffPageFlow extends Flow {
 
 export class IOLink extends Link {
   constructor (ioLinkData, info, step) {
+    ioLinkData.type = ioLinkData.isFlow ? Types.sequenceFlow : Types.ioFlow
     if (info.isInput()) {
       super(ioLinkData, info, step)
     } else {
@@ -469,6 +494,7 @@ export class LinkSet {
         throw new Error('Step Flow data is not an array')
       }
       flows.forEach((flow) => {
+        const flowType = flow.type !== undefined ? flow.type : Types.sequenceFlow
         const flowData = {
           id: flow.id,
           name: flow.label,
@@ -479,7 +505,8 @@ export class LinkSet {
           offPageInputLabel: flow.offPageInputLabel,
           sequence: flow.sequence,
           sourcePort: flow.sourcePort,
-          targetPort: flow.targetPort
+          targetPort: flow.targetPort,
+          type: flowType
         }
         const sourceStep = stepSet.getStep(flow.source.id)
         const targetStep = stepSet.getStep(flow.target.id)
@@ -557,7 +584,8 @@ export class LinkSet {
             offPageConnection: false,
             offPageOutputLabel: null,
             offPageInputLabel: null,
-            sourcePort: flowObject.sourcePort()
+            sourcePort: flowObject.sourcePort(),
+            type: flowObject.type()
           }
           const outFlowObject = new OffPageFlow(outFlowData, sourceStep, outputStep, flowObject.id())
           outputStep.addFlow(outFlowObject)
@@ -590,7 +618,8 @@ export class LinkSet {
               offPageConnection: false,
               offPageOutputLabel: null,
               offPageInputLabel: null,
-              targetPort: flowObject.targetPort()
+              targetPort: flowObject.targetPort(),
+              type: flowObject.type()
             }
             const inFlowObject = new OffPageFlow(inFlowData, inputStep, targetStep, flowObject.id())
             inputStep.addFlow(inFlowObject)
@@ -611,32 +640,38 @@ export class LinkSet {
             flow.informationCarried.forEach(link => {
               //
               // Add information as output from source step of flow
+              // Don't add as output from Start step
               //
-              addOutput(
-                link.id + '-out',
-                link.label,
-                sourceStep.id(),
-                sourceStep.name(),
-                link.target.id,
-                link.target.name,
-                link.target.shortName,
-                link.target.type,
-                link.target.navigable,
-                false)
+              if (sourceStep.type() !== Types.start) {
+                addOutput(
+                  link.id + '-out',
+                  link.label,
+                  sourceStep.id(),
+                  sourceStep.name(),
+                  link.target.id,
+                  link.target.name,
+                  link.target.shortName,
+                  link.target.type,
+                  link.target.navigable,
+                  false)
+              }
               //
               // Add information as input to target step of flow
+              // Don't add as input to End step
               //
-              addInput(
-                link.id + '-in',
-                link.label,
-                targetStep.id(),
-                targetStep.name(),
-                link.target.id,
-                link.target.name,
-                link.target.shortName,
-                link.target.type,
-                link.target.navigable,
-                false)
+              if (sourceStep.type() !== Types.end) {
+                addInput(
+                  link.id + '-in',
+                  link.label,
+                  targetStep.id(),
+                  targetStep.name(),
+                  link.target.id,
+                  link.target.name,
+                  link.target.shortName,
+                  link.target.type,
+                  link.target.navigable,
+                  false)
+              }
             })
           }
         }
@@ -695,28 +730,31 @@ export class LinkSet {
      */
     function addInput (linkId, linkLabel, stepId, stepName, infoId, infoName, infoShortName, infoType, isNavigable, isFlow) {
       const step = stepSet.getStep(stepId)
-      const info = infoSet.createInformation({
-        id: infoId,
-        name: infoShortName === null ? infoName : infoShortName,
-        fullName: infoShortName === null ? null : infoName,
-        type: infoType,
-        navigable: isNavigable,
-        isInput: true
-      })
-      validateStepInfo(info, step, stepName, true)
-      const ioLinkData = {
-        id: linkId,
-        name: linkLabel || null,
-        navigable: false,
-        isFlow
-      }
-      const infoLink = new IOLink(ioLinkData, info, step)
-      step.addInput(infoLink)
-      info.addLink(infoLink)
+      if (step.inputs().filter(link => link.information().originalId() === infoId).length === 0) {
+        // Add input information if not already an input to the step
+        const info = infoSet.createInformation({
+          id: infoId,
+          name: infoShortName === null ? infoName : infoShortName,
+          fullName: infoShortName === null ? null : infoName,
+          type: infoType,
+          navigable: isNavigable,
+          isInput: true
+        })
+        validateStepInfo(info, step, stepName, true)
+        const ioLinkData = {
+          id: linkId,
+          name: linkLabel || null,
+          navigable: false,
+          isFlow
+        }
+        const infoLink = new IOLink(ioLinkData, info, step)
+        step.addInput(infoLink)
+        info.addLink(infoLink)
 
-      inputArray.push(infoLink)
-      inputDictionary[infoLink.id()] = infoLink
-      linkDictionary[infoLink.id()] = infoLink
+        inputArray.push(infoLink)
+        inputDictionary[infoLink.id()] = infoLink
+        linkDictionary[infoLink.id()] = infoLink
+      }
     }
     /**
      * Relate inputs to steps
@@ -755,28 +793,31 @@ export class LinkSet {
      */
     function addOutput (linkId, linkLabel, stepId, stepName, infoId, infoName, infoShortName, infoType, isNavigable, isFlow) {
       const step = stepSet.getStep(stepId)
-      const info = infoSet.createInformation({
-        id: infoId,
-        name: infoShortName === null ? infoName : infoShortName,
-        fullName: infoShortName === null ? null : infoName,
-        type: infoType,
-        navigable: isNavigable,
-        isInput: false
-      })
-      validateStepInfo(info, step, stepName, false)
-      const ioLinkData = {
-        id: linkId,
-        name: linkLabel,
-        navigable: false,
-        isFlow
-      }
-      const infoLink = new IOLink(ioLinkData, info, step)
-      step.addOutput(infoLink)
-      info.addLink(infoLink)
+      if (step.outputs().filter(link => link.information().originalId() === infoId).length === 0) {
+        // Add output information if not already an output from the step
+        const info = infoSet.createInformation({
+          id: infoId,
+          name: infoShortName === null ? infoName : infoShortName,
+          fullName: infoShortName === null ? null : infoName,
+          type: infoType,
+          navigable: isNavigable,
+          isInput: false
+        })
+        validateStepInfo(info, step, stepName, false)
+        const ioLinkData = {
+          id: linkId,
+          name: linkLabel,
+          navigable: false,
+          isFlow
+        }
+        const infoLink = new IOLink(ioLinkData, info, step)
+        step.addOutput(infoLink)
+        info.addLink(infoLink)
 
-      outputArray.push(infoLink)
-      outputDictionary[infoLink.id()] = infoLink
-      linkDictionary[infoLink.id()] = infoLink
+        outputArray.push(infoLink)
+        outputDictionary[infoLink.id()] = infoLink
+        linkDictionary[infoLink.id()] = infoLink
+      }
     }
     /**
      * Relate steps to outputs

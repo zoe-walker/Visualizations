@@ -1,0 +1,19 @@
+{
+    "URL": "visualization01/Style.css",
+    "style": {
+        "Node Minimum Radius": 5,
+        "Node Maximum Radius": 100,
+        "Unlinked Node Force Strength": 30,
+        "Unlinked Node Cluster Repositioning Strength": 0.15,
+        "Unlinked Node Cluster x": 150,
+        "Link Colour": "#000",
+        "Link Arrow": true,
+        "Curved Links": false,
+        "Ignore Unknown Nodes": true,
+        "Show Label Node Separation": 100,
+        "Disable Pan and Zoom": false,
+        "Zoom Minimum": 0.5,
+        "Zoom Maximum": 5,
+        "Pan Extent": 1.0
+      }
+}

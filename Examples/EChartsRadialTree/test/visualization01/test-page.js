@@ -5,6 +5,8 @@ import styleConfig from './style.json';
 import inputsConfig from './inputs.json';
 
 const config = {};
+const pkg = require('../../package.json')
+config.version = pkg.version
 let key;
 let css;
 
@@ -46,6 +48,12 @@ var errorOccurred = function(error) {
     console.Error(error)
 }
 //
+// Define updateOutput function to log to console changes to output
+//
+var updateOutput = function(name, value) {
+    console.log('Output changed: name = ' + name + ', value = ' + value.toString())
+}
+//
 // Define inputChanged function
 //
 var inputChanged = function (name, value) {
@@ -73,6 +81,7 @@ el.style.width = config.width
 config.functions = {
     errorOccurred: errorOccurred,
     inputChanged: inputChanged,
+    updateOutput: updateOutput,
 };
 config.animation = true;
 visualization(config);

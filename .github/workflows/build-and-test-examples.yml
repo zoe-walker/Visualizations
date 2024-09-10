@@ -1,12 +1,16 @@
 name: Build and test example packages with npm
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'Examples/EChartsBarChart/**'
       - 'Examples/EChartsRadialTree/**'
+      - 'Examples/fCoSELayout/**'
+      - 'Examples/ForceDirectedLayout/**'
       - 'Examples/Lollipop/**'
       - 'Examples/ProcessFlow/**'
       - 'Examples/StretchedChord/**'
+      - 'Examples/vNetwork/**'
       - 'Examples/WebpackD3MetaModel/**'
       - 'Examples/WebpackD3Visualization/**'
       - 'Examples/WebpackReactVisualization/**'
@@ -16,12 +20,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.15.1'
+          node-version: '18.16.1'
 
       - name: Build EChartsBarChart
         uses: ./.github/workflows/actions/build-and-test-package
@@ -32,6 +36,16 @@ jobs:
         uses: ./.github/workflows/actions/build-and-test-package
         with:
           working-directory: './Examples/EChartsRadialTree'
+
+      - name: Build fCoSELayout
+        uses: ./.github/workflows/actions/build-and-test-package
+        with:
+          working-directory: './Examples/fCoSELayout'
+
+      - name: Build ForceDirectedLayout
+        uses: ./.github/workflows/actions/build-and-test-package
+        with:
+          working-directory: './Examples/ForceDirectedLayout'
 
       - name: Build Lollipop
         uses: ./.github/workflows/actions/build-and-test-package
@@ -47,6 +61,12 @@ jobs:
         uses: ./.github/workflows/actions/build-and-test-package
         with:
           working-directory: './Examples/StretchedChord'
+
+      - name: Build vNetwork
+        uses: ./.github/workflows/actions/build-and-test-package
+        with:
+          working-directory: './Examples/vNetwork'
+          generate-types: 'true'
 
       - name: Build WebpackD3MetaModel
         uses: ./.github/workflows/actions/build-and-test-package

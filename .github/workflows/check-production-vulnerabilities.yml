@@ -8,12 +8,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.15.1'
+          node-version: '18.16.1'
 
       - name: Check EChartsBarChart (production)
         uses: ./.github/workflows/actions/check-package
@@ -27,6 +27,18 @@ jobs:
           working-directory: './Examples/EChartsRadialTree'
           options: '--omit=dev'
 
+      - name: Check fCoSELayout (production)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/fCoSELayout'
+          options: '--omit=dev'
+
+      - name: Check ForceDirectedLayout (production)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/ForceDirectedLayout'
+          options: '--omit=dev'
+  
       - name: Check Lollipop (production)
         uses: ./.github/workflows/actions/check-package
         with:
@@ -45,6 +57,12 @@ jobs:
           working-directory: './Examples/StretchedChord'
           options: '--omit=dev'
 
+      - name: Check vNetwork (production)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Examples/vNetwork'
+          options: '--omit=dev'
+  
       - name: Check WebpackD3MetaModel (production)
         uses: ./.github/workflows/actions/check-package
         with:
@@ -92,3 +110,10 @@ jobs:
         with:
           working-directory: './Templates/WebpackReactVisualizationTemplate'
           options: '--omit=dev'
+
+      - name: Check TypeScriptWebpackReactVisualizationTemplate (production)
+        uses: ./.github/workflows/actions/check-package
+        with:
+          working-directory: './Templates/TypeScriptWebpackReactVisualizationTemplate'
+          options: '--omit=dev'
+  

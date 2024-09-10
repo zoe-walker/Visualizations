@@ -1,0 +1,1763 @@
+{
+  "data": {
+		"nodes": [{
+      "id": "flare-key", "name": "flare", "colour": "#9467bd", "size": 20
+		},
+    {"id": "flare.analytics", "name": "analytics", "colour": "#9467bd", "size": 10},
+    {"id": "flare.animate", "name": "animate", "colour": "#9467bd", "size": 10},
+    {"id": "flare.data", "name": "data", "colour": "#9467bd", "size": 10},
+    {"id": "flare.display", "name": "display", "colour": "#9467bd"},
+    {"id": "flare.flex", "name": "flex", "colour": "#9467bd"},
+    {"id": "flare.physics", "name": "physics", "colour": "#9467bd"},
+    {"id": "flare.query", "name": "query", "colour": "#9467bd"},
+    {"id": "flare.scale", "name": "scale", "colour": "#9467bd"},
+    {"id": "flare.util", "name": "util", "colour": "#9467bd"},
+    {"id": "flare.vis", "name": "vis", "colour": "#9467bd"},
+    {"id": "flare.analytics.cluster", "name": "cluster", "colour": "#9467bd"},
+    {"id": "flare.analytics.graph", "name": "graph", "colour": "#9467bd"},
+    {"id": "flare.analytics.optimization", "name": "optimization", "colour": "#9467bd"},
+    {"id": "flare.animate.Easing", "name": "Easing", "colour": "#9467bd"},
+    {"id": "flare.animate.FunctionSequence", "name": "FunctionSequence", "colour": "#9467bd"},
+    {"id": "flare.animate.interpolate", "name": "interpolate", "colour": "#9467bd"},
+    {"id": "flare.animate.ISchedulable", "name": "ISchedulable", "colour": "#9467bd"},
+    {"id": "flare.animate.Parallel", "name": "Parallel", "colour": "#9467bd"},
+    {"id": "flare.animate.Pause", "name": "Pause", "colour": "#9467bd"},
+    {"id": "flare.animate.Scheduler", "name": "Scheduler", "colour": "#9467bd"},
+    {"id": "flare.animate.Sequence", "name": "Sequence", "colour": "#9467bd"},
+    {"id": "flare.animate.Transition", "name": "Transition", "colour": "#9467bd"},
+    {"id": "flare.animate.Transitioner", "name": "Transitioner", "colour": "#9467bd"},
+    {"id": "flare.animate.TransitionEvent", "name": "TransitionEvent", "colour": "#9467bd"},
+    {"id": "flare.animate.Tween", "name": "Tween", "colour": "#9467bd"},
+    {"id": "flare.data.converters", "name": "converters", "colour": "#9467bd"},
+    {"id": "flare.data.DataField", "name": "DataField", "colour": "#9467bd"},
+    {"id": "flare.data.DataSchema", "name": "DataSchema", "colour": "#9467bd"},
+    {"id": "flare.data.DataSet", "name": "DataSet", "colour": "#9467bd"},
+    {"id": "flare.data.DataSource", "name": "DataSource", "colour": "#9467bd"},
+    {"id": "flare.data.DataTable", "name": "DataTable", "colour": "#9467bd"},
+    {"id": "flare.data.DataUtil", "name": "DataUtil", "colour": "#9467bd"},
+    {"id": "flare.display.DirtySprite", "name": "DirtySprite", "colour": "#9467bd"},
+    {"id": "flare.display.LineSprite", "name": "LineSprite", "colour": "#9467bd"},
+    {"id": "flare.display.RectSprite", "name": "RectSprite", "colour": "#9467bd"},
+    {"id": "flare.display.TextSprite", "name": "TextSprite", "colour": "#9467bd"},
+    {"id": "flare.flex.FlareVis", "name": "FlareVis", "colour": "#9467bd"},
+    {"id": "flare.physics.DragForce", "name": "DragForce", "colour": "#9467bd"},
+    {"id": "flare.physics.GravityForce", "name": "GravityForce", "colour": "#9467bd"},
+    {"id": "flare.physics.IForce", "name": "IForce", "colour": "#9467bd"},
+    {"id": "flare.physics.NBodyForce", "name": "NBodyForce", "colour": "#9467bd"},
+    {"id": "flare.physics.Particle", "name": "Particle", "colour": "#9467bd"},
+    {"id": "flare.physics.Simulation", "name": "Simulation", "colour": "#9467bd"},
+    {"id": "flare.physics.Spring", "name": "Spring", "colour": "#9467bd"},
+    {"id": "flare.physics.SpringForce", "name": "SpringForce", "colour": "#9467bd"},
+    {"id": "flare.query.AggregateExpression", "name": "AggregateExpression", "colour": "#9467bd"},
+    {"id": "flare.query.And", "name": "And", "colour": "#9467bd"},
+    {"id": "flare.query.Arithmetic", "name": "Arithmetic", "colour": "#9467bd"},
+    {"id": "flare.query.Average", "name": "Average", "colour": "#9467bd"},
+    {"id": "flare.query.BinaryExpression", "name": "BinaryExpression", "colour": "#9467bd"},
+    {"id": "flare.query.Comparison", "name": "Comparison", "colour": "#9467bd"},
+    {"id": "flare.query.CompositeExpression", "name": "CompositeExpression", "colour": "#9467bd"},
+    {"id": "flare.query.Count", "name": "Count", "colour": "#9467bd"},
+    {"id": "flare.query.DateUtil", "name": "DateUtil", "colour": "#9467bd"},
+    {"id": "flare.query.Distinct", "name": "Distinct", "colour": "#9467bd"},
+    {"id": "flare.query.Expression", "name": "Expression", "colour": "#9467bd"},
+    {"id": "flare.query.ExpressionIterator", "name": "ExpressionIterator", "colour": "#9467bd"},
+    {"id": "flare.query.Fn", "name": "Fn", "colour": "#9467bd"},
+    {"id": "flare.query.If", "name": "If", "colour": "#9467bd"},
+    {"id": "flare.query.IsA", "name": "IsA", "colour": "#9467bd"},
+    {"id": "flare.query.Literal", "name": "Literal", "colour": "#9467bd"},
+    {"id": "flare.query.Match", "name": "Match", "colour": "#9467bd"},
+    {"id": "flare.query.Maximum", "name": "Maximum", "colour": "#9467bd"},
+    {"id": "flare.query.methods", "name": "methods", "colour": "#9467bd"},
+    {"id": "flare.query.Minimum", "name": "Minimum", "colour": "#9467bd"},
+    {"id": "flare.query.Not", "name": "Not", "colour": "#9467bd"},
+    {"id": "flare.query.Or", "name": "Or", "colour": "#9467bd"},
+    {"id": "flare.query.Query", "name": "Query", "colour": "#9467bd"},
+    {"id": "flare.query.Range", "name": "Range", "colour": "#9467bd"},
+    {"id": "flare.query.StringUtil", "name": "StringUtil", "colour": "#9467bd"},
+    {"id": "flare.query.Sum", "name": "Sum", "colour": "#9467bd"},
+    {"id": "flare.query.Variable", "name": "Variable", "colour": "#9467bd"},
+    {"id": "flare.query.Variance", "name": "Variance", "colour": "#9467bd"},
+    {"id": "flare.query.Xor", "name": "Xor", "colour": "#9467bd"},
+    {"id": "flare.scale.IScaleMap", "name": "IScaleMap", "colour": "#9467bd"},
+    {"id": "flare.scale.LinearScale", "name": "LinearScale", "colour": "#9467bd"},
+    {"id": "flare.scale.LogScale", "name": "LogScale", "colour": "#9467bd"},
+    {"id": "flare.scale.OrdinalScale", "name": "OrdinalScale", "colour": "#9467bd"},
+    {"id": "flare.scale.QuantileScale", "name": "QuantileScale", "colour": "#9467bd"},
+    {"id": "flare.scale.QuantitativeScale", "name": "QuantitativeScale", "colour": "#9467bd"},
+    {"id": "flare.scale.RootScale", "name": "RootScale", "colour": "#9467bd"},
+    {"id": "flare.scale.Scale", "name": "Scale", "colour": "#9467bd"},
+    {"id": "flare.scale.ScaleType", "name": "ScaleType", "colour": "#9467bd"},
+    {"id": "flare.scale.TimeScale", "name": "TimeScale", "colour": "#9467bd"},
+    {"id": "flare.util.Arrays", "name": "Arrays", "colour": "#9467bd"},
+    {"id": "flare.util.Colors", "name": "Colors", "colour": "#9467bd"},
+    {"id": "flare.util.Dates", "name": "Dates", "colour": "#9467bd"},
+    {"id": "flare.util.Displays", "name": "Displays", "colour": "#9467bd"},
+    {"id": "flare.util.Filter", "name": "Filter", "colour": "#9467bd"},
+    {"id": "flare.util.Geometry", "name": "Geometry", "colour": "#9467bd"},
+    {"id": "flare.util.heap", "name": "heap", "colour": "#9467bd"},
+    {"id": "flare.util.IEvaluable", "name": "IEvaluable", "colour": "#9467bd"},
+    {"id": "flare.util.IPredicate", "name": "IPredicate", "colour": "#9467bd"},
+    {"id": "flare.util.IValueProxy", "name": "IValueProxy", "colour": "#9467bd"},
+    {"id": "flare.util.math", "name": "math", "colour": "#9467bd"},
+    {"id": "flare.util.Maths", "name": "Maths", "colour": "#9467bd"},
+    {"id": "flare.util.Orientation", "name": "Orientation", "colour": "#9467bd"},
+    {"id": "flare.util.palette", "name": "palette", "colour": "#9467bd"},
+    {"id": "flare.util.Property", "name": "Property", "colour": "#9467bd"},
+    {"id": "flare.util.Shapes", "name": "Shapes", "colour": "#9467bd"},
+    {"id": "flare.util.Sort", "name": "Sort", "colour": "#9467bd"},
+    {"id": "flare.util.Stats", "name": "Stats", "colour": "#9467bd"},
+    {"id": "flare.util.Strings", "name": "Strings", "colour": "#9467bd"},
+    {"id": "flare.vis.axis", "name": "axis", "colour": "#9467bd"},
+    {"id": "flare.vis.controls", "name": "controls", "colour": "#9467bd"},
+    {"id": "flare.vis.data", "name": "data", "colour": "#9467bd"},
+    {"id": "flare.vis.events", "name": "events", "colour": "#9467bd"},
+    {"id": "flare.vis.legend", "name": "legend", "colour": "#9467bd"},
+    {"id": "flare.vis.operator", "name": "operator", "colour": "#9467bd"},
+    {"id": "flare.vis.Visualization", "name": "Visualization", "colour": "#9467bd"},
+    {"id": "flare.analytics.cluster.AgglomerativeCluster", "name": "AgglomerativeCluster", "colour": "#9467bd"},
+    {"id": "flare.analytics.cluster.CommunityStructure", "name": "CommunityStructure", "colour": "#9467bd"},
+    {"id": "flare.analytics.cluster.HierarchicalCluster", "name": "HierarchicalCluster", "colour": "#9467bd"},
+    {"id": "flare.analytics.cluster.MergeEdge", "name": "MergeEdge", "colour": "#9467bd"},
+    {"id": "flare.analytics.graph.BetweennessCentrality", "name": "BetweennessCentrality", "colour": "#9467bd"},
+    {"id": "flare.analytics.graph.LinkDistance", "name": "LinkDistance", "colour": "#9467bd"},
+    {"id": "flare.analytics.graph.MaxFlowMinCut", "name": "MaxFlowMinCut", "colour": "#9467bd"},
+    {"id": "flare.analytics.graph.ShortestPaths", "name": "ShortestPaths", "colour": "#9467bd"},
+    {"id": "flare.analytics.graph.SpanningTree", "name": "SpanningTree", "colour": "#9467bd"},
+    {"id": "flare.analytics.optimization.AspectRatioBanker", "name": "AspectRatioBanker", "colour": "#9467bd"},
+    {"id": "flare.animate.interpolate.ArrayInterpolator", "name": "ArrayInterpolator", "colour": "#9467bd"},
+    {"id": "flare.animate.interpolate.ColorInterpolator", "name": "ColorInterpolator", "colour": "#9467bd"},
+    {"id": "flare.animate.interpolate.DateInterpolator", "name": "DateInterpolator", "colour": "#9467bd"},
+    {"id": "flare.animate.interpolate.Interpolator", "name": "Interpolator", "colour": "#9467bd"},
+    {"id": "flare.animate.interpolate.MatrixInterpolator", "name": "MatrixInterpolator", "colour": "#9467bd"},
+    {"id": "flare.animate.interpolate.NumberInterpolator", "name": "NumberInterpolator", "colour": "#9467bd"},
+    {"id": "flare.animate.interpolate.ObjectInterpolator", "name": "ObjectInterpolator", "colour": "#9467bd"},
+    {"id": "flare.animate.interpolate.PointInterpolator", "name": "PointInterpolator", "colour": "#9467bd"},
+    {"id": "flare.animate.interpolate.RectangleInterpolator", "name": "RectangleInterpolator", "colour": "#9467bd"},
+    {"id": "flare.data.converters.Converters", "name": "Converters", "colour": "#9467bd"},
+    {"id": "flare.data.converters.DelimitedTextConverter", "name": "DelimitedTextConverter", "colour": "#9467bd"},
+    {"id": "flare.data.converters.GraphMLConverter", "name": "GraphMLConverter", "colour": "#9467bd"},
+    {"id": "flare.data.converters.IDataConverter", "name": "IDataConverter", "colour": "#9467bd"},
+    {"id": "flare.data.converters.JSONConverter", "name": "JSONConverter", "colour": "#9467bd"},
+    {"id": "flare.query.methods.add", "name": "add", "colour": "#9467bd"},
+    {"id": "flare.query.methods.and", "name": "and", "colour": "#9467bd"},
+    {"id": "flare.query.methods.average", "name": "average", "colour": "#9467bd"},
+    {"id": "flare.query.methods.count", "name": "count", "colour": "#9467bd"},
+    {"id": "flare.query.methods.distinct", "name": "distinct", "colour": "#9467bd"},
+    {"id": "flare.query.methods.div", "name": "div", "colour": "#9467bd"},
+    {"id": "flare.query.methods.eq", "name": "eq", "colour": "#9467bd"},
+    {"id": "flare.query.methods.fn", "name": "fn", "colour": "#9467bd"},
+    {"id": "flare.query.methods.gt", "name": "gt", "colour": "#9467bd"},
+    {"id": "flare.query.methods.gte", "name": "gte", "colour": "#9467bd"},
+    {"id": "flare.query.methods.iff", "name": "iff", "colour": "#9467bd"},
+    {"id": "flare.query.methods.isa", "name": "isa", "colour": "#9467bd"},
+    {"id": "flare.query.methods.lt", "name": "lt", "colour": "#9467bd"},
+    {"id": "flare.query.methods.lte", "name": "lte", "colour": "#9467bd"},
+    {"id": "flare.query.methods.max", "name": "max", "colour": "#9467bd"},
+    {"id": "flare.query.methods.min", "name": "min", "colour": "#9467bd"},
+    {"id": "flare.query.methods.mod", "name": "mod", "colour": "#9467bd"},
+    {"id": "flare.query.methods.mul", "name": "mul", "colour": "#9467bd"},
+    {"id": "flare.query.methods.neq", "name": "neq", "colour": "#9467bd"},
+    {"id": "flare.query.methods.not", "name": "not", "colour": "#9467bd"},
+    {"id": "flare.query.methods.or", "name": "or", "colour": "#9467bd"},
+    {"id": "flare.query.methods.orderby", "name": "orderby", "colour": "#9467bd"},
+    {"id": "flare.query.methods.range", "name": "range", "colour": "#9467bd"},
+    {"id": "flare.query.methods.select", "name": "select", "colour": "#9467bd"},
+    {"id": "flare.query.methods.stddev", "name": "stddev", "colour": "#9467bd"},
+    {"id": "flare.query.methods.sub", "name": "sub", "colour": "#9467bd"},
+    {"id": "flare.query.methods.sum", "name": "sum", "colour": "#9467bd"},
+    {"id": "flare.query.methods.update", "name": "update", "colour": "#9467bd"},
+    {"id": "flare.query.methods.variance", "name": "variance", "colour": "#9467bd"},
+    {"id": "flare.query.methods.where", "name": "where", "colour": "#9467bd"},
+    {"id": "flare.query.methods.xor", "name": "xor", "colour": "#9467bd"},
+    {"id": "flare.query.methods.-", "name": "-", "colour": "#9467bd"},
+    {"id": "flare.util.heap.FibonacciHeap", "name": "FibonacciHeap", "colour": "#9467bd"},
+    {"id": "flare.util.heap.HeapNode", "name": "HeapNode", "colour": "#9467bd"},
+    {"id": "flare.util.math.DenseMatrix", "name": "DenseMatrix", "colour": "#9467bd"},
+    {"id": "flare.util.math.IMatrix", "name": "IMatrix", "colour": "#9467bd"},
+    {"id": "flare.util.math.SparseMatrix", "name": "SparseMatrix", "colour": "#9467bd"},
+    {"id": "flare.util.palette.ColorPalette", "name": "ColorPalette", "colour": "#9467bd"},
+    {"id": "flare.util.palette.Palette", "name": "Palette", "colour": "#9467bd"},
+    {"id": "flare.util.palette.ShapePalette", "name": "ShapePalette", "colour": "#9467bd"},
+    {"id": "flare.util.palette.SizePalette", "name": "SizePalette", "colour": "#9467bd"},
+    {"id": "flare.vis.axis.Axes", "name": "Axes", "colour": "#9467bd"},
+    {"id": "flare.vis.axis.Axis", "name": "Axis", "colour": "#9467bd"},
+    {"id": "flare.vis.axis.AxisGridLine", "name": "AxisGridLine", "colour": "#9467bd"},
+    {"id": "flare.vis.axis.AxisLabel", "name": "AxisLabel", "colour": "#9467bd"},
+    {"id": "flare.vis.axis.CartesianAxes", "name": "CartesianAxes", "colour": "#9467bd"},
+    {"id": "flare.vis.controls.AnchorControl", "name": "AnchorControl", "colour": "#9467bd"},
+    {"id": "flare.vis.controls.ClickControl", "name": "ClickControl", "colour": "#9467bd"},
+    {"id": "flare.vis.controls.Control", "name": "Control", "colour": "#9467bd"},
+    {"id": "flare.vis.controls.ControlList", "name": "ControlList", "colour": "#9467bd"},
+    {"id": "flare.vis.controls.DragControl", "name": "DragControl", "colour": "#9467bd"},
+    {"id": "flare.vis.controls.ExpandControl", "name": "ExpandControl", "colour": "#9467bd"},
+    {"id": "flare.vis.controls.HoverControl", "name": "HoverControl", "colour": "#9467bd"},
+    {"id": "flare.vis.controls.IControl", "name": "IControl", "colour": "#9467bd"},
+    {"id": "flare.vis.controls.PanZoomControl", "name": "PanZoomControl", "colour": "#9467bd"},
+    {"id": "flare.vis.controls.SelectionControl", "name": "SelectionControl", "colour": "#9467bd"},
+    {"id": "flare.vis.controls.TooltipControl", "name": "TooltipControl", "colour": "#9467bd"},
+    {"id": "flare.vis.data.Data", "name": "Data", "colour": "#9467bd"},
+    {"id": "flare.vis.data.DataList", "name": "DataList", "colour": "#9467bd"},
+    {"id": "flare.vis.data.DataSprite", "name": "DataSprite", "colour": "#9467bd"},
+    {"id": "flare.vis.data.EdgeSprite", "name": "EdgeSprite", "colour": "#9467bd"},
+    {"id": "flare.vis.data.NodeSprite", "name": "NodeSprite", "colour": "#9467bd"},
+    {"id": "flare.vis.data.render", "name": "render", "colour": "#9467bd"},
+    {"id": "flare.vis.data.ScaleBinding", "name": "ScaleBinding", "colour": "#9467bd"},
+    {"id": "flare.vis.data.Tree", "name": "Tree", "colour": "#9467bd"},
+    {"id": "flare.vis.data.TreeBuilder", "name": "TreeBuilder", "colour": "#9467bd"},
+    {"id": "flare.vis.events.DataEvent", "name": "DataEvent", "colour": "#9467bd"},
+    {"id": "flare.vis.events.SelectionEvent", "name": "SelectionEvent", "colour": "#9467bd"},
+    {"id": "flare.vis.events.TooltipEvent", "name": "TooltipEvent", "colour": "#9467bd"},
+    {"id": "flare.vis.events.VisualizationEvent", "name": "VisualizationEvent", "colour": "#9467bd"},
+    {"id": "flare.vis.legend.Legend", "name": "Legend", "colour": "#9467bd"},
+    {"id": "flare.vis.legend.LegendItem", "name": "LegendItem", "colour": "#9467bd"},
+    {"id": "flare.vis.legend.LegendRange", "name": "LegendRange", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.distortion", "name": "distortion", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.encoder", "name": "encoder", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.filter", "name": "filter", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.IOperator", "name": "IOperator", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.label", "name": "label", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout", "name": "layout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.Operator", "name": "Operator", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.OperatorList", "name": "OperatorList", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.OperatorSequence", "name": "OperatorSequence", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.OperatorSwitch", "name": "OperatorSwitch", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.SortOperator", "name": "SortOperator", "colour": "#9467bd"},
+    {"id": "flare.vis.data.render.ArrowType", "name": "ArrowType", "colour": "#9467bd"},
+    {"id": "flare.vis.data.render.EdgeRenderer", "name": "EdgeRenderer", "colour": "#9467bd"},
+    {"id": "flare.vis.data.render.IRenderer", "name": "IRenderer", "colour": "#9467bd"},
+    {"id": "flare.vis.data.render.ShapeRenderer", "name": "ShapeRenderer", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.distortion.BifocalDistortion", "name": "BifocalDistortion", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.distortion.Distortion", "name": "Distortion", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.distortion.FisheyeDistortion", "name": "FisheyeDistortion", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.encoder.ColorEncoder", "name": "ColorEncoder", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.encoder.Encoder", "name": "Encoder", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.encoder.PropertyEncoder", "name": "PropertyEncoder", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.encoder.ShapeEncoder", "name": "ShapeEncoder", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.encoder.SizeEncoder", "name": "SizeEncoder", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.filter.FisheyeTreeFilter", "name": "FisheyeTreeFilter", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.filter.GraphDistanceFilter", "name": "GraphDistanceFilter", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.filter.VisibilityFilter", "name": "VisibilityFilter", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.label.Labeler", "name": "Labeler", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.label.RadialLabeler", "name": "RadialLabeler", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.label.StackedAreaLabeler", "name": "StackedAreaLabeler", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.AxisLayout", "name": "AxisLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.BundledEdgeRouter", "name": "BundledEdgeRouter", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.CircleLayout", "name": "CircleLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.CirclePackingLayout", "name": "CirclePackingLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.DendrogramLayout", "name": "DendrogramLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.ForceDirectedLayout", "name": "ForceDirectedLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.IcicleTreeLayout", "name": "IcicleTreeLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.IndentedTreeLayout", "name": "IndentedTreeLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.Layout", "name": "Layout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.NodeLinkTreeLayout", "name": "NodeLinkTreeLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.PieLayout", "name": "PieLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.RadialTreeLayout", "name": "RadialTreeLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.RandomLayout", "name": "RandomLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.StackedAreaLayout", "name": "StackedAreaLayout", "colour": "#9467bd"},
+    {"id": "flare.vis.operator.layout.TreeMapLayout", "name": "TreeMapLayout", "colour": "#9467bd"}
+    ],
+    "links":[{
+      "source": {"id": "flare-key", "name": "flare"}, "target": {"id": "flare.analytics", "name": "analytics"}
+      ,"value": 5},
+      {
+        "source": {"id": "flare-key", "name": "flare"
+        },
+        "target": {"id": "flare.animate", "name": "animate"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare-key", "name": "flare"
+        },
+        "target": {"id": "flare.data", "name": "data"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare-key", "name": "flare"
+        },
+        "target": {"id": "flare.display", "name": "display"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare-key", "name": "flare"
+        },
+        "target": {"id": "flare.flex", "name": "flex"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare-key", "name": "flare"
+        },
+        "target": {"id": "flare.physics", "name": "physics"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare-key", "name": "flare"
+        },
+        "target": {"id": "flare.query", "name": "query"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare-key", "name": "flare"
+        },
+        "target": {"id": "flare.scale", "name": "scale"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare-key", "name": "flare"
+        },
+        "target": {"id": "flare.util", "name": "util"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare-key", "name": "flare"
+        },
+        "target": {"id": "flare.vis", "name": "vis"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics", "name": "analytics"
+        },
+        "target": {"id": "flare.analytics.cluster", "name": "cluster"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics", "name": "analytics"
+        },
+        "target": {"id": "flare.analytics.graph", "name": "graph"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics", "name": "analytics"
+        },
+        "target": {"id": "flare.analytics.optimization", "name": "optimization"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.Easing", "name": "Easing"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.FunctionSequence", "name": "FunctionSequence"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.interpolate", "name": "interpolate"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.ISchedulable", "name": "ISchedulable"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.Parallel", "name": "Parallel"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.Pause", "name": "Pause"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.Scheduler", "name": "Scheduler"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.Sequence", "name": "Sequence"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.Transition", "name": "Transition"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.Transitioner", "name": "Transitioner"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.TransitionEvent", "name": "TransitionEvent"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate", "name": "animate"
+        },
+        "target": {"id": "flare.animate.Tween", "name": "Tween"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data", "name": "data"
+        },
+        "target": {"id": "flare.data.converters", "name": "converters"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data", "name": "data"
+        },
+        "target": {"id": "flare.data.DataField", "name": "DataField"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data", "name": "data"
+        },
+        "target": {"id": "flare.data.DataSchema", "name": "DataSchema"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data", "name": "data"
+        },
+        "target": {"id": "flare.data.DataSet", "name": "DataSet"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data", "name": "data"
+        },
+        "target": {"id": "flare.data.DataSource", "name": "DataSource"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data", "name": "data"
+        },
+        "target": {"id": "flare.data.DataTable", "name": "DataTable"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data", "name": "data"
+        },
+        "target": {"id": "flare.data.DataUtil", "name": "DataUtil"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.display", "name": "display"
+        },
+        "target": {"id": "flare.display.DirtySprite", "name": "DirtySprite"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.display", "name": "display"
+        },
+        "target": {"id": "flare.display.LineSprite", "name": "LineSprite"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.display", "name": "display"
+        },
+        "target": {"id": "flare.display.RectSprite", "name": "RectSprite"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.display", "name": "display"
+        },
+        "target": {"id": "flare.display.TextSprite", "name": "TextSprite"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.flex", "name": "flex"
+        },
+        "target": {"id": "flare.flex.FlareVis", "name": "FlareVis"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.physics", "name": "physics"
+        },
+        "target": {"id": "flare.physics.DragForce", "name": "DragForce"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.physics", "name": "physics"
+        },
+        "target": {"id": "flare.physics.GravityForce", "name": "GravityForce"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.physics", "name": "physics"
+        },
+        "target": {"id": "flare.physics.IForce", "name": "IForce"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.physics", "name": "physics"
+        },
+        "target": {"id": "flare.physics.NBodyForce", "name": "NBodyForce"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.physics", "name": "physics"
+        },
+        "target": {"id": "flare.physics.Particle", "name": "Particle"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.physics", "name": "physics"
+        },
+        "target": {"id": "flare.physics.Simulation", "name": "Simulation"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.physics", "name": "physics"
+        },
+        "target": {"id": "flare.physics.Spring", "name": "Spring"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.physics", "name": "physics"
+        },
+        "target": {"id": "flare.physics.SpringForce", "name": "SpringForce"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.AggregateExpression", "name": "AggregateExpression"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.And", "name": "And"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Arithmetic", "name": "Arithmetic"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Average", "name": "Average"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.BinaryExpression", "name": "BinaryExpression"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Comparison", "name": "Comparison"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.CompositeExpression", "name": "CompositeExpression"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Count", "name": "Count"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.DateUtil", "name": "DateUtil"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Distinct", "name": "Distinct"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Expression", "name": "Expression"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.ExpressionIterator", "name": "ExpressionIterator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Fn", "name": "Fn"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.If", "name": "If"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.IsA", "name": "IsA"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Literal", "name": "Literal"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Match", "name": "Match"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Maximum", "name": "Maximum"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.methods", "name": "methods"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Minimum", "name": "Minimum"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Not", "name": "Not"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Or", "name": "Or"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Query", "name": "Query"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Range", "name": "Range"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.StringUtil", "name": "StringUtil"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Sum", "name": "Sum"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Variable", "name": "Variable"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Variance", "name": "Variance"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query", "name": "query"
+        },
+        "target": {"id": "flare.query.Xor", "name": "Xor"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.scale", "name": "scale"
+        },
+        "target": {"id": "flare.scale.IScaleMap", "name": "IScaleMap"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.scale", "name": "scale"
+        },
+        "target": {"id": "flare.scale.LinearScale", "name": "LinearScale"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.scale", "name": "scale"
+        },
+        "target": {"id": "flare.scale.LogScale", "name": "LogScale"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.scale", "name": "scale"
+        },
+        "target": {"id": "flare.scale.OrdinalScale", "name": "OrdinalScale"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.scale", "name": "scale"
+        },
+        "target": {"id": "flare.scale.QuantileScale", "name": "QuantileScale"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.scale", "name": "scale"
+        },
+        "target": {"id": "flare.scale.QuantitativeScale", "name": "QuantitativeScale"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.scale", "name": "scale"
+        },
+        "target": {"id": "flare.scale.RootScale", "name": "RootScale"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.scale", "name": "scale"
+        },
+        "target": {"id": "flare.scale.Scale", "name": "Scale"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.scale", "name": "scale"
+        },
+        "target": {"id": "flare.scale.ScaleType", "name": "ScaleType"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.scale", "name": "scale"
+        },
+        "target": {"id": "flare.scale.TimeScale", "name": "TimeScale"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Arrays", "name": "Arrays"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Colors", "name": "Colors"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Dates", "name": "Dates"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Displays", "name": "Displays"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Filter", "name": "Filter"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Geometry", "name": "Geometry"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.heap", "name": "heap"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.IEvaluable", "name": "IEvaluable"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.IPredicate", "name": "IPredicate"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.IValueProxy", "name": "IValueProxy"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.math", "name": "math"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Maths", "name": "Maths"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Orientation", "name": "Orientation"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.palette", "name": "palette"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Property", "name": "Property"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Shapes", "name": "Shapes"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Sort", "name": "Sort"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Stats", "name": "Stats"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util", "name": "util"
+        },
+        "target": {"id": "flare.util.Strings", "name": "Strings"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis", "name": "vis"
+        },
+        "target": {"id": "flare.vis.axis", "name": "axis"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis", "name": "vis"
+        },
+        "target": {"id": "flare.vis.controls", "name": "controls"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis", "name": "vis"
+        },
+        "target": {"id": "flare.vis.data", "name": "data"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis", "name": "vis"
+        },
+        "target": {"id": "flare.vis.events", "name": "events"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis", "name": "vis"
+        },
+        "target": {"id": "flare.vis.legend", "name": "legend"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis", "name": "vis"
+        },
+        "target": {"id": "flare.vis.operator", "name": "operator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis", "name": "vis"
+        },
+        "target": {"id": "flare.vis.Visualization", "name": "Visualization"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics.cluster", "name": "cluster"
+        },
+        "target": {"id": "flare.analytics.cluster.AgglomerativeCluster", "name": "AgglomerativeCluster"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics.cluster", "name": "cluster"
+        },
+        "target": {"id": "flare.analytics.cluster.CommunityStructure", "name": "CommunityStructure"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics.cluster", "name": "cluster"
+        },
+        "target": {"id": "flare.analytics.cluster.HierarchicalCluster", "name": "HierarchicalCluster"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics.cluster", "name": "cluster"
+        },
+        "target": {"id": "flare.analytics.cluster.MergeEdge", "name": "MergeEdge"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics.graph", "name": "graph"
+        },
+        "target": {"id": "flare.analytics.graph.BetweennessCentrality", "name": "BetweennessCentrality"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics.graph", "name": "graph"
+        },
+        "target": {"id": "flare.analytics.graph.LinkDistance", "name": "LinkDistance"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics.graph", "name": "graph"
+        },
+        "target": {"id": "flare.analytics.graph.MaxFlowMinCut", "name": "MaxFlowMinCut"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics.graph", "name": "graph"
+        },
+        "target": {"id": "flare.analytics.graph.ShortestPaths", "name": "ShortestPaths"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics.graph", "name": "graph"
+        },
+        "target": {"id": "flare.analytics.graph.SpanningTree", "name": "SpanningTree"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.analytics.optimization", "name": "optimization"
+        },
+        "target": {"id": "flare.analytics.optimization.AspectRatioBanker", "name": "AspectRatioBanker"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate.interpolate", "name": "interpolate"
+        },
+        "target": {"id": "flare.animate.interpolate.ArrayInterpolator", "name": "ArrayInterpolator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate.interpolate", "name": "interpolate"
+        },
+        "target": {"id": "flare.animate.interpolate.ColorInterpolator", "name": "ColorInterpolator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate.interpolate", "name": "interpolate"
+        },
+        "target": {"id": "flare.animate.interpolate.DateInterpolator", "name": "DateInterpolator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate.interpolate", "name": "interpolate"
+        },
+        "target": {"id": "flare.animate.interpolate.Interpolator", "name": "Interpolator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate.interpolate", "name": "interpolate"
+        },
+        "target": {"id": "flare.animate.interpolate.MatrixInterpolator", "name": "MatrixInterpolator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate.interpolate", "name": "interpolate"
+        },
+        "target": {"id": "flare.animate.interpolate.NumberInterpolator", "name": "NumberInterpolator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate.interpolate", "name": "interpolate"
+        },
+        "target": {"id": "flare.animate.interpolate.ObjectInterpolator", "name": "ObjectInterpolator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate.interpolate", "name": "interpolate"
+        },
+        "target": {"id": "flare.animate.interpolate.PointInterpolator", "name": "PointInterpolator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.animate.interpolate", "name": "interpolate"
+        },
+        "target": {"id": "flare.animate.interpolate.RectangleInterpolator", "name": "RectangleInterpolator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data.converters", "name": "converters"
+        },
+        "target": {"id": "flare.data.converters.Converters", "name": "Converters"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data.converters", "name": "converters"
+        },
+        "target": {"id": "flare.data.converters.DelimitedTextConverter", "name": "DelimitedTextConverter"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data.converters", "name": "converters"
+        },
+        "target": {"id": "flare.data.converters.GraphMLConverter", "name": "GraphMLConverter"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data.converters", "name": "converters"
+        },
+        "target": {"id": "flare.data.converters.IDataConverter", "name": "IDataConverter"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.data.converters", "name": "converters"
+        },
+        "target": {"id": "flare.data.converters.JSONConverter", "name": "JSONConverter"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.add", "name": "add"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.and", "name": "and"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.average", "name": "average"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.count", "name": "count"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.distinct", "name": "distinct"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.div", "name": "div"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.eq", "name": "eq"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.fn", "name": "fn"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.gt", "name": "gt"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.gte", "name": "gte"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.iff", "name": "iff"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.isa", "name": "isa"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.lt", "name": "lt"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.lte", "name": "lte"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.max", "name": "max"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.min", "name": "min"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.mod", "name": "mod"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.mul", "name": "mul"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.neq", "name": "neq"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.not", "name": "not"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.or", "name": "or"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.orderby", "name": "orderby"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.range", "name": "range"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.select", "name": "select"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.stddev", "name": "stddev"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.sub", "name": "sub"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.sum", "name": "sum"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.update", "name": "update"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.variance", "name": "variance"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.where", "name": "where"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.xor", "name": "xor"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.query.methods", "name": "methods"
+        },
+        "target": {"id": "flare.query.methods.-", "name": "-"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util.heap", "name": "heap"
+        },
+        "target": {"id": "flare.util.heap.FibonacciHeap", "name": "FibonacciHeap"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util.heap", "name": "heap"
+        },
+        "target": {"id": "flare.util.heap.HeapNode", "name": "HeapNode"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util.math", "name": "math"
+        },
+        "target": {"id": "flare.util.math.DenseMatrix", "name": "DenseMatrix"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util.math", "name": "math"
+        },
+        "target": {"id": "flare.util.math.IMatrix", "name": "IMatrix"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util.math", "name": "math"
+        },
+        "target": {"id": "flare.util.math.SparseMatrix", "name": "SparseMatrix"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util.palette", "name": "palette"
+        },
+        "target": {"id": "flare.util.palette.ColorPalette", "name": "ColorPalette"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util.palette", "name": "palette"
+        },
+        "target": {"id": "flare.util.palette.Palette", "name": "Palette"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util.palette", "name": "palette"
+        },
+        "target": {"id": "flare.util.palette.ShapePalette", "name": "ShapePalette"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.util.palette", "name": "palette"
+        },
+        "target": {"id": "flare.util.palette.SizePalette", "name": "SizePalette"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.axis", "name": "axis"
+        },
+        "target": {"id": "flare.vis.axis.Axes", "name": "Axes"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.axis", "name": "axis"
+        },
+        "target": {"id": "flare.vis.axis.Axis", "name": "Axis"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.axis", "name": "axis"
+        },
+        "target": {"id": "flare.vis.axis.AxisGridLine", "name": "AxisGridLine"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.axis", "name": "axis"
+        },
+        "target": {"id": "flare.vis.axis.AxisLabel", "name": "AxisLabel"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.axis", "name": "axis"
+        },
+        "target": {"id": "flare.vis.axis.CartesianAxes", "name": "CartesianAxes"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.controls", "name": "controls"
+        },
+        "target": {"id": "flare.vis.controls.AnchorControl", "name": "AnchorControl"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.controls", "name": "controls"
+        },
+        "target": {"id": "flare.vis.controls.ClickControl", "name": "ClickControl"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.controls", "name": "controls"
+        },
+        "target": {"id": "flare.vis.controls.Control", "name": "Control"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.controls", "name": "controls"
+        },
+        "target": {"id": "flare.vis.controls.ControlList", "name": "ControlList"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.controls", "name": "controls"
+        },
+        "target": {"id": "flare.vis.controls.DragControl", "name": "DragControl"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.controls", "name": "controls"
+        },
+        "target": {"id": "flare.vis.controls.ExpandControl", "name": "ExpandControl"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.controls", "name": "controls"
+        },
+        "target": {"id": "flare.vis.controls.HoverControl", "name": "HoverControl"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.controls", "name": "controls"
+        },
+        "target": {"id": "flare.vis.controls.IControl", "name": "IControl"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.controls", "name": "controls"
+        },
+        "target": {"id": "flare.vis.controls.PanZoomControl", "name": "PanZoomControl"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.controls", "name": "controls"
+        },
+        "target": {"id": "flare.vis.controls.SelectionControl", "name": "SelectionControl"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.controls", "name": "controls"
+        },
+        "target": {"id": "flare.vis.controls.TooltipControl", "name": "TooltipControl"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data", "name": "data"
+        },
+        "target": {"id": "flare.vis.data.Data", "name": "Data"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data", "name": "data"
+        },
+        "target": {"id": "flare.vis.data.DataList", "name": "DataList"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data", "name": "data"
+        },
+        "target": {"id": "flare.vis.data.DataSprite", "name": "DataSprite"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data", "name": "data"
+        },
+        "target": {"id": "flare.vis.data.EdgeSprite", "name": "EdgeSprite"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data", "name": "data"
+        },
+        "target": {"id": "flare.vis.data.NodeSprite", "name": "NodeSprite"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data", "name": "data"
+        },
+        "target": {"id": "flare.vis.data.render", "name": "render"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data", "name": "data"
+        },
+        "target": {"id": "flare.vis.data.ScaleBinding", "name": "ScaleBinding"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data", "name": "data"
+        },
+        "target": {"id": "flare.vis.data.Tree", "name": "Tree"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data", "name": "data"
+        },
+        "target": {"id": "flare.vis.data.TreeBuilder", "name": "TreeBuilder"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.events", "name": "events"
+        },
+        "target": {"id": "flare.vis.events.DataEvent", "name": "DataEvent"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.events", "name": "events"
+        },
+        "target": {"id": "flare.vis.events.SelectionEvent", "name": "SelectionEvent"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.events", "name": "events"
+        },
+        "target": {"id": "flare.vis.events.TooltipEvent", "name": "TooltipEvent"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.events", "name": "events"
+        },
+        "target": {"id": "flare.vis.events.VisualizationEvent", "name": "VisualizationEvent"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.legend", "name": "legend"
+        },
+        "target": {"id": "flare.vis.legend.Legend", "name": "Legend"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.legend", "name": "legend"
+        },
+        "target": {"id": "flare.vis.legend.LegendItem", "name": "LegendItem"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.legend", "name": "legend"
+        },
+        "target": {"id": "flare.vis.legend.LegendRange", "name": "LegendRange"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator", "name": "operator"
+        },
+        "target": {"id": "flare.vis.operator.distortion", "name": "distortion"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator", "name": "operator"
+        },
+        "target": {"id": "flare.vis.operator.encoder", "name": "encoder"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator", "name": "operator"
+        },
+        "target": {"id": "flare.vis.operator.filter", "name": "filter"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator", "name": "operator"
+        },
+        "target": {"id": "flare.vis.operator.IOperator", "name": "IOperator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator", "name": "operator"
+        },
+        "target": {"id": "flare.vis.operator.label", "name": "label"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator", "name": "operator"
+        },
+        "target": {"id": "flare.vis.operator.layout", "name": "layout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator", "name": "operator"
+        },
+        "target": {"id": "flare.vis.operator.Operator", "name": "Operator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator", "name": "operator"
+        },
+        "target": {"id": "flare.vis.operator.OperatorList", "name": "OperatorList"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator", "name": "operator"
+        },
+        "target": {"id": "flare.vis.operator.OperatorSequence", "name": "OperatorSequence"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator", "name": "operator"
+        },
+        "target": {"id": "flare.vis.operator.OperatorSwitch", "name": "OperatorSwitch"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator", "name": "operator"
+        },
+        "target": {"id": "flare.vis.operator.SortOperator", "name": "SortOperator"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data.render", "name": "render"
+        },
+        "target": {"id": "flare.vis.data.render.ArrowType", "name": "ArrowType"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data.render", "name": "render"
+        },
+        "target": {"id": "flare.vis.data.render.EdgeRenderer", "name": "EdgeRenderer"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data.render", "name": "render"
+        },
+        "target": {"id": "flare.vis.data.render.IRenderer", "name": "IRenderer"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.data.render", "name": "render"
+        },
+        "target": {"id": "flare.vis.data.render.ShapeRenderer", "name": "ShapeRenderer"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.distortion", "name": "distortion"
+        },
+        "target": {"id": "flare.vis.operator.distortion.BifocalDistortion", "name": "BifocalDistortion"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.distortion", "name": "distortion"
+        },
+        "target": {"id": "flare.vis.operator.distortion.Distortion", "name": "Distortion"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.distortion", "name": "distortion"
+        },
+        "target": {"id": "flare.vis.operator.distortion.FisheyeDistortion", "name": "FisheyeDistortion"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.encoder", "name": "encoder"
+        },
+        "target": {"id": "flare.vis.operator.encoder.ColorEncoder", "name": "ColorEncoder"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.encoder", "name": "encoder"
+        },
+        "target": {"id": "flare.vis.operator.encoder.Encoder", "name": "Encoder"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.encoder", "name": "encoder"
+        },
+        "target": {"id": "flare.vis.operator.encoder.PropertyEncoder", "name": "PropertyEncoder"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.encoder", "name": "encoder"
+        },
+        "target": {"id": "flare.vis.operator.encoder.ShapeEncoder", "name": "ShapeEncoder"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.encoder", "name": "encoder"
+        },
+        "target": {"id": "flare.vis.operator.encoder.SizeEncoder", "name": "SizeEncoder"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.filter", "name": "filter"
+        },
+        "target": {"id": "flare.vis.operator.filter.FisheyeTreeFilter", "name": "FisheyeTreeFilter"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.filter", "name": "filter"
+        },
+        "target": {"id": "flare.vis.operator.filter.GraphDistanceFilter", "name": "GraphDistanceFilter"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.filter", "name": "filter"
+        },
+        "target": {"id": "flare.vis.operator.filter.VisibilityFilter", "name": "VisibilityFilter"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.label", "name": "label"
+        },
+        "target": {"id": "flare.vis.operator.label.Labeler", "name": "Labeler"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.label", "name": "label"
+        },
+        "target": {"id": "flare.vis.operator.label.RadialLabeler", "name": "RadialLabeler"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.label", "name": "label"
+        },
+        "target": {"id": "flare.vis.operator.label.StackedAreaLabeler", "name": "StackedAreaLabeler"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.AxisLayout", "name": "AxisLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.BundledEdgeRouter", "name": "BundledEdgeRouter"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.CircleLayout", "name": "CircleLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.CirclePackingLayout", "name": "CirclePackingLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.DendrogramLayout", "name": "DendrogramLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.ForceDirectedLayout", "name": "ForceDirectedLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.IcicleTreeLayout", "name": "IcicleTreeLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.IndentedTreeLayout", "name": "IndentedTreeLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.Layout", "name": "Layout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.NodeLinkTreeLayout", "name": "NodeLinkTreeLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.PieLayout", "name": "PieLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.RadialTreeLayout", "name": "RadialTreeLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.RandomLayout", "name": "RandomLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.StackedAreaLayout", "name": "StackedAreaLayout"
+        }
+       ,"value": 5},
+      {
+        "source": {"id": "flare.vis.operator.layout", "name": "layout"
+        },
+        "target": {"id": "flare.vis.operator.layout.TreeMapLayout", "name": "TreeMapLayout"
+        }
+        ,"value": 5}
+    ]
+  }
+}
